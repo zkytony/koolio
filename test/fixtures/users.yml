@@ -1,0 +1,13 @@
+david:
+  nickname: mrDavid
+  email: david@example.com
+  password: password
+  activated: true
+
+nick:
+  nickname: nicknick
+  email: nick@example.com
+  password: password
+  activated: false
+
+
