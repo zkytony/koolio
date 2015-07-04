@@ -12,4 +12,9 @@ class User
   field :activated,  type: Boolean
   field :_id,        type: String, default: -> { nickname } # Custom id
 
+  validates :nickname,  presence: true
+  validates :email,     presence: true
+  validates :password,  presence: true
+  validates :activated, presence: true
+
 end
