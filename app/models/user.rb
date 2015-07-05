@@ -9,8 +9,10 @@ class User
   field :password,   type: String
   field :birthday,   type: Date
   field :male,       type: Boolean
-  field :activated,  type: Boolean
-  field :_id,        type: String, default: -> { username } # Custom id
+  field :activated,  type: Boolean, default: false
+  field :_id,        type: String,  default: -> { username } # Custom id
+
+  index({ username: 1 }, { unique: true, drop_dups: true })
 
   validates :username,  presence: true
   validates :email,     presence: true
