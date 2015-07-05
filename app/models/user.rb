@@ -2,7 +2,7 @@ class User
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :nickname,   type: String
+  field :username,   type: String
   field :first_name, type: String
   field :last_name,  type: String
   field :email,      type: String
@@ -12,7 +12,7 @@ class User
   field :activated,  type: Boolean
   field :_id,        type: String, default: -> { nickname } # Custom id
 
-  validates :nickname,  presence: true
+  validates :username,  presence: true
   validates :email,     presence: true
   validates :password,  presence: true
   validates :activated, presence: true

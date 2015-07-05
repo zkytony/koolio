@@ -2,10 +2,10 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
-  test "presence of attributes - nickname, email, password, activated" do
+  test "presence of attributes - username, email, password, activated" do
     @bob = User.new
     assert_not @bob.valid?
-    @bob.nickname = "littlebob"
+    @bob.username = "littlebob"
     assert_not @bob.valid?
     @bob.email = "bob@example.com"
     assert_not @bob.valid?
@@ -15,8 +15,8 @@ class UserTest < ActiveSupport::TestCase
     assert @bob.valid?
   end
 
-  test "uniqueness of nickname" do
-    @david2 = User.new(nickname: "mrDavid",
+  test "uniqueness of username" do
+    @david2 = User.new(username: "mrDavid",
                        email: "david2@example.com",
                        password: "password",
                        activated: true)
@@ -24,7 +24,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "uniqueness of email" do
-    @david2 = User.new(nickname: "mrDavid2",
+    @david2 = User.new(username: "mrDavid2",
                        email: "david@example.com",
                        password: "password",
                        activated: true)
