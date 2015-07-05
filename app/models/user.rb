@@ -10,7 +10,7 @@ class User
   field :birthday,   type: Date
   field :male,       type: Boolean
   field :activated,  type: Boolean
-  field :_id,        type: String, default: -> { nickname } # Custom id
+  field :_id,        type: String, default: -> { username } # Custom id
 
   validates :username,  presence: true
   validates :email,     presence: true
