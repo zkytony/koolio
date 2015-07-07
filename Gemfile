@@ -16,7 +16,7 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.0'
   gem 'guard-rspec'
   gem 'capybara'
   gem 'mongoid-rspec', '~> 2.1.0'
