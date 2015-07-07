@@ -235,7 +235,7 @@ DEPENDENCIES
   mongoid (~> 4.0.0)
   mongoid-rspec (~> 2.1.0)
   rails (= 4.2.1)
-  rspec-rails
+  rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
