@@ -14,8 +14,10 @@ class User
 
   index({ username: 1 }, { unique: true, drop_dups: true })
 
-  validates :username,  presence: true
-  validates :email,     presence: true
+  validates :username,  presence: true,
+                        uniqueness: true
+  validates :email,     presence: true,
+                        uniqueness: true
   validates :password,  presence: true
   validates :activated, presence: true
 
