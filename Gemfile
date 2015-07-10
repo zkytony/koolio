@@ -22,3 +22,6 @@ group :development, :test do
   gem 'mongoid-rspec', '~> 2.1.0'
 end
 
+group :test do
+  gem 'shoulda-matchers', require: false
+end
