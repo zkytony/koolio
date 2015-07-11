@@ -2,11 +2,21 @@ require "rails_helper"
 require "spec_helper"
 
 RSpec.describe User, :type => :model do
+
   it { is_expected.to validate_presence_of(:username) }
   it { is_expected.to validate_uniqueness_of(:username) }
 
   it { is_expected.to validate_presence_of(:email) }
   it { is_expected.to validate_uniqueness_of(:email) }
+  it { is_expected.to validate_format_of(:email)
+      .to_allow("example@example.com")
+      .not_to_allow("onlystring")
+      .not_to_allow("\].@example.com")
+      .not_to_allow("@example.com")
+      .not_to_allow(".@.")
+      .not_to_allow("abc@abc")
+  }
+  it { is_expected.to validate_length_of(:email).less_than(255) }
 
   it { is_expected.to validate_presence_of(:password) }
   it { is_expected.to validate_length_of(:password).greater_than(6) } # greater_than(6) is minimum of 6
