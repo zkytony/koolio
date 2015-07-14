@@ -12,6 +12,10 @@ class User
   field :male,       type: Boolean
   field :activated,  type: Boolean, default: false
   field :_id,        type: String,  default: -> { username } # Custom id
+  field :decks,      type: Array, default: []
+  field :subscriptions,   type: Array, default: []
+
+  embeds_many :followings
 
   index({ username: 1 }, { unique: true, drop_dups: true })
 
