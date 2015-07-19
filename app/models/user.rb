@@ -16,9 +16,9 @@ class User
   field :subscriptions,   type: Array, default: []
 
   embeds_many :followings
-  has_many :decks
-  has_many :cards
-  has_many :comments
+  has_many :decks,    dependent: :delete
+  has_many :cards,    dependent: :delete
+  has_many :comments, dependent: :delete
 
   index({ username: 1 }, { unique: true, drop_dups: true })
 
