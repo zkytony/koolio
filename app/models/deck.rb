@@ -11,4 +11,8 @@ class Deck
   validates :title, presence: true,
                     length: { maximum: 255 }
 
+  belongs_to :user
+  has_many :cards
+  has_many :tags
+
 end
