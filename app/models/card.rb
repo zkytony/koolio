@@ -1,11 +1,11 @@
 class Card
   include Mongoid::Document
-  incldue Mongoid::Timestamp
+  include Mongoid::Timestamps
 
   field :deck_id,       type: String
   field :user_id,       type: String
-  field :front_content, type: Text
-  field :back_content,  type: Text
+  field :front_content, type: String
+  field :back_content,  type: String
   field :flips,         type: Integer, default: 0
   field :comments,      type: Array,   default: []
 

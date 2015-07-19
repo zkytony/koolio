@@ -1,10 +1,10 @@
 class Comment
   include Mongoid::Document
-  incldue Mongoid::Timestamp
+  include Mongoid::Timestamps
 
   field :user_id,      type: String
   field :card_id,      type: String
-  field :content,      type: Text
+  field :content,      type: String
   field :likes,        type: Integer
 
   validates :user_id, presence: true
