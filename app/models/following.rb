@@ -4,7 +4,7 @@ class Following
   field :username,    type: String
   field :created_at,  type: Date
 
-  validates :username, presence: true,
+  validates :username, presence: true
 
   embedded_in :user
 end
