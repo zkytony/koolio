@@ -6,6 +6,5 @@ class Tag
   field :_id,        type: String, default: -> { name }
   
   validates :name, presence: true
-  belongs_to :deck
 
 end

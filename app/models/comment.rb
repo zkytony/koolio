@@ -11,7 +11,7 @@ class Comment
   validates :card_id, presence: true
   validates :content, presence: true
 
-  belongs_to :card
-  belongs_to :user
+  belongs_to :card,  dependent: :nullify
+  belongs_to :user,  dependent: :nullify
 
 end
