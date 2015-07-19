@@ -8,6 +8,7 @@ class Deck
   field :cards,        type: Array, default: []
   field :tags,         type: Array, default: []
 
+  validates :user_id, presence: true
   validates :title, presence: true,
                     length: { maximum: 255 }
 
