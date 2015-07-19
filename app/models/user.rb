@@ -16,6 +16,9 @@ class User
   field :subscriptions,   type: Array, default: []
 
   embeds_many :followings
+  has_many :decks
+  has_many :cards
+  has_many :comments
 
   index({ username: 1 }, { unique: true, drop_dups: true })
 
