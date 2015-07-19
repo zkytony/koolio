@@ -28,4 +28,13 @@ RSpec.describe User, :type => :model do
                     password: " " * 6, password_confirmation: " " * 6)
     expect(user.valid?).to be false
   end
+
+  it { is_expected.to embed_many(:followings) }
+  it { is_expected.to have_many(:cards).with_foreign_key(:user_id) }
+  it { is_expected.to have_many(:cards).with_dependent(:delete) }
+  it { is_expected.to have_many(:decks).with_foreign_key(:user_id) }
+  it { is_expected.to have_many(:decks).with_dependent(:delete) }
+  it { is_expected.to have_many(:comments).with_foreign_key(:user_id) }
+  it { is_expected.to have_many(:comments).with_dependent(:delete) }
+
 end
