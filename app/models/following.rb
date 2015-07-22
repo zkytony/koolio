@@ -8,5 +8,6 @@ class Following
 
   validates :followee, presence: true
   validates :follower, presence: true
+  validates :created_at, presence: true
 
 end
