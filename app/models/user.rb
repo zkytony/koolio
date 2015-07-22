@@ -12,8 +12,6 @@ class User
   field :male,       type: Boolean
   field :activated,  type: Boolean, default: false
   field :_id,        type: String,  default: -> { username } # Custom id
-  field :decks,      type: Array, default: []
-  field :subscriptions,   type: Array, default: []
 
   has_many :decks,    dependent: :delete
   has_many :cards,    dependent: :delete
