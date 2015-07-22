@@ -15,7 +15,6 @@ class User
   field :decks,      type: Array, default: []
   field :subscriptions,   type: Array, default: []
 
-  embeds_many :followings
   has_many :decks,    dependent: :delete
   has_many :cards,    dependent: :delete
   has_many :comments, dependent: :delete

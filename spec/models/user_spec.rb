@@ -29,12 +29,10 @@ RSpec.describe User, :type => :model do
     expect(user.valid?).to be false
   end
 
-  it { is_expected.to embed_many(:followings) }
   it { is_expected.to have_many(:cards).with_foreign_key(:user_id) }
   it { is_expected.to have_many(:cards).with_dependent(:delete) }
   it { is_expected.to have_many(:decks).with_foreign_key(:user_id) }
   it { is_expected.to have_many(:decks).with_dependent(:delete) }
   it { is_expected.to have_many(:comments).with_foreign_key(:user_id) }
   it { is_expected.to have_many(:comments).with_dependent(:delete) }
-
 end

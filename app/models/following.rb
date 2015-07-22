@@ -1,10 +1,12 @@
 class Following
   include Mongoid::Document
   
-  field :username,    type: String
+  field :followee,    type: String
+  field :follower,    type: String
   field :created_at,  type: Date
+  field :end_at,      type: Date
 
-  validates :username, presence: true
+  validates :followee, presence: true
+  validates :follower, presence: true
 
-  embedded_in :user
 end
