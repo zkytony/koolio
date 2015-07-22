@@ -5,7 +5,6 @@ class Deck
   field :user_id,      type: String
   field :title,        type: String
   field :description,  type: String
-  field :cards,        type: Array, default: []
   field :tags,         type: Array, default: []
 
   validates :user_id, presence: true
@@ -14,5 +13,6 @@ class Deck
 
   belongs_to :user,  dependent: :nullify
   has_many :cards,   dependent: :delete
+  has_many :subscriptions, dependent: :delete
 
 end

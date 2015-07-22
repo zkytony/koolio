@@ -7,7 +7,6 @@ class Card
   field :front_content, type: String
   field :back_content,  type: String
   field :flips,         type: Integer, default: 0
-  field :comments,      type: Array,   default: []
 
   validates :deck_id, presence: true
   validates :user_id, presence: true
