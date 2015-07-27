@@ -7,8 +7,31 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+  <div class="whole-wrapper">
+    <nav>
+      <div class="nav-wrapper">
+	<div class="nav-container">
+	  <span class="nav-left nav-logo">
+	    <a href="#">KOOLIO</a>
+	  </span>
+	  <span class="nav-left nav-items">
+	    <ul>
+	      <li>
+		<%= form_tag do %>
+		  <input name="search_field" type="text" placeholder="Search on Koolio" class="search-field" id="navbar-search-field"/>
+		  <button type="submit" class="search-submit">
+		    <i class="fa fa-search"></i>
+		  </button>
+		<% end %>
+	      </li>
+	    </ul>
+	  </span>
+	</div>
+      </div>
+    </nav>
+    
+    <%= yield %>
+  </div>
 
 </body>
 </html>
