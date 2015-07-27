@@ -1,0 +1,33 @@
+/* Colors */
+$white: #FFF;
+$decent-blue: #336699;
+$decent-purple: #661133;
+$gold: #FFD119;
+$light-grey: #EFEFEF;
+
+/* Theme colors */
+$bg-color: #EDEDED;
+$theme-purple: #661155;
+$theme-pink: #FFCCCC;
+
+
+@include font-face("Nunito", "Nunito-Regular", 500, normal, eot woff ttf svg);
+@include font-face("Nunito", "Nunito-Bold", 700, normal, eot woff ttf svg);
+@include font-face("Nunito", "Nunito-ExtraBold", 900, normal, eot woff ttf svg);
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+input {
+    outline: none;
+}
+
+body {
+    background-color: $bg-color;
+}
