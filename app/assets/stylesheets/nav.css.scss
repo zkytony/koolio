@@ -24,6 +24,11 @@ $search-btn-width: 50px;
     width: $nav-width;
     height: 100%;
     margin: auto;
+
+    $breakpoint-tablet: 768px;
+    @media (min-width: $breakpoint-tablet) {
+	width: 100%;
+    }
 }
 
 .nav-logo {
