@@ -25,8 +25,7 @@ $search-btn-width: 50px;
     height: 100%;
     margin: auto;
 
-    $breakpoint-tablet: 768px;
-    @media (min-width: $breakpoint-tablet) {
+    @include tablet-landscape-and-below {
 	width: 100%;
     }
 }
