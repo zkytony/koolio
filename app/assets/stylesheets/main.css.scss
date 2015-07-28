@@ -10,6 +10,8 @@ $bg-color: #EDEDED;
 $theme-purple: #661155;
 $theme-pink: #FFCCCC;
 
+$default-font-size: 13px;
+
 
 @include font-face("Nunito", "Nunito-Regular", 500, normal, eot woff ttf svg);
 @include font-face("Nunito", "Nunito-Bold", 700, normal, eot woff ttf svg);
@@ -22,6 +24,7 @@ $theme-pink: #FFCCCC;
 
 a {
     text-decoration: none;
+    color: $theme-purple;
 }
 
 input {
@@ -30,4 +33,6 @@ input {
 
 body {
     background-color: $bg-color;
+    font-family: 'Arial', sans-serif;
+    font-size: $default-font-size;
 }

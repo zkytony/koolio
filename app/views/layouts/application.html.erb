@@ -14,15 +14,28 @@
 	  <span class="nav-left nav-logo">
 	    <a href="#">KOOLIO</a>
 	  </span>
-	  <span class="nav-left nav-items">
+	  <span class="nav-left nav-span">
 	    <ul>
 	      <li>
-		<%= form_tag do %>
+		<form class="search-form">
 		  <input name="search_field" type="text" placeholder="Search on Koolio" class="search-field" id="navbar-search-field"/>
 		  <button type="submit" class="search-submit">
 		    <i class="fa fa-search"></i>
 		  </button>
-		<% end %>
+		</form>
+	      </li>
+	    </ul>
+	  </span>
+	  <span class="nav-left nav-span">
+	    
+	  </span>
+	  <span class="nav-right nav-span">
+	    <ul>
+	      <li>
+		<a href="#" class="nav-login">Login</a>
+	      </li>
+	      <li>
+		<a href="#" class="nav-signup">Signup</a>
 	      </li>
 	    </ul>
 	  </span>

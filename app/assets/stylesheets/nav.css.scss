@@ -5,11 +5,11 @@ $search-btn-color: $nav-bg-color;
 /* Navbar variables */
 $nav-height: 40px;
 $nav-width: 80%;
+$nav-font-size: $default-font-size + 2px;
 $search-field-width: 400px;
 $search-field-height: $nav-height - 15px;
 $search-field-font-size: $search-field-height - 10px;
 $search-btn-width: 50px;
-$nav-vertical-center-height: ($nav-height - ($nav-height - 10px)) / 2;
 
 .nav-wrapper {
     position: relative;
@@ -18,39 +18,41 @@ $nav-vertical-center-height: ($nav-height - ($nav-height - 10px)) / 2;
     width: 100%;
     height: $nav-height;
     background-color: $nav-bg-color;
-    padding: 3px;   
 }
 
 .nav-container {
     width: $nav-width;
+    height: 100%;
     margin: auto;
-    ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-
-	li {
-	    display: inline;
-	}
-    }
 }
 
 .nav-logo {
+    height: 100%;
     a {
 	font-family: 'Nunito', sans-serif;
 	font-weight: 900;
 	font-size: $nav-height - 10px;
-	padding: $nav-height * 0.2;
+	padding: $nav-height * 0.2 20px;
 	color: $theme-purple;
     }
 }
 
-.nav-left {
-    float: left;
-}
-
-.nav-items {
-    margin-top: $nav-vertical-center-height;
+.nav-span {
+    ul {
+	margin: 0;
+	padding: 0;
+	height: $nav-height;
+	li {
+	    list-style-type: none;
+	    display: inline;
+	    a {		
+		height: $nav-height / 2;
+		font-size: $nav-font-size;
+		display: block;
+		padding: $nav-height / 4 $nav-height / 4;
+	    }
+	}
+    }
     
     form {
 	float: left;
@@ -60,37 +62,77 @@ $nav-vertical-center-height: ($nav-height - ($nav-height - 10px)) / 2;
 	    float: left;
 	}
     }
+}
 
-    .search-field {
-	font-family: 'Arial', sans-serif;
-	font-size: $search-field-font-size;
-	width: 83%;
-	line-height: $search-field-height;
-	background-color: lighten($nav-bg-color, 15%);
-	padding-left: 5px;
-	@include border-left-radius(6px);
-	border: 2px solid lighten($nav-bg-color, 15%);;
+.nav-left {
+    float: left;
+}
 
-	&:hover, &:focus {
-	    color: darken($nav-bg-color, 65%);
-	    background-color: lighten($nav-bg-color, 20%);
-	    border: 2px solid $gold;
-	}
+.nav-right {
+    float: right;
+
+    a {
+	float: left;
+    }
+}
+
+.search-form {
+    margin-top: ($nav-height - $search-field-height) / 3;
+}
+
+.search-field {
+    font-family: 'Arial', sans-serif;
+    font-size: $search-field-font-size;
+    width: 83%;
+    line-height: $search-field-height;
+    background-color: lighten($nav-bg-color, 15%);
+    padding-left: 5px;
+    @include border-left-radius(6px);
+    border: 2px solid lighten($nav-bg-color, 15%);;
+
+    &:hover, &:focus {
+	color: darken($nav-bg-color, 65%);
+	background-color: lighten($nav-bg-color, 20%);
+	border: 2px solid $gold;
+    }
+}
+
+.search-submit {
+    font-size: $search-field-font-size + 5px;
+    width: 14%;
+    line-height: $search-field-height;
+    @include border-right-radius(6px);
+    border: 2px solid darken($search-btn-color, 10%);
+    background-color: $search-btn-color;
+    color: darken($search-btn-color, 40%);
+    cursor: pointer;
+
+    &:hover {
+	background-color: darken($search-btn-color, 15%);
+	color: $light-grey;
+    }
+}
+
+.nav-login {
+    background-color: $decent-blue;
+    @include linear-gradient(to left bottom, $decent-blue, lighten($decent-blue, 15%));
+    color: $white;
+    
+    &:hover {
+	@include linear-gradient(to left bottom, darken($decent-blue, 15%), $decent-blue);
     }
 
-    .search-submit {
-	font-size: $search-field-font-size + 5px;
-	width: 14%;
-	line-height: $search-field-height;
-	@include border-right-radius(6px);
-	border: 2px solid darken($search-btn-color, 10%);
-	background-color: $search-btn-color;
-	color: darken($search-btn-color, 40%);
-	cursor: pointer;
+    &:focus {
 
-	&:hover {
-	    background-color: darken($search-btn-color, 15%);
-	    color: $light-grey;
-	}
+    }
+}
+
+.nav-signup {
+    background-color: $decent-purple;
+    @include linear-gradient(to left bottom, $decent-purple, lighten($decent-purple, 15%));
+    color: $white;
+
+    &:hover {
+	@include linear-gradient(to left bottom, darken($decent-purple, 15%), $decent-purple);
     }
 }
