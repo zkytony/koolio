@@ -4,6 +4,7 @@ $decent-blue: #336699;
 $decent-purple: #661133;
 $gold: #FFD119;
 $light-grey: #EFEFEF;
+$soft-black: #2B2B2B;
 
 /* Theme colors */
 $bg-color: #EDEDED;
@@ -25,6 +26,10 @@ $default-font-size: 13px;
 a {
     text-decoration: none;
     color: $theme-purple;
+
+    &:hover {
+	color: $decent-blue;
+    }
 }
 
 input {
@@ -35,4 +40,8 @@ body {
     background-color: $bg-color;
     font-family: 'Arial', sans-serif;
     font-size: $default-font-size;
+}
+
+.bold {
+    font-weight: 700;
 }
