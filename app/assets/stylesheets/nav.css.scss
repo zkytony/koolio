@@ -119,24 +119,47 @@ $search-btn-width: 50px;
 
 .nav-login {
     background-color: $decent-blue;
-    @include linear-gradient(to left bottom, $decent-blue, lighten($decent-blue, 15%));
+    @include linear-gradient(to bottom, $decent-blue, lighten($decent-blue, 20%));
     color: $white;
     
     &:hover {
-	@include linear-gradient(to left bottom, darken($decent-blue, 15%), $decent-blue);
+	@include linear-gradient(to bottom, darken($decent-blue, 20%), $decent-blue);
+	color: $white;
     }
 
-    &:focus {
+    &:active {
 
     }
 }
 
 .nav-signup {
     background-color: $decent-purple;
-    @include linear-gradient(to left bottom, $decent-purple, lighten($decent-purple, 15%));
+    @include linear-gradient(to bottom, $decent-purple, lighten($decent-purple, 20%));
     color: $white;
 
     &:hover {
-	@include linear-gradient(to left bottom, darken($decent-purple, 15%), $decent-purple);
+	@include linear-gradient(to bottom, darken($decent-purple, 15%), $decent-purple);
+	color: $white;
+    }
+}
+
+.nav-pic {
+    .nav-pic-btn {
+	background-color: #FFF;
+	border: none;
+	margin: 12px / 2 - 1px 5px;
+	width: $nav-height - 12px;
+	height: $nav-height - 12px;
+	img {
+	    width: 100%;
+	    height: 100%;
+	}
+    }
+}
+
+.nav-option-link {
+    &:hover {
+	height: $nav-height / 2 - 2px;
+	border-bottom: 2px solid $decent-purple;
     }
 }
