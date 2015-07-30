@@ -6,6 +6,7 @@ $search-btn-color: $nav-bg-color;
 $nav-height: 40px;
 $nav-width: 80%;
 $nav-font-size: $default-font-size + 2px;
+$nav-dropdown-width: 110px;
 $search-field-width: 400px;
 $search-field-height: $nav-height - 15px;
 $search-field-font-size: $search-field-height - 10px;
@@ -166,5 +167,39 @@ $search-btn-width: 50px;
 .nav-option-link, .nav-pic {
     &:hover {
 	@include cute-nav-border;
+    }
+}
+
+.nav-dropdown {
+    width: $nav-dropdown-width;
+    max-width: $nav-dropdown-width + 20px;
+    background-color: $white;
+    position: absolute;
+    right: (100% - $nav-width) / 2;
+    padding: 0px 2px;
+
+    ul {
+	padding: 0;
+	margin: 0;
+	li {
+	    list-style-type: none;
+	    a {
+		display: block;
+		width: 90%;
+		padding: 5px;
+		.fa {
+		    position: absolute;
+		    right: 10px;
+		    color: darken($light-grey, 50%);		    
+		}
+		&:hover {
+		    color: $white;
+		    background-color: $theme-purple;
+		    .fa {
+			color: $light-grey;
+		    }
+		}
+	    }
+	}
     }
 }
