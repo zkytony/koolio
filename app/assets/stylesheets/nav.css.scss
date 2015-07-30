@@ -177,6 +177,7 @@ $search-btn-width: 50px;
     position: absolute;
     right: (100% - $nav-width) / 2;
     padding: 0px 2px;
+    @include box-shadow(0px, 2px, 3px, 0px, rgba(50, 50, 50, 0.75));
 
     ul {
 	padding: 0;
