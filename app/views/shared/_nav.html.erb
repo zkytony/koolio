@@ -31,13 +31,6 @@
 	<% else %>
 	  <ul>
 	    <li>
-	      <span class="nav-pic">
-		<button class="nav-pic-btn">
-		  <%= image_tag "tmp/pic_profile.png" %>
-		</button>
-	      </span>
-	    </li>
-	    <li>
 	      <a href="#" class="bold nav-option-link">Popular</a>
 	    </li>
 	    <li>
@@ -45,6 +38,11 @@
 	    </li>
 	    <li>
 	      <a href="#" class="nav-option-link">Home</a>
+	    </li>
+	    <li>
+	      <a class="nav-pic">
+		<%= image_tag "tmp/pic_profile.png" %>
+	      </a>
 	    </li>
 	  </ul>
 	<% end %>

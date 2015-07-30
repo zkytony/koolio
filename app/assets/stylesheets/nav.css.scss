@@ -11,6 +11,11 @@ $search-field-height: $nav-height - 15px;
 $search-field-font-size: $search-field-height - 10px;
 $search-btn-width: 50px;
 
+@mixin cute-nav-border {
+    height: $nav-height / 2 - 2px;
+    border-bottom: 2px solid $decent-purple;
+}
+
 .nav-wrapper {
     position: relative;
     left: 0;
@@ -54,6 +59,21 @@ $search-btn-width: 50px;
 		font-size: $nav-font-size;
 		display: block;
 		padding: $nav-height / 4 $nav-height / 4;
+	    }
+
+	    .nav-pic {
+		width: $nav-height - 12px;
+		height: $nav-height - 12px;
+		padding: 12px / 2 - 1px 5px;
+		cursor: pointer;
+		img {
+		    width: 100%;
+		    height: 100%;
+		    &:hover {
+			opacity: 0.8;
+		    }
+		}
+
 	    }
 	}
     }
@@ -143,23 +163,8 @@ $search-btn-width: 50px;
     }
 }
 
-.nav-pic {
-    .nav-pic-btn {
-	background-color: #FFF;
-	border: none;
-	margin: 12px / 2 - 1px 5px;
-	width: $nav-height - 12px;
-	height: $nav-height - 12px;
-	img {
-	    width: 100%;
-	    height: 100%;
-	}
-    }
-}
-
-.nav-option-link {
+.nav-option-link, .nav-pic {
     &:hover {
-	height: $nav-height / 2 - 2px;
-	border-bottom: 2px solid $decent-purple;
+	@include cute-nav-border;
     }
 }
