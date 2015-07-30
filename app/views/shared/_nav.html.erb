@@ -40,8 +40,8 @@
 	      <a href="#" class="nav-option-link">Home</a>
 	    </li>
 	    <li>
-	      <a class="nav-pic">
-		<%= image_tag "tmp/pic_profile.png" %>
+	      <a class="nav-pic" id="nav-pic">
+		<%= image_tag "tmp/pic_profile.png", :id => "nav-pic-img" %>
 	      </a>
 	    </li>
 	  </ul>
@@ -50,7 +50,7 @@
     </div>
   </div>
 </nav>
-<div class="nav-dropdown" id="profile-pic-dropdown">
+<div class="nav-dropdown hidden" id="profile-pic-dropdown">
   <ul>
     <li>
       <a href="#">Profile</a>
