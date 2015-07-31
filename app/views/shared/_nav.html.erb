@@ -1,6 +1,6 @@
 <nav>
   <div class="nav-wrapper">
-    <div class="nav-container">
+    <div class="nav-container"" id="nav-container">
       <span class="nav-left nav-logo">
 	<a href="#">KOOLIO</a>
       </span>
@@ -18,18 +18,9 @@
       </span>
       <span class="nav-left nav-span">	    
       </span>
-      <span class="nav-right nav-span">
-	<% if false #!logged_in? %>
-	  <ul>
-	    <li>
-	      <a href="#" class="nav-signup">Signup</a>
-	    </li>
-	    <li>
-	      <a href="#" class="nav-login">Login</a>
-	    </li>
-	  </ul>
-	<% else %>
-	  <ul>
+      <span class="nav-right nav-span" id="nav-options">
+	<% if true #logged_in? %>
+	  <ul class="nav-menu">
 	    <li>
 	      <a href="#" class="bold nav-option-link">Popular</a>
 	    </li>
@@ -45,21 +36,32 @@
 	      </a>
 	    </li>
 	  </ul>
+	<% else %>
+	  <ul>
+	    <li>
+	      <a href="#" class="nav-signup">Signup</a>
+	    </li>
+	    <li>
+	      <a href="#" class="nav-login">Login</a>
+	    </li>
+	  </ul>
 	<% end %>
       </span>
     </div>
   </div>
 </nav>
-<div class="nav-dropdown hidden" id="profile-pic-dropdown">
-  <ul>
-    <li>
-      <a href="#">Profile</a>
-    </li>
-    <li>
-      <a href="#">Settings<i class="fa fa-cog"></i></a>
-    </li>
-    <li>
-      <a href="#">Log out<i class="fa fa-sign-out"></i></a>
-    </li>
-  </ul>
-</div>
+<% if true #logged_in? %>
+  <div class="nav-dropdown hidden" id="profile-pic-dropdown">
+    <ul>
+      <li>
+	<a href="#">Profile</a>
+      </li>
+      <li>
+	<a href="#">Settings<i class="fa fa-cog"></i></a>
+      </li>
+      <li>
+	<a href="#">Log out<i class="fa fa-sign-out"></i></a>
+      </li>
+    </ul>
+  </div>
+<% end %>
