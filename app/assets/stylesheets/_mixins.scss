@@ -277,13 +277,31 @@ $mq-desktop		: 1382px !default;
 }
 
 @mixin transform($xDeg, $yDeg, $style:flat, $backface-visibility:visible) {
-    transform: rotateX($xDeg) rotateX($yDeg);
+    $rotation: null;
+    @if ($xDeg) {
+	@if ($rotation) {
+	    $rotation: $rotation + rotateX($xDeg);
+	} @else {
+	    $rotation: rotateX($xDeg);
+	}
+    }
+    @if ($yDeg) {
+	@if ($rotation) {
+	    $rotation: $rotation + rotateY($yDeg);
+	} @else {
+	    $rotation: rotateY($yDeg);
+	}
+    }
+    @if (not $rotation) {
+	$rotation:none;
+    }
+    transition: $rotation;
     transform-style: $style;
-    backface-visibility: $backface-visibility
-    -webkit-transform: rotateX($xDeg) rotateX($yDeg);
+    backface-visibility: $backface-visibility;
+    -webkit-transform: $rotation;
     -webkit-transform-style: $style;
     -webkit-backface-visibility: $backface-visibility;
-    -moz-transform: rotateX($xDeg) rotateY($yDeg);
+    -moz-transform: $rotation;
     -moz-transform-style: $style;
     -moz-backface-visibility: $backface-visibility;
 }

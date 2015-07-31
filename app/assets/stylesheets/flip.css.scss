@@ -16,14 +16,14 @@
 .flipper.flip .flipper-front {
      z-index: 2;
      /* Flipped state */
-     @include transform(0deg, 180deg);
+     @include transform($xDeg: null, $yDeg: 180deg, $style: preserve-3d, $backface-visibility: hidden);
 }
 
 .flipper .flipper-back {
     position:absolute;
     z-index:1;
     /* Initial state */
-    @include transform(0deg, -180deg, preserve-3d, hidden);
+    @include transform($xDeg: null, $yDeg: -180deg, $style: preserve-3d, $backface-visibility: hidden);
     /* -- transition is the magic sauce for animation -- */
     @include transition(all, 0.3s, ease-in-out);
 }
@@ -31,5 +31,5 @@
 .flipper.flip .flipper-back {
     z-index:3;
     /* Flipped state */
-     @include transform(0deg, 0deg);
+    @include transform($xDeg: 0deg, $yDeg: 0deg, $style: preserve-3d, $backface-visibility: hidden);
 }
