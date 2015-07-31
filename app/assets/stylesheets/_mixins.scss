@@ -268,3 +268,31 @@ $mq-desktop		: 1382px !default;
     -moz-box-shadow:$top $left $blur $color #{$inset};
     box-shadow:$top $left $blur $color #{$inset};
 }
+
+// transform
+@mixin perspective($depth) {
+    perspective: $depth;
+    -webkit-perspective: $depth;
+    -moz-perspective: $depth;
+}
+
+@mixin transform($xDeg, $yDeg, $style:flat, $backface-visibility:visible) {
+    transform: rotateX($xDeg) rotateX($yDeg);
+    transform-style: $style;
+    backface-visibility: $backface-visibility
+    -webkit-transform: rotateX($xDeg) rotateX($yDeg);
+    -webkit-transform-style: $style;
+    -webkit-backface-visibility: $backface-visibility;
+    -moz-transform: rotateX($xDeg) rotateY($yDeg);
+    -moz-transform-style: $style;
+    -moz-backface-visibility: $backface-visibility;
+}
+
+@mixin transition($which, $elapse, $speed-option) {
+    -o-transition: $which $elapse $speed-option;
+    -ms-transition: $which $elapse $speed-option;
+    -moz-transition: $which $elapse $speed-option;
+    -webkit-transition: $which $elapse $speed-option;
+    transition: $which $elapse $speed-option;
+
+}
