@@ -4,7 +4,8 @@
     @include perspective(1000px);
 }
 
-.flipper .flipper-front {
+// dir 1
+.flipper .flipper-front.flip-dir1 {
     position:absolute;
     z-index:2;
     /* Initial state */
@@ -13,13 +14,13 @@
     @include transition(all, 0.3s, ease-in-out);
 }
 
-.flipper.flip .flipper-front {
+.flipper.flip .flipper-front.flip-dir1 {
      z-index: 2;
      /* Flipped state */
      @include transform($xDeg: null, $yDeg: 180deg, $style: preserve-3d, $backface-visibility: hidden);
 }
 
-.flipper .flipper-back {
+.flipper .flipper-back.flip-dir1 {
     position:absolute;
     z-index:1;
     /* Initial state */
@@ -28,7 +29,38 @@
     @include transition(all, 0.3s, ease-in-out);
 }
 
-.flipper.flip .flipper-back {
+.flipper.flip .flipper-back.flip-dir1 {
+    z-index:3;
+    /* Flipped state */
+    @include transform($xDeg: 0deg, $yDeg: 0deg, $style: preserve-3d, $backface-visibility: hidden);
+}
+
+// dir 2
+.flipper .flipper-front.flip-dir2 {
+    position:absolute;
+    z-index:2;
+    /* Initial state */
+    @include transform(0deg, 0deg, preserve-3d, hidden);
+    /* -- transition is the magic sauce for animation -- */
+    @include transition(all, 0.3s, ease-in-out);
+}
+
+.flipper.flip .flipper-front.flip-dir2 {
+     z-index: 2;
+     /* Flipped state */
+     @include transform($xDeg: null, $yDeg: -180deg, $style: preserve-3d, $backface-visibility: hidden);
+}
+
+.flipper .flipper-back.flip-dir2 {
+    position:absolute;
+    z-index:1;
+    /* Initial state */
+    @include transform($xDeg: null, $yDeg: 180deg, $style: preserve-3d, $backface-visibility: hidden);
+    /* -- transition is the magic sauce for animation -- */
+    @include transition(all, 0.3s, ease-in-out);
+}
+
+.flipper.flip .flipper-back.flip-dir2 {
     z-index:3;
     /* Flipped state */
     @include transform($xDeg: 0deg, $yDeg: 0deg, $style: preserve-3d, $backface-visibility: hidden);
