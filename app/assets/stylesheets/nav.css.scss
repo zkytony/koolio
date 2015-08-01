@@ -1,0 +1,180 @@
+@mixin cute-nav-border {
+    height: $nav-height / 2 - 2px;
+    border-bottom: 2px solid $decent-purple;
+}
+
+.nav-wrapper {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: $nav-height;
+    background-color: $darker-grey;
+}
+
+.nav-container {
+    @include content-wrapper($nav-width, 100%);
+}
+
+.nav-logo {
+    height: 100%;
+    a {
+	font-family: 'Nunito', sans-serif;
+	font-weight: 900;
+	font-size: $nav-height - 10px;
+	padding: $nav-height * 0.2 20px;
+	color: $theme-purple;
+    }
+}
+
+.nav-span {
+    ul {
+	margin: 0;
+	padding: 0;
+	height: $nav-height;
+	li {
+	    list-style-type: none;
+	    display: inline;
+	    a {		
+		height: $nav-height / 2;
+		font-size: $nav-font-size;
+		display: block;
+		padding: $nav-height / 4 $nav-height / 4;
+	    }
+
+	    .nav-pic {
+		width: $nav-height - 12px;
+		height: $nav-height - 12px;
+		padding: 12px / 2 - 1px 5px;
+		cursor: pointer;
+		img {
+		    width: 100%;
+		    height: 100%;
+		    &:hover {
+			opacity: 0.8;
+		    }
+		}
+
+	    }
+	}
+    }
+    
+    form {
+	float: left;
+	width: $search-field-width;
+	height:80%;
+	input {
+	    float: left;
+	}
+    }
+}
+
+.nav-left {
+    float: left;
+}
+
+.nav-right {
+    float: right;
+
+    a {
+	float: left;
+    }
+}
+
+.search-form {
+    margin-top: ($nav-height - $search-field-height) / 3;
+}
+
+.search-field {
+    font-family: 'Arial', sans-serif;
+    font-size: $search-field-font-size;
+    width: 83%;
+    line-height: $search-field-height;
+    background-color: lighten($darker-grey, 15%);
+    padding-left: 5px;
+    @include border-left-radius(6px);
+    border: 2px solid lighten($darker-grey, 15%);;
+
+    &:hover, &:focus {
+	color: darken($darker-grey, 65%);
+	background-color: lighten($darker-grey, 20%);
+	border: 2px solid $gold;
+    }
+}
+
+.search-submit {
+    font-size: $search-field-font-size + 5px;
+    width: 14%;
+    line-height: $search-field-height;
+    @include border-right-radius(6px);
+    border: 2px solid darken($search-btn-color, 10%);
+    background-color: $search-btn-color;
+    color: darken($search-btn-color, 40%);
+    cursor: pointer;
+
+    &:hover {
+	background-color: darken($search-btn-color, 15%);
+	color: $light-grey;
+    }
+}
+
+.nav-login {
+    
+    &:hover {
+    }
+
+    &:active {
+
+    }
+}
+
+.nav-signup {
+
+    &:hover {
+    }
+}
+
+.nav-option-link, .nav-pic {
+    &:hover {
+	@include cute-nav-border;
+    }
+}
+
+.nav-dropdown {
+    width: $nav-dropdown-width;
+    max-width: $nav-dropdown-width + 20px;
+    background-color: $white;
+    position: absolute;
+    right: (100% - $nav-width) / 2;
+    padding: 0px 2px;
+    @include box-shadow(0px, 2px, 3px, 0px, rgba(50, 50, 50, 0.75));
+
+    @include tablet-landscape-and-below {
+	right: 0px;
+    }
+
+    ul {
+	padding: 0;
+	margin: 0;
+	li {
+	    list-style-type: none;
+	    a {
+		display: block;
+		width: 90%;
+		padding: 5px;
+		.fa {
+		    position: absolute;
+		    right: 10px;
+		    color: darken($light-grey, 50%);		    
+		}
+		&:hover {
+		    color: $white;
+		    background-color: $theme-purple;
+		    .fa {
+			color: $light-grey;
+		    }
+		}
+	    }
+	}
+    }
+}

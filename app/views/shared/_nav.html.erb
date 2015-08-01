@@ -1,0 +1,67 @@
+<nav>
+  <div class="nav-wrapper">
+    <div class="nav-container"" id="nav-container">
+      <span class="nav-left nav-logo">
+	<a href="#">KOOLIO</a>
+      </span>
+      <span class="nav-left nav-span">
+	<ul>
+	  <li>
+	    <form class="search-form">
+	      <input name="search_field" type="text" placeholder="Search on Koolio" class="search-field" id="navbar-search-field"/>
+	      <button type="submit" class="search-submit">
+		<i class="fa fa-search"></i>
+	      </button>
+	    </form>
+	  </li>
+	</ul>
+      </span>
+      <span class="nav-left nav-span">	    
+      </span>
+      <span class="nav-right nav-span" id="nav-options">
+	<% if false #logged_in? %>
+	  <ul class="nav-menu">
+	    <li>
+	      <a href="#" class="bold nav-option-link">Popular</a>
+	    </li>
+	    <li>
+	      <a href="#" class="nav-option-link">My Decks & Cards</a>
+	    </li>
+	    <li>
+	      <a href="#" class="nav-option-link">Home</a>
+	    </li>
+	    <li>
+	      <a class="nav-pic" id="nav-pic">
+		<%= image_tag "tmp/pic_profile.png", :id => "nav-pic-img" %>
+	      </a>
+	    </li>
+	  </ul>
+	<% else %>
+	  <ul>
+	    <li>
+	      <a href="#" class="bold nav-signup nav-option-link" id="nav-signup-btn">Signup</a>
+	    </li>
+	    <li>
+	      <a href="#" class="nav-login nav-option-link" id="nav-login-btn">Login</a>
+	    </li>
+	  </ul>
+	<% end %>
+      </span>
+    </div>
+  </div>
+</nav>
+<% if false #logged_in? %>
+  <div class="nav-dropdown hidden" id="profile-pic-dropdown">
+    <ul>
+      <li>
+	<a href="#">Profile</a>
+      </li>
+      <li>
+	<a href="#">Settings<i class="fa fa-cog"></i></a>
+      </li>
+      <li>
+	<a href="#">Log out<i class="fa fa-sign-out"></i></a>
+      </li>
+    </ul>
+  </div>
+<% end %>
