@@ -314,3 +314,22 @@ $mq-desktop		: 1382px !default;
     transition: $which $elapse $speed-option;
 
 }
+
+// content-wrapper
+@mixin content-wrapper($usualWidth, $mobileWidth) {
+    width: $usualWidth;
+    height: 100%;
+    margin: auto;
+
+    @include tablet-landscape-and-below {
+	width: $mobileWidth;
+    }
+}
+
+// bg size
+@mixin background-size($size) {
+    -webkit-background-size: $size;
+    -moz-background-size: $size;
+    -o-background-size: $size;
+    background-size: $size;
+}

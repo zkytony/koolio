@@ -1,9 +1,12 @@
 /* Colors */
 $white: #FFF;
+$black: #000;
 $decent-blue: #336699;
 $decent-purple: #661133;
+$decent-orange: #FF9933;
 $gold: #FFD119;
 $light-grey: #EFEFEF;
+$darker-grey: #CACACA;
 $soft-black: #2B2B2B;
 
 /* Theme colors */
@@ -13,6 +16,7 @@ $theme-pink: #FFCCCC;
 
 $default-font-size: 13px;
 
+$content-wrap-width: 90%;
 
 @include font-face("Nunito", "Nunito-Regular", 500, normal, eot woff ttf svg);
 @include font-face("Nunito", "Nunito-Bold", 700, normal, eot woff ttf svg);
