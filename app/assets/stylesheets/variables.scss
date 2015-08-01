@@ -1,0 +1,40 @@
+/* Colors */
+$white: #FFF;
+$black: #000;
+$decent-blue: #336699;
+$decent-purple: #661133;
+$decent-orange: #FF9933;
+$gold: #FFD119;
+$light-grey: #EFEFEF;
+$darker-grey: #CACACA;
+$soft-black: #2B2B2B;
+
+/* Theme colors */
+$bg-color: #EDEDED;
+$theme-purple: #661155;
+$theme-pink: #FFCCCC;
+
+/* defaults */
+$default-font-size: 13px;
+$content-wrap-width: 90%;
+
+/* Navbar colors */
+$search-btn-color: $darker-grey;
+
+/* Navbar variables */
+$nav-height: 40px;
+$nav-width: 90%;
+$nav-font-size: $default-font-size + 2px;
+$nav-dropdown-width: 110px;
+$search-field-width: 400px;
+$search-field-height: $nav-height - 15px;
+$search-field-font-size: $search-field-height - 10px;
+$search-btn-width: 50px;
+
+/* Index page login form */
+$login-form-width: 250px;
+$login-form-height: 400px;
+$login-form-bg: rgba(252, 252, 252, 0.5);
+$login-round-btn-radius: 30px;
+
+
