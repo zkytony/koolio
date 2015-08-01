@@ -1,16 +1,3 @@
-/* Navbar colors */
-$search-btn-color: $darker-grey;
-
-/* Navbar variables */
-$nav-height: 40px;
-$nav-width: 90%;
-$nav-font-size: $default-font-size + 2px;
-$nav-dropdown-width: 110px;
-$search-field-width: 400px;
-$search-field-height: $nav-height - 15px;
-$search-field-font-size: $search-field-height - 10px;
-$search-btn-width: 50px;
-
 @mixin cute-nav-border {
     height: $nav-height / 2 - 2px;
     border-bottom: 2px solid $decent-purple;
@@ -171,6 +158,10 @@ $search-btn-width: 50px;
     right: (100% - $nav-width) / 2;
     padding: 0px 2px;
     @include box-shadow(0px, 2px, 3px, 0px, rgba(50, 50, 50, 0.75));
+
+    @include tablet-landscape-and-below {
+	right: 0px;
+    }
 
     ul {
 	padding: 0;
