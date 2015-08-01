@@ -1,7 +1,4 @@
-$login-form-width: 250px;
-$login-form-height: 400px;
-$login-form-bg: rgba(252, 252, 252, 0.5);
-$login-round-btn-radius: 30px;
+@import "global";
 
 body {
     background-image: url("/assets/bg.svg");

@@ -13,8 +13,4 @@
  *= require_self
  */
 @import "font-awesome";
-@import "_mixins.scss";
-@import "flip.css.scss";
-@import "main.css.scss";
-@import "nav.css.scss";
-@import "static_pages.scss";
+@import "global";
