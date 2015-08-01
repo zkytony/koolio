@@ -1,6 +1,5 @@
 /* Navbar colors */
-$nav-bg-color: #CACACA;
-$search-btn-color: $nav-bg-color;
+$search-btn-color: $darker-grey;
 
 /* Navbar variables */
 $nav-height: 40px;
@@ -23,17 +22,11 @@ $search-btn-width: 50px;
     top: 0;
     width: 100%;
     height: $nav-height;
-    background-color: $nav-bg-color;
+    background-color: $darker-grey;
 }
 
 .nav-container {
-    width: $nav-width;
-    height: 100%;
-    margin: auto;
-
-    @include tablet-landscape-and-below {
-	width: 100%;
-    }
+    @include content-wrapper($nav-width, 100%);
 }
 
 .nav-logo {
@@ -110,14 +103,14 @@ $search-btn-width: 50px;
     font-size: $search-field-font-size;
     width: 83%;
     line-height: $search-field-height;
-    background-color: lighten($nav-bg-color, 15%);
+    background-color: lighten($darker-grey, 15%);
     padding-left: 5px;
     @include border-left-radius(6px);
-    border: 2px solid lighten($nav-bg-color, 15%);;
+    border: 2px solid lighten($darker-grey, 15%);;
 
     &:hover, &:focus {
-	color: darken($nav-bg-color, 65%);
-	background-color: lighten($nav-bg-color, 20%);
+	color: darken($darker-grey, 65%);
+	background-color: lighten($darker-grey, 20%);
 	border: 2px solid $gold;
     }
 }
