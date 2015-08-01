@@ -119,13 +119,8 @@
 }
 
 .nav-login {
-    background-color: $decent-blue;
-    @include linear-gradient(to bottom, $decent-blue, lighten($decent-blue, 20%));
-    color: $white;
     
     &:hover {
-	@include linear-gradient(to bottom, darken($decent-blue, 20%), $decent-blue);
-	color: $white;
     }
 
     &:active {
@@ -134,13 +129,8 @@
 }
 
 .nav-signup {
-    background-color: $decent-purple;
-    @include linear-gradient(to bottom, $decent-purple, lighten($decent-purple, 20%));
-    color: $white;
 
     &:hover {
-	@include linear-gradient(to bottom, darken($decent-purple, 15%), $decent-purple);
-	color: $white;
     }
 }
 
