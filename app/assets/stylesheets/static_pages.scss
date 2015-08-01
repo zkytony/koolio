@@ -1,5 +1,9 @@
 @import "global";
 
+button, input[type="button"], input[type="submit"] {
+    -webkit-appearance: none;
+}
+
 body {
     background-image: url("/assets/bg.svg");
     background-position: center center;
