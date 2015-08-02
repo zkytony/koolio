@@ -128,6 +128,7 @@ GEM
       shellany (~> 0.0)
     optionable (0.2.0)
     origin (2.1.1)
+    pg (0.18.2)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -237,8 +238,8 @@ DEPENDENCIES
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails
-  mongoid (~> 4.0.0)
   mongoid-rspec (~> 2.1.0)
+  pg
   rails (= 4.2.1)
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
