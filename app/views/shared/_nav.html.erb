@@ -32,7 +32,7 @@
 	    </li>
 	    <li>
 	      <a class="nav-pic" id="nav-pic">
-		<%= image_tag "tmp/pic_profile.png", :id => "nav-pic-img" %>
+		<%= image_tag "default-profile.svg", :id => "nav-pic-img" %>
 	      </a>
 	    </li>
 	  </ul>
@@ -54,13 +54,18 @@
   <div class="nav-dropdown hidden" id="profile-pic-dropdown">
     <ul>
       <li>
+	<p class="nav-dropdown-bar">Signed in as <b><%= current_user.username %></b></p>
+      </li>
+      <li>
 	<%= link_to "Profile", current_user %>
       </li>
       <li>
 	<a href="#">Settings<i class="fa fa-cog"></i></a>
       </li>
       <li>
-	<%= link_to "Log out", logout_path %>
+	<%= link_to logout_path do %>
+	  Logout<i class="fa fa-sign-out"></i>
+	<% end %>
       </li>
     </ul>
   </div>
