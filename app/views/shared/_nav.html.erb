@@ -19,7 +19,7 @@
       <span class="nav-left nav-span">	    
       </span>
       <span class="nav-right nav-span" id="nav-options">
-	<% if false #logged_in? %>
+	<% if logged_in? %>
 	  <ul class="nav-menu">
 	    <li>
 	      <a href="#" class="bold nav-option-link">Popular</a>
@@ -50,7 +50,7 @@
     </div>
   </div>
 </nav>
-<% if false #logged_in? %>
+<% if logged_in? %>
   <div class="nav-dropdown hidden" id="profile-pic-dropdown">
     <ul>
       <li>
