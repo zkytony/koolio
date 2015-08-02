@@ -18,6 +18,7 @@ class User
   has_many :comments, dependent: :delete
 
   index({ username: 1 }, { unique: true, drop_dups: true })
+  index({ email: 1 }, { unique: true, drop_dups: true })
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :username,  presence: true,
@@ -31,4 +32,19 @@ class User
   validates :activated, presence: true
   
   has_secure_password   # Enforces validation on the virtual password & password_confirmation attributes
+
+  def self.find_by_email(email)
+    where(email: email).first
+  end
+
+  def self.find_by_username(username)
+    where(username: username).first
+  end
+
+  def self.authenticate(identifier, password)
+    user = find_by_username identifier
+    user ||= find_by_email identifier
+    return false if user.nil?
+    user.authenticate(password)
+  end
 end
