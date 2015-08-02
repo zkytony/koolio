@@ -12,6 +12,6 @@ Rails.application.config.assets.version = '1.0'
 
 # precompile styles & js
 Rails.application.config.assets.precompile += %w( *.css )
-Rails.application.config.assets.precompile += %w( *.js )
+# Rails.application.config.assets.precompile += %w( *.js )
 # Precompile font files
 Rails.application.config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
