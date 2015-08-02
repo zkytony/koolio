@@ -2,7 +2,7 @@
   <div class="nav-wrapper">
     <div class="nav-container"" id="nav-container">
       <span class="nav-left nav-logo">
-	<a href="#">KOOLIO</a>
+	<%= link_to "KOOLIO", root_path%>
       </span>
       <span class="nav-left nav-span">
 	<ul>
@@ -54,13 +54,13 @@
   <div class="nav-dropdown hidden" id="profile-pic-dropdown">
     <ul>
       <li>
-	<a href="#">Profile</a>
+	<%= link_to "Profile", current_user %>
       </li>
       <li>
 	<a href="#">Settings<i class="fa fa-cog"></i></a>
       </li>
       <li>
-	<a href="#">Log out<i class="fa fa-sign-out"></i></a>
+	<%= link_to "Log out", logout_path %>
       </li>
     </ul>
   </div>
