@@ -1,5 +1,4 @@
-class Following
-  include Mongoid::Document
+class Following < ActiveRecord::Base
   
   field :followee,    type: String
   field :follower,    type: String

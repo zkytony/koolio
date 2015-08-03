@@ -1,6 +1,4 @@
-class Comment
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class Comment < ActiveRecord::Base
 
   field :user_id,      type: String
   field :card_id,      type: String

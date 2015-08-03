@@ -1,5 +1,4 @@
-class Subscription
-  include Mongoid::Document
+class Subscription < ActiveRecord::Base
 
   field :subscriber,    type: String
   field :deck_id,       type: String

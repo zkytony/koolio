@@ -1,5 +1,4 @@
-class Tag
-  include Mongoid::Document
+class Tag < ActiveRecord::Base
 
   field :name,       type: String
   field :created_at, type: DateTime
