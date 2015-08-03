@@ -1,6 +1,4 @@
-class Card
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class Card < ActiveRecord::Base
 
   field :deck_id,       type: String
   field :user_id,       type: String

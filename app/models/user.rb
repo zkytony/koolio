@@ -1,6 +1,4 @@
-class User
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class User < ActiveRecord::Base
   include ActiveModel::SecurePassword
 
   field :username,   type: String

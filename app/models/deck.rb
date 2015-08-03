@@ -1,6 +1,4 @@
-class Deck
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class Deck < ActiveRecord::Base
 
   field :user_id,      type: String
   field :title,        type: String
