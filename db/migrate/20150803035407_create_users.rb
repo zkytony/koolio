@@ -5,10 +5,12 @@ class CreateUsers < ActiveRecord::Migration
       t.string :first_name
       t.string :last_name
       t.string :email
-      t.hash :password_digest
+      t.string :password_digest
       t.date :birthday
       t.string :gender
       t.boolean :activated
+
+      t.timestamps null: false
     end
   end
 end
