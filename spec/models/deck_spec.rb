@@ -6,7 +6,7 @@ RSpec.describe Deck, type: :model do
   it { should validate_length_of(:title).is_at_most(255) }
 
   it { should belong_to(:user) }
-  it { should have_many(:cards).with_foreign_key(:deck_id) }
+  it { should have_many(:cards) }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:subscriptions).with_foreign_key(:deck_id) }
   it { should have_many(:subscriptions).dependent(:destroy) }

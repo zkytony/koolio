@@ -25,10 +25,10 @@ RSpec.describe User, :type => :model do
 
   it { should validate_presence_of(:activated) }
 
-  it { should have_many(:cards).with_foreign_key(:user_id) }
-  it { should have_many(:cards).with_dependent(:destroy) }
-  it { should have_many(:decks).with_foreign_key(:user_id) }
-  it { should have_many(:decks).with_dependent(:destroy) }
-  it { should have_many(:comments).with_foreign_key(:user_id) }
-  it { should have_many(:comments).with_dependent(:destroy) }
+  it { should have_many(:cards) }
+  it { should have_many(:cards).dependent(:destroy) }
+  it { should have_many(:decks) }
+  it { should have_many(:decks).dependent(:destroy) }
+  it { should have_many(:comments) }
+  it { should have_many(:comments).dependent(:destroy) }
 end
