@@ -1,21 +1,9 @@
 class User < ActiveRecord::Base
   include ActiveModel::SecurePassword
 
-  field :username,   type: String
-  field :first_name, type: String
-  field :last_name,  type: String
-  field :email,      type: String
-  field :password_digest, type: String
-  field :birthday,   type: Date
-  field :male,       type: Boolean
-  field :activated,  type: Boolean, default: false
-  field :_id,        type: String,  default: -> { username } # Custom id
-
-  has_many :decks,    dependent: :delete
-  has_many :cards,    dependent: :delete
-  has_many :comments, dependent: :delete
-
-  index({ username: 1 }, { unique: true, drop_dups: true })
+  has_many :decks,    dependent: :destroy
+  has_many :cards,    dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :username,  presence: true,
