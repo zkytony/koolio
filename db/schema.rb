@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150804024310) do
+ActiveRecord::Schema.define(version: 20150804030529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cards", force: :cascade do |t|
+    t.text     "front_content"
+    t.text     "back_content"
+    t.integer  "deck_id"
+    t.integer  "user_id"
+    t.integer  "flips",         default: 0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "cards", ["deck_id"], name: "index_cards_on_deck_id", using: :btree
 
   create_table "decks", force: :cascade do |t|
     t.string   "title"
@@ -42,5 +54,7 @@ ActiveRecord::Schema.define(version: 20150804024310) do
 
   add_index "users", ["username", "email"], name: "index_users_on_username_and_email", using: :btree
 
+  add_foreign_key "cards", "decks"
+  add_foreign_key "cards", "users"
   add_foreign_key "decks", "users"
 end
