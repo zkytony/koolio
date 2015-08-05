@@ -1,0 +1,26 @@
+<h1>Listing Cards</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Deck ID</th>
+      <th>User ID</th>
+      <th>Front Content</th>
+      <th>Back Content</th>
+      <th>Flips</th>
+      <th colspan="6"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= @card._id %></td>
+        <td><%= @card.deck_id %></td>
+        <td><%= @card.user_id %></td>
+        <td><%= @card.front_content %></td>
+        <td><%= @card.back_content %></td>
+        <td><%= @card.flips %></td>
+      </tr>
+  </tbody>
+</table>
