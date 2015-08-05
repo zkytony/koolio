@@ -1,0 +1,22 @@
+<h1>Listing Decks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @decks.each do |deck| %>
+      <tr>
+        <td><%= deck._id %></td>
+        <td><%= deck.title %></td>
+        <td><%= deck.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
