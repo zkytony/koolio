@@ -3,7 +3,6 @@ class User < ActiveRecord::Base
 
   has_many :decks,    dependent: :destroy
   has_many :cards,    dependent: :destroy
-  has_many :comments, dependent: :destroy
   has_many :active_relationships, class_name: "Following", foreign_key: "followee_id", dependent: :destroy   # Follow others
   has_many :following, through: :active_relationships, source: :followee
   has_many :passive_relationships, class_name: "Following", foreign_key: "follower_id", dependent: :destroy  # Being followed by others
@@ -18,7 +17,6 @@ class User < ActiveRecord::Base
                         length: { maximum: 255 }
   validates :password,  presence: true,
                         length: { minimum: 6 }
-  validates :activated, presence: true
   
   has_secure_password   # Enforces validation on the virtual password & password_confirmation attributes
 
