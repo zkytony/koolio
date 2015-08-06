@@ -141,8 +141,8 @@
 }
 
 .nav-dropdown {
-    width: $nav-dropdown-width;
-    max-width: $nav-dropdown-width + 20px;
+    min-width: $nav-dropdown-width;
+    max-width: $nav-dropdown-width + 100px;
     background-color: $white;
     position: absolute;
     right: (100% - $nav-width) / 2;
@@ -158,6 +158,15 @@
 	margin: 0;
 	li {
 	    list-style-type: none;
+	    p {
+		min-width: $nav-dropdown-width;
+		padding: 5px;
+	    }
+
+	    .nav-dropdown-bar {
+		border-bottom: 1px solid $light-grey;
+	    }
+	    
 	    a {
 		display: block;
 		width: 90%;
