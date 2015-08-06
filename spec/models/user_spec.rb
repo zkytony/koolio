@@ -31,4 +31,9 @@ RSpec.describe User, :type => :model do
   it { should have_many(:decks).dependent(:destroy) }
   it { should have_many(:comments) }
   it { should have_many(:comments).dependent(:destroy) }
+
+  it { should have_many(:active_relationships).class_name("Following").with_foreign_key("followee_id").dependent(:destroy) }
+  it { should have_many(:passive_relationships).class_name("Following").with_foreign_key("follower_id").dependent(:destroy) }
+  it { should have_many(:following).through(:active_relationships).source(:followee) }
+  it { should have_many(:followers).through(:passive_relationships) }
 end
