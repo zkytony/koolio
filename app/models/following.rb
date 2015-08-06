@@ -1,12 +1,7 @@
 class Following < ActiveRecord::Base
-  
-  field :followee,    type: String
-  field :follower,    type: String
-  field :created_at,  type: Date
-  field :end_at,      type: Date
+  belongs_to :follower, class_name: "User"   # Follow others
+  belongs_to :followee, class_name: "User"  # Being followed by others
 
-  validates :followee, presence: true
-  validates :follower, presence: true
-  validates :created_at, presence: true
-
+  validates :follower_id, presence: true
+  validates :followee_id, presence: true
 end
