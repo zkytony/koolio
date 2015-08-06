@@ -2,7 +2,7 @@
   <div class="nav-wrapper">
     <div class="nav-container"" id="nav-container">
       <span class="nav-left nav-logo">
-	<a href="#">KOOLIO</a>
+	<%= link_to "KOOLIO", root_path%>
       </span>
       <span class="nav-left nav-span">
 	<ul>
@@ -19,7 +19,7 @@
       <span class="nav-left nav-span">	    
       </span>
       <span class="nav-right nav-span" id="nav-options">
-	<% if false #logged_in? %>
+	<% if logged_in? %>
 	  <ul class="nav-menu">
 	    <li>
 	      <a href="#" class="bold nav-option-link">Popular</a>
@@ -32,7 +32,7 @@
 	    </li>
 	    <li>
 	      <a class="nav-pic" id="nav-pic">
-		<%= image_tag "tmp/pic_profile.png", :id => "nav-pic-img" %>
+		<%= image_tag "default-profile.svg", :id => "nav-pic-img" %>
 	      </a>
 	    </li>
 	  </ul>
@@ -50,17 +50,22 @@
     </div>
   </div>
 </nav>
-<% if false #logged_in? %>
+<% if logged_in? %>
   <div class="nav-dropdown hidden" id="profile-pic-dropdown">
     <ul>
       <li>
-	<a href="#">Profile</a>
+	<p class="nav-dropdown-bar">Signed in as <b><%= current_user.username %></b></p>
+      </li>
+      <li>
+	<%= link_to "Profile", current_user %>
       </li>
       <li>
 	<a href="#">Settings<i class="fa fa-cog"></i></a>
       </li>
       <li>
-	<a href="#">Log out<i class="fa fa-sign-out"></i></a>
+	<%= link_to logout_path do %>
+	  Logout<i class="fa fa-sign-out"></i>
+	<% end %>
       </li>
     </ul>
   </div>
