@@ -23,17 +23,34 @@ RSpec.describe User, :type => :model do
     expect(user.valid?).to be false
   end
 
-  it { should validate_presence_of(:activated) }
+  it "should validate that activated is defaulted to false" do
+    ben = User.create!(username: "ben", email: "ben@example.com",
+                   password: "123456", password_confirmation: "123456")    
+    expect(ben.activated).to be false
+    ben.destroy
+  end
 
   it { should have_many(:cards) }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:decks) }
   it { should have_many(:decks).dependent(:destroy) }
-  it { should have_many(:comments) }
-  it { should have_many(:comments).dependent(:destroy) }
 
   it { should have_many(:active_relationships).class_name("Following").with_foreign_key("followee_id").dependent(:destroy) }
   it { should have_many(:passive_relationships).class_name("Following").with_foreign_key("follower_id").dependent(:destroy) }
   it { should have_many(:following).through(:active_relationships).source(:followee) }
   it { should have_many(:followers).through(:passive_relationships) }
+
+  it "should follow another user" do
+    ben = User.create!(username: "ben", email: "ben@example.com",
+                   password: "123456", password_confirmation: "123456")
+    lily = User.create!(username: "lily", email: "lily@example.com",
+                    password: "123456", password_confirmation: "123456")
+    ben.follow(lily)
+    expect(ben.following.count).to be(1)
+    lily.follow(ben)
+    expect(lily.following.count).to be(1)
+
+    ben.destroy
+    lily.destroy
+  end
 end
