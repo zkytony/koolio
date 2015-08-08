@@ -10,7 +10,7 @@ gem 'jquery-turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
-gem 'mongoid', '~> 4.0.0'
+gem 'pg'
 gem 'bson_ext'
 gem 'font-awesome-rails'
 
@@ -21,9 +21,9 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'guard-rspec'
   gem 'capybara'
-  gem 'mongoid-rspec', '~> 2.1.0'
 end
 
 group :test do
   gem 'shoulda-matchers', require: false
+  gem 'database_cleaner'
 end
