@@ -17,19 +17,6 @@ RSpec.describe User, :type => :model do
   it { should validate_presence_of(:password) }
   it { should validate_length_of(:password).is_at_least(6) } # greater_than(6) is minimum of 6
 
-  it "should have non-empty password" do 
-    user = User.new(username: "user1", email: "user1@example.com",
-                    password: " " * 6, password_confirmation: " " * 6)
-    expect(user.valid?).to be false
-  end
-
-  it "should validate that activated is defaulted to false" do
-    ben = User.create!(username: "ben", email: "ben@example.com",
-                   password: "123456", password_confirmation: "123456")    
-    expect(ben.activated).to be false
-    ben.destroy
-  end
-
   it { should have_many(:cards) }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:decks) }
@@ -40,11 +27,24 @@ RSpec.describe User, :type => :model do
   it { should have_many(:following).through(:active_relationships).source(:followed) }
   it { should have_many(:followers).through(:passive_relationships) }
 
+  it "should have non-empty password" do 
+    user = User.new(username: "user1", email: "user1@example.com",
+                    password: " " * 6, password_confirmation: " " * 6)
+    expect(user.valid?).to be false
+  end
+
+  it "should validate that activated is defaulted to false" do
+    ben = User.create!(username: "ben", email: "ben@example.com",
+                       password: "123456", password_confirmation: "123456")    
+    expect(ben.activated).to be false
+    ben.destroy
+  end
+
   it "should follow another user" do
     ben = User.create!(username: "ben", email: "ben@example.com",
-                   password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456")
     lily = User.create!(username: "lily", email: "lily@example.com",
-                    password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456")
     ben.follow(lily)
     expect(ben.following.count).to be(1)
     expect(ben.following?(lily)).to be true
@@ -60,9 +60,9 @@ RSpec.describe User, :type => :model do
 
   it "should unfollow the other user" do
     ben = User.create!(username: "ben", email: "ben@example.com",
-                   password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456")
     lily = User.create!(username: "lily", email: "lily@example.com",
-                    password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456")
     ben.follow(lily)
     expect(ben.following.count).to be(1)
     expect(lily.followers.count).to be(1)
@@ -73,13 +73,43 @@ RSpec.describe User, :type => :model do
 
   it "should not be able to follow twice" do
     ben = User.create!(username: "ben", email: "ben@example.com",
-                   password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456")
     lily = User.create!(username: "lily", email: "lily@example.com",
-                    password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456")
     ben.follow(lily)
     expect(ben.following.count).to be(1)
     expect {
       ben.follow(lily)
     }.to raise_error(ActiveRecord::RecordNotUnique)
+  end
+
+  it "should authenticate user with email and password" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                    password: "123456", password_confirmation: "123456")
+    user_get = User.authenticate(user.email, user.password)
+    expect(user_get).not_to be false
+    expect(user_get.username).to eq("user1")
+  end
+
+  it "should authenticate user with username and password" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                    password: "123456", password_confirmation: "123456")
+    user_get = User.authenticate(user.username, user.password)
+    expect(user_get).not_to be false
+    expect(user_get.username).to eq("user1")
+  end
+
+  it "should not authenticate user with email or username and wrong password" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                    password: "123456", password_confirmation: "123456")
+    expect(User.authenticate(user.email, "not the password")).to be false
+    expect(User.authenticate(user.username, "not the password")).to be false
+  end
+
+  it "should not authenticate user with wrong email or username and password" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                    password: "123456", password_confirmation: "123456")
+    expect(User.authenticate("bad email", user.password)).to be false
+    expect(User.authenticate("bad username", user.password)).to be false
   end
 end
