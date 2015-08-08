@@ -70,4 +70,16 @@ RSpec.describe User, :type => :model do
     expect(ben.following.count).to be(0)
     expect(lily.followers.count).to be(0)
   end
+
+  it "should not be able to follow twice" do
+    ben = User.create!(username: "ben", email: "ben@example.com",
+                   password: "123456", password_confirmation: "123456")
+    lily = User.create!(username: "lily", email: "lily@example.com",
+                    password: "123456", password_confirmation: "123456")
+    ben.follow(lily)
+    expect(ben.following.count).to be(1)
+    expect {
+      ben.follow(lily)
+    }.to raise_error(ActiveRecord::RecordNotUnique)
+  end
 end
