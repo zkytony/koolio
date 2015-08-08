@@ -31,4 +31,20 @@ class User < ActiveRecord::Base
   def following?(other_user)
     following.include?(other_user)
   end
+
+  def self.find_by_email(email)
+    User.find_by email: email
+  end
+
+  def self.find_by_username(username)
+    User.find_by username: username
+  end
+
+  def self.authenticate(identifier, password)
+    user = find_by_username identifier
+    user ||= find_by_email identifier
+    return false if user.nil?
+    user.authenticate(password)
+  end
+
 end
