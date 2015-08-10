@@ -3,7 +3,7 @@ module UsersHelper
     if request.path == "/login"
       "flip"
     else
-      request.path
+      ""
     end
   end
 end
