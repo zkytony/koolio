@@ -316,10 +316,10 @@ $mq-desktop		: 1382px !default;
 }
 
 // content-wrapper
-@mixin content-wrapper($usualWidth, $mobileWidth) {
+@mixin content-wrapper($usualWidth, $mobileWidth, $margin:auto) {
     width: $usualWidth;
     height: 100%;
-    margin: auto;
+    margin: $margin;
 
     @include tablet-landscape-and-below {
 	width: $mobileWidth;
