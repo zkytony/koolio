@@ -1,3 +1,76 @@
-// Place all the styles related to the decks controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "global";
+@import "cards.scss";
+
+.deck-place-wrapper {
+    @include content_wrapper(85%, 95%);
+}
+
+.deck-heading-wrapper {
+    @include content_wrapper(100%, 100%);
+    padding: 5px;
+
+    * {
+
+    }
+
+    h1, h2, h3 {
+	font-weight: 400;
+    }
+
+    h1 {
+	color: lighten($soft-black, 10%);
+	padding: 20px 0px;
+    }
+
+    h3 {
+	font-size: 17px;
+	font-style: italic;
+    }
+
+    .tags {
+	margin-top: 10px;
+	ul {
+	    margin: 0;
+	    padding: 0;
+	    li {
+		list-style-type: none;
+		display: inline;
+		padding: 2px 4px;
+		color: $white;
+		@include border-radius(5px);
+	    }
+	}
+    }
+}
+
+.card-posting {
+    width: $default-card-width * 3 + $cards-gap * 2;
+    height: $default-card-height;
+    float: left;
+    margin: $cards-gap / 2;
+    background-color: $decent-blue;
+
+    .card-posting-front,.card-posting-back {
+	width: $default-card-width;
+	height: $default-card-height;
+	background-color: $darker-grey;
+	float: left;
+    }
+
+    .bar {
+	border-left: 10px solid darken($darker-grey, 15%);
+    }
+}
+
+.cards-whole-wrapping {
+    @include content_wrapper($default-card-width * 3.2, $default-card-width * 2.1, 
+			     10px 0px 10px 7.5%);
+    float: left;
+}
+
+.side-whole-wrapping {
+    width: 400px;
+    min-height: 300px;
+    background-color: lighten($bg-color, 5%);
+    float: left;
+}
