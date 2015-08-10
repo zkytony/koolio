@@ -1,3 +1,39 @@
-// Place all the styles related to the cards controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.card-wrapper {
+    width: $default-card-width;
+    height: $default-card-height;
+    float: left;
+    margin: $cards-gap / 2;
+}
+
+.card {
+    width: $default-card-width;
+    height: $default-card-height;
+    cursor: pointer;
+    .card-front {
+	width: 100%;
+	height: 100%;
+    }
+
+    .card-back {
+	width: 100%;
+	height: 100%;
+    }
+}
+
+#card-0-front {
+    background-color: $soft-black;
+}
+
+#card-0-back {
+    background-color: $theme-purple;
+}
+
+#card-1-front {
+    background-color: $theme-purple;
+}
+
+#card-1-back {
+    background-color: $gold;
+}
+
+
