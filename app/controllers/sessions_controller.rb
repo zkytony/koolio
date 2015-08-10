@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     if logged_in?
       redirect_to current_user
     else
-      render 'static_pages/index'
+      render 'users/new'
     end
   end
 

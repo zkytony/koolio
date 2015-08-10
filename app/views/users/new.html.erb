@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="login-form-wrapper">
-    <div id="login-form-card"" class="flipper">
+    <div id="login-form-card"" class="flipper <%= login_form_flip %>">
       <div id="signup-form-front" class="login-form flipper-front flip-dir1">
 	<%= form_for(:user, url: users_path) do |f| %>
 	  <%= f.text_field :username, :placeholder => "Your username"%>
