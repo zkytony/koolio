@@ -24,10 +24,6 @@ $cards-gap: 10px;
 /* defaults */
 $default-font-size: 13px;
 $content-wrap-width: 90%;
-$center-content-width: $default-card-width * 3 + 30px;
-$center-content-min-height: 550px;
-$side-panel-width: 185px;
-$min-screen-width: $center-content-width + $side-panel-width * 2 + 10px;
 
 /* Navbar colors */
 $search-btn-color: $darker-grey;
@@ -51,3 +47,7 @@ $login-round-btn-radius: 30px;
 /* Deck show page */
 $deck-header-height: 200px;
 $cards-display-min-height: 550px - $deck-header-height;
+$center-content-width: $default-card-width * 3 + 30px;
+$center-content-min-height: 550px;
+$side-panel-width: 185px;
+$min-screen-width: $center-content-width + $side-panel-width * 2 + 10px;
