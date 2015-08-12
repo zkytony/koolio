@@ -4,6 +4,6 @@ class DecksController < ApplicationController
   end
 
   def show
-    @deck = Deck.find(params[:id])
+    # @deck = Deck.find(params[:id])
   end
 end
