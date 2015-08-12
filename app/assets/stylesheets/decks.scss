@@ -38,6 +38,7 @@ body, .container {
 }
 
 .cards-display-wrapper {
+    float: left;
     width: 100%;
     min-height: $cards-display-min-height;
     background-color: $decent-blue; // for demo layout purpose now
