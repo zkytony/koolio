@@ -21,6 +21,7 @@ $default-font-size: 13px;
 $content-wrap-width: 90%;
 $min-screen-width: 1000px;
 $center-content-width: 620px;
+$center-content-min-height: 550px;
 $side-panel-width: 185px;
 
 /* Navbar colors */
@@ -48,3 +49,5 @@ $default-card-height: 160px;
 $cards-gap: 10px;
 
 /* Deck show page */
+$deck-header-height: 200px;
+$cards-display-min-height: 550px - $deck-header-height;
