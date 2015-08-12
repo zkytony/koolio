@@ -19,6 +19,9 @@ $theme-pink: #FFCCCC;
 /* defaults */
 $default-font-size: 13px;
 $content-wrap-width: 90%;
+$min-screen-width: 1000px;
+$center-content-width: 620px;
+$side-panel-width: 185px;
 
 /* Navbar colors */
 $search-btn-color: $darker-grey;
@@ -43,3 +46,5 @@ $login-round-btn-radius: 30px;
 $default-card-width: 240px;
 $default-card-height: 160px;
 $cards-gap: 10px;
+
+/* Deck show page */
