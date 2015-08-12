@@ -26,7 +26,7 @@ body {
     font-size: $default-font-size;
     
     @media screen {
-	min-width: $min-screen-width;
+	min-width: 900px;
     }
 }
 
@@ -42,6 +42,6 @@ body {
     @include content-wrapper(100%, 95%);
     
     @media screen {
-	min-width: $min-screen-width;
+	min-width: 900px;
     }
 }

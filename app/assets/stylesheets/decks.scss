@@ -1,6 +1,12 @@
 @import "global";
 @import "cards.scss";
 
+body, .container {
+    @media screen {
+	min-width: $min-screen-width;
+    }
+}
+
 .main-content-wrapper {
     width: $center-content-width + $side-panel-width * 2;
     min-height: $center-content-min-height;
