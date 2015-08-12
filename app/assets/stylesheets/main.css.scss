@@ -24,7 +24,10 @@ body {
     background-color: $bg-color;
     font-family: 'Arial', sans-serif;
     font-size: $default-font-size;
-    min-width: 900px;
+    
+    @media screen {
+	min-width: $min-screen-width;
+    }
 }
 
 .bold {
@@ -33,4 +36,12 @@ body {
 
 .hidden {
     visibility: hidden;
+}
+
+.container {
+    @include content-wrapper(100%, 95%);
+    
+    @media screen {
+	min-width: $min-screen-width;
+    }
 }
