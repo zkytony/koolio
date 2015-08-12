@@ -16,13 +16,18 @@ $bg-color: #EDEDED;
 $theme-purple: #661155;
 $theme-pink: #FFCCCC;
 
+/* Cards */
+$default-card-width: 240px;
+$default-card-height: 160px;
+$cards-gap: 10px;
+
 /* defaults */
 $default-font-size: 13px;
 $content-wrap-width: 90%;
-$min-screen-width: 1000px;
-$center-content-width: 620px;
+$center-content-width: $default-card-width * 3 + 30px;
 $center-content-min-height: 550px;
 $side-panel-width: 185px;
+$min-screen-width: $center-content-width + $side-panel-width * 2 + 10px;
 
 /* Navbar colors */
 $search-btn-color: $darker-grey;
@@ -42,11 +47,6 @@ $login-form-width: 250px;
 $login-form-height: 400px;
 $login-form-bg: rgba(252, 252, 252, 0.5);
 $login-round-btn-radius: 30px;
-
-/* Cards */
-$default-card-width: 240px;
-$default-card-height: 160px;
-$cards-gap: 10px;
 
 /* Deck show page */
 $deck-header-height: 200px;
