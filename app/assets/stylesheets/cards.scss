@@ -1,8 +1,9 @@
 .card-wrapper {
     width: $default-card-width;
-    height: $default-card-height;
+    height: $default-card-height + $margin-between-rows + 3px;
     float: left;
     margin: $cards-gap / 2;
+    position: relative;
 }
 
 .card {
@@ -20,4 +21,19 @@
 	height: 100%;
 	@include border-radius(5px);
     }
+}
+
+.card-info-bar {
+    width: 100%;
+    height: $margin-between-rows;
+    background-color: $bg-color;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+
+    p {
+	padding: 4px;
+	color: $decent-purple;
+    }
+
 }
