@@ -19,9 +19,20 @@ body, .container {
 }
 
 .left-panel-wrapper, .right-panel-wrapper {
-    margin-top: 20px;
-    width: $side-panel-width;
-    min-height: 300px;
+    width: $side-panel-width - 1px;
+    min-height: 330px;
+}
+
+.left-panel-wrapper {
+    border-left: 1px solid $theme-purple;
+}
+
+.right-panel-wrapper {
+    border-right: 1px solid $theme-purple;
+}
+
+.deck-owner-info {
+    
 }
 
 .center-content-wrapper {
@@ -32,10 +43,13 @@ body, .container {
 }
 
 .deck-show-header {
+    @include background-image-gradient("/assets/tmp/deck-wall.png");
+    background-repeat: no-repeat;
+    @include background-size(cover);
+
     width: 100%;
     height: $deck-header-height;
-    background-color: $decent-orange;
-    margin-bottom: $margin-between-rows;
+    background-color: $theme-purple;
     position: relative;
 
     * {
@@ -47,11 +61,45 @@ body, .container {
     }
 
     h1 {
-	font-size: 30px;
-	position: absolute;
+	font-size: 28px;
 	padding: 10px 20px;
+	position: absolute;
 	left: 0px;
 	bottom: 0px;
+	color: $white;
+    }
+}
+
+.deck-info-header {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    min-width: $deck-header-info-width;
+    height: $deck-header-info-height;
+    background-color: $bg-color;
+    margin: 7px;
+    p {
+	font-size: $deck-header-info-height - 13px;
+	padding: 5px 5px 5px 5px;
+	color: $theme-purple;
+	float:left;
+	.fa {
+	    font-size: 17px;
+	    font-family: FontAwesome; /* not overriding */
+	}
+    }
+}
+
+.deck-description {
+    width: 75%;
+    margin: 10px auto;
+    background-color: $bg-color;
+    @include border-radius(15px);
+    @include box-shadow(0px, 3px, 5px, darken($bg-color, 15%));
+
+    p {
+	padding: 7px 10px;
+	font-size: 15px;
     }
 }
 
@@ -62,5 +110,4 @@ body, .container {
 }
 
 .card-wrapper {
-    margin-bottom: $margin-between-rows;
 }

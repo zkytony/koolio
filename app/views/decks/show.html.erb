@@ -1,121 +1,33 @@
-<% provide(:title, "Fun vs. Funny") %>
+<% provide(:title, "A Deck of Cards") %>
 
 <%= stylesheet_link_tag "decks.css" %>
 
 <div class="container">
   <div class="main-content-wrapper">
     <div class="left-panel-wrapper">      
+      <div class="deck-owner-info">
+	<div></div>
+      </div>
     </div>
     <div class="center-content-wrapper">
       <div class="deck-show-header">
 	<h1>A Deck of Cards</h1>
+	<div class="deck-info-header">
+	  <p><i class="fa fa-heart-o"></i> 34</p>
+	  <p><i class="fa fa-square-o"></i> 5</p>
+	</div>
+      </div>
+      <div class="deck-description">
+	<p>
+	  This is a deck description. This is a demo deck, which does not contain anything useful. Its cards are all black-white, which is kind of dummy. But this is a pretty important deck an opens up possibilities
+	</p>
       </div>
       <div class="cards-display-wrapper">
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">	      
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">	      
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">	      
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">	      
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">	      
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">	      
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">	      
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">	      
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">	      
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">	      
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">	      
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">	      
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">	      
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">	      
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">	      
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">	      
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">	      
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">	      
-	    </div>
-	  </div>
-	</div>
-	<div class="card-wrapper">
-	  <div class="card flipper">
-	    <div class="card-front flipper-front flip-dir1" style="background-color:#000">	      
-	    </div>
-	    <div class="card-back flipper-back flip-dir1" style="background-color:#FFF">	      
-	    </div>
-	  </div>
-	</div>
-
+	<%= render partial: "shared/card"  %>
+	<%= render partial: "shared/card"  %>
+	<%= render partial: "shared/card"  %>
+	<%= render partial: "shared/card"  %>
+	<%= render partial: "shared/card"  %>
       </div>
     </div>
     <div class="right-panel-wrapper">
