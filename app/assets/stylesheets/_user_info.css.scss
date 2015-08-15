@@ -1,5 +1,57 @@
 .user-info-wrapper {
     width: 100%;
-    min-height: 50px;
-    background-color: $decent-orange;
 }
+
+.user-info-profile {
+    width: $user-info-profile-width;
+    height: $user-info-profile-width;
+    padding: 10px;
+    
+    a {
+	img {
+	    width: $user-info-profile-width;
+	    height: $user-info-profile-width;
+	    @include box-shadow(0px, 0px, 5px, darken($bg-color, 25%));
+	}
+    }
+}
+
+.user-info-item {
+    width: 85%;
+    padding: 0px 10px;
+    font-size: 16px;
+    font-weight: 700;
+    word-break: break-all;
+
+    a {
+	color: $soft-black;
+    }
+}
+
+.user-info-short-stats {
+    width: 100%;
+    min-height: 70px;
+    padding: 10px;
+    text-align: left;
+    
+    a {
+	width: 40%;
+	height: 40px;
+	float: left;
+	margin-bottom: 10px;
+	margin-right: 5px;
+	cursor: pointer;
+	display: block;
+	strong {
+	    font-size: 20px;
+	}
+	span {
+	    font-size: 11px;
+	    color: $soft-black;
+	}
+	&:hover {
+	    color: $decent-blue;
+	}	
+    }
+}
+

@@ -19,16 +19,11 @@ body, .container {
 }
 
 .left-panel-wrapper, .right-panel-wrapper {
-    width: $side-panel-width - 1px;
+    width: $side-panel-width - 4px;
     min-height: 330px;
-}
-
-.left-panel-wrapper {
-    border-left: 1px solid $theme-purple;
-}
-
-.right-panel-wrapper {
-    border-right: 1px solid $theme-purple;
+    background-color: lighten($bg-color, 5%);
+    position: relative;
+    z-index: 1;
 }
 
 .deck-owner-info {
@@ -40,6 +35,8 @@ body, .container {
     min-height: $center-content-min-height;
     background-color: lighten($bg-color, 7%);
     @include box-shadow(0px, 0px, 20px, darken($bg-color, 30%));
+    position: relative;
+    z-index: 3;
 }
 
 .deck-show-header {
