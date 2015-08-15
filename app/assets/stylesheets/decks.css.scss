@@ -31,6 +31,7 @@ body, .container {
 
 .deck-tags {
     padding: 10px;
+    position: relative;
 
     h3 {
 	font-size: 15px;
@@ -39,10 +40,22 @@ body, .container {
     ul {
 	margin: 10px 0px;
 	li {
-	    list-style-type: none;
+	    list-style: none;
 	    display: inline;
 	}
     }
+
+    .option-edit-tags {
+	position: absolute;
+	right: 12px;
+	top: 12px;
+	font-size: 15px;
+	padding: 8px;
+	&:hover {
+	    background-color: $darker-grey;
+	}
+    }
+
 }
 
 .center-content-wrapper {
@@ -73,12 +86,14 @@ body, .container {
     }
 
     h1 {
+	max-width: 85%;
 	font-size: 28px;
 	padding: 10px 20px;
 	position: absolute;
 	left: 0px;
 	bottom: 0px;
 	color: $white;
+	word-break: break-all;	
     }
 }
 
@@ -100,6 +115,42 @@ body, .container {
 	    font-family: FontAwesome; /* not overriding */
 	}
     }
+}
+
+.deck-options {
+    background-color: $bg-color;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    margin: 10px;
+    
+    ul {
+	margin: 0px;
+	
+	li {
+	    margin: 0px;
+	    padding: 5px 10px;
+	    list-style: none;
+	    float: left;
+	    font-size: 20px;
+	    
+	    .fa {
+		font-family: FontAwesome; /* not overriding */
+	    }
+	    
+	    &:hover {
+		background-color: $decent-purple;
+		a {
+		    color: $white;
+		}
+	    }
+	    
+	}
+    }
+}
+
+.option-add-card {
+    background-color: $darker-grey;
 }
 
 .deck-description {
