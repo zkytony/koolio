@@ -1,6 +1,8 @@
 @import "global";
 @import "cards.css.scss";
 
+$side-panel-bg-color: lighten($bg-color, 5%);
+
 body, .container {
     @media screen {
 	min-width: $min-screen-width;
@@ -21,13 +23,26 @@ body, .container {
 .left-panel-wrapper, .right-panel-wrapper {
     width: $side-panel-width - 4px;
     min-height: 330px;
-    background-color: lighten($bg-color, 5%);
+    padding-bottom: 20px;
+    background-color: $side-panel-bg-color;
     position: relative;
     z-index: 1;
 }
 
-.deck-owner-info {
-    
+.deck-tags {
+    padding: 10px;
+
+    h3 {
+	font-size: 15px;
+    }
+
+    ul {
+	margin: 10px 0px;
+	li {
+	    list-style-type: none;
+	    display: inline;
+	}
+    }
 }
 
 .center-content-wrapper {
@@ -108,3 +123,65 @@ body, .container {
 
 .card-wrapper {
 }
+
+/* for <ul> */
+$tag-height: 27px;
+$hole-radius: 3px;
+$tag-color: $decent-blue;
+.tag {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+.tags li, .tags a {
+    text-align: right;
+    font-size: 12px;
+    margin-bottom: 3px;
+    float: left;
+    min-width: 60%;
+    height: $tag-height;
+    line-height: $tag-height;
+    position:relative;
+}
+
+.tags a{
+    margin-left: 20px;
+    padding: 0 10px 0 $tag-height / 2;
+    background: $tag-color;
+    color: $white;
+    @include border-right-radius(4px);
+
+    &:before{
+	content: "";
+	float: left;
+	position: absolute;
+	top: 0;
+	left: -$tag-height / 2;
+	width: 0;
+	height: 0;
+	border-color: transparent $tag-color transparent transparent;
+	border-style: solid;
+	border-width: $tag-height / 2 $tag-height / 2 $tag-height / 2 0;
+    }
+    &:after{
+	content:"";
+	position:absolute;
+	top: $tag-height / 2- $hole-radius;
+	left: 0;
+	float: left;
+	width: $hole-radius * 2;
+	height: $hole-radius * 2;
+	background: $side-panel-bg-color;
+	@include border-radius($hole-radius);
+	@include box-shadow(-1px, -1px, 2px, darken($tag-color, 20%));
+    }
+    &:hover {
+	background-color: darken($tag-color, 10%);
+    }
+    &:hover:before {
+	border-color: transparent darken($tag-color, 10%) transparent transparent;
+    }
+} 
+
+
