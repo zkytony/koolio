@@ -1,0 +1,14 @@
+<div id="epiceditor">
+  <textarea id="my-epiceditor"></textarea>
+</div>
+<%= javascript_include_tag "epiceditor/javascripts/epiceditor.js" %>
+<script>
+ var opts = {
+   theme: {
+     base: "<%= "#{request.base_url}/assets/epiceditor/stylesheets/themes/base/epiceditor.css" %>",
+     preview: "<%= "#{request.base_url}/assets/epiceditor/stylesheets/themes/preview/preview-dark.css" %>",
+     editor: "<%= "#{request.base_url}/assets/epiceditor/stylesheets/themes/editor/epic-dark.css" %>"
+   }
+ }
+ var editor = new EpicEditor(opts).load();
+</script>
