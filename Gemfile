@@ -13,6 +13,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'pg'
 gem 'bson_ext'
 gem 'font-awesome-rails'
+gem 'tinymce-rails'
 
 group :development, :test do
   gem 'byebug'

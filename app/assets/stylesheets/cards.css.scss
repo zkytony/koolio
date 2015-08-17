@@ -1,3 +1,5 @@
+@import "global";
+
 .card-wrapper {
     width: $default-card-width;
     height: $default-card-height + $margin-between-rows + 3px;
@@ -36,4 +38,14 @@
 	color: $decent-purple;
     }
 
+}
+
+/* card editor */
+.card-editor-wrapper {
+    width: $default-card-width * 1.5;
+    height: $default-card-height * 1.5;
+
+    #epiceditor {
+	height: 100%;
+    }
 }

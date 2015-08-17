@@ -1,14 +1,5 @@
-<div id="epiceditor">
-  <textarea id="my-epiceditor"></textarea>
+<%= stylesheet_link_tag "cards.css" %>
+
+<div class="card-editor-wrapper">
+  <%= render partial: "shared/card_editor" %>
 </div>
-<%= javascript_include_tag "epiceditor/javascripts/epiceditor.js" %>
-<script>
- var opts = {
-   theme: {
-     base: "<%= "#{request.base_url}/assets/epiceditor/stylesheets/themes/base/epiceditor.css" %>",
-     preview: "<%= "#{request.base_url}/assets/epiceditor/stylesheets/themes/preview/preview-dark.css" %>",
-     editor: "<%= "#{request.base_url}/assets/epiceditor/stylesheets/themes/editor/epic-dark.css" %>"
-   }
- }
- var editor = new EpicEditor(opts).load();
-</script>
