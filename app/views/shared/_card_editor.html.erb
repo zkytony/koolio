@@ -1,3 +1,3 @@
-<%= tinymce_assets %>
-<%= text_area_tag :content, "", :class => "tinymce", :rows => 40, :cols => 120 %>
-<%= tinymce %>
+<%= form_for @card do |f| -%>
+  <%= f.cktext_area :front_content, rows: 10 %>
+<% end -%>
