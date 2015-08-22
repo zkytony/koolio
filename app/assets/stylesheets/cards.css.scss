@@ -41,7 +41,20 @@
 }
 
 /* card editor */
+.card-creating {
+    width: $default-card-width * 1.75 * 2.1;
+    height: $default-card-height * 1.75;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+
 .card-editor-wrapper {
-    width: $default-card-width * 1.5;
-    height: $default-card-height * 1.5;
+    width: $default-card-width * 1.75;
+    height: $default-card-height * 1.75;
+    float: left;
+}
+
+#cke_front-editor, #cke_back-editor {
+    border: 1px solid grey;
 }
