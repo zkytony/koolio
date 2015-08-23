@@ -7,8 +7,7 @@ class User < ActiveRecord::Base
   has_many :following, through: :active_relationships, source: :followed
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy  # Being followed by others
   has_many :followers, through: :passive_relationships
-  has_many :favor_of_decks, class_name: "Favorite", foreign_key: "user_id", dependent: :destroy
-  has_many :favorite_decks, through: :favor_of_decks, source: :deck
+  has_many :favorite_decks, class_name: "Favorite", dependent: :destroy
   has_many :liked_cards, class_name: "LikeCard", dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -59,11 +58,11 @@ class User < ActiveRecord::Base
   end
 
   def favor_deck(deck)
-    self.favor_of_decks.create(deck_id: deck.id)
+    self.favorite_decks.create(deck_id: deck.id)
   end
 
   def unfavor_deck(deck)
-    self.favor_of_decks.find_by(deck_id: deck.id).destroy
+    self.favorite_decks.find_by(deck_id: deck.id).destroy
   end
 
   def favoring_deck?(deck)
