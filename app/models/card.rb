@@ -5,5 +5,6 @@ class Card < ActiveRecord::Base
   belongs_to :deck
   belongs_to :user
 
-  has_many :liked_users, class_name: "LikeCard", dependent: :destroy
+  has_many :users_with_like, class_name: "LikeCard", dependent: :destroy
+  has_many :liked_users, through: :users_with_like, source: :user
 end

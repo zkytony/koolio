@@ -36,11 +36,17 @@
     left: 0px;
     bottom: 0px;
 
-    p {
+    p, button {
 	padding: 4px;
 	color: $decent-purple;
+	float: left;
     }
-
+    button {
+	border: none;
+	.fa {
+	    margin-right: 2px;
+	}
+    }
 }
 
 /* card editor */

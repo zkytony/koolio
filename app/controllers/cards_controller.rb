@@ -48,6 +48,18 @@ class CardsController < ApplicationController
     redirect_to @deck
   end
 
+  def like
+    @card = Card.find(params[:card_id])
+    current_user.like_card(@card)
+    redirect_to :back
+  end
+
+  def unlike
+    @card = Card.find(params[:card_id])
+    current_user.unlike_card(@card)
+    redirect_to :back
+  end
+
   private
   
   # strong parameter

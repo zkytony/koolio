@@ -27,9 +27,11 @@ RSpec.describe User, :type => :model do
   it { should have_many(:following).through(:active_relationships).source(:followed) }
   it { should have_many(:followers).through(:passive_relationships) }
 
-  it { should have_many(:favorite_decks).class_name("Favorite").dependent(:destroy) }
+  it { should have_many(:favor_of_decks).class_name("Favorite").dependent(:destroy) }
+  it { should have_many(:favorite_decks).through(:favor_of_decks).source(:deck) }
 
-  it { should have_many(:liked_cards).class_name("LikeCard").dependent(:destroy) }
+  it { should have_many(:like_of_cards).class_name("LikeCard").dependent(:destroy) }
+  it { should have_many(:liked_cards).through(:like_of_cards).source(:card) }
 
   it "should have non-empty password" do 
     user = User.new(username: "user1", email: "user1@example.com",
@@ -123,6 +125,7 @@ RSpec.describe User, :type => :model do
     deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
     user.favor_deck(deck)
     expect(user.favorite_decks.count).to be 1
+    expect(user.favoring_deck?(deck)).to be true
   end
 
   it "should unfavor deck" do

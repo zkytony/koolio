@@ -19,6 +19,11 @@
 	<i class="fa fa-ellipsis-v"></i>
       <% end %>
     </p>
+    <% if !current_user.liked_card?(card) %>
+      <%= render partial: "shared/like_card_button", locals: {deck: deck, card: card}%>
+    <% else %>
+      <%= render partial: "shared/unlike_card_button", locals: {deck: deck, card: card}%>
+    <% end %>
   </div>
 </div>
 <script>
