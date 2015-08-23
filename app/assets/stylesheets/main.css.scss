@@ -49,3 +49,7 @@ body {
 button {
     cursor: pointer;
 }
+
+button, input[type="button"], input[type="submit"] {
+    -webkit-appearance: none;
+}
