@@ -45,17 +45,16 @@
 
 /* card editor */
 .card-creating {
-    width: $default-card-width * 1.75 * 2.1;
-    height: $default-card-height * 1.5;
+    width: $default-card-width * 1.15 * 2.1;
     margin: auto;
     margin-top: 50px;
     margin-bottom: 10px;
 }
 
 .card-editor-wrapper {
-    width: $default-card-width * 1.75;
-    height: $default-card-height * 1.5;
+    width: $default-card-width * 1.15;
     float: left;
+    border: 1px solid $darker-grey;
 }
 
 #cke_front-editor, #cke_back-editor {

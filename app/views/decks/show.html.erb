@@ -48,6 +48,11 @@
 	</p>
       </div>
       <div class="cards-display-wrapper">
+	<% if current_user.owns_deck?(@deck) %>
+	  <div class="card-creating" id="card-creating-area">
+	    <%= render partial: "shared/card_editor", locals: {deck: @deck} %>
+	  </div>
+	<% end %>
 	<% @deck.cards.each do |card| %>
 	  <%= render :partial => "shared/card", locals: {card: card} %>
 	<% end %>

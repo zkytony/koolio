@@ -116,7 +116,7 @@ CKEDITOR.editorConfig = function( config )
     ];
 
     config.toolbar_cardEditor = [
-	[ 'Font', 'FontSize', 'Bold', 'Italic', '-', 'NumberedList', 'BulletedList', 'Blockquote', '-', 'HorizontalRule', 'RemoveFormat' ]
+	[ 'FontSize', '-', 'Blockquote', '-', 'HorizontalRule', 'Image', 'Table' ]
     ];
 
     config.font_names = 'Arial;Comic Sans MS;Lucida Sans Unicode;Tahoma;Times New Roman;Verdana;';

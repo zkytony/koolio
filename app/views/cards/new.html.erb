@@ -1,5 +1,5 @@
 <%= stylesheet_link_tag "cards.css" %>
 
 <div class="card-creating" id="card-creating-area">
-  <%= render partial: "shared/card_editor" %>
+  <%= render partial: "shared/card_editor", locals: {deck: @deck} %>
 </div>
