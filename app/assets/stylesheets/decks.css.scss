@@ -68,7 +68,7 @@ body, .container {
 }
 
 .deck-show-header {
-    @include background-image-gradient("/assets/tmp/deck-wall.png");
+    @include background-image-gradient("/assets/tmp/deck-wall.jpg");
     background-repeat: no-repeat;
     @include background-size(cover);
 
