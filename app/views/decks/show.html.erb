@@ -54,7 +54,7 @@
       </div>
       <div class="cards-display-wrapper">
 	<% @deck.cards.each do |card| %>
-	  <%= render :partial => "shared/card", locals: {card: card} %>
+	  <%= render :partial => "shared/card", locals: {card: card, deck: @deck} %>
 	<% end %>
       </div>
     </div>

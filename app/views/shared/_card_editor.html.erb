@@ -1,4 +1,4 @@
-<%= form_for(:card, url: deck_cards_path(deck)) do |f| -%>
+<%= form_for(:card, url: url, method: method) do |f| -%>
   <div class="card-editor-wrapper" id="card-front-editor-wrapper">
     <!-- %= f.text_area :front_content, :id => "front-editor" %-->
     <%= f.cktext_area :front_content, :ckeditor => {:skin => 'minimalist', 

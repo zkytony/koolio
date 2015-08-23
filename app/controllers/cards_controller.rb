@@ -24,10 +24,34 @@ class CardsController < ApplicationController
     @card = Card.find(params[:id])
   end
 
-  private
-    
-    # strong parameter
-    def card_params
-      params.require(:card).permit(:front_content, :back_content, :deck_id, :user_id, :flips)
+  def edit
+    @deck = Deck.find(params[:deck_id])
+    @card = Card.find(params[:id])
+  end
+
+  def update
+    @deck = Deck.find(params[:deck_id])
+    @card = Card.find(params[:id])
+    if @card.update_attributes(card_params)
+      flash[:success] = "Card information updated"
+      redirect_to @deck
+    else
+      render 'edit'
     end
+  end
+
+  def destroy
+    @deck = Deck.find(params[:deck_id])
+    @card = Card.find(params[:id])
+    @card.destroy
+    flash[:success] = "Card deleted"
+    redirect_to @deck
+  end
+
+  private
+  
+  # strong parameter
+  def card_params
+    params.require(:card).permit(:front_content, :back_content, :deck_id, :user_id, :flips)
+  end
 end
