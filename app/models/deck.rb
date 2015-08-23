@@ -5,7 +5,6 @@ class Deck < ActiveRecord::Base
 
   belongs_to :user
   has_many :cards,   dependent: :destroy
-  has_many :subscriptions, dependent: :destroy
 
   def build_card(card_params, user)
     card = self.cards.build(card_params)

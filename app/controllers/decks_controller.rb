@@ -1,4 +1,6 @@
 class DecksController < ApplicationController
+  before_action :logged_in_user, only: [:edit, :update, :destroy]
+
   def index
     @decks = Deck.all
   end
@@ -18,6 +20,27 @@ class DecksController < ApplicationController
 
   def show
     @deck = Deck.find(params[:id])
+  end
+
+  def edit
+    @deck = Deck.find(params[:id])
+  end
+
+  def update
+    @deck = Deck.find(params[:id])
+    if @deck.update_attributes(deck_params)
+      flash[:success] = "Deck information updated"
+      redirect_to @deck
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @deck = Deck.find(params[:id])
+    @deck.destroy
+    flash[:success] = "Deck deleted"
+    redirect_to current_user
   end
 
   private

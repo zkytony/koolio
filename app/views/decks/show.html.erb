@@ -15,9 +15,6 @@
 	<% end %>
 	<ul class="tags">
 	  <li><a href="#">Tag1 good</a></li>
-	  <li><a href="#">Tag2</a></li>
-	  <li><a href="#">Tag3</a></li>
-	  <li><a href="#">Tag4</a></li>
 	</ul>
       </div>
     </div>
@@ -36,8 +33,16 @@
 		  <i class="fa fa-plus"></i>
 		<% end %>
 	      </li>
-	      <li><a href="#"><i class="fa fa-pencil"></i></a></li>
-	      <li><a href="#"><i class="fa fa-ellipsis-v"></i></a></li>
+	      <li>
+		<%= link_to edit_deck_path(@deck) do %>
+		  <i class="fa fa-pencil"></i>
+		<% end %>
+	      </li>
+	      <li>
+		<%= link_to deck_path(@deck), method: :delete do %>
+		  <i class="fa fa-ellipsis-v"></i>
+		<% end %>
+	      </li>
 	    </ul>
 	  </div>
 	<% end %>
@@ -48,11 +53,6 @@
 	</p>
       </div>
       <div class="cards-display-wrapper">
-	<% if current_user.owns_deck?(@deck) %>
-	  <div class="card-creating" id="card-creating-area">
-	    <%= render partial: "shared/card_editor", locals: {deck: @deck} %>
-	  </div>
-	<% end %>
 	<% @deck.cards.each do |card| %>
 	  <%= render :partial => "shared/card", locals: {card: card} %>
 	<% end %>
