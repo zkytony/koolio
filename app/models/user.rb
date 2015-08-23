@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :followers, through: :passive_relationships
   has_many :favor_of_decks, class_name: "Favorite", foreign_key: "user_id", dependent: :destroy
   has_many :favorite_decks, through: :favor_of_decks, source: :deck
+  has_many :liked_cards, class_name: "LikeCard", dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :username,  presence: true,
@@ -67,5 +68,17 @@ class User < ActiveRecord::Base
 
   def favoring_deck?(deck)
     self.favorite_decks.include?(deck)
+  end
+
+  def like_card(card)
+    self.liked_cards.create(card_id: card.id)
+  end
+
+  def unlike_card(card)
+    self.liked_cards.find_by(card_id: card.id).destroy
+  end
+
+  def liked_card?(card)
+    self.liked_cards.include?(card)
   end
 end
