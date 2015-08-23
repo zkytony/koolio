@@ -1,25 +1,15 @@
-<%= form_for @card do |f| -%>
+<%= form_for(:card, url: deck_cards_path(params[:deck_id])) do |f| -%>
   <div class="card-editor-wrapper" id="card-front-editor-wrapper">
     <%= f.text_area :front_content, :id => "front-editor" %>
   </div>
   <div class="card-editor-wrapper" id="card-back-editor-wrapper">
     <%= f.text_area :back_content, :id => "back-editor" %>
   </div>
-  <%= f.submit "Submit" %>
-<% end -%>
+  <%= f.submit "Submit", :class => "submit-card" %>
+<% end %>
 <div id="dummy">
 </div>
 <script>
  CKEDITOR.replace('front-editor', defaultCKConfig);
  CKEDITOR.replace('back-editor', defaultCKConfig);
-
- var plugins = CKEDITOR.config.plugins.split(",");
- var html = "<ul>";
- for ( i in plugins ) {
-   html += "<li>" + plugins[i] + "</li>";
- }
- html += "</ul>";
- $("#dummy").children().remove();
- $("#dummy").append(html);
- 
 </script>
