@@ -1,3 +1,6 @@
+<%= stylesheet_link_tag "perfect-scrollbar/css/perfect-scrollbar.min.css" %>
+<%= javascript_include_tag "perfect-scrollbar/js/perfect-scrollbar.jquery.min.js" %>
+
 <div class="card-wrapper">
   <div class="card flipper">
     <div class="card-front flipper-front flip-dir1">
@@ -11,3 +14,7 @@
     <p><b>52</b> likes, <b>104</b> flips</p>
   </div>
 </div>
+<script>
+ $(".card-front").perfectScrollbar();
+ $(".card-back").perfectScrollbar();
+</script>
