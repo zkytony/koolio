@@ -7,8 +7,10 @@ class User < ActiveRecord::Base
   has_many :following, through: :active_relationships, source: :followed
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy  # Being followed by others
   has_many :followers, through: :passive_relationships
-  has_many :favorite_decks, class_name: "Favorite", dependent: :destroy
-  has_many :liked_cards, class_name: "LikeCard", dependent: :destroy
+  has_many :favor_of_decks, class_name: "Favorite", dependent: :destroy
+  has_many :favorite_decks, through: :favor_of_decks, source: :deck
+  has_many :like_of_cards, class_name: "LikeCard", dependent: :destroy
+  has_many :liked_cards, through: :like_of_cards, source: :card
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :username,  presence: true,
@@ -58,11 +60,11 @@ class User < ActiveRecord::Base
   end
 
   def favor_deck(deck)
-    self.favorite_decks.create(deck_id: deck.id)
+    self.favor_of_decks.create(deck_id: deck.id)
   end
 
   def unfavor_deck(deck)
-    self.favorite_decks.find_by(deck_id: deck.id).destroy
+    self.favor_of_decks.find_by(deck_id: deck.id).destroy
   end
 
   def favoring_deck?(deck)
@@ -70,11 +72,11 @@ class User < ActiveRecord::Base
   end
 
   def like_card(card)
-    self.liked_cards.create(card_id: card.id)
+    self.like_of_cards.create(card_id: card.id)
   end
 
   def unlike_card(card)
-    self.liked_cards.find_by(card_id: card.id).destroy
+    self.like_of_cards.find_by(card_id: card.id).destroy
   end
 
   def liked_card?(card)

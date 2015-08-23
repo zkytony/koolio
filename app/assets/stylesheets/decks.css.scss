@@ -105,7 +105,12 @@ body, .container {
     height: $deck-header-info-height;
     background-color: $bg-color;
     margin: 7px;
-    p {
+
+    button {
+	border: none;
+	background-color: $bg-color;
+    }
+    p, button {
 	font-size: $deck-header-info-height - 13px;
 	padding: 5px 5px 5px 5px;
 	color: $theme-purple;
@@ -113,6 +118,7 @@ body, .container {
 	.fa {
 	    font-size: 17px;
 	    font-family: FontAwesome; /* not overriding */
+	    margin-right: 5px;
 	}
     }
 }

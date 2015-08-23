@@ -43,6 +43,18 @@ class DecksController < ApplicationController
     redirect_to current_user
   end
 
+  def favorite
+    @deck = Deck.find(params[:deck_id])
+    current_user.favor_deck(@deck)
+    redirect_to @deck
+  end
+
+  def unfavorite
+    @deck = Deck.find(params[:deck_id])
+    current_user.unfavor_deck(@deck)
+    redirect_to @deck
+  end
+
   private
     
     # strong parameter

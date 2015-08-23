@@ -1,0 +1,5 @@
+<%= form_tag("/decks/#{deck.id}/unfavorite", method: :delete) do %>
+  <%= button_tag do %>
+    <i class="fa fa-heart"></i><%= deck.favoring_users.count %>
+  <% end %>
+<% end %>

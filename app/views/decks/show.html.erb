@@ -22,8 +22,14 @@
       <div class="deck-show-header">
 	<h1><%= @deck.title %></h1>
 	<div class="deck-info-header">
-	  <p><i class="fa fa-heart-o"></i> 34</p>
-	  <p><i class="fa fa-square-o"></i> 5</p>
+	  <% if !current_user.favoring_deck?(@deck) %>
+	    <%= render partial: "shared/favorite_deck_button", locals: {deck: @deck} %>
+	  <% else %>
+	    <%= render partial: "shared/unfavorite_deck_button", locals: {deck: @deck} %>
+	  <% end %>
+	  <p>
+	    <i class="fa fa-square-o"></i><%= @deck.cards.count%>
+	  </p>
 	</div>
 	<% if current_user.owns_deck?(@deck) %>
 	  <div class="deck-options">

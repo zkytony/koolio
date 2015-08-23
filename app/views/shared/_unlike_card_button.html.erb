@@ -1,0 +1,5 @@
+<%= form_tag("/decks/#{deck.id}/cards/#{card.id}/unlike", method: :delete) do %>
+  <%= button_tag do %>
+    <i class="fa fa-thumbs-up"></i><%= card.liked_users.count %>
+  <% end %>
+<% end %>

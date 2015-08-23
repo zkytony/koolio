@@ -11,6 +11,11 @@ Rails.application.routes.draw do
     delete 'unfollow' => 'users#unfollow'
   end
   resources :decks do
-    resources :cards
+    post 'favorite' => 'decks#favorite'
+    delete 'unfavorite' => 'decks#unfavorite'
+    resources :cards do
+      post 'like' => 'cards#like'
+      delete 'unlike' => 'cards#unlike'
+    end
   end
 end

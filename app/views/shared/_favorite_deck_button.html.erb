@@ -1,0 +1,5 @@
+<%= form_tag("/decks/#{deck.id}/favorite", method: :post) do %>
+  <%= button_tag do %>
+    <i class="fa fa-heart-o"></i><%= deck.favoring_users.count %>
+  <% end %>
+<% end %>
