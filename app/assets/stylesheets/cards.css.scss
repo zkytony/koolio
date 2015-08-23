@@ -16,12 +16,14 @@
 	width: 100%;
 	height: 100%;
 	@include border-radius(5px);
+	@include box-shadow(0px, 0px, 4px, $soft-black);
     }
 
     .card-back {
 	width: 100%;
 	height: 100%;
 	@include border-radius(5px);
+	@include box-shadow(0px, 0px, 4px, $soft-black);
     }
 }
 
@@ -43,7 +45,7 @@
 /* card editor */
 .card-creating {
     width: $default-card-width * 1.75 * 2.1;
-    height: $default-card-height * 1.75;
+    height: $default-card-height * 1.5;
     margin: auto;
     margin-top: 50px;
     margin-bottom: 10px;
@@ -51,10 +53,35 @@
 
 .card-editor-wrapper {
     width: $default-card-width * 1.75;
-    height: $default-card-height * 1.75;
+    height: $default-card-height * 1.5;
     float: left;
 }
 
 #cke_front-editor, #cke_back-editor {
     border: 1px solid grey;
+}
+
+#cke_1_contents iframe {
+    background-color: $white;
+}
+
+#cke_2_contents iframe {
+    background-color: lighten($bg-color, 5%);
+}
+
+.submit-card {
+    width: 70px;
+    height: 30px;
+    margin-top: 15px;
+    background-color: darken($regular-green, 15%);
+    color: $white;
+    border: none;
+    @include border-radius(5px);
+    
+    &:hover {
+	background-color: darken($regular-green, 20%);
+    }
+    &:active {
+	background-color: darken($regular-green, 25%);
+    }
 }
