@@ -5,6 +5,8 @@ class Deck < ActiveRecord::Base
 
   belongs_to :user
   has_many :cards,   dependent: :destroy
+  has_many :users_with_favor, class_name: "Favorite", dependent: :destroy
+  has_many :favoring_users, through: :users_with_favor, source: :user
 
   def build_card(card_params, user)
     card = self.cards.build(card_params)

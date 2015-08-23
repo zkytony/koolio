@@ -27,6 +27,9 @@ RSpec.describe User, :type => :model do
   it { should have_many(:following).through(:active_relationships).source(:followed) }
   it { should have_many(:followers).through(:passive_relationships) }
 
+  it { should have_many(:favor_of_decks).class_name("Favorite").dependent(:destroy) }
+  it { should have_many(:favorite_decks).through(:favor_of_decks).source(:deck) }
+
   it "should have non-empty password" do 
     user = User.new(username: "user1", email: "user1@example.com",
                     password: " " * 6, password_confirmation: " " * 6)
@@ -85,7 +88,7 @@ RSpec.describe User, :type => :model do
 
   it "should authenticate user with email and password" do
     user = User.create(username: "user1", email: "user1@example.com",
-                    password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456")
     user_get = User.authenticate(user.email, user.password)
     expect(user_get).not_to be false
     expect(user_get.username).to eq("user1")
@@ -93,7 +96,7 @@ RSpec.describe User, :type => :model do
 
   it "should authenticate user with username and password" do
     user = User.create(username: "user1", email: "user1@example.com",
-                    password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456")
     user_get = User.authenticate(user.username, user.password)
     expect(user_get).not_to be false
     expect(user_get.username).to eq("user1")
@@ -101,15 +104,44 @@ RSpec.describe User, :type => :model do
 
   it "should not authenticate user with email or username and wrong password" do
     user = User.create(username: "user1", email: "user1@example.com",
-                    password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456")
     expect(User.authenticate(user.email, "not the password")).to be false
     expect(User.authenticate(user.username, "not the password")).to be false
   end
 
   it "should not authenticate user with wrong email or username and password" do
     user = User.create(username: "user1", email: "user1@example.com",
-                    password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456")
     expect(User.authenticate("bad email", user.password)).to be false
     expect(User.authenticate("bad username", user.password)).to be false
+  end
+
+  it "should favorite deck" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    user.favor_deck(deck)
+    expect(user.favorite_decks.count).to be 1
+  end
+
+  it "should unfavor deck" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    user.favor_deck(deck)
+    expect(user.favorite_decks.count).to be 1
+    user.unfavor_deck(deck)
+    expect(user.favorite_decks.count).to be 0
+  end
+
+  it "should not favor a deck twice" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    user.favor_deck(deck)
+    expect(user.favorite_decks.count).to be 1
+    expect {
+      user.favor_deck(deck)
+    }.to raise_error(ActiveRecord::RecordNotUnique)
   end
 end
