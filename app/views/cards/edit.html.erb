@@ -2,6 +2,6 @@
 
 <div class="card-creating" id="card-creating-area">
   <%= render partial: "shared/card_editor", locals: {deck: @deck, 
-						     url: deck_cards_path(@deck),
-						     method: :post} %>
+						     url: deck_card_path(@deck, @card), 
+						     method: :put} %>
 </div>

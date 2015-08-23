@@ -11,10 +11,17 @@
     </div>
   </div>
   <div class="card-info-bar">
-    <p><b>52</b> likes, <b>104</b> flips</p>
+    <p>
+      <%= link_to edit_deck_card_path(deck, card) do %>
+	<i class="fa fa-pencil"></i>
+      <% end %>
+      <%= link_to deck_card_path(deck, card), method: :delete do %>
+	<i class="fa fa-ellipsis-v"></i>
+      <% end %>
+    </p>
   </div>
 </div>
 <script>
- $(".card-front").perfectScrollbar();
- $(".card-back").perfectScrollbar();
+ $(".card-front").perfectScrollbar({maxScrollbarLength: 10});
+ $(".card-back").perfectScrollbar({maxScrollbarLength: 10});
 </script>
