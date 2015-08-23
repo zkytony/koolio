@@ -6,11 +6,11 @@
   <div class="main-content-wrapper">
     <div class="left-panel-wrapper">      
       <div class="deck-owner-info">
-	<%= render partial: "shared/user_info" %>
+	<%= render partial: "shared/user_info", locals: {user: @deck.user, deck: @deck} %>
       </div>
       <div class="deck-tags">
 	<h3>Tags</h3>
-	<% if true #owns_deck(current_user) %>
+	<% if current_user.owns_deck?(@deck) %>
 	  <a href="#" class="option-edit-tags"><i class="fa fa-pencil"></i></a>
 	<% end %>
 	<ul class="tags">
@@ -23,15 +23,19 @@
     </div>
     <div class="center-content-wrapper">
       <div class="deck-show-header">
-	<h1>A Deck of Cards</h1>
+	<h1><%= @deck.title %></h1>
 	<div class="deck-info-header">
 	  <p><i class="fa fa-heart-o"></i> 34</p>
 	  <p><i class="fa fa-square-o"></i> 5</p>
 	</div>
-	<% if true #owns_deck(current_user) %>
+	<% if current_user.owns_deck?(@deck) %>
 	  <div class="deck-options">
 	    <ul>
-	      <li class="option-add-card"><a href="#"><i class="fa fa-plus"></i></a></li>
+	      <li class="option-add-card">
+		<%= link_to request.original_url + "/cards/new" do %>
+		  <i class="fa fa-plus"></i>
+		<% end %>
+	      </li>
 	      <li><a href="#"><i class="fa fa-pencil"></i></a></li>
 	      <li><a href="#"><i class="fa fa-ellipsis-v"></i></a></li>
 	    </ul>
@@ -40,15 +44,13 @@
       </div>
       <div class="deck-description">
 	<p>
-	  This is a deck description. This is a demo deck, which does not contain anything useful. Its cards are all black-white, which is kind of dummy. But this is a pretty important deck an opens up possibilities
+	  <%= @deck.description %>
 	</p>
       </div>
       <div class="cards-display-wrapper">
-	<%= render partial: "shared/card"  %>
-	<%= render partial: "shared/card"  %>
-	<%= render partial: "shared/card"  %>
-	<%= render partial: "shared/card"  %>
-	<%= render partial: "shared/card"  %>
+	<% @deck.cards.each do |card| %>
+	  <%= render :partial => "shared/card", locals: {card: card} %>
+	<% end %>
       </div>
     </div>
     <div class="right-panel-wrapper">

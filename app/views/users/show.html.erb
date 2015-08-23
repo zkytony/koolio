@@ -1,3 +1,9 @@
 <% provide(:title, "#{@user.username}") %>
 <h1>hI <%= @user.username %></h1>
 <%= link_to "Log out", logout_path %>
+<%= link_to "New deck",  new_deck_path %>
+<ul>
+  <% @user.decks.each do |deck| %>
+    <li><%= link_to deck.title, deck %></li>
+  <% end %>
+</ul>

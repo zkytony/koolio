@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   get 'logout' => 'sessions#destroy'
   get 'signup' => 'users#new'
-  resources :users
-  resources :cards
-  resources :decks
+  resources :users do
+    post 'follow' => 'users#follow'
+    delete 'unfollow' => 'users#unfollow'
+  end
+  resources :decks do
+    resources :cards
+  end
 end

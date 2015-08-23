@@ -16,16 +16,19 @@
 	}
     }
 
-    .follow-btn {
+    .follow-btn, .unfollow-btn {
 	position: absolute;
 	top: $user-info-profile-width / 2.5;
-	margin-left: 20px;
+	left: $user-info-profile-width * 1.4;
 	width: 65px;
+	border: 2px solid $bg-color;
+	@include border-radius(5px);
+    }
+
+    .follow-btn {
+	padding: 10px;
 	background-color: $decent-purple;
 	color: $white;
-	border: 2px solid $bg-color;
-	padding: 10px;
-	@include border-radius(5px);
 	
 	&:hover {
 	    background-color: darken($decent-purple, 5%);
@@ -33,6 +36,20 @@
 
 	&:active {
 	    background-color: darken($decent-purple, 10%);
+	}
+    }
+
+    .unfollow-btn {
+	padding: 10px 5px;
+	background-color: $bg-color;
+	color: $soft-black;
+	
+	&:hover {
+	    background-color: darken($bg-color, 5%);
+	}
+
+	&:active {
+	    background-color: darken($bg-color, 10%);
 	}
     }
 }

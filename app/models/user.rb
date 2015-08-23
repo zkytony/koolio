@@ -21,15 +21,15 @@ class User < ActiveRecord::Base
   has_secure_password   # Enforces validation on the virtual password & password_confirmation attributes
 
   def follow(other_user)
-    active_relationships.create(followed_id: other_user.id)
+    self.active_relationships.create(followed_id: other_user.id)
   end
 
   def unfollow(other_user)
-    active_relationships.find_by(followed_id: other_user.id).destroy
+    self.active_relationships.find_by(followed_id: other_user.id).destroy
   end
 
   def following?(other_user)
-    following.include?(other_user)
+    self.following.include?(other_user)
   end
 
   def self.find_by_email(email)
@@ -45,6 +45,14 @@ class User < ActiveRecord::Base
     user ||= find_by_email identifier
     return false if user.nil?
     user.authenticate(password)
+  end
+
+  def owns_deck?(deck)
+    self.decks.include?(deck)
+  end
+
+  def owns_card?(card)
+    self.cards.include?(card)
   end
 
 end
