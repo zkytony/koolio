@@ -1,0 +1,3 @@
+<%= form_tag("/users/#{user.id}/unfollow", method: :delete) do %>
+  <%= submit_tag "Unfollow", class: "unfollow-btn" %>
+<% end %>

@@ -3,28 +3,34 @@
     <a>
       <%= image_tag "default-profile.svg" %>
     </a>
-    <button class="follow-btn">Follow</button>
+    <% if !current_user.owns_deck?(deck) %>
+      <% if !current_user.following?(user) %>
+	<%= render partial: "shared/follow_button", locals: {user: user} %>
+      <% else %>
+	<%= render partial: "shared/unfollow_button", locals: {user: user} %>
+      <% end %>
+    <% end %>
   </div>
   <div class="user-info-item">
     <a>
-      Normal Username
+      <%= user.username %>
     </a>
   </div>
   <div class="user-info-short-stats">
     <a href="#">
-      <strong>938</strong><br>
+      <strong><%= user.followers.count %></strong><br>
       <span>Followers</span>
     </a>
     <a href="#">
-      <strong>23</strong><br>
+      <strong><%= user.following.count %></strong><br>
       <span>Following</span>
     </a>
     <a href="#">
-      <strong>455</strong><br>
+      <strong><%= user.cards.count %></strong><br>
       <span>Cards</span>
     </a>
     <a href="#">
-      <strong>15</strong><br>
+      <strong><%= user.decks.count %></strong><br>
       <span>Decks</span>
     </a>
   </div>    

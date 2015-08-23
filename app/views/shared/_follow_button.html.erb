@@ -1,0 +1,3 @@
+<%= form_tag("/users/#{user.id}/follow", method: :post) do %>
+  <%= submit_tag "Follow", class: "follow-btn" %>
+<% end %>
