@@ -30,6 +30,8 @@ RSpec.describe User, :type => :model do
   it { should have_many(:favor_of_decks).class_name("Favorite").dependent(:destroy) }
   it { should have_many(:favorite_decks).through(:favor_of_decks).source(:deck) }
 
+  it { should have_many(:liked_cards).class_name("LikeCard").dependent(:destroy) }
+
   it "should have non-empty password" do 
     user = User.new(username: "user1", email: "user1@example.com",
                     password: " " * 6, password_confirmation: " " * 6)
@@ -142,6 +144,45 @@ RSpec.describe User, :type => :model do
     expect(user.favorite_decks.count).to be 1
     expect {
       user.favor_deck(deck)
+    }.to raise_error(ActiveRecord::RecordNotUnique)
+  end
+
+  it "should like a card" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
+    card.save!
+    user.like_card(card)
+    expect(user.liked_cards.count).to be 1
+    expect(card.liked_users.count).to be 1
+  end
+
+  it "should unlike a card" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
+    card.save!
+    user.like_card(card)
+    expect(user.liked_cards.count).to be 1
+    expect(card.liked_users.count).to be 1
+    user.unlike_card(card)
+    expect(user.liked_cards.count).to be 0
+    expect(card.liked_users.count).to be 0
+  end
+
+  it "should not like a card twice" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
+    card.save!
+    user.like_card(card)
+    expect(user.liked_cards.count).to be 1
+    expect(card.liked_users.count).to be 1
+    expect {
+      user.like_card(card)
     }.to raise_error(ActiveRecord::RecordNotUnique)
   end
 end
