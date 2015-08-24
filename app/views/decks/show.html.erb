@@ -11,10 +11,14 @@
       <div class="deck-tags">
 	<h3>Tags</h3>
 	<% if current_user.owns_deck?(@deck) %>
-	  <a href="#" class="option-edit-tags"><i class="fa fa-pencil"></i></a>
+	  <%= link_to edit_deck_path(@deck), class: "option-edit-tags" do %>
+	    <i class="fa fa-pencil"></i>
+	  <% end %>
 	<% end %>
 	<ul class="tags">
-	  <li><a href="#">Tag1 good</a></li>
+	  <% @deck.tags.each do |one_tag| %>
+	    <li><%= link_to one_tag.name, "#" %></li>
+	  <% end %>
 	</ul>
       </div>
     </div>

@@ -11,7 +11,12 @@ class DecksController < ApplicationController
 
   def create
     @deck = current_user.decks.build(deck_params)
+    tags = params[:tags].split(",");
     if @deck.save!
+      tags.each do |tag_name|
+        @deck.add_tag({name: tag_name})
+      end
+
       redirect_to @deck
     else
       redirect_to new_deck_path
@@ -28,7 +33,13 @@ class DecksController < ApplicationController
 
   def update
     @deck = Deck.find(params[:id])
+    tags = params[:tags].split(",");
     if @deck.update_attributes(deck_params)
+      @deck.remove_all_tags
+      tags.each do |tag_name|
+        @deck.add_tag({name: tag_name})
+      end
+
       flash[:success] = "Deck information updated"
       redirect_to @deck
     else
