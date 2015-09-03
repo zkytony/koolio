@@ -21,6 +21,7 @@ RSpec.describe User, :type => :model do
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_many(:decks) }
   it { should have_many(:decks).dependent(:destroy) }
+  it { should have_many(:comments).dependent(:destroy) }
 
   it { should have_many(:active_relationships).class_name("Relationship").with_foreign_key("follower_id").dependent(:destroy) }
   it { should have_many(:passive_relationships).class_name("Relationship").with_foreign_key("followed_id").dependent(:destroy) }
@@ -186,5 +187,19 @@ RSpec.describe User, :type => :model do
     expect {
       user.like_card(card)
     }.to raise_error(ActiveRecord::RecordNotUnique)
+  end
+
+  it "should comment on card" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
+    card.save!
+    message = "Hello! How are you!"
+    user.comment(card, message)
+    message = "I like your card!"
+    user.comment(card, message)
+    expect(user.comments.count).to be 2
+    expect(card.comments.count).to be 2
   end
 end

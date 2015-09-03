@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   has_many :decks,    dependent: :destroy
   has_many :cards,    dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy   # Follow others
   has_many :following, through: :active_relationships, source: :followed
   has_many :passive_relationships, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy  # Being followed by others
@@ -81,5 +82,9 @@ class User < ActiveRecord::Base
 
   def liked_card?(card)
     self.liked_cards.include?(card)
+  end
+
+  def comment(card, message)
+    self.comments.create(card_id: card.id, content: message)
   end
 end
