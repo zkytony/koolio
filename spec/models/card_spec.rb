@@ -7,6 +7,7 @@ RSpec.describe Card, type: :model do
   it { should belong_to(:deck) }
   it { should belong_to(:user) }
 
+  it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:users_with_like).class_name("LikeCard").dependent(:destroy) }
   it { should have_many(:liked_users).through(:users_with_like).source(:user) }
 end
