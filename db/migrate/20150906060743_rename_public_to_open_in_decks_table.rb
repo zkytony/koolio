@@ -4,5 +4,6 @@ class RenamePublicToOpenInDecksTable < ActiveRecord::Migration
   end
 
   def down
+    rename_column :decks, :open, :public
   end
 end

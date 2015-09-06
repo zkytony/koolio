@@ -5,7 +5,7 @@ class Deck < ActiveRecord::Base
   validates_inclusion_of :open, :in => [true, false]
 
   belongs_to :user
-  has_many :cards,   dependent: :destroy
+  has_many :cards, dependent: :destroy
 
   has_many :users_with_favor, class_name: "Favorite", dependent: :destroy
   has_many :favoring_users, through: :users_with_favor, source: :user
@@ -20,9 +20,11 @@ class Deck < ActiveRecord::Base
   has_many :normal_viewers, through: :deck_viewer_associations, source: :user # STI; used when deck is not open
 
   def build_card(card_params, user)
-    card = self.cards.build(card_params)
-    card.user = user
-    card
+    if self.is_editor?(user)
+      card = self.cards.build(card_params)
+      card.user = user
+      card
+    end
   end
 
   def add_tag(tag_params)
@@ -55,6 +57,10 @@ class Deck < ActiveRecord::Base
     self.user
   end
 
+  def creator?(user)
+    self.creator.id == user.id
+  end
+
   def share_to(user, role="")
     case role.upcase
     when "EDITOR"
@@ -81,8 +87,9 @@ class Deck < ActiveRecord::Base
   end
 
   def unshare(user)
-    if user.id != self.creator.id
+    if !self.creator?(user) 
       self.deck_user_associations.find_by(user_id: user.id).destroy
+      true
     end
     false
   end
