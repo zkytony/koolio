@@ -13,6 +13,12 @@ class User < ActiveRecord::Base
   has_many :like_of_cards, class_name: "LikeCard", dependent: :destroy
   has_many :liked_cards, through: :like_of_cards, source: :card
 
+  has_many :deck_user_associations, dependent: :destroy
+  has_many :deck_editor_associations, dependent: :destroy
+  has_many :deck_viewer_associations, dependent: :destroy
+  has_many :editable_decks, through: :deck_editor_associations, source: :deck
+  has_many :decks_shared_for_view, through: :deck_viewer_associations, source: :deck
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :username,  presence: true,
                         uniqueness: true
@@ -24,6 +30,14 @@ class User < ActiveRecord::Base
                         length: { minimum: 6 }
   
   has_secure_password   # Enforces validation on the virtual password & password_confirmation attributes
+
+  # This function creates the deck, and adds the user as editor to the deck_user_associations
+  # Use this instead of self.decks.create alone
+  def create_deck(deck_params)
+    deck = self.decks.create!(deck_params)
+    deck.deck_editor_associations.create(user_id: self.id)
+    deck
+  end
 
   def follow(other_user)
     self.active_relationships.create(followed_id: other_user.id)
@@ -86,5 +100,12 @@ class User < ActiveRecord::Base
 
   def comment(card, message)
     self.comments.create(card_id: card.id, content: message)
+  end
+
+  def turndown_deck_share(deck)
+    if deck.creator.id != self.id
+      self.deck_user_associations.find_by(deck_id: deck.id).destroy
+    end
+    false
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150906000116) do
+ActiveRecord::Schema.define(version: 20150906060743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,11 +42,12 @@ ActiveRecord::Schema.define(version: 20150906000116) do
   create_table "deck_user_associations", force: :cascade do |t|
     t.integer  "deck_id"
     t.integer  "user_id"
-    t.integer  "type",       default: -1
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "type",       default: "-1"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
+  add_index "deck_user_associations", ["deck_id", "user_id"], name: "index_deck_user_associations_on_deck_id_and_user_id", unique: true, using: :btree
   add_index "deck_user_associations", ["deck_id"], name: "index_deck_user_associations_on_deck_id", using: :btree
   add_index "deck_user_associations", ["user_id"], name: "index_deck_user_associations_on_user_id", using: :btree
 
@@ -56,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150906000116) do
     t.integer  "user_id"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
-    t.boolean  "public",      default: true
+    t.boolean  "open",        default: true
   end
 
   add_index "decks", ["user_id", "created_at"], name: "index_decks_on_user_id_and_created_at", using: :btree

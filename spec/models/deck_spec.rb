@@ -13,6 +13,13 @@ RSpec.describe Deck, type: :model do
   it { should have_many(:users_with_favor).class_name("Favorite").dependent(:destroy) }
   it { should have_many(:favoring_users).through(:users_with_favor).source(:user) }
 
+  it { should have_many(:deck_user_associations).dependent(:destroy) }
+  it { should have_many(:deck_editor_associations).dependent(:destroy) }
+  it { should have_many(:deck_viewer_associations).dependent(:destroy) }
+  it { should have_many(:shared_users).through(:deck_user_associations).source(:user) }
+  it { should have_many(:editors).through(:deck_editor_associations).source(:user) }
+  it { should have_many(:normal_viewers).through(:deck_viewer_associations).source(:user) }
+
   it "should add tag" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
@@ -64,5 +71,54 @@ RSpec.describe Deck, type: :model do
     expect(deck.tags.count).to be 0
     deck.add_tag({name: "test1"})
     expect(deck.tags.count).to be 1
+  end
+
+  it "should share a deck to another user as editor" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                       password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description")
+    deck.share_to(userB, "Editor")
+    expect(deck.editors.count).to be 2     # including userA himself
+    expect(deck.normal_viewers.count).to be 0
+    expect(deck.shared_users.count).to be 2
+  end
+
+  it "should share a deck to another user as viewer" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                       password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description")
+    deck.share_to(userB, "Viewer")
+    expect(deck.editors.count).to be 1     # including userA himself
+    expect(deck.normal_viewers.count).to be 1
+    expect(deck.shared_users.count).to be 2
+  end
+
+  it "should change type of share" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                       password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description")
+    deck.share_to(userB, "Viewer")
+    expect(deck.is_editor?(userB)).to be false
+    deck.change_share_role(userB, "Editor")
+    expect(deck.is_editor?(userB)).to be true
+    expect(deck.editors.count).to be 2     # including userA himself
+  end
+
+  it "should unshare deck" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                       password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+    deck.share_to(userB, "Viewer")
+    expect(deck.viewable_by?(userB)).to be true
+    deck.unshare(userB)
+    expect(deck.viewable_by?(userB)).to be false
   end
 end

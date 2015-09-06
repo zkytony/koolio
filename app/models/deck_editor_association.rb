@@ -1,0 +1,2 @@
+class DeckEditorAssociation < DeckUserAssociation
+end

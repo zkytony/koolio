@@ -34,6 +34,12 @@ RSpec.describe User, :type => :model do
   it { should have_many(:like_of_cards).class_name("LikeCard").dependent(:destroy) }
   it { should have_many(:liked_cards).through(:like_of_cards).source(:card) }
 
+  it { should have_many(:deck_user_associations).dependent(:destroy) }
+  it { should have_many(:deck_editor_associations).dependent(:destroy) }
+  it { should have_many(:deck_viewer_associations).dependent(:destroy) }
+  it { should have_many(:editable_decks).through(:deck_editor_associations).source(:deck) }
+  it { should have_many(:decks_shared_for_view).through(:deck_viewer_associations).source(:deck) }
+
   it "should have non-empty password" do 
     user = User.new(username: "user1", email: "user1@example.com",
                     password: " " * 6, password_confirmation: " " * 6)
@@ -201,5 +207,25 @@ RSpec.describe User, :type => :model do
     user.comment(card, message)
     expect(user.comments.count).to be 2
     expect(card.comments.count).to be 2
+  end
+
+  it "should create a deck, and see himself added as editor" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
+    expect(deck.editors.count).to be 1
+    expect(deck.editors.include?(user)).to be true
+  end
+
+  it "should be able to turn down a share" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                        password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                        password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+    deck.share_to(userB, "Viewer")
+    expect(deck.viewable_by?(userB)).to be true
+    userB.turndown_deck_share(deck)
+    expect(deck.viewable_by?(userB)).to be false
   end
 end
