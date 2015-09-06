@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150905235813) do
+ActiveRecord::Schema.define(version: 20150906000116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,17 @@ ActiveRecord::Schema.define(version: 20150905235813) do
 
   add_index "comments", ["card_id"], name: "index_comments_on_card_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "deck_user_associations", force: :cascade do |t|
+    t.integer  "deck_id"
+    t.integer  "user_id"
+    t.integer  "type",       default: -1
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "deck_user_associations", ["deck_id"], name: "index_deck_user_associations_on_deck_id", using: :btree
+  add_index "deck_user_associations", ["user_id"], name: "index_deck_user_associations_on_user_id", using: :btree
 
   create_table "decks", force: :cascade do |t|
     t.string   "title"
@@ -122,5 +133,7 @@ ActiveRecord::Schema.define(version: 20150905235813) do
   add_foreign_key "cards", "users"
   add_foreign_key "comments", "cards"
   add_foreign_key "comments", "users"
+  add_foreign_key "deck_user_associations", "decks"
+  add_foreign_key "deck_user_associations", "users"
   add_foreign_key "decks", "users"
 end
