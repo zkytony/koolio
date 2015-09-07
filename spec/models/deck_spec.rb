@@ -20,10 +20,12 @@ RSpec.describe Deck, type: :model do
   it { should have_many(:editors).through(:deck_editor_associations).source(:user) }
   it { should have_many(:normal_viewers).through(:deck_viewer_associations).source(:user) }
 
+  it { should have_many(:recommendations) }
+
   it "should add tag" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     tag = deck.add_tag({name: "test"})
     expect(deck.tags.count).to be 1
     expect(tag.decks.count).to be 1
@@ -35,7 +37,7 @@ RSpec.describe Deck, type: :model do
   it "should not add duplicate tags with same name" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     tag = deck.add_tag({name: "test"})
     expect(deck.tags.count).to be 1
     expect(tag.decks.count).to be 1
@@ -50,7 +52,7 @@ RSpec.describe Deck, type: :model do
   it "should remove tag" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     tag = deck.add_tag({name: "test"})
     expect(deck.tags.count).to be 1
     expect(tag.decks.count).to be 1
@@ -62,7 +64,7 @@ RSpec.describe Deck, type: :model do
   it "should remove all tags (association-wise)" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     deck.add_tag({name: "test1"})
     deck.add_tag({name: "test2"})
     deck.add_tag({name: "test3"})
@@ -104,9 +106,9 @@ RSpec.describe Deck, type: :model do
                        password: "123456", password_confirmation: "123456")
     deck = userA.create_deck(title: "Testing deck", description: "Testing deck description")
     deck.share_to(userB, "Viewer")
-    expect(deck.is_editor?(userB)).to be false
+    expect(deck.editable_by?(userB)).to be false
     deck.change_share_role(userB, "Editor")
-    expect(deck.is_editor?(userB)).to be true
+    expect(deck.editable_by?(userB)).to be true
     expect(deck.editors.count).to be 2     # including userA himself
   end
 
@@ -120,5 +122,19 @@ RSpec.describe Deck, type: :model do
     expect(deck.viewable_by?(userB)).to be true
     deck.unshare(userB)
     expect(deck.viewable_by?(userB)).to be false
+  end
+
+  it "should recognize who it is recommended to and by" do
+        userA = User.create(username: "userA", email: "userA@example.com",
+                        password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                        password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, userA)
+    card.save!
+
+    userA.recommend_to(userB, card)
+    expect(card.is_recommended_by?(userA)).to be true
+    expect(card.is_recommended_to?(userB)).to be true
   end
 end

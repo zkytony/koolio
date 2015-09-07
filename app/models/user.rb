@@ -19,6 +19,14 @@ class User < ActiveRecord::Base
   has_many :editable_decks, through: :deck_editor_associations, source: :deck
   has_many :decks_shared_for_view, through: :deck_viewer_associations, source: :deck
 
+  has_many :active_recommendations, class_name: "Recommendation", foreign_key: "from_user_id", dependent: :destroy
+  has_many :recommendings_of_cards, through: :active_recommendations, source: :recommendable, source_type: "Card"
+  has_many :recommendings_of_decks, through: :active_recommendations, source: :recommendable, source_type: "Deck"
+  has_many :passive_recommendations, class_name: "Recommendation", foreign_key: "to_user_id", dependent: :destroy
+  has_many :recommended_cards, through: :passive_recommendations, source: :recommendable, source_type: "Card"
+  has_many :recommended_decks, through: :passive_recommendations, source: :recommendable, source_type: "Deck"
+
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :username,  presence: true,
                         uniqueness: true
@@ -49,6 +57,11 @@ class User < ActiveRecord::Base
 
   def following?(other_user)
     self.following.include?(other_user)
+  end
+
+  # Do you and me follow each other?
+  def following_mutually?(other_user)
+    self.following.include?(other_user) && other_user.following.include?(self)
   end
 
   def self.find_by_email(email)
@@ -107,5 +120,18 @@ class User < ActiveRecord::Base
       self.deck_user_associations.find_by(deck_id: deck.id).destroy
     end
     false
+  end
+  
+  # recommend a recommendable model to the other user
+  def recommend_to(other_user, recommendable)
+    self.active_recommendations.create(to_user_id: other_user.id, recommendable: recommendable)
+  end
+
+  def cancel_recommendation(other_user, recommendable)
+    self.active_recommendations.find_by(to_user_id: other_user.id, recommendable: recommendable).destroy
+  end
+
+  def turndown_recommendation(other_user, recommendable)
+    self.passive_recommendations.find_by(from_user_id: other_user.id, recommendable: recommendable).destroy
   end
 end
