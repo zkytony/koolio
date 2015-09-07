@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150906190736) do
+ActiveRecord::Schema.define(version: 20150906201238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,20 @@ ActiveRecord::Schema.define(version: 20150906190736) do
   add_index "like_cards", ["card_id"], name: "index_like_cards_on_card_id", using: :btree
   add_index "like_cards", ["user_id", "card_id"], name: "index_like_cards_on_user_id_and_card_id", unique: true, using: :btree
   add_index "like_cards", ["user_id"], name: "index_like_cards_on_user_id", using: :btree
+
+  create_table "recommendations", force: :cascade do |t|
+    t.integer  "from_user_id"
+    t.integer  "to_user_id"
+    t.integer  "recommendable_id"
+    t.string   "recommendable_type"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "recommendations", ["from_user_id"], name: "index_recommendations_on_from_user_id", using: :btree
+  add_index "recommendations", ["recommendable_id"], name: "index_recommendations_on_recommendable_id", using: :btree
+  add_index "recommendations", ["to_user_id", "recommendable_type", "recommendable_id", "from_user_id"], name: "by_toU_Rtype_Rid_fromU", unique: true, using: :btree
+  add_index "recommendations", ["to_user_id"], name: "index_recommendations_on_to_user_id", using: :btree
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"

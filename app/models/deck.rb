@@ -19,8 +19,10 @@ class Deck < ActiveRecord::Base
   has_many :editors, through: :deck_editor_associations, source: :user  # STI
   has_many :normal_viewers, through: :deck_viewer_associations, source: :user # STI; used when deck is not open
 
+  has_many :recommendations, as: :recommendable, dependent: :destroy
+
   def build_card(card_params, user)
-    if self.is_editor?(user)
+    if self.editable_by?(user)
       card = self.cards.build(card_params)
       card.user = user
       card
@@ -94,12 +96,20 @@ class Deck < ActiveRecord::Base
     false
   end
 
-  def is_editor?(user)
+  def editable_by?(user)
     return self.editors.include?(user)
   end
 
   def viewable_by?(user)
     return self.open || self.shared_users.include?(user)
+  end
+
+  def is_recommended_by?(user)
+    return user.recommendings_of_decks.include?(self)
+  end
+
+  def is_recommended_to?(user)
+    return user.recommended_decks.include?(self)
   end
 end
 

@@ -11,6 +11,8 @@ RSpec.describe Card, type: :model do
   it { should have_many(:users_with_like).class_name("LikeCard").dependent(:destroy) }
   it { should have_many(:liked_users).through(:users_with_like).source(:user) }
 
+  it { should have_many(:recommendations) }
+
   it "should not be viewed once hidden" do
     userA = User.create(username: "userA", email: "userA@example.com",
                         password: "123456", password_confirmation: "123456")

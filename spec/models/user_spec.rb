@@ -40,6 +40,13 @@ RSpec.describe User, :type => :model do
   it { should have_many(:editable_decks).through(:deck_editor_associations).source(:deck) }
   it { should have_many(:decks_shared_for_view).through(:deck_viewer_associations).source(:deck) }
 
+  it { should have_many(:active_recommendations).class_name("Recommendation").with_foreign_key("from_user_id").dependent(:destroy) }
+  it { should have_many(:passive_recommendations).class_name("Recommendation").with_foreign_key("to_user_id").dependent(:destroy) }
+  it { should have_many(:recommendings_of_cards).through(:active_recommendations) }
+  it { should have_many(:recommendings_of_decks).through(:active_recommendations) }
+  it { should have_many(:recommended_cards).through(:passive_recommendations) }
+  it { should have_many(:recommended_decks).through(:passive_recommendations) }
+
   it "should have non-empty password" do 
     user = User.new(username: "user1", email: "user1@example.com",
                     password: " " * 6, password_confirmation: " " * 6)
@@ -129,7 +136,7 @@ RSpec.describe User, :type => :model do
   it "should favorite deck" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     user.favor_deck(deck)
     expect(user.favorite_decks.count).to be 1
     expect(user.favoring_deck?(deck)).to be true
@@ -138,7 +145,7 @@ RSpec.describe User, :type => :model do
   it "should unfavor deck" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     user.favor_deck(deck)
     expect(user.favorite_decks.count).to be 1
     user.unfavor_deck(deck)
@@ -148,7 +155,7 @@ RSpec.describe User, :type => :model do
   it "should not favor a deck twice" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     user.favor_deck(deck)
     expect(user.favorite_decks.count).to be 1
     expect {
@@ -159,7 +166,7 @@ RSpec.describe User, :type => :model do
   it "should like a card" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
     user.like_card(card)
@@ -170,7 +177,7 @@ RSpec.describe User, :type => :model do
   it "should unlike a card" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
     user.like_card(card)
@@ -184,7 +191,7 @@ RSpec.describe User, :type => :model do
   it "should not like a card twice" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
     user.like_card(card)
@@ -198,7 +205,7 @@ RSpec.describe User, :type => :model do
   it "should comment on card" do
     user = User.create(username: "user1", email: "user1@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = user.decks.create(title: "Testing deck", description: "Testing deck description")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
     message = "Hello! How are you!"
@@ -227,5 +234,51 @@ RSpec.describe User, :type => :model do
     expect(deck.viewable_by?(userB)).to be true
     userB.turndown_deck_share(deck)
     expect(deck.viewable_by?(userB)).to be false
+  end
+
+  it "should be able to recommend a deck or card to a user, and cancel these recommendations" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                        password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                        password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, userA)
+    card.save!
+
+    userA.recommend_to(userB, deck)
+    expect(userA.recommendings_of_decks.count).to be 1
+    expect(userB.recommended_decks.count).to be 1
+
+    userA.recommend_to(userB, card)
+    expect(userA.recommendings_of_cards.count).to be 1
+    expect(userB.recommended_cards.count).to be 1
+
+    userA.cancel_recommendation(userB, deck)
+    expect(userA.recommendings_of_decks.count).to be 0
+    expect(userB.recommended_decks.count).to be 0
+
+    userA.cancel_recommendation(userB, card)
+    expect(userA.recommendings_of_cards.count).to be 0
+    expect(userB.recommended_cards.count).to be 0
+  end
+
+  it "should be able to turn down recommendation of deck and card" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                        password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                        password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, userA)
+    card.save!
+
+    userA.recommend_to(userB, deck)
+    userA.recommend_to(userB, card)
+    
+    userB.turndown_recommendation(userA, deck)
+    expect(userA.recommendings_of_decks.count).to be 0
+    expect(userB.recommended_decks.count).to be 0
+    userB.turndown_recommendation(userA, card)
+    expect(userA.recommendings_of_cards.count).to be 0
+    expect(userB.recommended_cards.count).to be 0
   end
 end
