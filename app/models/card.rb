@@ -11,6 +11,7 @@ class Card < ActiveRecord::Base
   has_many :liked_users, through: :users_with_like, source: :user
 
   has_many :recommendations, as: :recommendable, dependent: :destroy
+  has_many :activities, as: :trackable, dependent: :destroy
 
   def viewable_by?(user)
     self.creator?(user) || (!self.hide && self.deck.viewable_by?(user))

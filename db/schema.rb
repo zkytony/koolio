@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150906201238) do
+ActiveRecord::Schema.define(version: 20150911012448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "action"
+    t.string   "trackable_type"
+    t.integer  "trackable_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "activities", ["trackable_type", "trackable_id", "action"], name: "index_activities_on_trackable_type_and_trackable_id_and_action", using: :btree
+  add_index "activities", ["user_id", "trackable_type", "trackable_id", "action"], name: "by_U_type_id_action", using: :btree
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "cards", force: :cascade do |t|
     t.text     "front_content"
@@ -145,6 +158,7 @@ ActiveRecord::Schema.define(version: 20150906201238) do
 
   add_index "users", ["username", "email"], name: "index_users_on_username_and_email", using: :btree
 
+  add_foreign_key "activities", "users"
   add_foreign_key "cards", "decks"
   add_foreign_key "cards", "users"
   add_foreign_key "comments", "cards"

@@ -21,6 +21,7 @@ RSpec.describe Deck, type: :model do
   it { should have_many(:normal_viewers).through(:deck_viewer_associations).source(:user) }
 
   it { should have_many(:recommendations) }
+  it { should have_many(:activities) }
 
   it "should add tag" do
     user = User.create(username: "user1", email: "user1@example.com",
