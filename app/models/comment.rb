@@ -5,4 +5,6 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :card
+
+  has_many :activities, as: :trackable, dependent: :destroy
 end
