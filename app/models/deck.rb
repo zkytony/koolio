@@ -20,6 +20,7 @@ class Deck < ActiveRecord::Base
   has_many :normal_viewers, through: :deck_viewer_associations, source: :user # STI; used when deck is not open
 
   has_many :recommendations, as: :recommendable, dependent: :destroy
+  has_many :activities, as: :trackable, dependent: :destroy
 
   def build_card(card_params, user)
     if self.editable_by?(user)
