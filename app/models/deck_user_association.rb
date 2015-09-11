@@ -5,4 +5,6 @@ class DeckUserAssociation < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :deck
+
+  has_many :notifications, as: :notifier, dependent: :destroy
 end

@@ -7,4 +7,6 @@ class Recommendation < ActiveRecord::Base
   belongs_to :from_user, class_name: "User"
   belongs_to :to_user, class_name: "User"
   belongs_to :recommendable, polymorphic: true
+
+  has_many :notifications, as: :notifier, dependent: :destroy
 end

@@ -26,7 +26,11 @@ class User < ActiveRecord::Base
   has_many :recommended_cards, through: :passive_recommendations, source: :recommendable, source_type: "Card"
   has_many :recommended_decks, through: :passive_recommendations, source: :recommendable, source_type: "Deck"
 
-  has_many :activities, class_name: "Activity", dependent: :destroy
+  has_many :activities, as: :trackable, dependent: :destroy
+  has_many :activities, dependent: :destroy
+
+  has_many :notifications, as: :notifier, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :username,  presence: true,
