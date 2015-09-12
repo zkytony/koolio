@@ -10,10 +10,6 @@ UpdateCard (Card): user updated a card
 LikeCard (Card): user liked a card
 CreateComment (Comment): user made a comment
 FollowUser (User): user followed another user
-ShareDeck (DeckUserAssociation): user shared a deck to another user as editor or viewer
-RecommendCard (Recommendation): user recommended a card to another user
-RecommendDeck (Recommendation): user recommended a deck to another user
-
 '''
 class Activity < ActiveRecord::Base
   validates_presence_of :user_id, :action, :trackable_type, :trackable_id
