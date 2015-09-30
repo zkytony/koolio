@@ -7,4 +7,6 @@ Koolio is a social network website that uses flashcard as the medium for informa
 ### _Actively developing_
 Need one Rails developer & front end developer!
 
+This project uses Ruby on Rails, and PostgreSQL as the major database engine
+
 Please email to _Kaiyu Zheng_ kaiyutony@gmail.com if you are interested! Thanks!
