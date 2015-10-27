@@ -114,29 +114,38 @@ $create-card-btn-font-size: 30px;
 }
 
 .side-select-btn, .create-card-btn {
-    background-color: #E6E6E6;
     margin: $fixed-options-btn-margin;
     border: none;
-}
-
-.side-select-btn:disabled, .create-card-btn:disabled {
-    background-color: #CAD4DA;
-    color: #BCBCBC;
 }
 
 .side-select-btn {
     font-size: $side-select-btn-font-size;
     font-weight: 700;
+    background-color: #C3C3C3;
     width: $side-select-btn-size;
     height: $side-select-btn-size;
     @include border-radius($editor-btn-radius);
+
+    &:hover {
+	background-color: #E6E6E6;
+    }
+}
+
+.side-editing {
+    background-color: #E6E6E6;
 }
 
 .create-card-btn {
     font-size: $create-card-btn-font-size;
+    background-color: #E6E6E6;
     font-weight: 700;
     width: $create-card-btn-size;
     height: 40%;
     @include border-radius($editor-btn-radius);
+}
+
+.create-card-btn:disabled {
+    background-color: #CAD4DA;
+    color: #BCBCBC;
 }
 /**** END FIXED OPTIONS ****/

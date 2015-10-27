@@ -2,29 +2,55 @@
 <div class="card-editor">
   <!-- form_for -->
   <form>
-    <div class="editor-left-part" id="front-type-select-container">
-      <div class="type-select">
-	<div class="type-btn-row" id="type-btn-row-0">
-	  <button class="type-btn text-type-btn" id="front-type-text-btn">Aa</button>
-	  <button class="type-btn image-type-btn" id="front-type-image-btn"><i class="fa fa-picture-o"></i></button>
-	</div>
-	<div class="type-btn-row" id="type-btn-row-1">
-	  <button class="type-btn video-type-btn" id="front-type-video-btn"><i class="fa fa-video-camera"></i></button>
-	  <button class="type-btn more-type-btn" id="front-type-more-btn"><i class="fa fa-ellipsis-h"></i></button>
+    <!-- FRONT -->
+    <div id="front-wrapper">
+      <div class="editor-left-part" id="front-type-select-container">
+	<div class="type-select">
+	  <div class="type-btn-row" id="type-btn-row-0">
+	    <button class="type-btn text-type-btn" id="front-type-text-btn">Aa</button>
+	    <button class="type-btn image-type-btn" id="front-type-image-btn"><i class="fa fa-picture-o"></i></button>
+	  </div>
+	  <div class="type-btn-row" id="type-btn-row-1">
+	    <button class="type-btn video-type-btn" id="front-type-video-btn"><i class="fa fa-video-camera"></i></button>
+	    <button class="type-btn more-type-btn" id="front-type-more-btn"><i class="fa fa-ellipsis-h"></i></button>
+	  </div>
 	</div>
       </div>
+      <div class="editor-left-part hidden" id="front-text-editor-container">
+      </div>
+      <div class="editor-left-part hidden" id="front-image-editor-container">
+      </div>
+      <div class="editor-left-part hidden" id="front-video-editor-container">
+      </div>
     </div>
-    <div class="editor-left-part hidden" id="front-text-editor-container">
+    <!-- END FRONT -->
+    <!-- BACK -->
+    <div class="hidden" id="back-wrapper">
+      <div class="editor-left-part" id="back-type-select-container">
+	<div class="type-select">
+	  <div class="type-btn-row" id="type-btn-row-0">
+	    <button class="type-btn text-type-btn" id="back-type-text-btn">Aa</button>
+	    <button class="type-btn image-type-btn" id="back-type-image-btn"><i class="fa fa-picture-o"></i></button>
+	  </div>
+	  <div class="type-btn-row" id="type-btn-row-1">
+	    <button class="type-btn video-type-btn" id="back-type-video-btn"><i class="fa fa-video-camera"></i></button>
+	    <button class="type-btn more-type-btn" id="back-type-more-btn"><i class="fa fa-ellipsis-h"></i></button>
+	  </div>
+	</div>
+      </div>
+      <div class="editor-left-part hidden" id="back-text-editor-container">
+      </div>
+      <div class="editor-left-part hidden" id="back-image-editor-container">
+      </div>
+      <div class="editor-left-part hidden" id="back-video-editor-container">
+      </div>
     </div>
-    <div class="editor-left-part hidden" id="front-image-editor-container">
-    </div>
-    <div class="editor-left-part hidden" id="front-video-editor-container">
-    </div>
+    <!-- END BACK -->
     <div class="editor-right-part" id="fixed-options-panel-container">
       <div class="fixed-options">
 	<div class="fixed-options-btn-row">
-	  <button class="side-select-btn" id="front-side-btn">front</button>
-	  <button class="side-select-btn" id="back-side-btn" disabled>back</button>
+	  <button class="side-select-btn side-editing" disabled id="front-side-btn">front</button>
+	  <button class="side-select-btn" id="back-side-btn">back</button>
 	</div>
 	<div class="fixed-options-btn-row">
 	  <button class="create-card-btn" id="create-card-btn" disabled>create card</button>

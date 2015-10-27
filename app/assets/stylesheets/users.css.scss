@@ -34,6 +34,7 @@ $home-card-editor-height: 480px;
     margin-right: auto;
     left: 0;
     right: 0;
+    @include border-radius(5px);
     @include mobile-landscape-and-below {
 	width: 100%;
 	height: 100%;
