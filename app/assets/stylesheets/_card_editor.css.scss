@@ -1,17 +1,10 @@
 @import "global";
 
-/* Colors */
-$type-btn-color: #B3B3B3;
-$text-type-btn-color: #E6E6E6;
-$image-type-btn-color: #F2992E;
-$video-type-btn-color: #56BC8A;
-
 $editor-width: 100%;
 $editor-height: 100%;
 $editor-left-part-width: 65%;
 $editor-right-part-width: 100% - $editor-left-part-width;
-$type-btn-size: 40%;
-$type-select-width: 75%;
+$editor-btn-radius: 10px;
 
 .card-editor {
     width: $editor-width;
@@ -28,12 +21,18 @@ $type-select-width: 75%;
 .editor-right-part {
     width: $editor-right-part-width;
     height: $editor-height;
-    background-color: red;
     position: absolute;
     right: 0;
 }
 
 /**** TYPE SELECT ****/
+$type-btn-color: #B3B3B3;
+$text-type-btn-color: #E6E6E6;
+$image-type-btn-color: #F2992E;
+$video-type-btn-color: #56BC8A;
+
+$type-btn-size: 40%;
+$type-select-width: 75%;
 .type-select {
     width: $type-select-width;
     height: $type-select-width; // keep same margin
@@ -72,7 +71,7 @@ $type-select-width: 75%;
     margin-left: 1%;
     border: none;
     float: left;
-    @include border-radius(10px);
+    @include border-radius($editor-btn-radius);
 }
 
 .text-type-btn {
@@ -94,3 +93,50 @@ $type-select-width: 75%;
 
 /**** END TYPE SELECT ****/
 
+/**** FIXED OPTIONS ****/
+$fixed-options-height: $type-select-width; // keep same margin
+$fixed-options-btn-margin: 5px;
+$side-select-btn-size: 100px;
+$side-select-btn-font-size: 20px;
+$create-card-btn-size: $side-select-btn-size * 2 + $fixed-options-btn-margin * 2;
+$create-card-btn-font-size: 30px;
+.fixed-options {
+    width: 100%;
+    height: $fixed-options-height;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.fixed-options-btn-row {
+    width: 100%;
+    height: 50%;
+}
+
+.side-select-btn, .create-card-btn {
+    background-color: #E6E6E6;
+    margin: $fixed-options-btn-margin;
+    border: none;
+}
+
+.side-select-btn:disabled, .create-card-btn:disabled {
+    background-color: #CAD4DA;
+    color: #BCBCBC;
+}
+
+.side-select-btn {
+    font-size: $side-select-btn-font-size;
+    font-weight: 700;
+    width: $side-select-btn-size;
+    height: $side-select-btn-size;
+    @include border-radius($editor-btn-radius);
+}
+
+.create-card-btn {
+    font-size: $create-card-btn-font-size;
+    font-weight: 700;
+    width: $create-card-btn-size;
+    height: 40%;
+    @include border-radius($editor-btn-radius);
+}
+/**** END FIXED OPTIONS ****/
