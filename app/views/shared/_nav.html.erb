@@ -14,7 +14,7 @@
       </div>
       <!-- Nav Second Part -->
       <div class="nav-second-part">
-	<% if false %>
+	<% if logged_in? %>
 	  <div class="nav-option-btn nav-option-highlighted">
 	    <a href="#"><i class="fa fa-home"></i></a>
 	  </div>
@@ -31,11 +31,25 @@
 	  </div>
 	<% else %>
 	  <div class="nav-option-btn nav-right-push-1 nav-option-sign-in">
-	    <a href="#"><i class="fa fa-sign-in"></i></a>
+	    <a href="<%= nav_signup_link %>" class="bold nav-signup nav-option-link" id="nav-signup-btn"><i class="fa fa-sign-in"></i></a>
 	  </div>	  
 	<% end %>
       </div>
       <!-- Nav Contents End -->
     </div>
+    <% if logged_in? %>
+      <div class="nav-dropdown hidden" id="profile-pic-dropdown">
+	<ul>
+	  <li>
+	    <p class="nav-dropdown-bar">Signed in as <b><%= current_user.username %></b></p>
+	  </li>
+	  <li>
+	    <%= link_to logout_path do %>
+	      Logout<i class="fa fa-sign-out"></i>
+	    <% end %>
+	  </li>
+	</ul>
+      </div>
+    <% end %>
   </div>
 </nav>

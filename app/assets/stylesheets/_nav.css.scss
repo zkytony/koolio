@@ -15,6 +15,7 @@ $nav-search-field-height: $nav-height - 12px;
 $nav-search-field-width: 400px;
 $nav-search-field-font-size: 14px;
 $nav-option-btn-size: $nav-height;
+$nav-dropdown-width: 100px;
 
 .nav-wrapper {
     background-color: $nav-bg-color;
@@ -29,13 +30,13 @@ $nav-option-btn-size: $nav-height;
 
 .nav-first-part {
     float: left;
-    width: 75%;
+    width: 78%;
     height: $nav-height;
 }
 
 .nav-second-part {
     float: left;
-    width: 25%;
+    width: 22%;
     height: $nav-height;
 }
 
@@ -62,6 +63,7 @@ $nav-option-btn-size: $nav-height;
 	font-size: $nav-search-field-font-size;
 	padding-left: 5px;
 	border: none;
+	@include border-radius(3px);
     }
 }
 
@@ -94,12 +96,60 @@ $nav-option-btn-size: $nav-height;
 }
 
 .nav-right-push-1 {
-    margin-left: 200px;
+    margin-left: 150px;
 }
 
 .nav-profile-pic {
     img {
-	width: $nav-option-btn-size;
-	height: $nav-option-btn-size;
+	width: $nav-option-btn-size * 0.8;
+	height: $nav-option-btn-size * 0.8;
+    }
+}
+
+.nav-dropdown {
+    min-width: $nav-dropdown-width;
+    max-width: $nav-dropdown-width + 200px;
+    background-color: $white;
+    position: absolute;
+    right: (100% - $nav-width) / 2;
+    padding: 0px 2px;
+    z-index: 10;
+
+    @include tablet-landscape-and-below {
+	right: 0px;
+    }
+
+    ul {
+	padding: 0;
+	margin: 0;
+	li {
+	    list-style-type: none;
+	    p {
+		min-width: $nav-dropdown-width;
+		padding: 5px;
+	    }
+
+	    .nav-dropdown-bar {
+		border-bottom: 1px solid $light-grey;
+	    }
+	    
+	    a {
+		display: block;
+		width: 90%;
+		padding: 5px;
+		.fa {
+		    position: absolute;
+		    right: 10px;
+		    color: darken($light-grey, 50%);		    
+		}
+		&:hover {
+		    color: $white;
+		    background-color: $theme-purple;
+		    .fa {
+			color: $light-grey;
+		    }
+		}
+	    }
+	}
     }
 }
