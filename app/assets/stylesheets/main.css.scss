@@ -65,3 +65,11 @@ button, input[type="button"], input[type="submit"] {
     opacity: .80;
     filter: alpha(opacity=80);
 }
+
+button:disabled {
+    cursor: default;
+}
+
+@include placeholder {
+    color: $grey-black;
+}

@@ -363,3 +363,16 @@ $mq-desktop		: 1382px !default;
 	background-color: darken($color, 10%);
     }
 }
+
+@mixin box-sizing($type) {
+    box-sizing: $type;
+    -moz-box-sizing: $type;
+    -webkit-box-sizing: $type;
+}
+
+@mixin placeholder {
+  ::-webkit-input-placeholder {@content}
+  :-moz-placeholder           {@content}
+  ::-moz-placeholder          {@content}
+  :-ms-input-placeholder      {@content}  
+}
