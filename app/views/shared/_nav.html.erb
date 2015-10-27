@@ -1,72 +1,41 @@
 <nav>
   <div class="nav-wrapper">
-    <div class="nav-container" id="nav-container">
-      <span class="nav-left nav-logo">
-	<%= link_to "KOOLIO", root_path%>
-      </span>
-      <span class="nav-left nav-span">
-	<ul>
-	  <li>
-	    <form class="search-form">
-	      <input name="search_field" type="text" placeholder="Search on Koolio" class="search-field" id="navbar-search-field"/>
-	      <button type="submit" class="search-submit">
-		<i class="fa fa-search"></i>
-	      </button>
-	    </form>
-	  </li>
-	</ul>
-      </span>
-      <span class="nav-left nav-span">	    
-      </span>
-      <span class="nav-right nav-span" id="nav-options">
-	<% if logged_in? %>
-	  <ul class="nav-menu">
-	    <li>
-	      <a href="#" class="bold nav-option-link">Popular</a>
-	    </li>
-	    <li>
-	      <a href="#" class="nav-option-link">My Decks & Cards</a>
-	    </li>
-	    <li>
-	      <%= link_to "Home", current_user, :class => "nav-option-link"%>
-	    </li>
-	    <li>
-	      <a class="nav-pic" id="nav-pic">
-		<%= image_tag "default-profile.svg", :id => "nav-pic-img" %>
+    <div class="nav-container">
+      <!-- Nav First Part -->
+      <div class="nav-first-part">
+	<div class="nav-logo">
+	  <a href=""><h1>KOOLIO</h1></a>
+	</div>
+	<div class="nav-search-wrapper">
+	  <form class="nav-search-form">
+	    <input type="text" placeholder="Search on Koolio">
+	  </form>
+	</div>
+      </div>
+      <!-- Nav Second Part -->
+      <div class="nav-second-part">
+	<% if false %>
+	  <div class="nav-option-btn nav-option-highlighted">
+	    <a href="#"><i class="fa fa-home"></i></a>
+	  </div>
+	  <div class="nav-option-btn">
+	    <a href="#"><i class="fa fa-inbox"></i></a>
+	  </div>
+	  <div class="nav-option-btn">
+	    <a href="#"><i class="fa fa-compass"></i></a>
+	  </div>
+	  <div class="nav-option-btn nav-profile-pic">
+	    <a class="nav-pic" id="nav-pic">
+	      <%= image_tag "default-profile.svg", :id => "nav-pic-img" %>
 	      </a>
-	    </li>
-	  </ul>
+	  </div>
 	<% else %>
-	  <ul>
-	    <li>
-	      <a href="<%= nav_signup_link %>" class="bold nav-signup nav-option-link" id="nav-signup-btn">Signup</a>
-	    </li>
-	    <li>
-	      <a href="<%= nav_login_link %>" class="nav-login nav-option-link" id="nav-login-btn">Login</a>
-	    </li>
-	  </ul>
+	  <div class="nav-option-btn nav-right-push-1 nav-option-sign-in">
+	    <a href="#"><i class="fa fa-sign-in"></i></a>
+	  </div>	  
 	<% end %>
-      </span>
+      </div>
+      <!-- Nav Contents End -->
     </div>
   </div>
 </nav>
-<% if logged_in? %>
-  <div class="nav-dropdown hidden" id="profile-pic-dropdown">
-    <ul>
-      <li>
-	<p class="nav-dropdown-bar">Signed in as <b><%= current_user.username %></b></p>
-      </li>
-      <li>
-	<%= link_to "Profile", current_user %>
-      </li>
-      <li>
-	<a href="#">Settings<i class="fa fa-cog"></i></a>
-      </li>
-      <li>
-	<%= link_to logout_path do %>
-	  Logout<i class="fa fa-sign-out"></i>
-	<% end %>
-      </li>
-    </ul>
-  </div>
-<% end %>

@@ -15,9 +15,10 @@ $light-cyan: #CCFFFF;
 $soft-blue: #66CCFF;
 $regular-green: #33CC33;
 $soft-green: #009933;
+$grey-blue: #6699FF;
 
 /* Theme colors */
-$bg-color: #EDEDED;
+$bg-color: $grey-blue;
 $theme-purple: #661155;
 $theme-pink: #FFCCCC;
 
@@ -29,19 +30,6 @@ $cards-gap: 10px;
 /* defaults */
 $default-font-size: 13px;
 $content-wrap-width: 90%;
-
-/* Navbar colors */
-$search-btn-color: $darker-grey;
-
-/* Navbar variables */
-$nav-height: 40px;
-$nav-width: 90%;
-$nav-font-size: $default-font-size + 2px;
-$nav-dropdown-width: 110px;
-$search-field-width: 400px;
-$search-field-height: $nav-height - 15px;
-$search-field-font-size: $search-field-height - 10px;
-$search-btn-width: 50px;
 
 /* Index page login form */
 $login-form-width: 250px;

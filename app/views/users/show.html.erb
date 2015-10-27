@@ -1,4 +1,5 @@
 <% provide(:title, "#{@user.username}") %>
+<%= render :partial => 'shared/nav' %>
 <h1>hI <%= @user.username %></h1>
 <%= link_to "Log out", logout_path %>
 <%= link_to "New deck",  new_deck_path %>
