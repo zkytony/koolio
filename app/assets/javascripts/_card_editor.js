@@ -42,6 +42,10 @@ $(document).ready(function() {
     sideBtnPressed("back");
   });
 
+  $("#back-text-edit-front-btn").click(function() {
+    sideBtnPressed("front");
+  });
+
   $("#front-text-change-type-btn").click(function() {
     showUpTypeSelector("front", frontPrevType);
     $("#front-text-editor-container").addClass("hidden");
