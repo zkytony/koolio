@@ -1,3 +1,6 @@
 <% provide(:title, "#{@user.username}") %>
+<%= stylesheet_link_tag "users.css" %>
 <%= render :partial => 'shared/nav' %>
-
+<div class="add-card-btn-container">
+  <button class="add-card-btn"><i class="fa fa-plus"></i></button>
+</div>
