@@ -23,21 +23,27 @@ $nav-dropdown-width: 100px;
 }
 
 .nav-container {
+    @include content-wrapper($nav-width, 100%);
     height: $nav-height;
-    width: $nav-width;
     margin: auto;
 }
 
 .nav-first-part {
     float: left;
-    width: 78%;
+    width: 71%;
     height: $nav-height;
+    @include tablet-landscape-and-below {
+	width: 72%;
+    }
 }
 
 .nav-second-part {
     float: left;
-    width: 22%;
+    width: 29%;
     height: $nav-height;
+    @include tablet-landscape-and-below {
+	width: 28%;
+    }
 }
 
 .nav-logo, .nav-search-wrapper {
@@ -53,6 +59,9 @@ $nav-dropdown-width: 100px;
     }
     width: $nav-logo-width;
     margin-right: $nav-logo-margin-right;
+    @include tablet-landscape-and-below {
+	margin-right: $nav-logo-margin-right - 30px;;
+    }
 }
 
 .nav-search-form {
