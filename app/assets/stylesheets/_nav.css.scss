@@ -73,9 +73,9 @@ $nav-dropdown-width: 100px;
     height: $nav-option-btn-size;
     font-size: $nav-option-btn-size;
     a {
-	color: $darker-grey;
+	color: $light-grey;
 	&:hover {
-	    color: $light-grey;
+	    color: $white;
 	}
     }
     padding-left: 20px;
