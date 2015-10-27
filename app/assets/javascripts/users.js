@@ -18,5 +18,15 @@ $(document).ready(function() {
 	    $("#login-form-card").addClass('flip');
 	}
     });
+
+    $("#add-card-btn").click(function() {
+	$(".glass-overlay").css("display", "block");
+	$("#editor-container-home").css("display", "block");
+    });
+
+    $(".glass-overlay").click(function() {
+	$(".glass-overlay").css("display", "none");
+	$("#editor-container-home").css("display", "none");
+    });
 });
 

@@ -1,1 +1,37 @@
 @import "global";
+
+$add-card-btn-radius: 30px;
+
+.add-card-btn-container {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}
+
+.add-card-btn {
+    background-color: $decent-blue;
+    width: $add-card-btn-radius * 2;
+    height: $add-card-btn-radius * 2;
+    font-size: 25px;
+    @include border-radius($add-card-btn-radius);
+    border: none;
+    color: $white;
+    
+    &:hover{
+	background-color: $grey-blue;
+    }
+}
+
+.card-editor-container {
+    display: none;
+    width: 620px;
+    height: 450px;
+    background-color: $bg-color;
+
+    position: absolute;
+    z-index: 10; // glass-overlay has z-index 3
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
