@@ -1,0 +1,96 @@
+@import "global";
+
+/* Colors */
+$type-btn-color: #B3B3B3;
+$text-type-btn-color: #E6E6E6;
+$image-type-btn-color: #F2992E;
+$video-type-btn-color: #56BC8A;
+
+$editor-width: 100%;
+$editor-height: 100%;
+$editor-left-part-width: 65%;
+$editor-right-part-width: 100% - $editor-left-part-width;
+$type-btn-size: 40%;
+$type-select-width: 75%;
+
+.card-editor {
+    width: $editor-width;
+    height: $editor-height;
+}
+
+.editor-left-part {
+    width: $editor-left-part-width;
+    height: $editor-height;
+    position: absolute;
+    left: 0;
+}
+
+.editor-right-part {
+    width: $editor-right-part-width;
+    height: $editor-height;
+    background-color: red;
+    position: absolute;
+    right: 0;
+}
+
+/**** TYPE SELECT ****/
+.type-select {
+    width: $type-select-width;
+    height: $type-select-width; // keep same margin
+    /* Center vertically and horizontally */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* Done */
+}
+
+.type-btn-row {
+    width: 100%;
+    height: 50%;
+}
+
+#type-btn-row-0 {
+    .type-btn {
+	margin-bottom: 1%;
+    }
+}
+#type-btn-row-1 {
+    .type-btn {
+	margin-top: 1%;
+    }
+}
+
+.type-btn {
+    font-size: 43px;
+    color: $grey-black;
+    background-color: $type-btn-color;
+    font-weight: 700;
+    width: 48%;
+    height: 97%;
+    margin-right: 1%;
+    margin-left: 1%;
+    border: none;
+    float: left;
+    @include border-radius(10px);
+}
+
+.text-type-btn {
+    background-color: $text-type-btn-color;
+    @include decent-interact-bg($text-type-btn-color);
+}
+.image-type-btn {
+    background-color: $image-type-btn-color;
+    @include decent-interact-bg($image-type-btn-color);
+}
+.video-type-btn {
+    background-color: $video-type-btn-color;
+    @include decent-interact-bg($video-type-btn-color);
+}
+.more-type-btn {
+    background-color: $type-btn-color;
+    @include decent-interact-bg($type-btn-color);
+}
+
+/**** END TYPE SELECT ****/
+

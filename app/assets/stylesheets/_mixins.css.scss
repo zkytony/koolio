@@ -354,3 +354,12 @@ $mq-desktop		: 1382px !default;
     -webkit-align-items: center;
     align-items: center;
 }
+
+@mixin decent-interact-bg($color) {
+    &:hover{
+	background-color: darken($color, 5%);
+    }
+    &:active{
+	background-color: darken($color, 10%);
+    }
+}

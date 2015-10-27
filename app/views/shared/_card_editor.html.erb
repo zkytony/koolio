@@ -1,0 +1,27 @@
+<%= stylesheet_link_tag "_card_editor.css" %>
+<div class="card-editor">
+  <!-- form_for -->
+  <form>
+    <div class="editor-left-part" id="front-type-select-container">
+      <div class="type-select">
+	<div class="type-btn-row" id="type-btn-row-0">
+	  <button class="type-btn text-type-btn" id="front-type-text-btn">Aa</button>
+	  <button class="type-btn image-type-btn" id="front-type-image-btn"><i class="fa fa-picture-o"></i></button>
+	</div>
+	<div class="type-btn-row" id="type-btn-row-1">
+	  <button class="type-btn video-type-btn" id="front-type-video-btn"><i class="fa fa-video-camera"></i></button>
+	  <button class="type-btn more-type-btn" id="front-type-more-btn"><i class="fa fa-ellipsis-h"></i></button>
+	</div>
+      </div>
+    </div>
+    <div class="editor-left-part hidden" id="front-text-editor-container">
+    </div>
+    <div class="editor-left-part hidden" id="front-image-editor-container">
+    </div>
+    <div class="editor-left-part hidden" id="front-video-editor-container">
+    </div>
+    <div class="editor-right-part" id="fixed-options-panel-container">
+    </div>
+  </form>
+  <!-- end -->
+</div>
