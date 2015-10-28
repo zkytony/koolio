@@ -2,71 +2,74 @@
 <div class="card-editor">
   <!-- form_for -->
   <form>
-    <!-- FRONT -->
-    <div id="front-wrapper">
-      <div class="editor-left-part" id="front-type-select-container">
-	<div class="type-select">
-	  <div class="type-btn-row" id="type-btn-row-0">
-	    <button class="type-btn text-type-btn" id="front-type-text-btn" type="button">Aa</button>
-	    <button class="type-btn image-type-btn" id="front-type-image-btn" type="button"><i class="fa fa-picture-o"></i></button>
-	  </div>
-	  <div class="type-btn-row" id="type-btn-row-1">
-	    <button class="type-btn video-type-btn" id="front-type-video-btn" type="button"><i class="fa fa-video-camera"></i></button>
-	    <button class="type-btn more-type-btn" id="front-type-more-btn" type="button"><i class="fa fa-ellipsis-h"></i></button>
-	  </div>
-	</div>
-      </div>
-      <div class="editor-left-part hidden" id="front-text-editor-container">
-	<!-- FRONT TEXT EDITOR -->
-	<div class="text-editor">
-	  <!-- f.text title -->
-	  <input type="text" id="front-text-title" placeholder="Title">
-	  <!-- f.textarea -->
-	  <textarea id="front-text-body" placeholder="What you want to share"></textarea>
-	  <div class="text-editor-btns">
-	    <button class="text-edit-back-btn" type="button" id="front-text-edit-back-btn">edit back</button>
-	    <button class="text-change-type-btn" type="button" id="front-text-change-type-btn">change type</button>
+    <!-- Flipper -->
+    <div class="flipper" id="card-editor-flipper">
+      <!-- FRONT (front of flipper) -->
+      <div class="flipper-front flip-dir1" id="front-wrapper">
+	<div class="editor-left-part" id="front-type-select-container">
+	  <div class="type-select">
+	    <div class="type-btn-row" id="type-btn-row-0">
+	      <button class="type-btn text-type-btn" id="front-type-text-btn" type="button">Aa</button>
+	      <button class="type-btn image-type-btn" id="front-type-image-btn" type="button"><i class="fa fa-picture-o"></i></button>
+	    </div>
+	    <div class="type-btn-row" id="type-btn-row-1">
+	      <button class="type-btn video-type-btn" id="front-type-video-btn" type="button"><i class="fa fa-video-camera"></i></button>
+	      <button class="type-btn more-type-btn" id="front-type-more-btn" type="button"><i class="fa fa-ellipsis-h"></i></button>
+	    </div>
 	  </div>
 	</div>
-	<!-- END FRONT TEXT EDITOR -->
-      </div>
-      <div class="editor-left-part hidden" id="front-image-editor-container">
-      </div>
-      <div class="editor-left-part hidden" id="front-video-editor-container">
-      </div>
-    </div>
-    <!-- END FRONT -->
-    <!-- BACK -->
-    <div class="hidden" id="back-wrapper">
-      <div class="editor-left-part" id="back-type-select-container">
-	<div class="type-select">
-	  <div class="type-btn-row" id="type-btn-row-0">
-	    <button class="type-btn text-type-btn" id="back-type-text-btn" type="button">Aa</button>
-	    <button class="type-btn image-type-btn" id="back-type-image-btn" type="button"><i class="fa fa-picture-o"></i></button>
+	<div class="editor-left-part hidden" id="front-text-editor-container">
+	  <!-- FRONT TEXT EDITOR -->
+	  <div class="text-editor">
+	    <!-- f.text title -->
+	    <input type="text" id="front-text-title" placeholder="Title">
+	    <!-- f.textarea -->
+	    <textarea id="front-text-body" placeholder="What you want to share"></textarea>
+	    <div class="text-editor-btns">
+	      <button class="text-edit-back-btn" type="button" id="front-text-edit-back-btn">edit back</button>
+	      <button class="text-change-type-btn" type="button" id="front-text-change-type-btn">change type</button>
+	    </div>
 	  </div>
-	  <div class="type-btn-row" id="type-btn-row-1">
-	    <button class="type-btn video-type-btn" id="back-type-video-btn" type="button"><i class="fa fa-video-camera"></i></button>
-	    <button class="type-btn more-type-btn" id="back-type-more-btn" type="button"><i class="fa fa-ellipsis-h"></i></button>
-	  </div>
+	  <!-- END FRONT TEXT EDITOR -->
+	</div>
+	<div class="editor-left-part hidden" id="front-image-editor-container">
+	</div>
+	<div class="editor-left-part hidden" id="front-video-editor-container">
 	</div>
       </div>
-      <div class="editor-left-part hidden" id="back-text-editor-container">
-	<!-- BACK TEXT EDITOR -->
-	<div class="text-editor">
-	  <!-- f.text title -->
-	  <input type="text" id="back-text-title" placeholder="Title">
-	  <!-- f.textarea -->
-	  <textarea id="back-text-body" placeholder="What you want to share"></textarea>
-	  <div class="text-editor-btns">
-	    <button class="text-edit-back-btn" type="button" id="back-text-edit-back-btn">edit back</button>
-	    <button class="text-change-type-btn" type="button" id="back-text-change-type-btn">change type</button>
+      <!-- END FRONT -->
+      <!-- BACK (Back of flipper) -->
+      <div class="flipper-back flip-dir1" id="back-wrapper">
+	<div class="editor-left-part" id="back-type-select-container">
+	  <div class="type-select">
+	    <div class="type-btn-row" id="type-btn-row-0">
+	      <button class="type-btn text-type-btn" id="back-type-text-btn" type="button">Aa</button>
+	      <button class="type-btn image-type-btn" id="back-type-image-btn" type="button"><i class="fa fa-picture-o"></i></button>
+	    </div>
+	    <div class="type-btn-row" id="type-btn-row-1">
+	      <button class="type-btn video-type-btn" id="back-type-video-btn" type="button"><i class="fa fa-video-camera"></i></button>
+	      <button class="type-btn more-type-btn" id="back-type-more-btn" type="button"><i class="fa fa-ellipsis-h"></i></button>
+	    </div>
 	  </div>
 	</div>
-	<!-- END BACK TEXT EDITOR -->
-      </div>
-      <div class="editor-left-part hidden" id="back-image-editor-container">
-      </div>
-      <div class="editor-left-part hidden" id="back-video-editor-container">
+	<div class="editor-left-part hidden" id="back-text-editor-container">
+	  <!-- BACK TEXT EDITOR -->
+	  <div class="text-editor">
+	    <!-- f.text title -->
+	    <input type="text" id="back-text-title" placeholder="Title">
+	    <!-- f.textarea -->
+	    <textarea id="back-text-body" placeholder="What you want to share"></textarea>
+	    <div class="text-editor-btns">
+	      <button class="text-edit-back-btn" type="button" id="back-text-edit-front-btn">edit front</button>
+	      <button class="text-change-type-btn" type="button" id="back-text-change-type-btn">change type</button>
+	    </div>
+	  </div>
+	  <!-- END BACK TEXT EDITOR -->
+	</div>
+	<div class="editor-left-part hidden" id="back-image-editor-container">
+	</div>
+	<div class="editor-left-part hidden" id="back-video-editor-container">
+	</div>
       </div>
     </div>
     <!-- END BACK -->
@@ -84,3 +87,4 @@
   </form>
   <!-- end -->
 </div>
+<%= javascript_include_tag "flip.js" %>

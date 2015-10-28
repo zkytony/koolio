@@ -9,10 +9,10 @@ $(document).ready(function() {
      - Hide the Front/Back side
      - Display the Back/Front side
      - If Back/Front side has not been given a content type
-       - Display four buttons for content type selection
+     - Display four buttons for content type selection
        - Front/Back button greyed out
-     - If Back/Front side is editing
-       - Display whatever type-editor + content that the user was editing
+       - If Back/Front side is editing
+     - Display whatever type-editor + content that the user was editing
        - Create card button is enabled
 
      Clicked text-editor button:
@@ -28,7 +28,7 @@ $(document).ready(function() {
   });
 
   $("#back-side-btn").click(function() {
-    sideBtnPressed("back");
+    sideBtnPressed("work");
   });
 
   /*** Front text ***/
@@ -59,10 +59,6 @@ $(document).ready(function() {
     backPrevType = "text";
   });
 
-  $("#back-text-edit-back-btn").click(function() {
-    sideBtnPressed("back");
-  });
-
   $("#back-text-change-type-btn").click(function() {
     showUpTypeSelector("back", backPrevType);
     $("#back-text-editor-container").addClass("hidden");
@@ -78,13 +74,13 @@ function sideBtnPressed(side) {
   } else {
     otherSide = "front";
   }
-  $("#" + otherSide + "-wrapper").addClass("hidden");
+  flip($("#card-editor-flipper"));
   $("#" + otherSide + "-side-btn").removeClass("side-editing");
   $("#" + otherSide + "-side-btn").prop("disabled", false);
   $("#" + side + "-type-select-container").removeClass("hidden");
-  $("#" + side + "-wrapper").removeClass("hidden");
   $("#" + side + "-side-btn").prop("disabled", true);
   $("#" + side + "-side-btn").addClass("side-editing");
+
 }
 
 function showUpTypeSelector(side, prevType) {
