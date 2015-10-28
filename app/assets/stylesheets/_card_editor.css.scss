@@ -16,6 +16,7 @@ $editor-btn-radius: 10px;
     height: $editor-height;
 }
 
+
 #front-wrapper, #back-wrapper {
     width: $editor-left-part-width;
     height: $editor-height;
@@ -149,14 +150,16 @@ $create-card-btn-font-size: 30px;
     background-color: #E6E6E6;
 }
 
+$create-card-btn-color: #56BC8A;
 .create-card-btn {
     font-size: $create-card-btn-font-size;
-    background-color: #56BC8A;
+    background-color: $create-card-btn-color;
     color: $white;
     font-weight: 700;
     width: $create-card-btn-size;
     height: 40%;
     @include border-radius($editor-btn-radius);
+    @include decent-interact-bg($create-card-btn-color);
 }
 
 .create-card-btn:disabled {
@@ -191,12 +194,10 @@ $text-editor-bg: #F2F2F2;
     input[type="text"] {
 	@include box-sizing(border-box);
 	width: 100%;
-	height: 10%;
+	height: 17%;
 	font-size: $text-title-font-size;
 	font-weight: 700;
-	padding-top: 30px;
 	padding-left: 20px;
-	padding-bottom: 30px;
 	border: none;
     }
 
@@ -216,7 +217,7 @@ $text-editor-bg: #F2F2F2;
 
     .text-editor-btns {
 	width: 100%;
-	height: 25%;
+	height: 23%;
 	@include box-sizing(border-box);
 	position: relative;
 	background-color: $text-editor-bg;
