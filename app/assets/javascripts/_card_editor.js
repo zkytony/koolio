@@ -54,7 +54,7 @@ $(document).ready(function() {
     $("#front-text-editor-container").addClass("hidden");
   });
 
-  $("#front-text-body").change(function() {
+  $("#front-text-body").keyup(function() {
     if ($("#front-text-body").val()) {
       frontHasStuff = true;
     } else {
@@ -76,7 +76,7 @@ $(document).ready(function() {
     $("#back-text-editor-container").addClass("hidden");
   });
 
-  $("#back-text-body").change(function() {
+  $("#back-text-body").keyup(function() {
     if ($("#back-text-body").val()) {
       backHasStuff = true;
     } else {
