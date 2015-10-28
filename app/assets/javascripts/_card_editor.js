@@ -23,6 +23,9 @@ $(document).ready(function() {
   var frontPrevType = null;
   var backPrevType = null;
 
+  var frontHasStuff = false;
+  var backHasStuff = false;
+
   $("#front-side-btn").click(function() {
     sideBtnPressed("front");
   });
@@ -50,6 +53,15 @@ $(document).ready(function() {
     showUpTypeSelector("front", frontPrevType);
     $("#front-text-editor-container").addClass("hidden");
   });
+
+  $("#front-text-body").change(function() {
+    if ($("#front-text-body").val()) {
+      frontHasStuff = true;
+    } else {
+      frontHasStuff = false;
+    }
+    updateCreateCardBtn(frontHasStuff, backHasStuff);
+  });
   /*** End Front text ***/
 
   /*** Back text ***/
@@ -62,6 +74,15 @@ $(document).ready(function() {
   $("#back-text-change-type-btn").click(function() {
     showUpTypeSelector("back", backPrevType);
     $("#back-text-editor-container").addClass("hidden");
+  });
+
+  $("#back-text-body").change(function() {
+    if ($("#back-text-body").val()) {
+      backHasStuff = true;
+    } else {
+      backHasStuff = false;
+    }
+    updateCreateCardBtn(frontHasStuff, backHasStuff);
   });
   /*** End Back text ***/
 });
@@ -93,5 +114,13 @@ function showUpTypeSelector(side, prevType) {
 
     default:
       break;
+  }
+}
+
+function updateCreateCardBtn(frontHasStuff, backHasStuff) {
+  if (frontHasStuff && backHasStuff) {
+    $("#create-card-btn").prop("disabled", false);
+  } else {
+    $("#create-card-btn").prop("disabled", true);
   }
 }
