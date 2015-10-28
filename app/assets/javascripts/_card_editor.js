@@ -19,6 +19,12 @@ $(document).ready(function() {
      - Hide the four content type buttons
      - Display the text-editor
      (same for other editors)
+
+     When submit:
+     - Grab the data entered on each side of the card, and convert them to
+       JSON string according to the type of that side
+     - Inject the JSON string to hidden fields of the form
+       - only these hidden fields need to be Rail-ized
    */
   var frontPrevType = null;
   var backPrevType = null;
@@ -85,7 +91,22 @@ $(document).ready(function() {
     updateCreateCardBtn(frontHasStuff, backHasStuff);
   });
   /*** End Back text ***/
+
+  /*** Handle submission ***/
+  $("#card-editor-form").submit(function() {
+    var frontContent = {type: frontPrevType};
+    frontContent["content"] = grabContentWithType(frontPrevType, "front");
+
+    var backContent = {type: backPrevType};
+    backContent["content"] = grabContentWithType(backPrevType, "back");
+
+    var frontJSON = JSON.stringify(frontContent);
+    var backJSON = JSON.stringify(backContent);
+    // Inject these two content into the hidden fields of the card editor form
+  });
+  /*** End Handle submission ***/
 });
+/* end document.ready */
 
 // side can be either front or back
 function sideBtnPressed(side) {
@@ -123,4 +144,18 @@ function updateCreateCardBtn(frontHasStuff, backHasStuff) {
   } else {
     $("#create-card-btn").prop("disabled", true);
   }
+}
+
+function grabContentWithType(type, side) {
+  var result = {};
+  switch (type) {
+    case "text":
+      result["title"] = $("#" + side + "-text-title").val();
+      result["body"] = $("#" + side + "-text-body").val();
+      break;
+     
+    default:
+      break;
+  }
+  return result;
 }

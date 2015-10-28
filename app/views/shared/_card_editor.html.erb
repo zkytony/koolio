@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "_card_editor.css" %>
 <div class="card-editor">
   <!-- form_for -->
-  <form>
+  <form id="card-editor-form">
     <!-- Flipper -->
     <div class="flipper" id="card-editor-flipper">
       <!-- FRONT (front of flipper) -->
@@ -80,7 +80,7 @@
 	  <button class="side-select-btn" id="back-side-btn" type="button">back</button>
 	</div>
 	<div class="fixed-options-btn-row">
-	  <button class="create-card-btn" id="create-card-btn" disabled type="button">create card</button>
+	  <button class="create-card-btn" id="create-card-btn" disabled type="submit">create card</button>
 	</div>
       </div>
     </div>
