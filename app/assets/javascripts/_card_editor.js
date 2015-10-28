@@ -28,7 +28,7 @@ $(document).ready(function() {
   });
 
   $("#back-side-btn").click(function() {
-    sideBtnPressed("work");
+    sideBtnPressed("back");
   });
 
   /*** Front text ***/
