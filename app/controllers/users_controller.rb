@@ -9,15 +9,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save!
-      # redirect to users/:id
-      flash[:success] = "Welcome to Koolio"
+    if CreateUserAccount.call(@user)
       log_in @user
       redirect_to @user
     else
-      # Render the form again; 
-      # Error will be displayed accordingly
-      flash[:error] = "Error in your field"
+      # Not able to create
       redirect_to root_path
     end
   end
