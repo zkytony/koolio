@@ -171,6 +171,8 @@ TextEditor.prototype.init = function() {
   });
   InnerEditor.prototype.init.call(textEditor);
 }
+/* End of TextEditor */
+
 /* ImageEditor object, inherits InnerEditor */
 ImageEditor.prototype = Object.create(InnerEditor.prototype);
 function ImageEditor(editor, side) {
@@ -181,6 +183,7 @@ function ImageEditor(editor, side) {
 ImageEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
   // not yet implemented
 }
+/* End of ImageEditor */
 
 $(document).ready(function() {
   var editor = new Editor("front", "card-editor-flipper");
