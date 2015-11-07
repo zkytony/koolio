@@ -90,7 +90,7 @@ Editor.prototype.use = function(type) {
 Editor.prototype.changeType = function(inner) {
   $("#" + this.currentSide + "-type-select-container").removeClass("hidden");
   
-  inner.updateDraftState();
+  inner.updateTypeBtnStateIfHasDraft();
   $("#" + this.currentSide + "-" + this.prevType[this.currentSide] + "-editor-container").addClass("hidden");
 }
 
@@ -119,13 +119,13 @@ function InnerEditor(editor, side) {
 // Check if the content in this inner editor has draft.
 // If yes, then it should add class "previous-type" to the type-btn
 // for this type of inner editor
-InnerEditor.prototype.updateTypeBtnIfHasDraft = function() {
+InnerEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
   // could not implement here
 }
 
 InnerEditor.prototype.init = function() {
   var innerEditor = this;
-  $("#" + this.side + "-type-" + this.type + "-btn").click(function() {
+  $("#" + innerEditor.side + "-type-" + innerEditor.type + "-btn").click(function() {
     innerEditor.editor.use(innerEditor.type);
   });
 
@@ -135,12 +135,12 @@ InnerEditor.prototype.init = function() {
   } else {
     otherSide = "front";
   }
-  $("#" + this.side + "-" + this.type + "-edit-" + otherSide + "-btn").click(function() {
+  $("#" + innerEditor.side + "-" + innerEditor.type + "-edit-" + otherSide + "-btn").click(function() {
     innerEditor.editor.flip(); // editor is the reference - it affects other inner editors as well
   });
 
-  $("#" + this.side + "-" + this.type + "-change-type-btn").click(function() {
-    innerEditor.editor.changeType(this);
+  $("#" + innerEditor.side + "-" + innerEditor.type + "-change-type-btn").click(function() {
+    innerEditor.editor.changeType(innerEditor);
   });
 
 }
@@ -154,8 +154,9 @@ function TextEditor(editor, side) {
 }
 
 TextEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
-  if (this.editor.hasDraft[this.side]) {
-    $("#" + this.side + "-type-text-btn").addClass("previous-type");
+  var textEditor = this;
+  if (textEditor.editor.hasDraft[this.side]) {
+    $("#" + textEditor.side + "-type-text-btn").addClass("previous-type");
   }
 }
 
