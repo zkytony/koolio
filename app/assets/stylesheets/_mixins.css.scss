@@ -376,3 +376,10 @@ $mq-desktop		: 1382px !default;
   ::-moz-placeholder          {@content}
   :-ms-input-placeholder      {@content}  
 }
+
+@mixin center-vertically-and-horizontally {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

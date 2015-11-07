@@ -10,7 +10,7 @@
 	  <div class="type-select">
 	    <div class="type-btn-row" id="type-btn-row-0">
 	      <button class="type-btn text-type-btn" id="front-type-text-btn" type="button">Aa</button>
-	      <button class="type-btn image-type-btn" id="front-type-image-btn" type="button"><i class="fa fa-picture-o"></i></button>
+	      <button class="type-btn image-type-btn" id="front-type-img-btn" type="button"><i class="fa fa-picture-o"></i></button>
 	    </div>
 	    <div class="type-btn-row" id="type-btn-row-1">
 	      <button class="type-btn video-type-btn" id="front-type-video-btn" type="button"><i class="fa fa-video-camera"></i></button>
@@ -19,23 +19,37 @@
 	  </div>
 	</div>
 	<div class="editor-left-part hidden" id="front-text-editor-container">
-	  <!-- FRONT TEXT EDITOR -->
+	  <!-- ########## FRONT TEXT EDITOR ########## -->
 	  <div class="text-editor">
 	    <!-- f.text title -->
 	    <input type="text" id="front-text-title" placeholder="Title">
 	    <!-- f.textarea -->
 	    <textarea id="front-text-body" placeholder="What you want to share"></textarea>
-	    <div class="text-editor-btns">
-	      <button class="text-edit-back-btn" type="button" id="front-text-edit-back-btn">edit back</button>
-	      <button class="text-change-type-btn" type="button" id="front-text-change-type-btn">change type</button>
+	    <div class="inner-editor-btn-row">
+	      <button class="inner-edit-back-btn" type="button" id="front-text-edit-back-btn">edit back</button>
+	      <button class="inner-change-type-btn" type="button" id="front-text-change-type-btn">change type</button>
 	    </div>
 	  </div>
-	  <!-- END FRONT TEXT EDITOR -->
+	  <!-- ########## END FRONT TEXT EDITOR ########## -->
 	</div>
-	<div class="editor-left-part hidden" id="front-image-editor-container">
+	<div class="editor-left-part hidden" id="front-img-editor-container">
+	  <!-- ########## FRONT IMAGE EDITOR ########## -->
+	  <div class="image-editor">
+	    <div class="image-editor-uploader" id="front-img-editor-uploader">
+	      <div class="image-uploader-wrapper">
+		  <button class="image-uploader-half right-dash image-upload-type-btn"><i class="fa fa-upload"></i></button>
+		  <button class="image-uploader-half left-dash image-upload-type-btn"><i class="fa fa-link"></i></button>
+	      </div>
+	      <div class="inner-editor-btn-row">
+		<button class="inner-edit-back-btn" type="button" id="front-img-edit-back-btn">edit back</button>
+		<button class="inner-change-type-btn" type="button" id="front-img-change-type-btn">change type</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 	<div class="editor-left-part hidden" id="front-video-editor-container">
 	</div>
+	<!-- ########## END FRONT IMAGE EDITOR ########## -->
       </div>
       <!-- END FRONT -->
       <!-- BACK (Back of flipper) -->
@@ -44,7 +58,7 @@
 	  <div class="type-select">
 	    <div class="type-btn-row" id="type-btn-row-0">
 	      <button class="type-btn text-type-btn" id="back-type-text-btn" type="button">Aa</button>
-	      <button class="type-btn image-type-btn" id="back-type-image-btn" type="button"><i class="fa fa-picture-o"></i></button>
+	      <button class="type-btn image-type-btn" id="back-type-img-btn" type="button"><i class="fa fa-picture-o"></i></button>
 	    </div>
 	    <div class="type-btn-row" id="type-btn-row-1">
 	      <button class="type-btn video-type-btn" id="back-type-video-btn" type="button"><i class="fa fa-video-camera"></i></button>
@@ -53,18 +67,18 @@
 	  </div>
 	</div>
 	<div class="editor-left-part hidden" id="back-text-editor-container">
-	  <!-- BACK TEXT EDITOR -->
+	  <!-- ########## BACK TEXT EDITOR ########## -->
 	  <div class="text-editor">
 	    <!-- f.text title -->
 	    <input type="text" id="back-text-title" placeholder="Title">
 	    <!-- f.textarea -->
 	    <textarea id="back-text-body" placeholder="What you want to share"></textarea>
-	    <div class="text-editor-btns">
-	      <button class="text-edit-back-btn" type="button" id="back-text-edit-front-btn">edit front</button>
-	      <button class="text-change-type-btn" type="button" id="back-text-change-type-btn">change type</button>
+	    <div class="inner-editor-btn-row">
+	      <button class="inner-edit-back-btn" type="button" id="back-text-edit-front-btn">edit front</button>
+	      <button class="inner-change-type-btn" type="button" id="back-text-change-type-btn">change type</button>
 	    </div>
 	  </div>
-	  <!-- END BACK TEXT EDITOR -->
+	  <!-- ########## END BACK TEXT EDITOR ########## -->
 	</div>
 	<div class="editor-left-part hidden" id="back-image-editor-container">
 	</div>
@@ -74,6 +88,7 @@
     </div>
     <!-- END BACK -->
     <div class="editor-right-part" id="fixed-options-panel-container">
+      <!-- ########## FIXED OPTIONS ########## -->
       <div class="fixed-options">
 	<div class="fixed-options-btn-row">
 	  <button class="side-select-btn side-editing" disabled id="front-side-btn" type="button">front</button>
@@ -83,6 +98,7 @@
 	  <button class="create-card-btn" id="create-card-btn" disabled type="submit">create card</button>
 	</div>
       </div>
+      <!-- ########## END FIXED OPTIONS ########## -->
     </div>
   </form>
   <!-- end -->

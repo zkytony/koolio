@@ -5,6 +5,7 @@ $editor-height: 100%;
 $editor-left-part-width: 65%;
 $editor-right-part-width: 100% - $editor-left-part-width;
 $editor-btn-radius: 10px;
+$inner-editor-radius: 10px; // e.g. text-editor, img-editor
 
 #card-editor-flipper {
     width: $editor-width;
@@ -47,12 +48,7 @@ $type-select-width: 75%;
 .type-select {
     width: $type-select-width;
     height: $type-select-width; // keep same margin
-    /* Center vertically and horizontally */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* Done */
+    @include center-vertically-and-horizontally;
 }
 
 .type-btn-row {
@@ -114,6 +110,7 @@ $fixed-options-btn-margin: 5px;
 $side-select-btn-size: 100px;
 $side-select-btn-font-size: 20px;
 $create-card-btn-size: $side-select-btn-size * 2 + $fixed-options-btn-margin * 2;
+$create-card-btn-height: $fixed-options-height * 0.5;
 $create-card-btn-font-size: 30px;
 .fixed-options {
     width: 100%;
@@ -157,7 +154,7 @@ $create-card-btn-color: #56BC8A;
     color: $white;
     font-weight: 700;
     width: $create-card-btn-size;
-    height: 40%;
+    height: $create-card-btn-height;
     @include border-radius($editor-btn-radius);
     @include decent-interact-bg($create-card-btn-color);
 }
@@ -167,22 +164,52 @@ $create-card-btn-color: #56BC8A;
     color: #BCBCBC;
 }
 /**** END FIXED OPTIONS ****/
+/**** GENERALS OF EDITORS ****/
+$inner-editor-bg: #F2F2F2;
+$inner-btn-row-height: 20%;
+.inner-editor-btn-row {
+    width: 100%;
+    height: $inner-btn-row-height;
+    @include box-sizing(border-box);
+    position: relative;
+    background-color: $inner-editor-bg;
+}
+
+.inner-edit-back-btn, .inner-change-type-btn {
+    padding: 10px 12px;
+    position: absolute;
+    border: none;
+    font-size: 17px;
+    font-weight: 700;
+    @include border-radius(5px);
+}
+
+.inner-edit-back-btn {
+    right: 20px;
+    top: 10px;
+    background-color: $grey-blue;
+    color: $white;
+    @include decent-interact-bg($grey-blue);
+}
+
+.inner-change-type-btn {
+    left: 20px;
+    top: 10px;
+    color: $grey-black;
+    @include decent-interact-bg($light-grey);
+}
+/**** END GENERALS OF EDITORS ****/
 /**** TEXT EDITOR ****/
 $text-editor-width: 75%;
 $text-title-font-size: 30px;
 $text-body-font-size: 16px;
-$text-editor-bg: #F2F2F2;
+$text-editor-bg: $inner-editor-bg;
 .text-editor {
     width: $text-editor-width;
     height: $text-editor-width;
-    /* Center vertically and horizontally */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    /* Done */
+    @include center-vertically-and-horizontally;
     overflow: hidden;
-    @include border-radius(10px);
+    @include border-radius($inner-editor-radius);
 
     input[type="text"], textarea {
 	color: $soft-black;
@@ -214,37 +241,68 @@ $text-editor-bg: #F2F2F2;
 	padding-left: 20px;
 	padding-right: 20px;
     }
-
-    .text-editor-btns {
-	width: 100%;
-	height: 23%;
-	@include box-sizing(border-box);
-	position: relative;
-	background-color: $text-editor-bg;
-    }
-
-    .text-edit-back-btn, .text-change-type-btn {
-	padding: 10px 12px;
-	position: absolute;
-	border: none;
-	font-size: 17px;
-	font-weight: 700;
-	@include border-radius(5px);
-    }
-
-    .text-edit-back-btn {
-	right: 20px;
-	top: 10px;
-	background-color: $grey-blue;
-	color: $white;
-	@include decent-interact-bg($grey-blue);
-    }
-
-    .text-change-type-btn {
-	left: 20px;
-	top: 10px;
-	color: $grey-black;
-	@include decent-interact-bg($light-grey);
-    }
 }
 /**** END TEXT EDITOR ****/
+/**** IMAGE EDITOR ****/
+$img-editor-width: 75%;
+$img-body-font-size: 16px;
+$img-editor-bg: $inner-editor-bg;
+$img-uploader-icon-size: 77px;
+$img-uploader-wrapper-height: 100% - $inner-btn-row-height;
+$img-uploader-wrapper-width: 90%;
+.image-editor {
+    width: $img-editor-width;
+    height: $img-editor-width ;
+    @include center-vertically-and-horizontally;
+
+    .image-editor-uploader {
+	width: 100%;
+	/* The height of this area is equal to 
+	   height of fixed-options-btn-row + height of create-card-btn
+	 */
+	height: $fixed-options-height * 0.5 + $create-card-btn-height;
+	background-color: $img-editor-bg;
+	@include border-radius($inner-editor-radius);
+	@include box-sizing(border-box);
+	padding-top: 5%;
+	padding-bottom: 5%;
+    }
+
+    // Need the bottom row to be at the bottom
+    .inner-editor-btn-row {
+    }
+    
+    /* Upload image phase */
+    .image-uploader-wrapper {
+	width: $img-uploader-wrapper-width;
+	height: $img-uploader-wrapper-height;
+	margin: auto;
+
+	.image-uploader-half {
+	    width: 50%;
+	    height: 100%;
+	    float: left;
+	    @include box-sizing(border-box);
+	}
+	.image-uploader-half.right-dash {
+	    border-right: 2px dashed darken($img-editor-bg, 15%);
+	}
+	.image-uploader-half.left-dash {
+	    border-left: 2px dashed darken($img-editor-bg, 15%);
+	}
+	
+	.image-upload-type-btn {
+	    border: none;
+	    background-color: $img-editor-bg;
+	    font-size: $img-uploader-icon-size;
+	    color: darken($img-editor-bg, 15%);
+
+	    &:hover {
+		color: darken($img-editor-bg, 25%);
+	    }
+	}
+    }
+
+    /* Display image & enter message phase */
+}
+/**** END IMAGE EDITOR ****/

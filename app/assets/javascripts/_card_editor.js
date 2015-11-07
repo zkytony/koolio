@@ -33,26 +33,26 @@ $(document).ready(function() {
   var backHasStuff = false;
 
   $("#front-side-btn").click(function() {
-    sideBtnPressed("front");
+    sideBtnPressed("front", frontPrevType);
   });
 
   $("#back-side-btn").click(function() {
-    sideBtnPressed("back");
+    sideBtnPressed("back", backPrevType);
   });
 
+  /*** text ***/
+  $("#front-text-edit-back-btn").click(function() {
+    sideBtnPressed("back", backPrevType);
+  });
+
+  $("#back-text-edit-front-btn").click(function() {
+    sideBtnPressed("front", frontPrevType);
+  });
   /*** Front text ***/
   $("#front-type-text-btn").click(function() {
     $("#front-type-select-container").addClass("hidden");
     $("#front-text-editor-container").removeClass("hidden");
     frontPrevType = "text";
-  });
-
-  $("#front-text-edit-back-btn").click(function() {
-    sideBtnPressed("back");
-  });
-
-  $("#back-text-edit-front-btn").click(function() {
-    sideBtnPressed("front");
   });
 
   $("#front-text-change-type-btn").click(function() {
@@ -69,7 +69,6 @@ $(document).ready(function() {
     updateCreateCardBtn(frontHasStuff, backHasStuff);
   });
   /*** End Front text ***/
-
   /*** Back text ***/
   $("#back-type-text-btn").click(function() {
     $("#back-type-select-container").addClass("hidden");
@@ -91,6 +90,28 @@ $(document).ready(function() {
     updateCreateCardBtn(frontHasStuff, backHasStuff);
   });
   /*** End Back text ***/
+  /*** End text ***/
+
+  /**** image ****/
+  $("#front-img-edit-back-btn").click(function() {
+    sideBtnPressed("back", backPrevType);
+  });
+  $("#back-img-edit-back-btn").click(function() {
+    sideBtnPressed("front", frontPrevType);
+  });
+  /**** Front image ****/
+  $("#front-type-img-btn").click(function() {
+    $("#front-type-select-container").addClass("hidden");
+    $("#front-img-editor-container").removeClass("hidden");
+    frontPrevType = "img";
+  });
+
+  $("#front-img-change-type-btn").click(function() {
+    showUpTypeSelector("front", frontPrevType);
+    $("#front-img-editor-container").addClass("hidden");
+  });
+  /**** End Front image ****/
+  /**** End image ****/
 
   /*** Handle submission ***/
   $("#card-editor-form").submit(function() {
@@ -109,7 +130,7 @@ $(document).ready(function() {
 /* end document.ready */
 
 // side can be either front or back
-function sideBtnPressed(side) {
+function sideBtnPressed(side, prevType) {
   var otherSide = "";
   if (side == "front") {
     otherSide = "back";
@@ -119,10 +140,13 @@ function sideBtnPressed(side) {
   flip($("#card-editor-flipper"));
   $("#" + otherSide + "-side-btn").removeClass("side-editing");
   $("#" + otherSide + "-side-btn").prop("disabled", false);
-  $("#" + side + "-type-select-container").removeClass("hidden");
+  if (prevType != null) {
+    $("#" + side + "-" + prevType + "-editor-container").removeClass("hidden");
+  } else {
+    $("#" + side + "-type-select-container").removeClass("hidden");
+  }
   $("#" + side + "-side-btn").prop("disabled", true);
   $("#" + side + "-side-btn").addClass("side-editing");
-
 }
 
 function showUpTypeSelector(side, prevType) {
@@ -131,6 +155,9 @@ function showUpTypeSelector(side, prevType) {
     case "text":
       if ($("#" + side + "-text-body").val())
 	$("#" + side + "-type-text-btn").addClass("previous-type");
+      break;
+    case "img":
+      // when to put it on hold
       break;
 
     default:
