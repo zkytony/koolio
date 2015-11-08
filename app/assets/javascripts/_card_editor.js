@@ -33,9 +33,11 @@
 */
 function Editor(defaultSide, formId) {
   this.prevType = {"front": undefined, "back": undefined};
+  this.innerEditors = {};
+  this.activeInnerEditors = {"front": undefined, "back": undefined};
+  this.hasDraft = {"front": false, "back": false};
   this.currentSide = defaultSide;
   this.id = formId;
-  this.hasDraft = {"front": false, "back": false};
 }
 
 Editor.prototype.init = function() {
@@ -43,10 +45,10 @@ Editor.prototype.init = function() {
   $("#front-side-btn").click(function() {
     editor.flip();
   });
-
   $("#back-side-btn").click(function() {
     editor.flip();
   });
+
   // text, img, vid
   var ft = new TextEditor(editor, "front");
   ft.init();
@@ -56,6 +58,30 @@ Editor.prototype.init = function() {
   fi.init();
   var bi = new ImageEditor(editor, "back");
   bi.init();
+  this.innerEditors = {
+    "front": {
+      "text": ft,
+      "img": fi
+    },
+    "back": {
+      "text": bt,
+      "img": bi
+    }
+  }
+
+  // on-submit
+  $("#" + editor.id).submit(function() {
+    var frontContent = {type: editor.prevType["front"]};
+    frontContent["content"] = editor.activeInnerEditors["front"].grabContent();
+
+    var backContent = {type: editor.prevType["back"]};
+    backContent["content"] = editor.activeInnerEditors["back"].grabContent();
+
+    var frontJSON = JSON.stringify(frontContent);
+    var backJSON = JSON.stringify(backContent);
+    alert(frontJSON);
+    // Inject these two content into the hidden fields of the card editor form
+  });
 }
 
 // Flip to the other side of the editor
@@ -84,6 +110,7 @@ Editor.prototype.use = function(type) {
   $("#" + this.currentSide + "-type-select-container").addClass("hidden");
   $("#" + this.currentSide + "-" + type + "-editor-container").removeClass("hidden");
   this.prevType[this.currentSide] = type;
+  this.activeInnerEditors[this.currentSide] = this.innerEditors[this.currentSide][this.prevType[this.currentSide]];
 }
 
 // Goes back to the phase of selecting type
@@ -144,6 +171,12 @@ InnerEditor.prototype.init = function() {
   });
 
 }
+
+// This method returns a JSON String of the data on this editor
+// that should be used for saving content to database
+InnerEditor.prototype.grabContent = function() {
+  // cannot implement here since type is undefined
+}
 /* End of InnerEditor */
 
 /* TextEditor object, inherits InnerEditor */
@@ -173,6 +206,13 @@ TextEditor.prototype.init = function() {
     textEditor.editor.updateCreateCardBtn();
   });
   InnerEditor.prototype.init.call(textEditor);
+}
+
+TextEditor.prototype.grabContent = function() {
+  var result = {};
+  result["title"] = $("#" + this.side + "-text-title").val();
+  result["body"] = $("#" + this.side + "-text-body").val();
+  return result;
 }
 /* End of TextEditor */
 
