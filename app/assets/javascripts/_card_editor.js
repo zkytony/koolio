@@ -31,10 +31,10 @@
    defaultSide: the default side facing the user initially
    id: the id for the container of the editor, MUST have the "flipper" class.
 */
-function Editor(defaultSide, id) {
+function Editor(defaultSide, formId) {
   this.prevType = {"front": undefined, "back": undefined};
   this.currentSide = defaultSide;
-  this.id = id;
+  this.id = formId;
   this.hasDraft = {"front": false, "back": false};
 }
 
@@ -66,7 +66,7 @@ Editor.prototype.flip = function() {
   } else {
     otherSide = "front";
   }
-  flip($("#" + this.id));
+  flip($("#" + this.id + " .flipper"));
   $("#" + otherSide + "-side-btn").addClass("side-editing");
   $("#" + otherSide + "-side-btn").prop("disabled", true);
   if (this.prevType[otherSide] != null) {
@@ -189,6 +189,6 @@ ImageEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
 /* End of ImageEditor */
 
 $(document).ready(function() {
-  var editor = new Editor("front", "card-editor-flipper");
+  var editor = new Editor("front", "card-editor-form");
   editor.init();
 });
