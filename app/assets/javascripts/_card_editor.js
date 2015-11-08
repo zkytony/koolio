@@ -157,6 +157,8 @@ TextEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
   var textEditor = this;
   if (textEditor.editor.hasDraft[this.side]) {
     $("#" + textEditor.side + "-type-text-btn").addClass("previous-type");
+  } else {
+    $("#" + textEditor.side + "-type-text-btn").removeClass("previous-type");
   }
 }
 
