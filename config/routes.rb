@@ -13,9 +13,10 @@ Rails.application.routes.draw do
   resources :decks do
     post 'favorite' => 'decks#favorite'
     delete 'unfavorite' => 'decks#unfavorite'
-    resources :cards do
-      post 'like' => 'cards#like'
-      delete 'unlike' => 'cards#unlike'
-    end
+  end
+  # Also want to have paths for cards directly
+  resources :cards do
+    post 'like' => 'cards#like'
+    delete 'unlike' => 'cards#unlike'
   end
 end

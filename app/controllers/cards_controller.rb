@@ -9,15 +9,8 @@ class CardsController < ApplicationController
   end
 
   def create
-    @deck = Deck.find(params[:deck_id])
-    @card = @deck.build_card(card_params, current_user)
-    if @card.save!
-      flash[:success] = "Craeted a new card"
-      redirect_to @deck
-    else
-      flash[:error] = "Unable to create card"
-      redirect_to new_dcek_card_path
-    end
+    CreateCard.call(card_params, current_user, params[:deck_id])
+    redirect_to :back
   end
 
   def show
