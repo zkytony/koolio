@@ -1,7 +1,13 @@
 <%= stylesheet_link_tag "_card_editor.css" %>
 <div class="card-editor">
   <!-- form_for -->
-  <form id="card-editor-form">
+  <%= form_for(@card) do |f| %>
+  <!-- form id="card-editor-form" -->
+    <!-- Hidden fields -->
+    <!-- :deck_id field is generated when a deck is selected -->
+    <%= f.hidden_field :front_content %>
+    <%= f.hidden_field :back_content %>
+    <!-- End Hidden fields -->
     <!-- Flipper -->
     <div class="flipper" id="card-editor-flipper">
       <!-- FRONT (front of flipper) -->
@@ -114,7 +120,8 @@
       </div>
       <!-- ########## END FIXED OPTIONS ########## -->
     </div>
-  </form>
+  <!-- /form -->
+  <% end %>
   <!-- end -->
 </div>
 <%= javascript_include_tag "flip.js" %>

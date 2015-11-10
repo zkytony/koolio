@@ -79,8 +79,11 @@ Editor.prototype.init = function() {
 
     var frontJSON = JSON.stringify(frontContent);
     var backJSON = JSON.stringify(backContent);
-    alert(frontJSON);
+
     // Inject these two content into the hidden fields of the card editor form
+    $("#card_front_content").val(frontJSON);
+    $("#card_back_content").val(backJSON);
+    // deck_id ??
   });
 }
 
@@ -229,6 +232,6 @@ ImageEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
 /* End of ImageEditor */
 
 $(document).ready(function() {
-  var editor = new Editor("front", "card-editor-form");
+  var editor = new Editor("front", "new_card");
   editor.init();
 });

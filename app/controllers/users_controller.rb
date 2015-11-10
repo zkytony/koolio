@@ -21,6 +21,7 @@ class UsersController < ApplicationController
   def show
     if logged_in?
       @user = User.find(params[:id])
+      @card = Card.new   # user may want to create a card in home page
     else
       redirect_to root_path
     end
