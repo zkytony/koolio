@@ -7,7 +7,7 @@ class RecommendContent
     def self.call(user, n_card)
       contents = []
       
-      card_providers = user.favorites.sort_by{ rand }.slice(0, n_card)
+      card_providers = user.favorite_decks.sort_by{ rand }.slice(0, n_card)
       
       # each provider is a deck
       card_providers.each do |provider|
