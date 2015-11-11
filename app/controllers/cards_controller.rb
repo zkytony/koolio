@@ -10,7 +10,11 @@ class CardsController < ApplicationController
 
   def create
     CreateCard.call(card_params, current_user, params[:deck_id])
-    redirect_to :back
+    
+    respond_to do |format|
+      format.html { redirect_to :back }
+      format.js
+    end
   end
 
   def show

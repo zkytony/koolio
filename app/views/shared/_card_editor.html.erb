@@ -1,8 +1,7 @@
 <%= stylesheet_link_tag "_card_editor.css" %>
 <div class="card-editor">
   <!-- form_for -->
-  <%= form_for(@card) do |f| %>
-  <!-- form id="card-editor-form" -->
+  <%= form_for(@card, remote: true) do |f| %>
     <!-- Hidden fields -->
     <!-- :deck_id field is generated when a deck is selected -->
     <%= f.hidden_field :front_content %>

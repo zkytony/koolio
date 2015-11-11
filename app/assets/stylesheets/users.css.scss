@@ -30,10 +30,9 @@ $home-card-editor-height: 480px;
     height: $home-card-editor-height;
     position: absolute;
     z-index: 10; // glass-overlay has z-index 3
-    margin-left: auto;
-    margin-right: auto;
     left: 0;
     right: 0;
+    @include center-vertically-and-horizontally;
     @include border-radius(5px);
     @include mobile-landscape-and-below {
 	width: 100%;

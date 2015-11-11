@@ -28,5 +28,8 @@ $(document).ready(function() {
 	$(".glass-overlay").css("display", "none");
 	$("#editor-container-home").css("display", "none");
     });
+
+    var editor = new Editor("new_card");
+    editor.init();
 });
 

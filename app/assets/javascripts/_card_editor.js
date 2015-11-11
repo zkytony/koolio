@@ -31,13 +31,21 @@
    defaultSide: the default side facing the user initially
    id: the id for the container of the editor, MUST have the "flipper" class.
 */
-function Editor(defaultSide, formId) {
+function Editor(formId) {
   this.prevType = {"front": undefined, "back": undefined};
   this.innerEditors = {};
   this.activeInnerEditors = {"front": undefined, "back": undefined};
   this.hasDraft = {"front": false, "back": false};
-  this.currentSide = defaultSide;
   this.id = formId;
+  this.innerEditors = {};
+  
+  // if .flipper does not have .flip, then the current side is front
+  // else the current side has been flipped - back
+  if (!$("#" + this.id + " .flipper").hasClass("flip")) {
+     this.currentSide = "front"; 
+  } else {
+    this.currentSide = "back"; 
+  }
 }
 
 Editor.prototype.init = function() {
@@ -48,7 +56,7 @@ Editor.prototype.init = function() {
   $("#back-side-btn").click(function() {
     editor.flip();
   });
-
+  
   // text, img, vid
   var ft = new TextEditor(editor, "front");
   ft.init();
@@ -58,7 +66,7 @@ Editor.prototype.init = function() {
   fi.init();
   var bi = new ImageEditor(editor, "back");
   bi.init();
-  this.innerEditors = {
+  editor.innerEditors = {
     "front": {
       "text": ft,
       "img": fi
@@ -69,6 +77,11 @@ Editor.prototype.init = function() {
     }
   }
 
+  // when ajax is success, call init again
+  $("#" + editor.id).on("ajax:success", function(e, data, status, xhr) {
+    editor.reset();
+  });
+ 
   // on-submit
   $("#" + editor.id).submit(function() {
     var frontContent = {type: editor.prevType["front"]};
@@ -131,6 +144,27 @@ Editor.prototype.updateCreateCardBtn = function() {
     $("#create-card-btn").prop("disabled", true);
   }
 }
+
+Editor.prototype.reset = function() {
+  var editor = this;
+  // make sure that front side is facing up
+  if (editor.currentSide !== "front") {
+    editor.flip();
+  }
+  
+  for (var side in editor.innerEditors) {
+    types = editor.innerEditors[side];
+    for (var type in types) {
+      types[type].reset();
+    }
+  }
+  $("#front-type-select-container").removeClass("hidden");
+  $("#back-type-select-container").removeClass("hidden");
+  editor.prevType = {"front": undefined, "back": undefined};
+  editor.activeInnerEditors = {"front": undefined, "back": undefined};
+  editor.hasDraft = {"front": false, "back": false};
+  editor.updateCreateCardBtn();
+}
 /* End of Editor */
 
 
@@ -143,7 +177,6 @@ function InnerEditor(editor, side) {
   this.editor = editor;
   this.type = undefined;
   this.side = side;
-  this.hasDraft = false;
 }
 
 // Check if the content in this inner editor has draft.
@@ -172,13 +205,18 @@ InnerEditor.prototype.init = function() {
   $("#" + innerEditor.side + "-" + innerEditor.type + "-change-type-btn").click(function() {
     innerEditor.editor.changeType(innerEditor);
   });
-
 }
 
 // This method returns a JSON String of the data on this editor
 // that should be used for saving content to database
 InnerEditor.prototype.grabContent = function() {
   // cannot implement here since type is undefined
+}
+
+// This method resets the form contents of this particular
+// inner editor
+InnerEditor.prototype.reset = function() {
+  // could not implement here
 }
 /* End of InnerEditor */
 
@@ -208,7 +246,15 @@ TextEditor.prototype.init = function() {
     }
     textEditor.editor.updateCreateCardBtn();
   });
+  textEditor.reset();
   InnerEditor.prototype.init.call(textEditor);
+}
+
+TextEditor.prototype.reset = function() {
+  var textEditor = this;
+  $("#" + textEditor.side + "-text-editor-container").addClass("hidden");
+  $("#" + textEditor.side + "-text-title").val("");
+  $("#" + textEditor.side + "-text-body").val("");
 }
 
 TextEditor.prototype.grabContent = function() {
@@ -226,12 +272,18 @@ function ImageEditor(editor, side) {
   this.type = "img";
 }
 
+ImageEditor.prototype.init = function() {
+  var imageEditor = this;
+  imageEditor.reset();
+  InnerEditor.prototype.init.call(imageEditor);
+}
+
 ImageEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
   // not yet implemented
 }
-/* End of ImageEditor */
 
-$(document).ready(function() {
-  var editor = new Editor("front", "new_card");
-  editor.init();
-});
+ImageEditor.prototype.reset = function() {
+  var imageEditor = this;
+  $("#" + imageEditor.side + "-image-editor-container").addClass("hidden");
+}
+/* End of ImageEditor */
