@@ -41,3 +41,17 @@ $home-card-editor-height: 480px;
 
     background-color: $bg-color;
 }
+
+/* Home cards */
+$home-card-width: 200px;
+$home-card-min-height: 200px;
+.home-card-wrapper {
+    width: $home-card-width;
+    min-height: $home-card-min-height;
+    float: left;
+}
+.home-card {
+    width: $home-card-width;
+    min-height: $home-card-min-height;
+    
+}

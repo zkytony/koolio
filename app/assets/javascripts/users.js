@@ -30,11 +30,15 @@ $(document).ready(function() {
     $("#editor-container-home").css("display", "none");
   });
 
+  // flip when clicked home card
+  $("#recommended-contents-wrapper").on('click', '.home-card', function() {
+    flip($(this));
+  });
+
   var editor = new Editor("new_card");
   editor.init();
 
   $("#new_card").on("ajax:success", function(e, data, status, xhr) {
-
     // when new card is created, refresh the recommended content
     // by ajax query to user:show again
     grabRecommendContents();
