@@ -1,0 +1,14 @@
+<!-- Give 'card_id', 'side', 'content' as parameter -->
+<!-- content should be an object that is built by parsing
+     the #{side}_content as JSON. 'content' is assumed to
+     match the expectation of "text" type content, i.e.
+     it has "title" and "body"
+ -->
+<div id="card_<%= "#{card_id}_#{side}" %>_text" class="card-text">
+  <div class="card-text-title">
+    <h1><%= "#{content['title']}" %></h1>
+  </div>
+  <div class="card-text-body">
+    <p><%= "#{content['body']}" %></p>
+  </div>
+</div>

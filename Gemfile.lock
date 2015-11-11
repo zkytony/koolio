@@ -243,6 +243,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  json
   paperclip
   pg
   rails (= 4.2.1)

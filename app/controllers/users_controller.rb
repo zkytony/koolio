@@ -23,11 +23,6 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
       @recommended = RecommendContent.call(@user)
       @card = Card.new   # user may want to create a card in home page
-
-      respond_to do |format|
-        format.html
-        format.json { render json: @recommended }
-      end
     else
       redirect_to root_path
     end

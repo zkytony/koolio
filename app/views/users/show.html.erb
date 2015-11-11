@@ -4,7 +4,9 @@
 <div class="add-card-btn-container">
   <button class="add-card-btn" id="add-card-btn"><i class="fa fa-plus"></i></button>
 </div>
-<p><%= "#{@recommended}" %></p>
+<div id="recommended-contents-wrapper">
+  <%= render :partial => 'shared/recommended' %>
+</div>
 <div class="home-card-editor-container" id="editor-container-home">
   <%= render :partial => 'shared/card_editor' %>
 </div>
