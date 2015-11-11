@@ -126,7 +126,7 @@ RSpec.describe Deck, type: :model do
   end
 
   it "should recognize who it is recommended to and by" do
-        userA = User.create(username: "userA", email: "userA@example.com",
+    userA = User.create(username: "userA", email: "userA@example.com",
                         password: "123456", password_confirmation: "123456")
     userB = User.create(username: "userB", email: "userB@example.com",
                         password: "123456", password_confirmation: "123456")

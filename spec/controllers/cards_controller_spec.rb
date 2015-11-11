@@ -20,6 +20,10 @@ RSpec.describe CardsController, type: :controller do
       
       # The card should be added to default deck
       expect(userA.decks.find_by(title: "default").cards.count).to be 1
+      # Assert card content
+      card = Card.first
+      expect(card.front_content).to eq "<h1>Hi</h1>"
+      expect(card.back_content).to eq "<h1>Bye</h1>"
     end
   end
 end
