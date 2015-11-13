@@ -165,7 +165,7 @@ $create-card-btn-color: #56BC8A;
 }
 /**** END FIXED OPTIONS ****/
 /**** GENERALS OF EDITORS ****/
-$inner-editor-bg: #F2F2F2;
+$inner-editor-bg: $default-card-bg;
 $inner-btn-row-height: 20%;
 .inner-editor-btn-row {
     width: 100%;
@@ -201,9 +201,9 @@ $inner-btn-row-height: 20%;
 /**** END GENERALS OF EDITORS ****/
 /**** TEXT EDITOR ****/
 $text-editor-width: 75%;
+$text-editor-bg: $inner-editor-bg;
 $text-title-font-size: 30px;
 $text-body-font-size: 21px;
-$text-editor-bg: $inner-editor-bg;
 .text-editor {
     width: $text-editor-width;
     height: $text-editor-width;

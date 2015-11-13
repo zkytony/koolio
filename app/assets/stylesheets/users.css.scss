@@ -8,6 +8,7 @@ $home-card-editor-height: 480px;
     position: fixed;
     bottom: 50px;
     right: 50px;
+    z-index: 3; /* below glass layer, above cards */
 }
 
 .add-card-btn {
@@ -43,15 +44,57 @@ $home-card-editor-height: 480px;
 }
 
 /* Home cards */
-$home-card-width: 200px;
-$home-card-min-height: 200px;
+$home-card-width: 240px;
+$home-card-min-height: $home-card-width;
+$home-card-margin: 10px;
+/*** TEXT ***/
+$text-body-font-size: 21px;
+$text-title-font-size: 24px;
+$text-default-bg: #FCFCFC;
+$text-default-font-color: #808080;
 .home-card-wrapper {
     width: $home-card-width;
     min-height: $home-card-min-height;
     float: left;
+    margin-right: $home-card-margin;
+    margin-left: $home-card-margin;
+    @include box-sizing(border-box);
 }
 .home-card {
     width: $home-card-width;
     min-height: $home-card-min-height;
+
+    .flipper-front, .flipper-back {
+	padding: 20px;
+	@include box-sizing(border-box);
+	width: $home-card-width;
+	min-height: $home-card-min-height;
+	max-height: $home-card-min-height + 50px;
+	overflow: hidden;
+	@include border-radius(5px);
+    }
     
+    .text-type-side.flipper-front, .text-type-side.flipper-back {
+	background-color: $text-default-bg;
+	color: $text-default-font-color;
+    }
+
+    .card-text-body {
+	font-size: $text-body-font-size;
+    }
+    .card-text-title h1 {
+	font-size: $text-title-font-size;
+	padding-bottom: 15px;
+    }
+}
+/* Recommend-contents regionr */
+#recommended-contents-wrapper {
+    width: 3 * $home-card-width + $home-card-margin * 6;
+    min-height: $home-card-min-height;
+    position: relative;
+    top: 50px;
+    left: 15%;
+    @include tablet_landscape_and_below {
+	left: 0;
+    }
 }
