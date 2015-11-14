@@ -1,4 +1,5 @@
 @import "global";
+@import "loading_gif";
 
 $add-card-btn-radius: 30px;
 $home-card-editor-width: 750px;
@@ -29,11 +30,11 @@ $home-card-editor-height: 480px;
     display: none;
     width: $home-card-editor-width;
     height: $home-card-editor-height;
-    position: absolute;
+    position: fixed;
     z-index: 10; // glass-overlay has z-index 3
-    left: 0;
-    right: 0;
-    @include center-vertically-and-horizontally;
+    //left: 0;
+    //right: 0;
+    @include center-vertically-and-horizontally(fixed);
     @include border-radius(5px);
     @include mobile-landscape-and-below {
 	width: 100%;
@@ -44,25 +45,21 @@ $home-card-editor-height: 480px;
 }
 
 /* Home cards */
-$home-card-width: 240px;
+$home-card-width: 250px;
 $home-card-min-height: $home-card-width;
-$home-card-margin: 10px;
+$home-card-margin: 15px;
 /*** TEXT ***/
 $text-body-font-size: 21px;
 $text-title-font-size: 24px;
 $text-default-bg: #FCFCFC;
 $text-default-font-color: #808080;
-.home-card-wrapper {
-    width: $home-card-width;
-    min-height: $home-card-min-height;
-    float: left;
-    margin-right: $home-card-margin;
-    margin-left: $home-card-margin;
-    @include box-sizing(border-box);
-}
+
 .home-card {
     width: $home-card-width;
     min-height: $home-card-min-height;
+    max-height: $home-card-min-height + 50px;
+    margin-bottom: 30px;
+    float: left;
 
     .flipper-front, .flipper-back {
 	padding: 20px;
@@ -92,9 +89,9 @@ $text-default-font-color: #808080;
     width: 3 * $home-card-width + $home-card-margin * 6;
     min-height: $home-card-min-height;
     position: relative;
-    top: 50px;
-    left: 15%;
+    top: 40px;
+    left: 10%;
     @include tablet_landscape_and_below {
-	left: 0;
+	left: 30px;
     }
 }

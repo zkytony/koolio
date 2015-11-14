@@ -377,8 +377,8 @@ $mq-desktop		: 1382px !default;
   :-ms-input-placeholder      {@content}  
 }
 
-@mixin center-vertically-and-horizontally {
-    position: absolute;
+@mixin center-vertically-and-horizontally($position: absolute) {
+    position: $position;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

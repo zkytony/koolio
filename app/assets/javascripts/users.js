@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   $("#flip-to-login-btn").click(function() {
     flip($("#login-form-card"));
   });
@@ -43,6 +42,18 @@ $(document).ready(function() {
     // by ajax query to user:show again
     grabRecommendContents();
   });
+    
+  $(".home-card").each(function() {
+    adjustCardHeight($(this));
+  });
+
+  $("#recommended-contents-wrapper").masonry({
+    columnWidth: 270,
+    gutter: 10,
+    itemSelector: ".home-card",
+    transitionDuration: 0
+  });
+
 });
 
 function grabRecommendContents() {
@@ -52,6 +63,24 @@ function grabRecommendContents() {
     dataType: 'script',
     success: function(data) {
       // return a script that will render the recommended contents html
+      $(document).ready(function() {
+	$(".home-card").each(function() {
+	  adjustCardHeight($(this));
+	});
+	// This is how you reload with masonry
+	$("#recommended-contents-wrapper").masonry('reloadItems');
+	$("#recommended-contents-wrapper").masonry();
+      });
     }
   });
+}
+
+// homeCard: individual instance of $(".home-card")
+function adjustCardHeight(homeCard) {
+  var back = homeCard.find(".flipper-back.card-side");
+  var front = homeCard.find(".flipper-front.card-side");
+  var maxHeight = Math.max(back.outerHeight(), front.outerHeight());
+  back.outerHeight(maxHeight);
+  front.outerHeight(maxHeight);
+  homeCard.height(maxHeight);
 }
