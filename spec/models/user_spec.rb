@@ -49,6 +49,8 @@ RSpec.describe User, :type => :model do
   it { should have_many(:recommended_decks).through(:passive_recommendations) }
 
   it { should have_many(:activities).dependent(:destroy) }
+  
+  it { should have_many(:uploaded_files) }
 
   it "should have non-empty password" do 
     user = User.new(username: "user1", email: "user1@example.com",

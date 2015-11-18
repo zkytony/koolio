@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'uploaded_files/create'
+
+  get 'uploaded_files/destroy'
+
   mount Ckeditor::Engine => '/ckeditor'
   root 'users#new'
   

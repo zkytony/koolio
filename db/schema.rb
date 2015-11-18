@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150911045757) do
+ActiveRecord::Schema.define(version: 20151118064534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -156,6 +156,16 @@ ActiveRecord::Schema.define(version: 20150911045757) do
 
   add_index "tags", ["name"], name: "index_tags_on_name", using: :btree
 
+  create_table "uploaded_files", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
+  end
+
+  add_index "uploaded_files", ["user_id"], name: "index_uploaded_files_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "first_name"
@@ -180,4 +190,5 @@ ActiveRecord::Schema.define(version: 20150911045757) do
   add_foreign_key "deck_user_associations", "users"
   add_foreign_key "decks", "users"
   add_foreign_key "notifications", "users"
+  add_foreign_key "uploaded_files", "users"
 end

@@ -16,6 +16,7 @@ gem 'font-awesome-rails'
 gem 'json'
 gem 'paperclip'
 gem 'ckeditor'
+gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 
 group :development, :test do
   gem 'byebug'

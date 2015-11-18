@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
   has_many :notifications, as: :notifier, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
+  has_many :uploaded_files
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :username,  presence: true,
                         uniqueness: true,

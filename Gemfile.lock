@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/carrierwaveuploader/carrierwave.git
+  revision: 49fdad1ec6ca9bb0883b6e193ea64e036e7b48a0
+  specs:
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -235,6 +245,7 @@ DEPENDENCIES
   bson_ext
   byebug
   capybara
+  carrierwave!
   ckeditor
   coffee-rails (~> 4.1.0)
   database_cleaner
