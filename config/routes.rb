@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'uploaded_files/create'
-
-  get 'uploaded_files/destroy'
-
   mount Ckeditor::Engine => '/ckeditor'
   root 'users#new'
   
@@ -23,4 +19,9 @@ Rails.application.routes.draw do
     post 'like' => 'cards#like'
     delete 'unlike' => 'cards#unlike'
   end
+
+  resources :uploaded_files, only: [:destroy, :create]
+
+  post 'userfiles' => 'uploaded_files#create'
+  delete 'userfiles' => 'uploaded_files#destroy'
 end

@@ -22,7 +22,10 @@ class UsersController < ApplicationController
     if logged_in?
       @user = User.find(params[:id])
       @recommended = RecommendContent.call(@user)
-      @card = Card.new   # user may want to create a card in home page
+      # user may want to create a card in home page
+      @card = Card.new 
+      # user may want to upload a file when creating the card
+      @uploaded_file = UploadedFile.new
     else
       redirect_to root_path
     end

@@ -12,47 +12,18 @@
       <!-- FRONT (front of flipper) -->
       <div class="flipper-front flip-dir1" id="front-wrapper">
 	<div class="editor-left-part" id="front-type-select-container">
-	  <div class="type-select">
-	    <div class="type-btn-row" id="type-btn-row-0">
-	      <button class="type-btn text-type-btn" id="front-type-text-btn" type="button">Aa</button>
-	      <button class="type-btn image-type-btn" id="front-type-img-btn" type="button"><i class="fa fa-picture-o"></i></button>
-	    </div>
-	    <div class="type-btn-row" id="type-btn-row-1">
-	      <button class="type-btn video-type-btn" id="front-type-video-btn" type="button"><i class="fa fa-video-camera"></i></button>
-	      <button class="type-btn more-type-btn" id="front-type-more-btn" type="button"><i class="fa fa-ellipsis-h"></i></button>
-	    </div>
-	  </div>
+	  <%= render partial: "shared/card_editors/type_select", locals: { side: "front" } %>
 	</div>
 	<div class="editor-left-part hidden" id="front-text-editor-container">
 	  <!-- ########## FRONT TEXT EDITOR ########## -->
-	  <div class="text-editor">
-	    <!-- f.text title -->
-	    <input type="text" id="front-text-title" placeholder="Title">
-	    <!-- f.textarea -->
-	    <textarea id="front-text-body" placeholder="What you want to share"></textarea>
-	    <div class="inner-editor-btn-row">
-	      <button class="inner-edit-back-btn" type="button" id="front-text-edit-back-btn">edit back</button>
-	      <button class="inner-change-type-btn" type="button" id="front-text-change-type-btn">change type</button>
-	    </div>
-	  </div>
+	  <%= render partial: "shared/card_editors/text_side_editor", locals: { side: "front", other_side: "back"} %>
 	  <!-- ########## END FRONT TEXT EDITOR ########## -->
 	</div>
 	<div class="editor-left-part hidden" id="front-img-editor-container">
 	  <!-- ########## FRONT IMAGE EDITOR ########## -->
-	  <div class="image-editor">
-	    <div class="image-editor-uploader" id="front-img-editor-uploader">
-	      <div class="image-uploader-wrapper">
-		  <button class="image-uploader-half right-dash image-upload-type-btn"><i class="fa fa-upload"></i></button>
-		  <button class="image-uploader-half left-dash image-upload-type-btn"><i class="fa fa-link"></i></button>
-	      </div>
-	      <div class="inner-editor-btn-row">
-		<button class="inner-edit-back-btn" type="button" id="front-img-edit-back-btn">edit back</button>
-		<button class="inner-change-type-btn" type="button" id="front-img-change-type-btn">change type</button>
-	      </div>
-	    </div>
-	  </div>
+	  <%= render partial: "shared/card_editors/img_side_editor", locals: { side: "front", other_side: "back"} %>
+	  <!-- ########## END FRONT IMAGE EDITOR ########## -->
 	</div>
-	<!-- ########## END FRONT IMAGE EDITOR ########## -->
 	<div class="editor-left-part hidden" id="front-video-editor-container">
 	</div>
       </div>
@@ -60,45 +31,16 @@
       <!-- BACK (Back of flipper) -->
       <div class="flipper-back flip-dir1" id="back-wrapper">
 	<div class="editor-left-part" id="back-type-select-container">
-	  <div class="type-select">
-	    <div class="type-btn-row" id="type-btn-row-0">
-	      <button class="type-btn text-type-btn" id="back-type-text-btn" type="button">Aa</button>
-	      <button class="type-btn image-type-btn" id="back-type-img-btn" type="button"><i class="fa fa-picture-o"></i></button>
-	    </div>
-	    <div class="type-btn-row" id="type-btn-row-1">
-	      <button class="type-btn video-type-btn" id="back-type-video-btn" type="button"><i class="fa fa-video-camera"></i></button>
-	      <button class="type-btn more-type-btn" id="back-type-more-btn" type="button"><i class="fa fa-ellipsis-h"></i></button>
-	    </div>
-	  </div>
+	  <%= render partial: "shared/card_editors/type_select", locals: { side: "back" } %>
 	</div>
 	<div class="editor-left-part hidden" id="back-text-editor-container">
 	  <!-- ########## BACK TEXT EDITOR ########## -->
-	  <div class="text-editor">
-	    <!-- f.text title -->
-	    <input type="text" id="back-text-title" placeholder="Title">
-	    <!-- f.textarea -->
-	    <textarea id="back-text-body" placeholder="What you want to share"></textarea>
-	    <div class="inner-editor-btn-row">
-	      <button class="inner-edit-back-btn" type="button" id="back-text-edit-front-btn">edit front</button>
-	      <button class="inner-change-type-btn" type="button" id="back-text-change-type-btn">change type</button>
-	    </div>
-	  </div>
+	  <%= render partial: "shared/card_editors/text_side_editor", locals: { side: "back", other_side: "front"} %>
 	  <!-- ########## END BACK TEXT EDITOR ########## -->
 	</div>
 	<div class="editor-left-part hidden" id="back-img-editor-container">
 	  <!-- ########## BACK IMAGE EDITOR ########## -->
-	  <div class="image-editor">
-	    <div class="image-editor-uploader" id="back-img-editor-uploader">
-	      <div class="image-uploader-wrapper">
-		<button class="image-uploader-half right-dash image-upload-type-btn"><i class="fa fa-upload"></i></button>
-		<button class="image-uploader-half left-dash image-upload-type-btn"><i class="fa fa-link"></i></button>
-	      </div>
-	      <div class="inner-editor-btn-row">
-		<button class="inner-edit-back-btn" type="button" id="back-img-edit-front-btn">edit front</button>
-		<button class="inner-change-type-btn" type="button" id="back-img-change-type-btn">change type</button>
-	      </div>
-	    </div>
-	  </div>
+	  <%= render partial: "shared/card_editors/img_side_editor", locals: { side: "back", other_side: "front"} %>
 	  <!-- ########## END BACK IMAGE EDITOR ########## -->
 	</div>
 	<div class="editor-left-part hidden" id="back-video-editor-container">
@@ -119,8 +61,19 @@
       </div>
       <!-- ########## END FIXED OPTIONS ########## -->
     </div>
-  <!-- /form -->
+    <!-- /form -->
   <% end %>
   <!-- end -->
+
+  <!-- When user uploads the image, this form submits. -->
+  <!-- It only has hidden fields, which will be filled
+       by Javascript -->
+  <%= form_for(@uploaded_file, remote: true) do |f| %>
+    <!-- Hidden fields -->
+    <%= f.hidden_field :type %>
+    <%= f.hidden_field :name %>
+    <%= hidden_field_tag 'file' %>
+    <!-- End Hidden fields -->    
+  <% end %>
 </div>
 <%= javascript_include_tag "flip.js" %>

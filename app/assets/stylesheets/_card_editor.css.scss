@@ -291,11 +291,19 @@ $img-uploader-wrapper-width: 90%;
 	    border-left: 2px dashed darken($img-editor-bg, 15%);
 	}
 	
+	// type refers to file or link
 	.image-upload-type-btn {
 	    border: none;
 	    background-color: $img-editor-bg;
 	    font-size: $img-uploader-icon-size;
 	    color: darken($img-editor-bg, 15%);
+
+	    label i {
+		// center it
+		position: absolute;
+		left: 15%;
+		top: 20%;
+	    }
 
 	    &:hover {
 		color: darken($img-editor-bg, 25%);

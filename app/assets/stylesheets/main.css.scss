@@ -73,3 +73,10 @@ button:disabled {
 @include placeholder {
     color: $grey-black;
 }
+
+// A bit different from hidden,
+// which uses visibility:none.
+// This does not allocate space
+.no-display {
+    display: none;
+}

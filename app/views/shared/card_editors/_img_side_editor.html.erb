@@ -1,0 +1,18 @@
+<div class="image-editor">
+  <div class="image-editor-uploader" id="<%="#{side}"%>-img-editor-uploader">
+    <div class="image-uploader-wrapper">
+      <!-- button class="image-uploader-half right-dash image-upload-type-btn"><i class="fa fa-upload"></i></button -->
+      <div class="image-uploader-half right-dash image-upload-type-btn">
+	<%= file_field_tag "#{side}-side-img", accept: 'image/png,image/gif,image/jpeg', class: "no-display" %>
+	<label for="<%="#{side}"%>-side-img">
+	  <i class="fa fa-upload"></i> 
+	</label>
+      </div>
+      <button class="image-uploader-half left-dash image-upload-type-btn"><i class="fa fa-link"></i></button>
+    </div>
+    <div class="inner-editor-btn-row">
+      <button class="inner-edit-back-btn" type="button" id="<%="#{side}"%>-img-edit-<%="#{other_side}"%>-btn">edit <%="#{other_side}"%></button>
+      <button class="inner-change-type-btn" type="button" id="<%="#{side}"%>-img-change-type-btn">change type</button>
+    </div>
+  </div>
+</div>
