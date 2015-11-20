@@ -270,10 +270,23 @@ ImageEditor.prototype = Object.create(InnerEditor.prototype);
 function ImageEditor(editor, side) {
   InnerEditor.call(this, editor, side);
   this.type = "img";
+  this.imgFileName = undefined;
 }
 
 ImageEditor.prototype.init = function() {
   var imageEditor = this;
+
+  // Make an AJAX call to send the file to the server once
+  // it is selected.
+  $(document).on("change", "#" + imageEditor.side + "-side-img-file", function() {
+    var formdata = new FormData();
+    var file = $(this).prop('files')[0];
+    formdata.append("file", file);
+    formdata.append("type", "img");
+    
+    imageEditor.imgFileName = imageEditor.sendFileAJAX(formdata);
+  });
+
   imageEditor.reset();
   InnerEditor.prototype.init.call(imageEditor);
 }
@@ -285,5 +298,20 @@ ImageEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
 ImageEditor.prototype.reset = function() {
   var imageEditor = this;
   $("#" + imageEditor.side + "-image-editor-container").addClass("hidden");
+}
+
+// Post the file to the server
+ImageEditor.prototype.sendFileAJAX = function(formdata) {
+  $.ajax({
+    type: 'post',
+    url: '/uploaded_files',
+    data: formdata,  // formdata has a property "file"
+    contentType: false,
+    processData: false,
+    dataType: 'json', // get back json
+    success: function(output) {
+      alert(output);
+    }
+  });
 }
 /* End of ImageEditor */

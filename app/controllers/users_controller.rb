@@ -24,8 +24,6 @@ class UsersController < ApplicationController
       @recommended = RecommendContent.call(@user)
       # user may want to create a card in home page
       @card = Card.new 
-      # user may want to upload a file when creating the card
-      @uploaded_file = UploadedFile.new
     else
       redirect_to root_path
     end

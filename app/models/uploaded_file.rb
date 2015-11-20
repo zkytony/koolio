@@ -4,8 +4,7 @@ class UploadedFile < ActiveRecord::Base
   mount_uploader :name, UserFileUploader
 
   validates :user_id, presence: true
-  validates :name, presence: true,
-                   length: { maximum: 255 }
+  validates :name, presence: true
   validates :type, presence: true,
                    length: { maximum: 255 }
 end

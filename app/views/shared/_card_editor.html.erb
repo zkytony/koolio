@@ -68,12 +68,5 @@
   <!-- When user uploads the image, this form submits. -->
   <!-- It only has hidden fields, which will be filled
        by Javascript -->
-  <%= form_for(@uploaded_file, remote: true) do |f| %>
-    <!-- Hidden fields -->
-    <%= f.hidden_field :type %>
-    <%= f.hidden_field :name %>
-    <%= hidden_field_tag 'file' %>
-    <!-- End Hidden fields -->    
-  <% end %>
 </div>
 <%= javascript_include_tag "flip.js" %>
