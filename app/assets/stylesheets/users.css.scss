@@ -69,13 +69,11 @@ $text-default-font-color: #808080;
 	max-height: $home-card-min-height + 50px;
 	overflow: hidden;
 	@include border-radius(5px);
-    }
-    
-    .text-type-side.flipper-front, .text-type-side.flipper-back {
 	background-color: $text-default-bg;
 	color: $text-default-font-color;
     }
-
+ 
+    /* text card */
     .card-text-body {
 	font-size: $text-body-font-size;
     }
@@ -83,6 +81,44 @@ $text-default-font-color: #808080;
 	font-size: $text-title-font-size;
 	padding-bottom: 15px;
     }
+    /* end text card */
+
+    /* img card */
+    $img-min-width: 50%;
+    $img-min-height: 50%;
+    $img-descp-font-size: 17px;
+    .img-type-side {
+	padding: 0px;
+	background-color: $healthy-black;
+	
+	.card-img-wrapper {
+	    width: 100%;
+	    height: 100%;
+	    @include box-sizing(border-box);
+	    display: inline-block;
+	    position: relative;
+
+	    .card-img img {
+		@include box-sizing(border-box);
+		//min-width: $img-min-width;
+		width: 100%;
+		//min-height: $img-min-height;
+		height: 100%;
+	    }
+
+	    .card-img-descp {
+		position: absolute;
+		bottom: 0px;
+		width: 100%;
+		padding: 5px;
+		font-size: $img-descp-font-size;
+		color: $white;
+		@include linear-gradient(to bottom, rgba(0,0,0,0), $healthy-black);
+		@include box-sizing(border-box);
+	    }
+	}
+    }
+    /* end img card */
 }
 /* Recommend-contents regionr */
 #recommended-contents-wrapper {

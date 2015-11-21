@@ -4,11 +4,10 @@
      match the expectation of "text" type content, i.e.
      it has "title" and "body"
 %>
-<div id="card_<%= "#{card_id}_#{side}" %>_text" class="card-text">
-  <div class="card-text-title">
-    <h1><%= "#{content['title']}" %></h1>
-  </div>
-  <div class="card-text-body">
-    <p><%= "#{content['body']}" %></p>
-  </div>
+<div class="card-text-title">
+  <h1><%= "#{content['title']}" %></h1>
 </div>
+<div class="card-text-body">
+  <p><%= "#{content['body']}" %></p>
+</div>
+

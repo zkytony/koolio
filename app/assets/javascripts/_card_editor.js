@@ -270,6 +270,7 @@ ImageEditor.prototype = Object.create(InnerEditor.prototype);
 function ImageEditor(editor, side) {
   InnerEditor.call(this, editor, side);
   this.type = "img";
+  this.storeDir = undefined;
   this.imgFile = undefined; // url to that image file
 }
 
@@ -305,6 +306,15 @@ ImageEditor.prototype.reset = function() {
   $("#" + imageEditor.side + "-image-editor-container").addClass("hidden");
 }
 
+// Return the content of the image editor as JSON string
+ImageEditor.prototype.grabContent = function() {
+  var result = {};
+  result["file_name"] = this.imgFile;
+  result["store_dir"] = this.storeDir;
+  result["descp"] = $("#" + this.side + "-img-descp").val();
+  return result;
+}
+
 // Post the file to the server
 ImageEditor.prototype.sendFileAJAX = function(formdata) {
   var imageEditor = this;
@@ -316,15 +326,17 @@ ImageEditor.prototype.sendFileAJAX = function(formdata) {
     processData: false,
     dataType: 'json', // get back json
     success: function(output) {
-      var url = output["file"];
-      if (url != null) {
-	imageEditor.imgFile = url;
+      var fileName = output["file_name"];
+      var storeDir = output["store_dir"];
+      if (fileName) {
+	imageEditor.imgFile = fileName;
+	imageEditor.storeDir = storeDir;
 	// Go to display phase, display that imgFile
 	$("#" + imageEditor.side + "-img-editor-uploader").addClass("hidden");
 	$("#" + imageEditor.side + "-img-editor-display").removeClass("hidden");
-	$("#" + imageEditor.side + "-img-display").attr("src", imageEditor.imgFile);
+	$("#" + imageEditor.side + "-img-display").attr("src", "/" + imageEditor.storeDir + "/" + imageEditor.imgFile);
 
-	// hasDraf its true for this side
+	// hasDraft is true for this side
 	imageEditor.editor.hasDraft[imageEditor.side] = true;
 	imageEditor.editor.updateCreateCardBtn();
       }

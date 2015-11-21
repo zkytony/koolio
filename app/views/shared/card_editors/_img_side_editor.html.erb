@@ -3,7 +3,7 @@
     <div class="image-uploader-wrapper">
       <!-- button class="image-uploader-half right-dash image-upload-type-btn"><i class="fa fa-upload"></i></button -->
       <div class="image-uploader-half right-dash image-upload-type-btn">
-	<%= file_field_tag "#{side}-side-img-file", accept: 'image/png,image/gif,image/jpeg', class: "hidden" %>
+	<input type="file" id="<%="#{side}"%>-side-img-file" accept='image/png,image/gif,image/jpeg' class="hidden">
 	<label for="<%="#{side}"%>-side-img-file">
 	  <i class="fa fa-upload"></i> 
 	</label>
@@ -20,7 +20,7 @@
       <img id="<%="#{side}"%>-img-display" src="" alt="">
     </div>
     <div class="image-descp"> 
-      <input type="text" id="<%="#{side}"%>-img-descp" placeholder="add a description"> 
+      <input type="text" id="<%="#{side}"%>-img-descp" placeholder="add a description" maxlength="50"> 
     </div>
     <div class="inner-editor-btn-row">
       <button class="inner-edit-back-btn" type="button" id="<%="#{side}"%>-img-edit-<%="#{other_side}"%>-btn">edit <%="#{other_side}"%></button>

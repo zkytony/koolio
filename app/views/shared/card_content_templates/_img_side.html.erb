@@ -1,0 +1,11 @@
+<%# "content" must have "store_dir" and "file_name" and "descp" properties
+    Display the thumbnail version for the image
+%>
+<div class="card-img-wrapper">
+  <div class="card-img">
+    <img src="<%="/#{content['store_dir']}/thumb_#{content['file_name']}"%>" alt="IMAGE">
+  </div>
+  <div class="card-img-descp">
+    <p><%= "#{content['descp']}" %></p>
+  </div>
+</div>

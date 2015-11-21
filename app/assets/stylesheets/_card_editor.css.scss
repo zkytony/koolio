@@ -334,7 +334,7 @@ $img-uploader-wrapper-width: 90%;
 	img {
 	    padding: 10px;
 	    @include box-sizing(border-box);
-	    min-width: $img-editor-display-min-width;
+	    //min-width: $img-editor-display-min-width;
 	    max-width: 100%;
 	    min-height: $img-editor-display-min-height;
 	    max-height: 100%;
