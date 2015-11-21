@@ -198,11 +198,11 @@ InnerEditor.prototype.init = function() {
   } else {
     otherSide = "front";
   }
-  $("#" + innerEditor.side + "-" + innerEditor.type + "-edit-" + otherSide + "-btn").click(function() {
+  $(document).on("click", "#" + innerEditor.side + "-" + innerEditor.type + "-edit-" + otherSide + "-btn", function() {
     innerEditor.editor.flip(); // editor is the reference - it affects other inner editors as well
   });
 
-  $("#" + innerEditor.side + "-" + innerEditor.type + "-change-type-btn").click(function() {
+  $(document).on("click", "#" + innerEditor.side + "-" + innerEditor.type + "-change-type-btn", function() {
     innerEditor.editor.changeType(innerEditor);
   });
 }
@@ -284,11 +284,7 @@ ImageEditor.prototype.init = function() {
     formdata.append("file", file);
     formdata.append("type", "img");
     
-    var url = imageEditor.sendFileAJAX(formdata);
-    if (url != null) {
-      imageEditor.imgFile = url;
-      // Go to display phase, display that imgFile
-    }
+    imageEditor.sendFileAJAX(formdata);
   });
 
   imageEditor.reset();
@@ -306,6 +302,7 @@ ImageEditor.prototype.reset = function() {
 
 // Post the file to the server
 ImageEditor.prototype.sendFileAJAX = function(formdata) {
+  var imageEditor = this;
   $.ajax({
     type: 'post',
     url: '/uploaded_files',
@@ -314,9 +311,15 @@ ImageEditor.prototype.sendFileAJAX = function(formdata) {
     processData: false,
     dataType: 'json', // get back json
     success: function(output) {
-      return output["file"];
+      var url = output["file"];
+      if (url != null) {
+	imageEditor.imgFile = url;
+	// Go to display phase, display that imgFile
+	$("#" + imageEditor.side + "-img-editor-uploader").addClass("hidden");
+	$("#" + imageEditor.side + "-img-editor-display").removeClass("hidden");
+	$("#" + imageEditor.side + "-img-display").attr("src", imageEditor.imgFile);
+      }
     }
   });
-  return null;
 }
 /* End of ImageEditor */

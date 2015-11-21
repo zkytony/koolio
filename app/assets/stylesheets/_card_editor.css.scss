@@ -332,11 +332,12 @@ $img-uploader-wrapper-width: 90%;
 	position: relative;
 	
 	img {
+	    padding: 10px;
+	    @include box-sizing(border-box);
 	    min-width: $img-editor-display-min-width;
 	    max-width: 100%;
 	    min-height: $img-editor-display-min-height;
 	    max-height: 100%;
-	    background-color: $white;
 	    @include center-vertically-and-horizontally;	    
 	}
     }
