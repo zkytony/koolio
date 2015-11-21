@@ -270,7 +270,7 @@ ImageEditor.prototype = Object.create(InnerEditor.prototype);
 function ImageEditor(editor, side) {
   InnerEditor.call(this, editor, side);
   this.type = "img";
-  this.imgFileName = undefined;
+  this.imgFile = undefined; // url to that image file
 }
 
 ImageEditor.prototype.init = function() {
@@ -284,7 +284,11 @@ ImageEditor.prototype.init = function() {
     formdata.append("file", file);
     formdata.append("type", "img");
     
-    imageEditor.imgFileName = imageEditor.sendFileAJAX(formdata);
+    var url = imageEditor.sendFileAJAX(formdata);
+    if (url != null) {
+      imageEditor.imgFile = url;
+      // Go to display phase, display that imgFile
+    }
   });
 
   imageEditor.reset();
@@ -310,8 +314,9 @@ ImageEditor.prototype.sendFileAJAX = function(formdata) {
     processData: false,
     dataType: 'json', // get back json
     success: function(output) {
-      alert(output);
+      return output["file"];
     }
   });
+  return null;
 }
 /* End of ImageEditor */

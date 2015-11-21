@@ -4,7 +4,7 @@ class UploadedFilesController < ApplicationController
     if uploaded_file
       # return a json containing the path of the file
       respond_to do |format|
-        format.json { render json: { file: uploaded_file.name.current_path } }
+        format.json { render json: { file: uploaded_file.name.url } }
       end
     else
       # failed to save the file

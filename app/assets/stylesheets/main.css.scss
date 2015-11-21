@@ -32,10 +32,6 @@ body {
     font-weight: 700;
 }
 
-.hidden {
-    visibility: hidden;
-}
-
 .container {
     @include content-wrapper(100%, 95%);
     
@@ -77,6 +73,10 @@ button:disabled {
 // A bit different from hidden,
 // which uses visibility:none.
 // This does not allocate space
-.no-display {
+.not-visible {
+    visibility: hidden;
+}
+
+.hidden {
     display: none;
 }
