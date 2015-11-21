@@ -324,8 +324,9 @@ ImageEditor.prototype.sendFileAJAX = function(formdata) {
 	$("#" + imageEditor.side + "-img-editor-display").removeClass("hidden");
 	$("#" + imageEditor.side + "-img-display").attr("src", imageEditor.imgFile);
 
-	// hasDraft is true for this side
+	// hasDraf its true for this side
 	imageEditor.editor.hasDraft[imageEditor.side] = true;
+	imageEditor.editor.updateCreateCardBtn();
       }
     }
   });
