@@ -292,7 +292,12 @@ ImageEditor.prototype.init = function() {
 }
 
 ImageEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
-  // not yet implemented
+  var imageEditor = this;
+  if (imageEditor.editor.hasDraft[this.side]) {
+    $("#" + imageEditor.side + "-type-img-btn").addClass("previous-type");
+  } else {
+    $("#" + imageEditor.side + "-type-img-btn").removeClass("previous-type");
+  }
 }
 
 ImageEditor.prototype.reset = function() {
@@ -318,6 +323,9 @@ ImageEditor.prototype.sendFileAJAX = function(formdata) {
 	$("#" + imageEditor.side + "-img-editor-uploader").addClass("hidden");
 	$("#" + imageEditor.side + "-img-editor-display").removeClass("hidden");
 	$("#" + imageEditor.side + "-img-display").attr("src", imageEditor.imgFile);
+
+	// hasDraft is true for this side
+	imageEditor.editor.hasDraft[imageEditor.side] = true;
       }
     }
   });
