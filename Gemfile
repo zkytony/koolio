@@ -17,6 +17,7 @@ gem 'json'
 gem 'paperclip'
 gem 'ckeditor'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem "mini_magick"
 
 group :development, :test do
   gem 'byebug'
