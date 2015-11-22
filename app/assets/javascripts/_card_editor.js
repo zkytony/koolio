@@ -1,43 +1,20 @@
 /*
-  Initial state: 
-  - Front button selected, Back button greyed
-  - Create card button disabled
-  - Display four buttons for content type selection
-  
-  Clicked Back/Front button:
-  - Hide the Front/Back side
-  - Display the Back/Front side
-  - If Back/Front side has not been given a content type
-  - Display four buttons for content type selection
-  - Front/Back button greyed out
-  - If Back/Front side is editing
-  - Display whatever type-editor + content that the user was editing
-  - Create card button is enabled
-
-  Clicked text-editor button:
-  - Hide the four content type buttons
-  - Display the text-editor
-  (same for other editors)
-
-  When submit:
-  - Grab the data entered on each side of the card, and convert them to
-  JSON string according to the type of that side
-  - Inject the JSON string to hidden fields of the form
-  - only these hidden fields need to be Rail-ized
-*/
-
-/*
-   Editor object (The whole editor, with both sides) 
-   defaultSide: the default side facing the user initially
-   id: the id for the container of the editor, MUST have the "flipper" class.
+   Editor object represents the whole editor, with both sides. It keeps track of its
+   "inner editors", as well as the active ones (ones that are being edited for a certain
+   side).
+   formId: the id for form of this editor. It must have a child div with a "flipper" class.
 */
 function Editor(formId) {
+  // The type of the inner editor used on front or back. 
+  // Use "prev" because it keeps track of the type of 
+  // the "previously editing" editor.
   this.prevType = {"front": undefined, "back": undefined};
+
+  
   this.innerEditors = {};
   this.activeInnerEditors = {"front": undefined, "back": undefined};
   this.hasDraft = {"front": false, "back": false};
   this.id = formId;
-  this.innerEditors = {};
   
   // if .flipper does not have .flip, then the current side is front
   // else the current side has been flipped - back
