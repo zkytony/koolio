@@ -29,11 +29,6 @@ $(document).ready(function() {
     $("#editor-container-home").css("display", "none");
   });
 
-  // flip when clicked home card
-  $("#recommended-contents-wrapper").on('click', '.home-card', function() {
-    flip($(this));
-  });
-
   var editor = new Editor("new_card");
   editor.init();
 
@@ -89,9 +84,20 @@ function adjustCardHeight(homeCard) {
 
 /* Event handlers for cards at home page */
 function CardsHandler() {
+  this.focusingCardId = undefined;
 }
 
 CardsHandler.prototype.init = function() {
+  var handler = this;
+  // flip when clicked home card
+  $(document).on('click', '.home-card', function(e) {
+    // check if the target has class that's in the flipExceptionList
+    if (!$(e.target).hasClass("no-flip")) {
+      flip($(this));
+    }
+  });
+
+  // toggle info fade in and fade out
   $(document).on({
     mouseenter: function () {
       $(this).stop().animate({
@@ -104,4 +110,22 @@ CardsHandler.prototype.init = function() {
       }, 200);
     }
   }, ".info-toggle-wrapper");
+
+  // show dark-overlay when hit info-toggle
+  // change the z-index of the current card to
+  // 4, which is greater than the overlay z-index(3)
+  // When clicked somewhere else, hide the dark
+  // overlay, and change the z-index of the card back
+  // to auto. When toggling, checks if this .info-toggle
+  // element has .toggle-off class. 
+  $(document).on("click", ".info-toggle", function() {
+    $(".dark-overlay").css("display", "block");
+    var focusHomeCard = $(this).parents(".home-card");
+    focusHomeCard.css("z-index", "4");
+    handler.focusingCardId = focusHomeCard.attr("id");
+  });
+  $(document).on("click", ".dark-overlay", function() {
+    $(".dark-overlay").css("display", "none");
+    $("#" + handler.focusingCardId).css("z-index", "auto");
+  });
 }
