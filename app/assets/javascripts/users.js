@@ -54,6 +54,8 @@ $(document).ready(function() {
     transitionDuration: 0
   });
 
+  var cardsHandler = new CardsHandler();
+  cardsHandler.init();
 });
 
 function grabRecommendContents() {
@@ -83,4 +85,23 @@ function adjustCardHeight(homeCard) {
   back.outerHeight(maxHeight);
   front.outerHeight(maxHeight);
   homeCard.height(maxHeight);
+}
+
+/* Event handlers for cards at home page */
+function CardsHandler() {
+}
+
+CardsHandler.prototype.init = function() {
+  $(document).on({
+    mouseenter: function () {
+      $(this).stop().animate({
+	opacity: 1
+      }, 200);
+    },
+    mouseleave: function () {
+      $(this).stop().animate({
+	opacity: 0
+      }, 200);
+    }
+  }, ".info-toggle-wrapper");
 }

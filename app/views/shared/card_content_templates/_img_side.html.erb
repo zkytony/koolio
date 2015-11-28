@@ -5,7 +5,9 @@
   <div class="card-img">
     <img src="<%="/#{content['store_dir']}/thumb_#{content['file_name']}"%>" alt="IMAGE">
   </div>
-  <div class="card-img-descp">
-    <p><%= "#{content['descp']}" %></p>
-  </div>
+  <% if content['descp'].length > 0 %>
+    <div class="card-img-descp">
+      <p><%= "#{content['descp']}" %></p>
+    </div>
+  <% end %>
 </div>
