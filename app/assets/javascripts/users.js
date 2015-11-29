@@ -154,6 +154,20 @@ CardsHandler.prototype.init = function() {
       }, 200, function() {
 	// ajax grab deck cards
       });
+    } else {
+      var cardPosition = $("#" + handler.focusingCardId).position();
+      $("#card-info-panel").animate({
+	top: cardPosition.top + "px",
+      }, 200, function() {
+	$("#card-info-panel").addClass("hidden");
+      });
+      $("#deck-cards-panel").animate({
+	left: cardPosition.left + "px"
+      }, 200, function() {
+	$("#deck-cards-panel").addClass("hidden");
+	$("#" + handler.focusingCardId).css("z-index", "auto");
+      });
+      $(".dark-overlay").addClass("hidden");
     }
   });
 
