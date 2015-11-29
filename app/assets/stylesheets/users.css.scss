@@ -203,13 +203,15 @@ $info-panel-bg: #E6E6E6;
 	    height: 40px;
 	}
 	.profile {
+	    @include border-radius(50%);
+	    overflow: hidden;
 	    img {
 		width: 100%;
 	    }
 	}
 	.username, .decktitle {
 	    font-size: 14px;
-	    padding-left: 12px;
+	    padding-left: 10px;
 	    padding-top: 2px;
 	}
 	.username {
