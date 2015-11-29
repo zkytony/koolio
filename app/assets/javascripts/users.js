@@ -102,18 +102,19 @@ CardsHandler.prototype.init = function() {
     mouseenter: function () {
       $(this).stop().animate({
 	opacity: 1
-      }, 200);
+      }, 150);
     },
     mouseleave: function () {
       $(this).stop().animate({
 	opacity: 0
-      }, 200);
+      }, 150);
     }
   }, ".info-toggle-wrapper");
 
   // show dark-overlay when hit info-toggle
   // change the z-index of the current card to
-  // 4, which is greater than the overlay z-index(3)
+  // 5, which is greater than the overlay z-index(3),
+  // and the z-index of info panels (4).
   // When clicked somewhere else, hide the dark
   // overlay, and change the z-index of the card back
   // to auto. When toggling, checks if this .info-toggle
@@ -121,11 +122,42 @@ CardsHandler.prototype.init = function() {
   $(document).on("click", ".info-toggle", function() {
     $(".dark-overlay").css("display", "block");
     var focusHomeCard = $(this).parents(".home-card");
-    focusHomeCard.css("z-index", "4");
+    focusHomeCard.css("z-index", "5");
     handler.focusingCardId = focusHomeCard.attr("id");
+    // show the panels, with quick animation
+    // first place the panels at the same position
+    // as the parent card, then do the slide
+    var height = $("#" + handler.focusingCardId).outerHeight();
+    var width = 250;
+    var margin = 30;
+    var cardPosition = $("#" + handler.focusingCardId).position();
+    $("#card-info-panel").removeClass("hidden");
+    $("#deck-cards-panel").removeClass("hidden");
+    $("#card-info-panel").css({
+      top: cardPosition.top + "px",
+      left: cardPosition.left + "px"
+    });
+    $("#deck-cards-panel").css({
+      top: cardPosition.top + "px",
+      left: cardPosition.left + "px",
+      height: height + "px"
+    });
+    $("#card-info-panel").animate({
+      top: (cardPosition.top + height + margin) + "px",
+    }, 200, function() {
+      // ajax grab card info
+    });
+    $("#deck-cards-panel").animate({
+      left: (cardPosition.left + width + margin) + "px"
+    }, 200, function() {
+      // ajax grab deck cards
+    });
   });
+
   $(document).on("click", ".dark-overlay", function() {
     $(".dark-overlay").css("display", "none");
     $("#" + handler.focusingCardId).css("z-index", "auto");
+    $("#card-info-panel").addClass("hidden");
+    $("#deck-cards-panel").addClass("hidden");
   });
 }

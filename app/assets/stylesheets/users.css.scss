@@ -81,7 +81,7 @@ $text-default-font-color: #808080;
 	right: 0px;
 	bottom: 0px;
 	z-index: 100;
-	@include linear-gradient(to bottom right, rgba(0,0,0,0), rgba(0,0,0,0),$healthy-black);
+	@include linear-gradient(to bottom right, rgba(0,0,0,0), rgba(0,0,0,0), rgba($healthy-black, 0.5));
 	// initial opacity is 0
 	opacity: 0;
     }
@@ -153,4 +153,21 @@ $text-default-font-color: #808080;
     @include tablet_landscape_and_below {
 	left: 30px;
     }
+}
+
+/* info panels */
+#card-info-panel, #deck-cards-panel {
+    width: $home-card-width;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    background-color: $text-default-bg;
+    @include border-radius(5px);
+}
+#card-info-panel {
+    min-height: $home-card-min-height * 0.5;
+}
+#deck-cards-panel {
+    min-height: $home-card-min-height;
 }
