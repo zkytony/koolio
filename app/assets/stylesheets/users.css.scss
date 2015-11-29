@@ -156,17 +156,83 @@ $text-default-font-color: #808080;
 }
 
 /* info panels */
+$info-panel-bg: #E6E6E6;
 #card-info-panel, #deck-cards-panel {
     width: $home-card-width;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 4;
-    background-color: $text-default-bg;
+    background-color: $info-panel-bg;
     @include border-radius(5px);
 }
 #card-info-panel {
-    min-height: $home-card-min-height * 0.5;
+    min-height: $home-card-min-height * 0.7;
+    
+    .like-comment {
+	width: 100%;
+	@include box-sizing(border-box);
+	padding-left: 15px;
+	padding-top: 20px;
+	padding-bottom: 11px;
+	
+	div {
+	    display: inline;
+	    margin-left: 10px;
+	    @include box-sizing(border-box);
+	    font-size: 15px;
+	    color: darken($darker-grey, 15%);
+	    i {
+		margin-right: 5px;
+	    }
+	}	
+    }
+
+    .user-deck {
+	width: 100%;
+	@include box-sizing(border-box);
+	padding-left: 25px;
+	.left {
+	    width: 17%;
+	}
+	.right {
+	    width: 80%;
+	}
+	.left, .right {
+	    float: left;
+	    height: 40px;
+	}
+	.profile {
+	    img {
+		width: 100%;
+	    }
+	}
+	.username, .decktitle {
+	    font-size: 14px;
+	    padding-left: 12px;
+	    padding-top: 2px;
+	}
+	.username {
+	    color: darken($darker-grey, 15%);
+	    font-weight: 700;
+	}
+    }
+    
+    .comment-box {
+	width: 80%;
+	margin: auto;
+	height: 55px;
+	textarea {
+	    width: 100%;
+	    height: 55px;
+	    @include box-sizing(border-box);
+	    resize: none;
+	    padding: 5px;
+	    margin-top: 10px;
+	    font-family: "Arial", sans-serif;
+	    background-color: #F2F2F2;
+	}
+    }
 }
 #deck-cards-panel {
     min-height: $home-card-min-height;
