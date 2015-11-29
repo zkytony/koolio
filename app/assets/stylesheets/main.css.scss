@@ -63,7 +63,8 @@ button, input[type="button"], input[type="submit"] {
 }
 
 .dark-overlay {
-    display: none;
+    //display: none;
+    display: block; // use hidden class to control display or not
     position: fixed;
     top: 0%;
     left: 0%;
