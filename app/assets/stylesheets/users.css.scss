@@ -158,25 +158,23 @@ $text-default-font-color: #808080;
 /* info panels */
 $info-panel-bg: #E6E6E6;
 $info-font-color: darken($darker-grey, 15%);
+$comment-box-height: 55px;
 #like-comment-panel, #deck-cards-panel {
     width: $home-card-width;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 4;
+    width: $home-card-width;
+    background-color: $info-panel-bg;
+    @include border-radius(5px);
 }
 #like-comment-panel {
-    min-height: $home-card-min-height * 0.7;
+    min-height: 40px + $comment-box-height;
+    max-height: 500px;
+    overflow: hidden;
+    padding: 20px 0px;
 
-    .flipper-front, .flipper-back {
-	width: $home-card-width;
-	min-height: 40px;
-	max-height: 500px;
-	background-color: $info-panel-bg;
-	@include border-radius(5px);
-	overflow: hidden;
-	padding: 20px 0px;
-    }
     
     .like-comment {
 	width: 100%;
@@ -208,6 +206,7 @@ $info-font-color: darken($darker-grey, 15%);
 	margin: auto;
 	height: 55px;
 	textarea {
+	    display: block;
 	    width: 100%;
 	    height: 55px;
 	    @include box-sizing(border-box);
@@ -222,11 +221,9 @@ $info-font-color: darken($darker-grey, 15%);
 $user-deck-height: 40px;
 $deck-cards-padding-top: 20px;
 #deck-cards-panel {
-    background-color: $info-panel-bg;
     min-height: $user-deck-height;
     overflow: hidden;
     padding: $deck-cards-padding-top 0px;
-    @include border-radius(5px);
 
     .user-deck {
 	width: 75%;

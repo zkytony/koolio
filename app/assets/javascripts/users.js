@@ -175,10 +175,4 @@ CardsHandler.prototype.init = function() {
     $("#like-comment-panel").addClass("hidden");
     $("#deck-cards-panel").addClass("hidden");
   });
-
-  // When clicked the like-comment-panel, flip it to show
-  // the comment form
-  $(document).on("click", "#like-comment-panel", function() {
-    flip($(this));
-  });
 }
