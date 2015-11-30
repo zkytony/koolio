@@ -133,33 +133,32 @@ CardsHandler.prototype.init = function() {
       var width = 250;
       var margin = 30;
       var cardPosition = $("#" + handler.focusingCardId).position();
-      $("#card-info-panel").removeClass("hidden");
+      $("#like-comment-panel").removeClass("hidden");
       $("#deck-cards-panel").removeClass("hidden");
-      $("#card-info-panel").css({
+      $("#like-comment-panel").css({
 	top: cardPosition.top + "px",
 	left: cardPosition.left + "px"
       });
       $("#deck-cards-panel").css({
 	top: cardPosition.top + "px",
-	left: cardPosition.left + "px",
-	height: height + "px"
+	left: cardPosition.left + "px"
       });
-      $("#card-info-panel").animate({
+      $("#like-comment-panel").animate({
 	top: (cardPosition.top + height + margin) + "px",
       }, 200, function() {
-	// ajax grab card info
+	// ajax grab card info, if not already done
       });
       $("#deck-cards-panel").animate({
 	left: (cardPosition.left + width + margin) + "px"
       }, 200, function() {
-	// ajax grab deck cards
+	// ajax grab deck cards, if not already done
       });
     } else {
       var cardPosition = $("#" + handler.focusingCardId).position();
-      $("#card-info-panel").animate({
+      $("#like-comment-panel").animate({
 	top: cardPosition.top + "px",
       }, 200, function() {
-	$("#card-info-panel").addClass("hidden");
+	$("#like-comment-panel").addClass("hidden");
       });
       $("#deck-cards-panel").animate({
 	left: cardPosition.left + "px"
@@ -170,11 +169,16 @@ CardsHandler.prototype.init = function() {
       $(".dark-overlay").addClass("hidden");
     }
   });
-
   $(document).on("click", ".dark-overlay", function() {
     $(".dark-overlay").addClass("hidden");
     $("#" + handler.focusingCardId).css("z-index", "auto");
-    $("#card-info-panel").addClass("hidden");
+    $("#like-comment-panel").addClass("hidden");
     $("#deck-cards-panel").addClass("hidden");
+  });
+
+  // When clicked the like-comment-panel, flip it to show
+  // the comment form
+  $(document).on("click", "#like-comment-panel", function() {
+    flip($(this));
   });
 }

@@ -8,28 +8,11 @@
 <div id="recommended-contents-wrapper">
   <%= render :partial => 'shared/recommended' %>
   <!-- info panels -->
-  <div class="hidden" id="card-info-panel">
-    <div class="like-comment">
-      <div><i class="fa fa-heart"></i>2.1k</div>
-      <div><i class="fa fa-comment"></i>30</div>
-    </div>
-    <div class="user-deck">
-      <div class="left profile">
-	<%= image_tag "default-profile.svg", :id => "nav-pic-img" %>
-      </div>
-      <div class="right">
-	<div class="username">Harold Finch</div>
-	<div class="decktitle">Test Dock</div>
-      </div>
-    </div>
-    <div class="comment-box">
-      <!-- Form for comment -->
-      <form>
-	<textarea placeholder="add comment"></textarea>
-      </form>
-    </div>
+  <%= render :partial => 'shared/card_info_panels/like_comment_panel'%>
+  <div class="hidden" id="deck-cards-panel">
+    <%= render :partial => 'shared/card_info_panels/deck_cards_panel'%>
   </div>
-  <div class="hidden" id="deck-cards-panel"></div>
+  <!-- end info panels -->
 </div>
 <div class="home-card-editor-container" id="editor-container-home">
   <%= render :partial => 'shared/card_editor' %>

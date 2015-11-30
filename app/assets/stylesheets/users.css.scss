@@ -157,69 +157,52 @@ $text-default-font-color: #808080;
 
 /* info panels */
 $info-panel-bg: #E6E6E6;
-#card-info-panel, #deck-cards-panel {
+$info-font-color: darken($darker-grey, 15%);
+#like-comment-panel, #deck-cards-panel {
     width: $home-card-width;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 4;
-    background-color: $info-panel-bg;
-    @include border-radius(5px);
 }
-#card-info-panel {
+#like-comment-panel {
     min-height: $home-card-min-height * 0.7;
+
+    .flipper-front, .flipper-back {
+	width: $home-card-width;
+	min-height: 40px;
+	max-height: 500px;
+	background-color: $info-panel-bg;
+	@include border-radius(5px);
+	overflow: hidden;
+	padding: 20px 0px;
+    }
     
     .like-comment {
 	width: 100%;
 	@include box-sizing(border-box);
 	padding-left: 15px;
-	padding-top: 20px;
-	padding-bottom: 11px;
 	
 	div {
 	    display: inline;
 	    margin-left: 10px;
 	    @include box-sizing(border-box);
 	    font-size: 15px;
-	    color: darken($darker-grey, 15%);
+	    color: $info-font-color;
 	    i {
 		margin-right: 5px;
 	    }
 	}	
     }
 
-    .user-deck {
-	width: 100%;
-	@include box-sizing(border-box);
-	padding-left: 25px;
-	.left {
-	    width: 17%;
-	}
-	.right {
-	    width: 80%;
-	}
-	.left, .right {
-	    float: left;
-	    height: 40px;
-	}
-	.profile {
-	    @include border-radius(50%);
-	    overflow: hidden;
-	    img {
-		width: 100%;
-	    }
-	}
-	.username, .decktitle {
-	    font-size: 14px;
-	    padding-left: 10px;
-	    padding-top: 2px;
-	}
-	.username {
-	    color: darken($darker-grey, 15%);
-	    font-weight: 700;
-	}
+    .comments-list {
+	width: 80%;
+	margin: auto;
+	color: $info-font-color;
+	font-weight: 700;
+	margin-top: 20px;
     }
-    
+
     .comment-box {
 	width: 80%;
 	margin: auto;
@@ -236,6 +219,56 @@ $info-panel-bg: #E6E6E6;
 	}
     }
 }
+$user-deck-height: 40px;
+$deck-cards-padding-top: 20px;
 #deck-cards-panel {
-    min-height: $home-card-min-height;
+    background-color: $info-panel-bg;
+    min-height: $user-deck-height;
+    overflow: hidden;
+    padding: $deck-cards-padding-top 0px;
+    @include border-radius(5px);
+
+    .user-deck {
+	width: 75%;
+	margin: auto;
+	@include box-sizing(border-box);
+	height: $user-deck-height;
+	
+	.left {
+	    width: 20%;
+	    background-color: green;
+	}
+	.right {
+	    width: 80%;
+	}
+	.left, .right {
+	    float: left;
+	    height: $user-deck-height;
+	}
+	.profile {
+	    @include border-radius(50%);
+	    overflow: hidden;
+	    img {
+		width: 100%;
+		height: 100%;
+	    }
+	}
+	.username, .decktitle {
+	    font-size: 14px;
+	    padding-left: 10px;
+	    padding-top: 2px;
+	}
+	.username {
+	    color: $info-font-color;
+	    font-weight: 700;
+	}
+    }
+
+    .more-cards {
+	width: 80%;
+	margin: auto;
+	margin-top: 20px;
+	font-weight: 700;
+	color: $info-font-color;
+    }
 }
