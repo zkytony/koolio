@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   has_many :favorite_decks, through: :favor_of_decks, source: :deck
   has_many :like_of_cards, class_name: "LikeCard", dependent: :destroy
   has_many :liked_cards, through: :like_of_cards, source: :card
+  has_many :like_of_comments, class_name: "LikeComment", dependent: :destroy
+  has_many :liked_comments, through: :like_of_comments, source: :comment
 
   has_many :deck_user_associations, dependent: :destroy
   has_many :deck_editor_associations, dependent: :destroy
@@ -108,11 +110,19 @@ class User < ActiveRecord::Base
   end
 
   def like_card(card)
-    self.like_of_cards.create(card_id: card.id)
+    if self.like_of_cards.create(card_id: card.id)
+      # increment count in the card's likes column
+      card.increment!(:likes)
+    end
   end
 
   def unlike_card(card)
-    self.like_of_cards.find_by(card_id: card.id).destroy
+    like = self.like_of_cards.find_by(card_id: card.id)
+    if like
+      like.destroy
+      # decrement count in the card's likes column
+      card.decrement!(:likes)
+    end
   end
 
   def liked_card?(card)
@@ -121,6 +131,22 @@ class User < ActiveRecord::Base
 
   def comment(card, message)
     self.comments.create(card_id: card.id, content: message)
+  end
+
+  def like_comment(comment)
+    if self.like_of_comments.create(comment_id: comment.id)
+      # increment count in the card's likes column
+      comment.increment!(:likes)
+    end
+  end
+
+  def unlike_comment(comment)
+    like = self.like_of_comments.find_by(comment_id: comment.id)
+    if like
+      like.destroy
+      # decrement count in the card's likes column
+      comment.decrement!(:likes)
+    end
   end
 
   def turndown_deck_share(deck)

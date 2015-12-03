@@ -57,6 +57,13 @@ class CardsController < ApplicationController
     redirect_to :back
   end
 
+  def card_info
+    @card = Card.find(params[:card_id])
+    GrabCardInfo.call(@card, current_user)
+    # check permission if the request can view the card?
+    
+  end
+
   private
   
   # strong parameter

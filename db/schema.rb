@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151118064534) do
+ActiveRecord::Schema.define(version: 20151203074432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20151118064534) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.boolean  "hide",          default: false
+    t.integer  "likes",         default: 0
   end
 
   add_index "cards", ["deck_id"], name: "index_cards_on_deck_id", using: :btree
@@ -46,8 +47,9 @@ ActiveRecord::Schema.define(version: 20151118064534) do
     t.text     "content"
     t.integer  "user_id"
     t.integer  "card_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "likes",      default: 0
   end
 
   add_index "comments", ["card_id"], name: "index_comments_on_card_id", using: :btree
@@ -109,6 +111,17 @@ ActiveRecord::Schema.define(version: 20151118064534) do
   add_index "like_cards", ["card_id"], name: "index_like_cards_on_card_id", using: :btree
   add_index "like_cards", ["user_id", "card_id"], name: "index_like_cards_on_user_id_and_card_id", unique: true, using: :btree
   add_index "like_cards", ["user_id"], name: "index_like_cards_on_user_id", using: :btree
+
+  create_table "like_comments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "like_comments", ["comment_id"], name: "index_like_comments_on_comment_id", using: :btree
+  add_index "like_comments", ["user_id", "comment_id"], name: "index_like_comments_on_user_id_and_comment_id", unique: true, using: :btree
+  add_index "like_comments", ["user_id"], name: "index_like_comments_on_user_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"

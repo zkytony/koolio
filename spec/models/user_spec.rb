@@ -177,6 +177,7 @@ RSpec.describe User, :type => :model do
     user.like_card(card)
     expect(user.liked_cards.count).to be 1
     expect(card.liked_users.count).to be 1
+    expect(card.likes).to be 1
   end
 
   it "should unlike a card" do
@@ -188,9 +189,11 @@ RSpec.describe User, :type => :model do
     user.like_card(card)
     expect(user.liked_cards.count).to be 1
     expect(card.liked_users.count).to be 1
+    expect(card.likes).to eq 1
     user.unlike_card(card)
     expect(user.liked_cards.count).to be 0
     expect(card.liked_users.count).to be 0
+    expect(card.likes).to eq 0
   end
 
   it "should not like a card twice" do
@@ -204,7 +207,20 @@ RSpec.describe User, :type => :model do
     expect(card.liked_users.count).to be 1
     expect {
       user.like_card(card)
+      expect(card.likes).to eq 1
     }.to raise_error(ActiveRecord::RecordNotUnique)
+  end
+
+  it "should not unlike a card that has not been liked" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
+    card.save!
+    user.unlike_card(card)
+    expect(user.liked_cards.count).to be 0
+    expect(card.liked_users.count).to be 0
+    expect(card.likes).to eq 0
   end
 
   it "should comment on card" do
@@ -219,6 +235,55 @@ RSpec.describe User, :type => :model do
     user.comment(card, message)
     expect(user.comments.count).to be 2
     expect(card.comments.count).to be 2
+  end
+
+  it "should like a comment" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
+    card.save!
+    message = "Hello! How are you!"
+    comment = user.comment(card, message)
+    user.like_comment(comment)
+    expect(user.liked_comments.count).to be 1
+    expect(comment.liked_users.count).to be 1
+    expect(comment.likes).to be 1
+  end
+
+  it "should unlike a comment" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
+    card.save!
+    message = "Hello! How are you!"
+    comment = user.comment(card, message)
+    user.like_comment(comment)
+    expect(user.liked_comments.count).to be 1
+    expect(comment.liked_users.count).to be 1
+    expect(comment.likes).to be 1
+    user.unlike_comment(comment)
+    expect(user.liked_comments.count).to be 0
+    expect(comment.liked_users.count).to be 0
+    expect(comment.likes).to be 0
+  end
+
+  it "should not like a comment twice" do
+    user = User.create(username: "user1", email: "user1@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
+    card.save!
+    message = "Hello! How are you!"
+    comment = user.comment(card, message)
+    user.like_comment(comment)
+    expect(user.liked_comments.count).to be 1
+    expect(comment.liked_users.count).to be 1
+    expect {
+      user.like_comment(comment)
+      expect(comment.likes).to eq 1
+    }.to raise_error(ActiveRecord::RecordNotUnique)
   end
 
   it "should create a deck, and see himself added as editor" do

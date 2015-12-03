@@ -11,8 +11,9 @@ class RecommendContent
       
       # each provider is a deck
       card_providers.each do |provider|
-        contents.provider.cards.offset(rand(provider.cards.count)).first
+        contents << provider.cards.offset(rand(provider.cards.count)).first
       end
+      contents
     end
   end
 end

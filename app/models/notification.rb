@@ -7,6 +7,7 @@ ShareDeck (DeckUserAssociation): user shared a deck to another user as editor or
 RecommendTo (Recommendation): user recommended a card to another user
 FavoriteDeck (Favorite): user favorited a deck
 LikeCard (LikeCard): user liked a card
+LikeComment (LikeCard): user liked a comment
 '''
 class Notification < ActiveRecord::Base
   validates_presence_of :user_id, :action, :notifier_type, :notifier_id

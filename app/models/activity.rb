@@ -9,6 +9,7 @@ CreateCard (Card): user created a card
 UpdateCard (Card): user updated a card
 LikeCard (Card): user liked a card
 CreateComment (Comment): user made a comment
+LikeComment (Comment): user liked a comment
 FollowUser (User): user followed another user
 '''
 class Activity < ActiveRecord::Base
