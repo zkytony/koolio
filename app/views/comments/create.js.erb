@@ -1,7 +1,16 @@
 // comment is created. Now display the new comment.
-$("#comment_list").append(
-  "<%= j render partial: "shared/comment", locals: { content: "#{@comment.content}", n_likes: "#{@comment.likes}", author_name: "#{@comment.user.username}" } %>"
-);
-// increment comment count by 1
 var commentCount = parseInt($("#n_comments").html());
-$("#n_comments").html(commentCount+1)
+
+if (commentCount > 0) {
+  $("#comment_list").append(
+    "<%= j render partial: "shared/comment", locals: { content: "#{@comment.content}", n_likes: "#{@comment.likes}", author_name: "#{@comment.user.username}" } %>"
+  );
+} else {
+  $("#comment_list").html(
+    "<%= j render partial: "shared/comment", locals: { content: "#{@comment.content}", n_likes: "#{@comment.likes}", author_name: "#{@comment.user.username}" } %>"
+  );
+}
+
+$("#n_comments").html(commentCount+1);
+// increment comment count by 1
+
