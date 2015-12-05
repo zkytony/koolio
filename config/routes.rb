@@ -18,7 +18,11 @@ Rails.application.routes.draw do
   resources :cards do
     post 'like' => 'cards#like'
     delete 'unlike' => 'cards#unlike'
+    get 'card_info' => 'cards#card_info'
   end
+  
+  # comments are accessed directly
+  resources :comments
 
   resources :uploaded_files, only: [:destroy, :create]
 

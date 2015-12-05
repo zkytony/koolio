@@ -59,9 +59,13 @@ class CardsController < ApplicationController
 
   def card_info
     @card = Card.find(params[:card_id])
-    GrabCardInfo.call(@card, current_user)
-    # check permission if the request can view the card?
-    
+    @info = GrabCardInfo.call(@card, current_user)
+    if @info
+      respond_to do |format|
+        format.js
+      end
+    else
+    end
   end
 
   private

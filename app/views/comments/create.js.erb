@@ -1,0 +1,8 @@
+// comment is created. Now: clear the comment_form's fields;
+// and display the new comment.
+$("#comment_card_id").val("");
+$("#comment_content").val("");
+
+$("#comment_list").append(
+  "<%= j render partial: "shared/comment", locals: { content: "#{@comment.content}" }%>"
+);

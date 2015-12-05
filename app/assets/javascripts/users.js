@@ -84,6 +84,7 @@ function adjustCardHeight(homeCard) {
 
 /* Event handlers for cards at home page */
 function CardsHandler() {
+  // focusing card is should have the format "card_#{id}"
   this.focusingCardId = undefined;
 }
 
@@ -126,6 +127,13 @@ CardsHandler.prototype.init = function() {
       var focusHomeCard = $(this).parents(".home-card");
       focusHomeCard.css("z-index", "5");
       handler.focusingCardId = focusHomeCard.attr("id");
+      
+      // Reset the info panels
+      handler.resetLikeCommentsPanel();
+      handler.resetDeckCardsPanel();
+      // grab info first
+      grabCardInfo(handler.focusingCardId.split("_")[1]);
+
       // show the panels, with quick animation
       // first place the panels at the same position
       // as the parent card, then do the slide
@@ -145,24 +153,24 @@ CardsHandler.prototype.init = function() {
       });
       $("#like-comment-panel").animate({
 	top: (cardPosition.top + height + margin) + "px",
-      }, 200, function() {
-	// ajax grab card info, if not already done
+      }, 300, function() {
+	// show info
       });
       $("#deck-cards-panel").animate({
 	left: (cardPosition.left + width + margin) + "px"
-      }, 200, function() {
-	// ajax grab deck cards, if not already done
+      }, 300, function() {
+	// show info
       });
     } else {
       var cardPosition = $("#" + handler.focusingCardId).position();
       $("#like-comment-panel").animate({
 	top: cardPosition.top + "px",
-      }, 200, function() {
+      }, 300, function() {
 	$("#like-comment-panel").addClass("hidden");
       });
       $("#deck-cards-panel").animate({
 	left: cardPosition.left + "px"
-      }, 200, function() {
+      }, 300, function() {
 	$("#deck-cards-panel").addClass("hidden");
 	$("#" + handler.focusingCardId).css("z-index", "auto");
       });
@@ -175,4 +183,55 @@ CardsHandler.prototype.init = function() {
     $("#like-comment-panel").addClass("hidden");
     $("#deck-cards-panel").addClass("hidden");
   });
+  
+  // Submit text area on enter hit
+  // TODO: This isn't a good idea. Maybe there should be a submit
+  // button. But it hasn't been designed yet.
+  $(document).on("keyup", "#new_comment textarea", function(e) {
+    e = e || event;
+    if (e.keyCode === 13) {
+      // hit enter
+      // Set value of the card_id hidden field to the id of this
+      // card; If the content does not only contain the new line 
+      // character submit the form. (i.e. length > 1)
+      var content = $("#comment_content").val();
+      if (content.length > 1) {
+	var cardId = handler.focusingCardId.split("_")[1];
+	$("#comment_card_id").val(cardId);
+	// remove the last character, which is a \r (new line)
+	$("#comment_content").val(content.substring(0, content.length-1));
+	$("#new_comment").submit();
+      } else {
+	$("#comment_content").val("");
+      }
+    }
+  });
+}
+
+CardsHandler.prototype.resetLikeCommentsPanel = function() {
+  $("#n_likes").html("...");
+  $("#n_comments").html("...");
+  $("#comment_list").html("");
+}
+
+CardsHandler.prototype.resetDeckCardsPanel = function() {
+  $("#deck_author").html("...");
+  $("#deck_title").html("...");
+}
+
+// AJAX request to request card info which includes number of likes,
+// number of comments, and comments, as well as the deck title,
+// deck id, author name, author id, number of favorites the deck
+// has, and other cards in the deck. The result will be script
+// that renders the info. TODO: This method might be inefficient
+// because there is no caching of the data obtained.
+function grabCardInfo(cardId) {
+    $.ajax({
+	type: 'GET',
+	url: '/cards/' + cardId + '/card_info',
+	dataType: 'script',
+	success: function(output) {
+	    
+	}
+    });
 }

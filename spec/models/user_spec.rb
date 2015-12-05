@@ -229,12 +229,14 @@ RSpec.describe User, :type => :model do
     deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
-    message = "Hello! How are you!"
-    user.comment(card, message)
-    message = "I like your card!"
-    user.comment(card, message)
+    message1 = "Hello! How are you!"
+    comment1 = user.comment(card, message1)
+    message2 = "I like your card!"
+    comment2 = user.comment(card, message2)
     expect(user.comments.count).to be 2
     expect(card.comments.count).to be 2
+    expect(comment1.content).to eq message1
+    expect(comment2.content).to eq message2
   end
 
   it "should like a comment" do

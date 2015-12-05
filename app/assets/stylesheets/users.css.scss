@@ -175,6 +175,36 @@ $comment-box-height: 55px;
     overflow: hidden;
     padding: 20px 0px;
 
+    .comments-list {
+	overflow: hidden;
+	min-height: 40px;
+	padding: 10px 0px;
+
+	.comment {
+	    min-height: 40px;
+	    overflow: hidden;
+	    padding-top: 10px;
+	    position: relative;
+
+	    .comment_author_name {
+		margin-right: 5px;
+		float: left;
+	    }
+
+	    .comment_content {
+		color: #000;
+		font-weight: 500;
+	    }
+	    
+	    .comment-likes {
+		margin-top: 5px;
+	    }
+
+	    .comment_author_name, .comment_content, .comment-likes {
+		margin-left: 5px;
+	    }
+	}
+    }
     
     .like-comment {
 	width: 100%;
@@ -187,9 +217,6 @@ $comment-box-height: 55px;
 	    @include box-sizing(border-box);
 	    font-size: 15px;
 	    color: $info-font-color;
-	    i {
-		margin-right: 5px;
-	    }
 	}	
     }
 
@@ -198,7 +225,6 @@ $comment-box-height: 55px;
 	margin: auto;
 	color: $info-font-color;
 	font-weight: 700;
-	margin-top: 20px;
     }
 
     .comment-box {
@@ -230,26 +256,11 @@ $deck-cards-padding-top: 20px;
 	margin: auto;
 	@include box-sizing(border-box);
 	height: $user-deck-height;
-	
-	.left {
-	    width: 20%;
-	    background-color: green;
-	}
-	.right {
-	    width: 80%;
-	}
+
 	.left, .right {
-	    float: left;
 	    height: $user-deck-height;
 	}
-	.profile {
-	    @include border-radius(50%);
-	    overflow: hidden;
-	    img {
-		width: 100%;
-		height: 100%;
-	    }
-	}
+	
 	.username, .decktitle {
 	    font-size: 14px;
 	    padding-left: 10px;
@@ -267,5 +278,27 @@ $deck-cards-padding-top: 20px;
 	margin-top: 20px;
 	font-weight: 700;
 	color: $info-font-color;
+    }
+}
+
+/* One liner info that has a profile pic */
+/* The main container of the info has certain dimension already */
+.slim-info {
+    .left {
+	width: 20%;
+    }
+    .right {
+	width: 80%;
+    }
+    .left, .right {
+	float: left;
+    }
+    .profile {
+	@include border-radius(50%);
+	overflow: hidden;
+	img {
+	    width: 100%;
+	    height: 100%;
+	}
     }
 }

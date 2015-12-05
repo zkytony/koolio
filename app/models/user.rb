@@ -129,8 +129,14 @@ class User < ActiveRecord::Base
     self.liked_cards.include?(card)
   end
 
+  # Create (save) a comment given a card and a message
   def comment(card, message)
     self.comments.create(card_id: card.id, content: message)
+  end
+
+  # Only builds the comment; does not save it
+  def build_comment(comment_params)
+    self.comments.build(comment_params)
   end
 
   def like_comment(comment)

@@ -16,13 +16,27 @@ class GrabCardInfo
       n_cards = 5
 
       deck = card.deck
-      comments = card.comments.take(n_comments)  # like feature for comments is not available right now
-      cards = deck.cards.order(:like).take(n_cards)
+      author = deck.user
+      comments = card.comments
+      cards = deck.cards.order(:likes).take(n_cards)
       # use hash and convert it to JSON
       # PROBLEM: BETTER ADD A LIKE COLUMN TO cards AND comments TO SPPED THINGS UP
       # OR IS IT BETTER TO JUST RETRIEVE EVERYTHING WHEN GRABBING THE RECOMMENDED CONTENT?
       # OR A COMBINATION OF AJAX AND RETRIEVE INITIALLY?
+      info = { 
+        author_name: author.username,
+        author_id: author.id,
+        deck_title: deck.title,
+        deck_id: deck.id,
+        n_deck_favorites: deck.favoring_users.count,
+        n_likes: card.likes, 
+        n_comments: comments.count, 
+        other_cards: cards, 
+        comments: comments.order(:likes).take(n_comments)
+      }
+      info
     else
+      nil
     end
   end
 end
