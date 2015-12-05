@@ -2,3 +2,6 @@
 $("#comment_list").append(
   "<%= j render partial: "shared/comment", locals: { content: "#{@comment.content}", n_likes: "#{@comment.likes}", author_name: "#{@comment.user.username}" } %>"
 );
+// increment comment count by 1
+var commentCount = parseInt($("#n_comments").html());
+$("#n_comments").html(commentCount+1)
