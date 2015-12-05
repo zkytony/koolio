@@ -89,9 +89,9 @@ $text-default-font-color: #808080;
 	text-align: right;
 	position: absolute; 
 	right: 10px;
-	bottom: 0px;
+	bottom: -3px;
 	color: $white;
-	font-size: 25px;
+	font-size: 30px;
 	cursor: pointer;
     }
  
@@ -241,6 +241,8 @@ $comment-box-height: 55px;
 	    margin-top: 10px;
 	    font-family: "Arial", sans-serif;
 	    background-color: #F2F2F2;
+	    font-size: 14px;
+	    border: 2px solid $darker-grey;
 	}
     }
 }
