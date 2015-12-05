@@ -201,6 +201,8 @@ CardsHandler.prototype.init = function() {
 	// remove the last character, which is a \r (new line)
 	$("#comment_content").val(content.substring(0, content.length-1));
 	$("#new_comment").submit();
+	$("#comment_card_id").val("");
+	$("#comment_content").val("");
       } else {
 	$("#comment_content").val("");
       }
