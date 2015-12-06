@@ -159,6 +159,7 @@ $text-default-font-color: #808080;
 $info-panel-bg: #E6E6E6;
 $info-font-color: darken($darker-grey, 15%);
 $comment-box-height: 55px;
+$liked-color: #BB3C41;
 #like-comment-panel, #deck-cards-panel {
     width: $home-card-width;
     position: absolute;
@@ -217,6 +218,17 @@ $comment-box-height: 55px;
 	    @include box-sizing(border-box);
 	    font-size: 15px;
 	    color: $info-font-color;
+
+	    // the like button
+	    i.fa-heart {
+		&:hover {
+		    color: lighten($liked-color, 20%);
+		    cursor: pointer;
+		}
+	    }
+	    #n_likes.liked, i.fa-heart.liked {
+		color: $liked-color;
+	    }
 	}	
     }
 

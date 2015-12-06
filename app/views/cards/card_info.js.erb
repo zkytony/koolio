@@ -2,6 +2,14 @@
 $("#n_likes").html(<%="#{@info[:n_likes]}"%>);
 $("#n_comments").html(<%="#{@info[:n_comments]}"%>);
 
+<% if @info[:liked_card] %>
+  $("#n_likes").addClass("liked");
+  $("#like-card-btn").addClass("liked");
+<% else %>
+  $("#n_likes").removeClass("liked");
+  $("#like-card-btn").removeClass("liked");
+<% end %>
+
 $("#deck_author").html("<%="#{@info[:author_name]}"%>");
 $("#deck_title").html("<%="#{@info[:deck_title]}"%>");
 

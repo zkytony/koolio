@@ -23,14 +23,15 @@ class GrabCardInfo
       # PROBLEM: BETTER ADD A LIKE COLUMN TO cards AND comments TO SPPED THINGS UP
       # OR IS IT BETTER TO JUST RETRIEVE EVERYTHING WHEN GRABBING THE RECOMMENDED CONTENT?
       # OR A COMBINATION OF AJAX AND RETRIEVE INITIALLY?
-      info = { 
+      info = {
         author_name: author.username,
         author_id: author.id,
         deck_title: deck.title,
         deck_id: deck.id,
         n_deck_favorites: deck.favoring_users.count,
         n_likes: card.likes, 
-        n_comments: comments.count, 
+        n_comments: comments.count,
+        liked_card: user.liked_card?(card),
         other_cards: cards, 
         comments: comments.order(:likes).take(n_comments)
       }

@@ -1,0 +1,5 @@
+// decrement liked count and remove "liked" class to the #like-card-btn
+var commentCount = parseInt($("#n_likes").html());
+$("#n_likes").html(commentCount-1);
+$("#like-card-btn").removeClass("liked");
+$("#n_likes").removeClass("liked");

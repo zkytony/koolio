@@ -85,7 +85,8 @@ function adjustCardHeight(homeCard) {
 /* Event handlers for cards at home page */
 function CardsHandler() {
   // focusing card is should have the format "card_#{id}"
-  this.focusingCardId = undefined;
+  this.focusingCardId = undefined; // html element id
+  this.focusingCardRawId = undefined; // card_id
 }
 
 CardsHandler.prototype.init = function() {
@@ -127,12 +128,13 @@ CardsHandler.prototype.init = function() {
       var focusHomeCard = $(this).parents(".home-card");
       focusHomeCard.css("z-index", "5");
       handler.focusingCardId = focusHomeCard.attr("id");
+      handler.focusingCardRawId = handler.focusingCardId.split("_")[1]
       
       // Reset the info panels
       handler.resetLikeCommentsPanel();
       handler.resetDeckCardsPanel();
       // grab info first
-      grabCardInfo(handler.focusingCardId.split("_")[1]);
+      grabCardInfo(handler.focusingCardRawId);
 
       // show the panels, with quick animation
       // first place the panels at the same position
@@ -183,6 +185,13 @@ CardsHandler.prototype.init = function() {
     $("#like-comment-panel").addClass("hidden");
     $("#deck-cards-panel").addClass("hidden");
   });
+  // When clicked the card like button, send ajax request
+  // to increase the count of likes of that card. When clicked
+  // again, fire request to decrement it.
+  $(document).on("click", "#like-card-btn", function() {
+    var liked = $("#like-card-btn").hasClass("liked");
+    ajaxLikeCard(liked, handler.focusingCardRawId);
+  });
   
   // Submit text area on enter hit
   // TODO: This isn't a good idea. Maybe there should be a submit
@@ -196,8 +205,7 @@ CardsHandler.prototype.init = function() {
       // character submit the form. (i.e. length > 1)
       var content = $("#comment_content").val();
       if (content.length > 1) {
-	var cardId = handler.focusingCardId.split("_")[1];
-	$("#comment_card_id").val(cardId);
+	$("#comment_card_id").val(handler.focusingCardRawId);
 	// remove the last character, which is a \r (new line)
 	$("#comment_content").val(content.substring(0, content.length-1));
 	$("#new_comment").submit();
@@ -228,12 +236,31 @@ CardsHandler.prototype.resetDeckCardsPanel = function() {
 // that renders the info. TODO: This method might be inefficient
 // because there is no caching of the data obtained.
 function grabCardInfo(cardId) {
-    $.ajax({
-	type: 'GET',
-	url: '/cards/' + cardId + '/card_info',
-	dataType: 'script',
-	success: function(output) {
-	    
-	}
-    });
+  $.ajax({
+    type: 'GET',
+    url: '/cards/' + cardId + '/card_info',
+    dataType: 'script',
+    success: function(output) {
+      
+    }
+  });
+}
+
+// AJAX request to increment/decrement the number of likes for a
+// card given its id.
+function ajaxLikeCard(liked, cardId) {
+  var type = "POST";
+  var action = "like";
+  if (liked) {
+    // should delete
+    type = "DELETE";
+    action = "unlike";
+  }
+  $.ajax({
+    type: type,
+    url: '/cards/' + cardId + '/' + action,
+    dataType: 'script', // get back script
+    success: function(output) {
+    }
+  });
 }
