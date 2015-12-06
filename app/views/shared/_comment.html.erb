@@ -1,4 +1,4 @@
-<div class="comment slim-info">
+<div class="comment slim-info" id="comment_<%="#{comment_id}"%>">
   <div class="left profile">
     <%= image_tag "default-profile.jpg", :id => "nav-pic-img" %>
   </div>
@@ -6,7 +6,13 @@
     <div class="comment_author_name"><%="#{author_name}"%></div>
     <p class="comment_content""><%="#{content}"%></p>
     <div class="comment-likes">
-      <p>Like <%="#{n_likes}"%></p>
+      <% if comment_liked %>
+	<div class="like-comment-btn liked" id="comlk_<%="#{comment_id}"%>">Like</div>
+	<div class="n_comment_likes liked" id="comlkc_<%="#{comment_id}"%>"><%="#{n_likes}"%></div>
+      <% else %>
+        <div class="like-comment-btn" id="comlk_<%="#{comment_id}"%>">Like</div>
+	<div class="n_comment_likes" id="comlkc_<%="#{comment_id}"%>"><%="#{n_likes}"%></div>
+      <% end %>
     </div>
   </div>
 </div>

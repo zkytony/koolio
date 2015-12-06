@@ -1,0 +1,7 @@
+// increment liked count and add "liked" class to the .like-comment-btn with id
+// like_#
+var likeCount = parseInt($("#comlkc_<%="#{@comment.id}"%>").html());
+$("#comlkc_<%="#{@comment.id}"%>").html(likeCount+1); // count
+$("#comlk_<%="#{@comment.id}"%>").addClass("liked");   // like btn
+$("#comlkc_<%="#{@comment.id}"%>").addClass("liked"); // count
+

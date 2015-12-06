@@ -159,7 +159,8 @@ $text-default-font-color: #808080;
 $info-panel-bg: #E6E6E6;
 $info-font-color: darken($darker-grey, 15%);
 $comment-box-height: 55px;
-$liked-color: #BB3C41;
+$liked-color: #BB3C41; // for cards
+$liked-comment-color: #007fff;
 #like-comment-panel, #deck-cards-panel {
     width: $home-card-width;
     position: absolute;
@@ -199,10 +200,25 @@ $liked-color: #BB3C41;
 	    
 	    .comment-likes {
 		margin-top: 5px;
+		div {
+		    float: left;
+		    margin-right: 5px;
+		}
 	    }
 
 	    .comment_author_name, .comment_content, .comment-likes {
 		margin-left: 5px;
+	    }
+
+	    .like-comment-btn {
+		&:hover {
+		    color: lighten($liked-comment-color, 10%);
+		    cursor: pointer;
+		}
+	    }
+
+	    .like-comment-btn.liked, .n_comment_likes.liked {
+		color: $liked-comment-color;
 	    }
 	}
     }

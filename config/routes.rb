@@ -22,7 +22,10 @@ Rails.application.routes.draw do
   end
   
   # comments are accessed directly
-  resources :comments
+  resources :comments do
+    post 'like' => 'comments#like'
+    delete 'unlike' => 'comments#unlike'
+  end
 
   resources :uploaded_files, only: [:destroy, :create]
 

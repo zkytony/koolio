@@ -18,7 +18,7 @@ class GrabCardInfo
       deck = card.deck
       author = deck.user
       comments = card.comments
-      cards = deck.cards.order(:likes).take(n_cards)
+      cards = deck.cards.order(:likes).reverse_order.take(n_cards)
       # use hash and convert it to JSON
       # PROBLEM: BETTER ADD A LIKE COLUMN TO cards AND comments TO SPPED THINGS UP
       # OR IS IT BETTER TO JUST RETRIEVE EVERYTHING WHEN GRABBING THE RECOMMENDED CONTENT?
@@ -33,7 +33,7 @@ class GrabCardInfo
         n_comments: comments.count,
         liked_card: user.liked_card?(card),
         other_cards: cards, 
-        comments: comments.order(:likes).take(n_comments)
+        comments: comments.order(:likes).reverse_order.take(n_comments)
       }
       info
     else

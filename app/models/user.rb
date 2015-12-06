@@ -155,6 +155,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def liked_comment?(comment)
+    self.liked_comments.include?(comment)
+  end
+
   def turndown_deck_share(deck)
     if deck.creator.id != self.id
       self.deck_user_associations.find_by(deck_id: deck.id).destroy

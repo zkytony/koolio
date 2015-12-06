@@ -15,7 +15,11 @@ $("#deck_title").html("<%="#{@info[:deck_title]}"%>");
 
 <% if @info[:comments].length > 0 %>
   <% @info[:comments].each do |comment| %>
-    $("#comment_list").append("<%= j render partial: "shared/comment", locals: { content: "#{comment.content}", n_likes: "#{comment.likes}", author_name: "#{comment.user.username}" }%>");
+    $("#comment_list").append("<%= j render partial: "shared/comment", locals: { content: "#{comment.content}",
+                                                                                 n_likes: "#{comment.likes}", 
+                                                                                 author_name: "#{comment.user.username}", 
+                                                                                 comment_id: "#{comment.id}",
+                                                                                 comment_liked: current_user.liked_comment?(comment)}%>");
   <% end %>
 <% else %>
   $("#comment_list").html("<p>No comments</p>");

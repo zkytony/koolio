@@ -186,11 +186,19 @@ CardsHandler.prototype.init = function() {
     $("#deck-cards-panel").addClass("hidden");
   });
   // When clicked the card like button, send ajax request
-  // to increase the count of likes of that card. When clicked
-  // again, fire request to decrement it.
+  // to toggle like of this card
   $(document).on("click", "#like-card-btn", function() {
     var liked = $("#like-card-btn").hasClass("liked");
     ajaxLikeCard(liked, handler.focusingCardRawId);
+  });
+
+  // When clicked like comment btn, ajax request to toggle like
+  // of this comment.
+  $(document).on("click", ".like-comment-btn", function() {
+    var liked = $(this).hasClass("liked");
+    // id is of the format comlk_#
+    var commentId = $(this).attr("id").split("_")[1];
+    ajaxLikeComment(liked, commentId);
   });
   
   // Submit text area on enter hit
@@ -259,6 +267,44 @@ function ajaxLikeCard(liked, cardId) {
   $.ajax({
     type: type,
     url: '/cards/' + cardId + '/' + action,
+    dataType: 'script', // get back script
+    success: function(output) {
+    }
+  });
+}
+
+// AJAX request to increment/decrement the number of likes for a
+// card given its id.
+function ajaxLikeCard(liked, cardId) {
+  var type = "POST";
+  var action = "like";
+  if (liked) {
+    // should delete
+    type = "DELETE";
+    action = "unlike";
+  }
+  $.ajax({
+    type: type,
+    url: '/cards/' + cardId + '/' + action,
+    dataType: 'script', // get back script
+    success: function(output) {
+    }
+  });
+}
+
+// AJAX request to increment/decrement the number of likes for a
+// comment given its id.
+function ajaxLikeComment(liked, commentId) {
+  var type = "POST";
+  var action = "like";
+  if (liked) {
+    // should delete
+    type = "DELETE";
+    action = "unlike";
+  }
+  $.ajax({
+    type: type,
+    url: '/comments/' + commentId + '/' + action,
     dataType: 'script', // get back script
     success: function(output) {
     }
