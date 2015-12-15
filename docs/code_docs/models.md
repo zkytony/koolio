@@ -155,6 +155,18 @@ as recommended to this user.
 user_a.turndown_recommendation(user_b, card)
 ```
 
+To retrieve all cards or decks that a user recommended to others:
+```ruby
+user.recommendings_of_cards
+user.recommendings_of_decks
+```
+
+To retrieve all cards or decks that others recommended to this user:
+```ruby
+user.recommended_cards
+user.recommended_decks
+```
+
 #### relations with `comments`:
 
 Very similar to `decks` and `cards` in the usual aspects, these are the
@@ -435,14 +447,116 @@ For more details about how to use this model, please refer to the [carrierwave](
 
 ## Recommendation
 
+The Recommendation model represents one recommendation of a content from
+one user to another user. It belongs to `recommendable` with polymorphic
+associations. Currently, a user can recommend cards or decks. Refer
+to [User](#user) about the recommend function in the User model.
+
+A recommendation has these properties:
+
+* from_user_id _required_
+* to_user_id _required_
+* recommendable_id _required_
+* recommendable_type the polymorphic type: Card or Deck _required_
+
 ## Notification
+
+The Notification model represents one notification for a user. It requires
+an action, and it belongs to the notified user and the notifier with polymorphic
+associations.
+
+A notification has these properties:
+
+* user_id _required_ the id of the notified user
+* action _required_ the type of action associated with the notifier
+* notifier _type the polymorphic type. _required_
+* notifier_id the id of the notifier
+
+Notifiers are User, DeckUserAssociation, Recommendation, Favorite, LikeCard,
+LikeComment.
+
+Actions are (action - notifier_type):
+
+* FollowedByUser - User: user followed another user
+* ShareDeck - DeckUserAssociation: user is shared a deck from another user as editor or viewer
+* RecommendTo - Recommendation: user is recommended a card or deck from another user
+* FavoriteDeck - Favorite: user's deck is favorited by another user
+* LikeCard - LikeCard: user's card is liked by another user
+* LikeComment - LikeComment: user's comment is liked by another user
+
+Here is an example of creating a notification for a user:
+```ruby
+# userA creates a deck
+deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+# share the deck to userB
+share = deck.share_to(userB, "Editor")
+# add notification for userB
+userB.notifications.create(action: "ShareDeck", notifier: share)
+```
+
+**TODO:** Finish notificaiton development
 
 ## Activity
 
+The Activity model represents one piece of activity log for a user. It
+requires an action, and it belongs to the subjected user and trackable with
+polymorphic associations.
+
+An activity has these properties:
+
+* user_id _required_ the id of the user with the activity
+* action _required_ the type of action associated with the activity
+* trackable _type the polymorphic type. _required_
+* trackable_id the id of the notifier
+
+Trackables are Deck, Card, Comment, User
+
+Actions are (action - trackable_type):
+* CreateDeck - Deck: user created a deck
+* UpdateDeck - Deck: user updated deck info (title, description)
+* FavoriteDeck - Deck: user favorited a deck
+* CreateCard - Card: user created a card
+* UpdateCard - Card: user updated a card
+* LikeCard - Card: user liked a card
+* CreateComment - Comment: user made a comment
+* LikeComment - Comment: user liked a comment
+* FollowUser - User: user followed another user
+
+Here are examples of creating an activity for a user:
+```ruby
+# suppose userA created a deck
+create_deck_activity = userA.activities.create!(action: "CreateDeck", trackable: deck)
+update_deck_activity = userA.activities.create!(action: "UpdateDeck", trackable: deck)
+favorite_deck_activity = userA.activities.create!(action: "FavoriteDeck", trackable: deck)
+```
+
+**TODO:** Finish activity development
+
 ## LikeCard
+
+The LikeCard model is used for _many to many_ relationship between `liked_cards`
+and `liked_users`.
 
 ## LikeComment
 
+The LikeComment model is used for _many to many_ relationship between `liked_comments`
+and `liked_users`.
+
 ## Favorite
 
+The Favorite model is used for _many to many_ relationship between `favorited_decks`
+and `favoring_users`
+
 ## Relationship
+
+The Relationship model is used for _many to many_ relationship between `following` and
+`followers`.
+
+## DeckUserAssociation, DeckEditorAssociation, DeckViewerAssociation
+
+The DeckUserAssociation represents the type of association between a user and
+a deck, either `"editor"` or `"viewer"`. This model belongs to one user and
+one deck. It is also a `notifier`.
+
+The DeckUserAssociation model allows Single Table Inheritance, with a `type` column which
+has value `"DeckEditorAssociation"` or `"DeckViewerAssociation"`.
