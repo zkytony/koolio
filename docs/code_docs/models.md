@@ -202,7 +202,7 @@ belongs to one user, the creator of the deck.  A deck has these properties:
 
 * title - _required, length <= 175_; the title for the deck.
 * description 
-* user - _id _required_; the creator's user id
+* user_id - _required_; the creator's user id
 * open - _default_ `true`. _true or false only_; whether this deck is open to the public or not
 * created_at
 * updated_at
