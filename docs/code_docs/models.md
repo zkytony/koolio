@@ -1,5 +1,7 @@
 # Models
 
+All models inherit from `ActiveRecord::Base`
+
 ## User
 
 The User model represents a user. A user has these properties:
@@ -264,6 +266,10 @@ which will check if `deck` is editable by the given user.
 If not, then the card will not be built.
 
 #### relations with `tags`:
+To get all tags of a `deck`, simply:
+```ruby
+deck.tags
+```
 
 To add a tag to a `deck`:
 ```ruby
@@ -348,4 +354,51 @@ card.liked_users
 To get all comments made to this card
 ```ruby
 card.comments
+```
+
+## Comment
+
+The Comment model represents one comment. It belongs to one user and one card.
+Users can like a comment. A comment has these properties:
+
+* content the text content of this comment
+* user_id the id of the user that made the comment
+* card_id the id of the card to which the comment is made
+* likes the number of likes this comment currently has
+* created_at
+* updated_at
+
+A comment is trackable.
+
+#### relations with `users`:
+To get the user that made the comment, simply:
+```ruby
+comment.user
+```
+
+To get all users that liked this comment:
+```ruby
+comment.liked_users
+```
+
+#### relations with `cards`:
+To get the card that the comment is made to, simply:
+```ruby
+comment.card
+```
+
+## Tag
+
+The Tag model represents a tag for a deck. It has a _many to many_
+relationship with decks. A tag has these properties:
+
+* name _required, unique_
+* created_at
+* updated_at
+
+#### relations with `decks`:
+
+To get all decks that has this `tag`, simply:
+```ruby
+tag.decks
 ```
