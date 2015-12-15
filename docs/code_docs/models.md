@@ -2,6 +2,22 @@
 
 All models inherit from `ActiveRecord::Base`
 
+Here are the list of all models:
+
+* [User](#user)
+* [Deck](#deck)
+* [Card](#card)
+* [Comment](#comment)
+* [Tag](#tag)
+* [UploadedFile](#uploadedfile)
+* [Recommendation](#recommendation)
+* [Notification](#notification)
+* [Activity](#activity)
+* [LikeCard](#likecard)
+* [LikeComment](#likecomment)
+* [Favorite](#favorite)
+* [Relationship](#relationship)
+
 ## User
 
 The User model represents a user. A user has these properties:
@@ -108,7 +124,7 @@ user.favorite_decks
 ```
 
 A user can share decks to other users as visitor or editor. Refer to
-the documentation of `Deck` model for more about the `share_to` function.
+the documentation of [Deck](#deck) model for more about the `share_to` function.
 A user can turn down such a deck sharing via:
 ```ruby
 user.turndown_deck_share(deck)
@@ -150,7 +166,7 @@ user.comment(card, message)
 ```
 
 User builds but not creates a comment using `comment_params`. Refer to
-`Comment` model for what the `comment_params` may contain.
+[Comment](#comment) model for what the `comment_params` may contain.
 ```ruby
 user.build_comment(comment_params)
 ```
@@ -275,7 +291,7 @@ To add a tag to a `deck`:
 ```ruby
 deck.add_tag(tag_params)
 ```
-Refer to Tag model for what `tag_params` may be
+Refer to [Tag](#tag) model for what `tag_params` may be
 
 To remove a tag:
 ```ruby
@@ -415,7 +431,7 @@ file has thse properties:
 * created_at
 * updated_at
 
-For more details about how to use this model, please refer to the carrierwave gem.
+For more details about how to use this model, please refer to the [carrierwave](https://github.com/carrierwaveuploader/carrierwave) gem.
 
 ## Recommendation
 
