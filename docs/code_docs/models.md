@@ -17,21 +17,22 @@ Here are the list of all models:
 * [LikeComment](#likecomment)
 * [Favorite](#favorite)
 * [Relationship](#relationship)
+* [DeckUserAssociation](#deckuserassociation-deckeditorassociation-deckviewerassociation)
 
 ## User
 
 The User model represents a user. A user has these properties:
 
-* username _required, unique, length <= 25_
-* email _required, unique, well-formatted, length <= 255_
+* username - _required, unique, length <= 25_
+* email - _required, unique, well-formatted, length <= 255_
   * Regular expression for valid email is given by: `/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i`
-* password _required, length >= 6_
+* password - _required, length >= 6_
   * `has_secure_password` is enabled
 * first_name
 * last_name
 * birthday
 * gender
-* activated _default:_ `false`
+* activated - _default:_ `false`
 * created_at
 * updated_at
 
@@ -199,10 +200,10 @@ comments that a user made by simply using:
 The Deck model represents a deck, which is used to store cards. A deck
 belongs to one user, the creator of the deck.  A deck has these properties:
 
-* title _required, length <= 175_; the title for the deck.
+* title - _required, length <= 175_; the title for the deck.
 * description 
-* user_id _required_; the creator's user id
-* open _default_ `true`. _true or false only_; whether this deck is open to the public or not
+* user - _id _required_; the creator's user id
+* open - _default_ `true`. _true or false only_; whether this deck is open to the public or not
 * created_at
 * updated_at
 
@@ -331,13 +332,13 @@ A card has these properties:
 
 * front_content
 * back_content
-* deck_id  the id of the deck that holds this card
-* user_id  the id of the user that created this card
-* flips  the number of flips this card currently has
+* deck_id - the id of the deck that holds this card
+* user_id - the id of the user that created this card
+* flips - the number of flips this card currently has
    **TODO:**This field currently has no actual functionality associated
-* hide  _default_ `false`. If set to true, then this card is hidden and
+* hide - _default_ `false`. If set to true, then this card is hidden and
   nobody but the creator can view it.
-* likes  number of likes this card has currently
+* likes - number of likes this card has currently
 * created_at
 * updated_at
 
@@ -389,10 +390,10 @@ card.comments
 The Comment model represents one comment. It belongs to one user and one card.
 Users can like a comment. A comment has these properties:
 
-* content the text content of this comment
-* user_id the id of the user that made the comment
-* card_id the id of the card to which the comment is made
-* likes the number of likes this comment currently has
+* content - the text content of this comment
+* user_id - the id of the user that made the comment
+* card_id - the id of the card to which the comment is made
+* likes - the number of likes this comment currently has
 * created_at
 * updated_at
 
@@ -420,7 +421,7 @@ comment.card
 The Tag model represents a tag for a deck. It has a _many to many_
 relationship with decks. A tag has these properties:
 
-* name _required, unique_
+* name - _required, unique_
 * created_at
 * updated_at
 
@@ -454,10 +455,10 @@ to [User](#user) about the recommend function in the User model.
 
 A recommendation has these properties:
 
-* from_user_id _required_
-* to_user_id _required_
-* recommendable_id _required_
-* recommendable_type the polymorphic type: Card or Deck _required_
+* from_user_id - _required_
+* to_user_id - _required_
+* recommendable_id - _required_
+* recommendable_type - the polymorphic type: Card or Deck _required_
 
 ## Notification
 
@@ -467,10 +468,10 @@ associations.
 
 A notification has these properties:
 
-* user_id _required_ the id of the notified user
-* action _required_ the type of action associated with the notifier
-* notifier _type the polymorphic type. _required_
-* notifier_id the id of the notifier
+* user_id - _required_ the id of the notified user
+* action - _required_ the type of action associated with the notifier
+* notifier - _type the polymorphic type. _required_
+* notifier_id - the id of the notifier
 
 Notifiers are User, DeckUserAssociation, Recommendation, Favorite, LikeCard,
 LikeComment.
@@ -504,10 +505,10 @@ polymorphic associations.
 
 An activity has these properties:
 
-* user_id _required_ the id of the user with the activity
-* action _required_ the type of action associated with the activity
-* trackable _type the polymorphic type. _required_
-* trackable_id the id of the notifier
+* user_id - _required_ the id of the user with the activity
+* action - _required_ the type of action associated with the activity
+* trackable type - the polymorphic type. _required_
+* trackable_id - the id of the notifier
 
 Trackables are Deck, Card, Comment, User
 
@@ -544,7 +545,7 @@ and `liked_users`.
 
 ## Favorite
 
-The Favorite model is used for _many to many_ relationship between `favorited_decks`
+The Favorite model is used for _amny to many_ relationship between `favorited_decks`
 and `favoring_users`
 
 ## Relationship
@@ -558,5 +559,5 @@ The DeckUserAssociation represents the type of association between a user and
 a deck, either `"editor"` or `"viewer"`. This model belongs to one user and
 one deck. It is also a `notifier`.
 
-The DeckUserAssociation model allows Single Table Inheritance, with a `type` column which
+The DeckUserAssociation model allows _Single Table Inheritance_, with a `type` column which
 has value `"DeckEditorAssociation"` or `"DeckViewerAssociation"`.
