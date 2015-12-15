@@ -402,3 +402,31 @@ To get all decks that has this `tag`, simply:
 ```ruby
 tag.decks
 ```
+
+## UploadedFile
+
+The UploadedFile model represents a file uploaded by a user. It utilizes
+the `carrier_wave` gem. It mounts the `UserFileUploader` to `name` field. An uploaded
+file has thse properties:
+
+* name  _required_ the file name
+* type  _required, length <= 255_ the type of the file
+* user_id _required_ the id of the user that uploaded the file
+* created_at
+* updated_at
+
+For more details about how to use this model, please refer to the carrierwave gem.
+
+## Recommendation
+
+## Notification
+
+## Activity
+
+## LikeCard
+
+## LikeComment
+
+## Favorite
+
+## Relationship
