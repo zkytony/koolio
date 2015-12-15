@@ -22,7 +22,9 @@ which are the major models that can be created by a user. A user can _follow_
 another user and can _be followed_ by others. A user can _favorite_ a deck, _like_
 a card, and _like_ a comment. A user can _share_ his deck to other users as visitors
 or editors. A user can _recommend_ contents to other users. A user has many
-_activities_ and _notifications_.
+_activities_ and _notifications_. A user is also _trackable_, in a sense that
+events such as following another user is an activity of User model.
+Also, a user has many _uploaded\_files_.
 
 #### relations with `users` (meta):
 
@@ -111,6 +113,14 @@ user.turndown_deck_share(deck)
 ```
 This way the deck will not be considered shared to this user.
 
+To access shared decks of variaous types, here are some examples:
+```ruby
+# Get all decks this user can edit, including those that he created
+user.editable_decks
+# Get only decks that are shared to this user for view
+user.decks_shared_for_view
+```
+
 A user can recommend a `recommendable` to another user. `recommendable`
 can be cards, decks and so on. For example:
 ```ruby
@@ -134,7 +144,7 @@ functiona for interacting with a user's comments or other users' comments:
 
 User creates a comment on the given card with given message
 ```ruby
-`user.comment(card, message)`
+user.comment(card, message)
 ```
 
 User builds but not creates a comment using `comment_params`. Refer to
@@ -153,3 +163,126 @@ user.liked_comment?(comment)
 Technically comments are made to cards. But one can get all
 comments that a user made by simply using:
 `user.comments`
+
+## Deck
+
+The Deck model represents a deck, which is used to store cards. A deck
+belongs to one user, the creator of the deck.  A deck has these properties:
+
+* title _required, length <= 175_; the title for the deck.
+* description 
+* user_id _required_; the creator's user id
+* open _true or false only_; whether this deck is open to the public or not
+* created_at
+* updated_at
+
+As mentioned before, a deck _belongs to its creator_ and it has many _cards_.
+Yet this deck can be _shared to_ other users as editors or viewers. A deck also
+has many _tags_, which help categorize this deck. A deck is _recommendable_ and
+_trackable_, which means it can be recommended by one user to another, and it
+has trackable activities. These are discussed later. A deck can be _favored_
+by a user.
+
+#### relations with `users`:
+
+To get the creator of a `deck`, one should use:
+```ruby
+deck.creator
+```
+
+To check if a given user is the creator of this deck:
+```ruby
+deck.creator?(user)
+```
+
+##### Share to
+
+A deck can be shared to another user, with a given role. Role can either
+be `"editor"` or `"viewer"`, case-insensitive. Returns `false` when
+given other values. For example:
+```ruby
+deck.share_to(user, "viewer")
+deck.share_to(user, "editor")
+deck.share_to(user, "spokesman") # returns false
+```
+Presumably `share_to` is called when it is verified if the `current_user`
+can edit this `deck`. But this has not been guaranteed yet.
+
+Also, a deck can be `unshared` to a given user. Returns false if the
+given user is the creator of this `deck`, because unsharing is not possible.
+Returns true otherwise, including the case when the given user is not
+shared before.
+```ruby
+deck.unshare(user)
+```
+
+Here are some ways to access the shared users:
+```ruby
+# Get all shared users
+deck.shared_users
+# Get only editors
+deck.editors
+# Get only viewers - those who cannot edit the deck
+deck.normal_viewers
+```
+
+The role of the shared user can be changed. As `share_to`, the role
+can only be `"editor"` or `"viewer"` case insensitive. Returns `false`
+when given other values. For example:
+```ruby
+# If the user was shared to as viewer, his role can be changed to editor
+# like this:
+deck.change_share_role(user, "editor")
+
+deck.change_share_role(user, "spokesman") # returns false
+```
+**TODO**: unknown behavior when user is not shared to already.
+
+Given a user, the deck can check if that user can editor or view this deck:
+```ruby
+# editable only when the given user has the permission to edit the deck.
+deck.editable_by?(user)
+# viewable if the deck is open, or if the deck is shared to that user.
+deck.viewable_by(user) 
+```
+
+##### Recommend by
+
+A deck may be recommended by a user to another. One can check that by:
+```ruby
+deck.is_recommended_by?(user)
+deck.is_recommended_to?(user)
+```
+
+#### relations with `cards`:
+
+To add a card to a `deck`, it is preferred to call:
+```ruby
+deck.build_card(card_params, user)
+```
+which will check if `deck` is editable by the given user.
+If not, then the card will not be built.
+
+#### relations with `tags`:
+
+To add a tag to a `deck`:
+```ruby
+deck.add_tag(tag_params)
+```
+Refer to Tag model for what `tag_params` may be
+
+To remove a tag:
+```ruby
+# Given a tag model
+deck.remove_tag(tag)
+```
+
+To remove all tags:
+```ruby
+deck.remove_all_tags
+```
+
+To obtain a string of all tags for this deck separated by comma:
+```ruby
+deck.tags_by_name
+```
