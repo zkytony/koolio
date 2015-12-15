@@ -172,7 +172,7 @@ belongs to one user, the creator of the deck.  A deck has these properties:
 * title _required, length <= 175_; the title for the deck.
 * description 
 * user_id _required_; the creator's user id
-* open _true or false only_; whether this deck is open to the public or not
+* open _default_ `true`. _true or false only_; whether this deck is open to the public or not
 * created_at
 * updated_at
 
@@ -285,4 +285,67 @@ deck.remove_all_tags
 To obtain a string of all tags for this deck separated by comma:
 ```ruby
 deck.tags_by_name
+```
+
+## Card
+
+The Card model represents a card, which can hold contentds on both sides.
+A card belongs to a user, which is its creator. It also belongs to the
+deck that stores this card.
+
+A card has these properties:
+
+* front_content
+* back_content
+* deck_id  the id of the deck that holds this card
+* user_id  the id of the user that created this card
+* flips  the number of flips this card currently has
+   **TODO:**This field currently has no actual functionality associated
+* hide  _default_ `false`. If set to true, then this card is hidden and
+  nobody but the creator can view it.
+* likes  number of likes this card has currently
+* created_at
+* updated_at
+
+A card belongs to one user and one deck. It has many _comments_. Users
+can _like_ a card. A card is also recommendable and trackable, which means
+a user can recommend a card to another user, and the activities of a card
+can be tracked.
+
+#### relations with `users`:
+
+To get the creator of a `card`, one should use:
+```ruby
+card.creator
+```
+
+To check if a given user is the creator of this card:
+```ruby
+card.creator?(user)
+```
+
+To check if a user can view this card:
+```ruby
+card.viewable_by?(user)
+```
+This is true if the user is the creator, or if the card is not hidden and
+its deck can be viewed by the given user.
+
+Just like recommending decks, a user can recommend a card to another user.
+To check if the card is recommended to or by a user:
+```ruby
+card.is_recommended_by?(user)
+card.is_recommended_to?(user)
+```
+
+To get all users that liked this card
+```ruby
+card.liked_users
+```
+
+#### relations with `comments`:
+
+To get all comments made to this card
+```ruby
+card.comments
 ```
