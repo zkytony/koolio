@@ -35,7 +35,7 @@ class UserFileUploader < CarrierWave::Uploader::Base
   # 250 is the default minimum width/height of a card
   # 300 is the maximum height of a card
   version :thumb do
-     resize_to_fill(250, 250)
+     resize_to_fill(300, 300)
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

@@ -1,3 +1,5 @@
+var cards = {};
+
 $(document).ready(function() {
   $(document).on("click", "#flip-to-login-btn", function() {
     flip($("#login-form-card"));
@@ -39,7 +41,12 @@ $(document).ready(function() {
   });
     
   $(".home-card").each(function() {
-    adjustCardHeight($(this));
+    var id = $(this).attr("id");
+    if (!cards.hasOwnProperty(id)) {
+      cards[id] = new Card(id);
+    }
+    cards[id].adjustCardHeight();
+    //    adjustCardHeight($(this));
   });
 
   $("#recommended-contents-wrapper").masonry({
@@ -62,7 +69,12 @@ function grabRecommendContents() {
       // return a script that will render the recommended contents html
       $(document).ready(function() {
 	$(".home-card").each(function() {
-	  adjustCardHeight($(this));
+	  var id = $(this).attr("id");
+	  if (!cards.hasOwnProperty(id)) {
+	    cards[id] = new Card(id);
+	  }
+	  cards[id].adjustCardHeight();
+	  //adjustCardHeight($(this));
 	});
 	// This is how you reload with masonry
 	$("#recommended-contents-wrapper").masonry('reloadItems');
@@ -76,6 +88,7 @@ function grabRecommendContents() {
 function adjustCardHeight(homeCard) {
   var back = homeCard.find(".flipper-back.card-side");
   var front = homeCard.find(".flipper-front.card-side");
+
   var maxHeight = Math.max(back.outerHeight(), front.outerHeight());
   back.outerHeight(maxHeight);
   front.outerHeight(maxHeight);
@@ -139,12 +152,15 @@ CardsHandler.prototype.init = function() {
       // show the panels, with quick animation
       // first place the panels at the same position
       // as the parent card, then do the slide
-      var height = $("#" + handler.focusingCardId).outerHeight();
       var width = 250;
       var margin = 30;
+      cards[handler.focusingCardId].focus();
+      var height = $("#" + handler.focusingCardId).outerHeight();
       var cardPosition = $("#" + handler.focusingCardId).position();
+
       $("#like-comment-panel").removeClass("hidden");
       $("#deck-cards-panel").removeClass("hidden");
+      // first align the comment panel with the card
       $("#like-comment-panel").css({
 	top: cardPosition.top + "px",
 	left: cardPosition.left + "px"
@@ -164,7 +180,10 @@ CardsHandler.prototype.init = function() {
 	// show info
       });
     } else {
+      // clicked on info toggle again, but glass overlay is
+      // not hidden. So retreive the panels
       var cardPosition = $("#" + handler.focusingCardId).position();
+      cards[handler.focusingCardId].unfocus();
       $("#like-comment-panel").animate({
 	top: cardPosition.top + "px",
       }, 300, function() {
@@ -184,6 +203,7 @@ CardsHandler.prototype.init = function() {
     $("#" + handler.focusingCardId).css("z-index", "auto");
     $("#like-comment-panel").addClass("hidden");
     $("#deck-cards-panel").addClass("hidden");
+    cards[handler.focusingCardId].unfocus();
   });
   // When clicked the card like button, send ajax request
   // to toggle like of this card

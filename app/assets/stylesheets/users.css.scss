@@ -1,3 +1,8 @@
+/*
+  This stylesheet currently has the style for all the parts in
+  the home page.
+ */
+
 @import "global";
 @import "loading_gif";
 
@@ -54,6 +59,11 @@ $text-title-font-size: 24px;
 $text-default-bg: #FCFCFC;
 $text-default-font-color: #808080;
 
+.card-side {
+    min-height: $home-card-min-height;
+    max-height: $home-card-min-height + 50px;
+}
+
 .home-card {
     width: $home-card-width;
     min-height: $home-card-min-height;
@@ -65,8 +75,6 @@ $text-default-font-color: #808080;
 	padding: 20px;
 	@include box-sizing(border-box);
 	width: $home-card-width;
-	min-height: $home-card-min-height;
-	max-height: $home-card-min-height + 50px;
 	overflow: hidden;
 	@include border-radius(5px);
 	background-color: $text-default-bg;
@@ -111,7 +119,7 @@ $text-default-font-color: #808080;
     $img-descp-font-size: 21px;
     .img-type-side {
 	padding: 0px;
-	background-color: $healthy-black;
+	background-color: $white;//$healthy-black;
 	
 	.card-img-wrapper {
 	    width: 100%;
@@ -331,4 +339,17 @@ $deck-cards-padding-top: 20px;
 	    height: 100%;
 	}
     }
+}
+
+// For overflow content
+.spoiler {
+    @include linear-gradient(to bottom, 
+			     rgba(0,0,0,0), 
+			     rgba(0,0,0,0),
+			     rgba(0,0,0,0),
+			     rgba(0,0,0,0),
+			     rgba(0,0,0,0),
+			     rgba(0,0,0,0),
+			     rgba(0,0,0,0), 
+			     rgba($healthy-black, 0.5));
 }
