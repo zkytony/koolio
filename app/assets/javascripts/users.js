@@ -194,10 +194,11 @@ CardsHandler.prototype.init = function() {
 	// show info
       });
     } else {
+      var focusedCard = cards[handler.focusingCardId];
+      focusedCard.unfocus();
       // clicked on info toggle again, but glass overlay is
       // not hidden. So retreive the panels
       var cardPosition = $("#" + handler.focusingCardId).position();
-      cards[handler.focusingCardId].unfocus();
       $("#like-comment-panel").animate({
 	top: cardPosition.top + "px",
       }, 300, function() {
@@ -217,7 +218,10 @@ CardsHandler.prototype.init = function() {
     $("#" + handler.focusingCardId).css("z-index", "auto");
     $("#like-comment-panel").addClass("hidden");
     $("#deck-cards-panel").addClass("hidden");
-    cards[handler.focusingCardId].unfocus();
+    var focusedCard = cards[handler.focusingCardId];
+    focusedCard.s[focusedCard.currentSide].addClass("notransition");
+    focusedCard.unfocus();
+    focusedCard.s[focusedCard.currentSide].removeClass("notransition");
   });
   // When clicked the card like button, send ajax request
   // to toggle like of this card
