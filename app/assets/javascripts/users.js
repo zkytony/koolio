@@ -46,7 +46,6 @@ $(document).ready(function() {
       cards[id] = new Card(id, "front");
     }
     cards[id].adjustCardHeight();
-    //    adjustCardHeight($(this));
   });
 
   $("#recommended-contents-wrapper").masonry({
@@ -68,16 +67,15 @@ function grabRecommendContents() {
     success: function(data) {
       // return a script that will render the recommended contents html
       $(document).ready(function() {
+	$("#recommended-contents-wrapper").masonry('reloadItems');
 	$(".home-card").each(function() {
 	  var id = $(this).attr("id");
 	  if (!cards.hasOwnProperty(id)) {
 	    cards[id] = new Card(id, "front");
 	  }
 	  cards[id].adjustCardHeight();
-	  //adjustCardHeight($(this));
 	});
 	// This is how you reload with masonry
-	$("#recommended-contents-wrapper").masonry('reloadItems');
 	$("#recommended-contents-wrapper").masonry();
       });
     }

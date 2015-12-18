@@ -84,7 +84,7 @@ Card.prototype.adjustCardHeight = function() {
 }
 
 Card.prototype.adjustImgSideSize = function(side, otherSide) {
-  var height = this.s[otherSide].outerHeight();
+  var height = $("#"+this.s[otherSide].attr("id")).outerHeight();
   $("#"+this.id).height(height);
   this.s[side].outerHeight(height);
   // adjust image size
