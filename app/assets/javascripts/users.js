@@ -43,7 +43,7 @@ $(document).ready(function() {
   $(".home-card").each(function() {
     var id = $(this).attr("id");
     if (!cards.hasOwnProperty(id)) {
-      cards[id] = new Card(id);
+      cards[id] = new Card(id, "front");
     }
     cards[id].adjustCardHeight();
     //    adjustCardHeight($(this));
@@ -71,7 +71,7 @@ function grabRecommendContents() {
 	$(".home-card").each(function() {
 	  var id = $(this).attr("id");
 	  if (!cards.hasOwnProperty(id)) {
-	    cards[id] = new Card(id);
+	    cards[id] = new Card(id, "front");
 	  }
 	  cards[id].adjustCardHeight();
 	  //adjustCardHeight($(this));
@@ -108,7 +108,21 @@ CardsHandler.prototype.init = function() {
   $(document).on('click', '.home-card', function(e) {
     // check if the target has class that's in the flipExceptionList
     if (!$(e.target).hasClass("no-flip")) {
-      flip($(this));
+      //flip($(this));
+      var card = cards[$(this).attr("id")];
+      card.flip();
+
+      // if the card is focused, we may need to adjust the position
+      // of the like-comment panel
+      if (card.focused) {
+	var cardPosition = card.getPosition();
+	var margin = 30;
+	$("#like-comment-panel").animate({
+	  top: (cardPosition.top + card.getTrueHeight(card.currentSide) + margin) + "px",
+	}, 300, function() {
+	  // show info
+	});
+      }
     }
   });
 
@@ -154,10 +168,10 @@ CardsHandler.prototype.init = function() {
       // as the parent card, then do the slide
       var width = 250;
       var margin = 30;
-      cards[handler.focusingCardId].focus();
-      var height = $("#" + handler.focusingCardId).outerHeight();
+      //var height = $("#" + handler.focusingCardId).outerHeight();
       var cardPosition = $("#" + handler.focusingCardId).position();
-
+      var focusedCard = cards[handler.focusingCardId];
+      focusedCard.focus();
       $("#like-comment-panel").removeClass("hidden");
       $("#deck-cards-panel").removeClass("hidden");
       // first align the comment panel with the card
@@ -170,7 +184,7 @@ CardsHandler.prototype.init = function() {
 	left: cardPosition.left + "px"
       });
       $("#like-comment-panel").animate({
-	top: (cardPosition.top + height + margin) + "px",
+	top: (cardPosition.top + focusedCard.getTrueHeight(focusedCard.currentSide) + margin) + "px",
       }, 300, function() {
 	// show info
       });

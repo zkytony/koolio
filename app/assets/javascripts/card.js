@@ -1,5 +1,6 @@
 // A card represents one flippable two sided card
 // id - the id of the flipper
+// side - the default side of the card, either "front" or "back"
 //
 // A card's html is structured like this:
 // class= .flipper.home-card; id=card_#
@@ -22,7 +23,7 @@
 //
 // This class adjusts the size of the card according to
 // the situation, for example, the card is focused.
-function Card(id) {
+function Card(id, side) {
   this.id = id;
   
   // the front or back contents
@@ -45,6 +46,7 @@ function Card(id) {
   };
 
   this.focused = false;
+  this.currentSide = side;
 }
 
 Card.prototype.adjustCardHeight = function() {
@@ -95,7 +97,7 @@ Card.prototype.addSpoilerIfTooLong = function(side) {
   var height = $("#"+this.s[side].attr("id")+" .card-text").outerHeight();
   if (height > 260) {
     this.s[side].addClass("spoiler");
-    this.trueHeight[side] = height;
+    this.trueHeight[side] = height + 30;
   }
 }
 
@@ -105,14 +107,14 @@ Card.prototype.focus = function() {
   // make the card longer if has spoiler
   if (this.s["front"].hasClass("spoiler")) {
     // set max-height to trueHeight + 30
-    this.s["front"].css("cssText", "max-height:" + (this.trueHeight["front"] + 30) + "px");
+    this.s["front"].css("cssText", "max-height:" + this.trueHeight["front"] + "px");
     this.s["front"].removeClass("spoiler");
   }
 
   if (this.s["back"].hasClass("spoiler")) {
     // set height to trueHeight + 10
-    this.s["back"].outerHeight(this.trueHeight["back"] + 30);
-    this.s["back"].css("cssText", "max-height:" + (this.trueHeight["front"] + 30) + "px");
+    //this.s["back"].outerHeight(this.trueHeight["back"] + 30);
+    this.s["back"].css("cssText", "max-height:" + this.trueHeight["back"] + "px");
     this.s["back"].removeClass("spoiler");
   }
 }
@@ -128,6 +130,29 @@ Card.prototype.unfocus = function() {
   if (this.contentType["back"] === "text") {
     this.addSpoilerIfTooLong("back");
   }
+}
+
+Card.prototype.flip = function() {
+  flip($("#"+this.id));
+  if (this.currentSide === "front") {
+    this.currentSide = "back";
+  } else {
+    this.currentSide = "front";
+  }
+}
+
+Card.prototype.getTrueHeight = function(side) {
+  if (this.trueHeight[side]) {
+    return this.trueHeight[side];
+  } else {
+    // no true height. So it fits. Just return
+    // the outerHeight of the side
+    return this.s[side].outerHeight();
+  }
+}
+
+Card.prototype.getPosition = function() {
+  return $("#"+this.id).position();
 }
 
 function adjustImgSizeByHeight(imgObj, newHeight) {
