@@ -121,8 +121,10 @@ Card.prototype.focus = function() {
 
 Card.prototype.unfocus = function() {
   this.focused = false;
-  this.s["front"].css("cssText", "max-height: 300px");
-  this.s["back"].css("cssText", "max-height: 300px");
+  this.s["front"].css("max-height", "300px");//css("cssText", "max-height: 300px");
+  this.s["back"].css("max-height", "300px");//css("cssText", "max-height: 300px");
+  //this.s["front"].removeAttr("style");
+  //this.s["back"].removeAttr("style");
   // if one side is text and overflows, add spoiler at the bottom of the card
   if (this.contentType["front"] === "text") {
     this.addSpoilerIfTooLong("front");
