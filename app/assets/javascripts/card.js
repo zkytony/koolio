@@ -155,6 +155,15 @@ Card.prototype.getPosition = function() {
   return $("#"+this.id).position();
 }
 
+// Update the front and back jquery objects
+Card.prototype.updateFrontBackJQueryObjects = function() {
+  // the front or back contents
+  this.s = {
+    "front": $("#"+this.id).find(".flipper-front.card-side"),
+    "back": $("#"+this.id).find(".flipper-back.card-side")
+  }  
+}
+
 function adjustImgSizeByHeight(imgObj, newHeight) {
   var origWidth = imgObj.outerWidth();
   var origHeight = imgObj.outerHeight();

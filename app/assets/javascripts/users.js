@@ -1,5 +1,4 @@
 var cards = {};
-
 $(document).ready(function() {
   $(document).on("click", "#flip-to-login-btn", function() {
     flip($("#login-form-card"));
@@ -41,11 +40,7 @@ $(document).ready(function() {
   });
     
   $(".home-card").each(function() {
-    var id = $(this).attr("id");
-    if (!cards.hasOwnProperty(id)) {
-      cards[id] = new Card(id, "front");
-    }
-    cards[id].adjustCardHeight();
+    dealWithHomeCard($(this));
   });
 
   $("#recommended-contents-wrapper").masonry({
@@ -69,16 +64,12 @@ function grabRecommendContents() {
       $(document).ready(function() {
 	$("#recommended-contents-wrapper").masonry('reloadItems');
 	$(".home-card").each(function() {
-	  var id = $(this).attr("id");
-	  if (!cards.hasOwnProperty(id)) {
-	    cards[id] = new Card(id, "front");
-	  }
-	  cards[id].adjustCardHeight();
+	  dealWithHomeCard($(this));
 	});
 	// This is how you reload with masonry
 	$("#recommended-contents-wrapper").masonry();
       });
-    }
+    },
   });
 }
 
@@ -91,6 +82,19 @@ function adjustCardHeight(homeCard) {
   back.outerHeight(maxHeight);
   front.outerHeight(maxHeight);
   homeCard.height(maxHeight);
+}
+
+// Adjust the height of the given home-card jquery object.
+// Also updates the global cards object
+function dealWithHomeCard(homecard) {
+  var id = homecard.attr("id");
+  if (!cards.hasOwnProperty(id)) {
+    cards[id] = new Card(id, "front");
+  } else {
+    // need to update the front and back jQuery object for the card
+    cards[id].updateFrontBackJQueryObjects();
+  }
+  cards[id].adjustCardHeight();
 }
 
 /* Event handlers for cards at home page */
