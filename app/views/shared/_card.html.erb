@@ -1,33 +1,27 @@
-<%= stylesheet_link_tag "perfect-scrollbar/css/perfect-scrollbar.min.css" %>
-<%= javascript_include_tag "perfect-scrollbar/js/perfect-scrollbar.jquery.min.js" %>
-
-<div class="card-wrapper">
-  <div class="card flipper">
-    <div class="card-front flipper-front flip-dir1">
-      <%= card.front_content.html_safe %>
+<%# This partial takes locals: category_class, card_id, card_front_type, card_front_content, card_back_type, card_back_content %>
+<%# category_class is the additional class identifying the context of this card. For example, "home-card" is a category_class for
+    cards showing on the home page %>
+<div class="<%="#{category_class}"%> flipper" id="card_<%="#{card_id}" %>">
+  <div class="flipper-front flip-dir1 card-side <%="#{card_front_type}-type-side"%>" id="card_<%="#{card_id}"%>_front_<%="#{card_front_type}"%>">
+    <!-- Deal with front -->
+    <div class="card-<%="#{card_front_type}"%>">
+      <%= render partial: "shared/card_content_templates/#{card_front_type}_side", locals: { content: card_front_content } %>
     </div>
-    <div class="card-back flipper-back flip-dir1">
-      <%= card.back_content.html_safe %>
+    <!-- Info toggle -->
+    <div class="info-toggle-wrapper">
+      <div class="info-toggle toggle-off"><i class="fa fa-ellipsis-h no-flip"></i></div>
     </div>
+    <!-- End dealing with front -->
   </div>
-  <div class="card-info-bar">
-    <p>
-      <%= link_to edit_deck_card_path(deck, card) do %>
-	<i class="fa fa-pencil"></i>
-      <% end %>
-      <%= link_to deck_card_path(deck, card), method: :delete do %>
-	<i class="fa fa-ellipsis-v"></i>
-      <% end %>
-    </p>
-    <% if !current_user.liked_card?(card) %>
-      <%= render partial: "shared/like_card_button", locals: {deck: deck, card: card}%>
-    <% else %>
-      <%= render partial: "shared/unlike_card_button", locals: {deck: deck, card: card}%>
-    <% end %>
+  <div class="flipper-back flip-dir1 card-side <%="#{card_back_type}-type-side"%>" id="card_<%="#{card_id}"%>_back_<%="#{card_back_type}"%>">
+    <!-- Deal with back -->
+    <div class="card-<%="#{card_back_type}"%>">
+      <%= render partial: "shared/card_content_templates/#{card_back_type}_side", locals: { content: card_back_content } %>
+    </div>
+    <!-- Info toggle -->
+    <div class="info-toggle-wrapper">
+      <div class="info-toggle"><i class="fa fa-ellipsis-h no-flip"></i></div>
+    </div>
+    <!-- End dealing with back -->
   </div>
-  <h1>Hey</h1>
 </div>
-<script>
- $(".card-front").perfectScrollbar({maxScrollbarLength: 10});
- $(".card-back").perfectScrollbar({maxScrollbarLength: 10});
-</script>
