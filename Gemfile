@@ -15,7 +15,6 @@ gem 'bson_ext'
 gem 'font-awesome-rails'
 gem 'json'
 gem 'paperclip'
-gem 'ckeditor'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem "mini_magick"
 
