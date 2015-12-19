@@ -4,9 +4,9 @@
     <% card_front = JSON.parse(card.front_content) %>
     <% card_back = JSON.parse(card.back_content) %>
     <div class="home-card flipper" id="card_<%="#{card.id}" %>">
-      <div class="flipper-front flip-dir1 card-side <%="#{card_front['type']}-type-side"%>">
+      <div class="flipper-front flip-dir1 card-side <%="#{card_front['type']}-type-side"%>" id="card_<%="#{card.id}"%>_front_<%="#{card_front['type']}"%>">
 	<!-- Deal with front -->
-	<div id="card_<%="#{card.id}"%>_front_<%="#{card_front['type']}"%>" class="card-<%="#{card_front['type']}"%>">
+	<div class="card-<%="#{card_front['type']}"%>">
 	  <%= render partial: "shared/card_content_templates/#{card_front['type']}_side", locals: { content: card_front["content"] } %>
 	</div>
 	<!-- Info toggle -->
@@ -15,9 +15,9 @@
 	</div>
 	<!-- End dealing with front -->
       </div>
-      <div class="flipper-back flip-dir1 card-side <%="#{card_back['type']}-type-side"%>">
+      <div class="flipper-back flip-dir1 card-side <%="#{card_back['type']}-type-side"%>" id="card_<%="#{card.id}"%>_back_<%="#{card_back['type']}"%>">
 	<!-- Deal with back -->
-	<div id="card_<%="#{card.id}"%>_front_<%="#{card_back['type']}"%>" class="card-<%="#{card_back['type']}"%>">
+	<div class="card-<%="#{card_back['type']}"%>">
 	  <%= render partial: "shared/card_content_templates/#{card_back['type']}_side", locals: { content: card_back["content"] } %>
 	</div>
 	<!-- Info toggle -->

@@ -1,3 +1,5 @@
+var cards = {};
+
 $(document).ready(function() {
   $(document).on("click", "#flip-to-login-btn", function() {
     flip($("#login-form-card"));
@@ -39,7 +41,11 @@ $(document).ready(function() {
   });
     
   $(".home-card").each(function() {
-    adjustCardHeight($(this));
+    var id = $(this).attr("id");
+    if (!cards.hasOwnProperty(id)) {
+      cards[id] = new Card(id, "front");
+    }
+    cards[id].adjustCardHeight();
   });
 
   $("#recommended-contents-wrapper").masonry({
@@ -61,11 +67,15 @@ function grabRecommendContents() {
     success: function(data) {
       // return a script that will render the recommended contents html
       $(document).ready(function() {
+	$("#recommended-contents-wrapper").masonry('reloadItems');
 	$(".home-card").each(function() {
-	  adjustCardHeight($(this));
+	  var id = $(this).attr("id");
+	  if (!cards.hasOwnProperty(id)) {
+	    cards[id] = new Card(id, "front");
+	  }
+	  cards[id].adjustCardHeight();
 	});
 	// This is how you reload with masonry
-	$("#recommended-contents-wrapper").masonry('reloadItems');
 	$("#recommended-contents-wrapper").masonry();
       });
     }
@@ -76,6 +86,7 @@ function grabRecommendContents() {
 function adjustCardHeight(homeCard) {
   var back = homeCard.find(".flipper-back.card-side");
   var front = homeCard.find(".flipper-front.card-side");
+
   var maxHeight = Math.max(back.outerHeight(), front.outerHeight());
   back.outerHeight(maxHeight);
   front.outerHeight(maxHeight);
@@ -95,7 +106,21 @@ CardsHandler.prototype.init = function() {
   $(document).on('click', '.home-card', function(e) {
     // check if the target has class that's in the flipExceptionList
     if (!$(e.target).hasClass("no-flip")) {
-      flip($(this));
+      //flip($(this));
+      var card = cards[$(this).attr("id")];
+      card.flip();
+
+      // if the card is focused, we may need to adjust the position
+      // of the like-comment panel
+      if (card.focused) {
+	var cardPosition = card.getPosition();
+	var margin = 30;
+	$("#like-comment-panel").animate({
+	  top: (cardPosition.top + card.getTrueHeight(card.currentSide) + margin) + "px",
+	}, 300, function() {
+	  // show info
+	});
+      }
     }
   });
 
@@ -139,12 +164,15 @@ CardsHandler.prototype.init = function() {
       // show the panels, with quick animation
       // first place the panels at the same position
       // as the parent card, then do the slide
-      var height = $("#" + handler.focusingCardId).outerHeight();
       var width = 250;
       var margin = 30;
+      //var height = $("#" + handler.focusingCardId).outerHeight();
       var cardPosition = $("#" + handler.focusingCardId).position();
+      var focusedCard = cards[handler.focusingCardId];
+      focusedCard.focus();
       $("#like-comment-panel").removeClass("hidden");
       $("#deck-cards-panel").removeClass("hidden");
+      // first align the comment panel with the card
       $("#like-comment-panel").css({
 	top: cardPosition.top + "px",
 	left: cardPosition.left + "px"
@@ -154,7 +182,7 @@ CardsHandler.prototype.init = function() {
 	left: cardPosition.left + "px"
       });
       $("#like-comment-panel").animate({
-	top: (cardPosition.top + height + margin) + "px",
+	top: (cardPosition.top + focusedCard.getTrueHeight(focusedCard.currentSide) + margin) + "px",
       }, 300, function() {
 	// show info
       });
@@ -164,6 +192,10 @@ CardsHandler.prototype.init = function() {
 	// show info
       });
     } else {
+      var focusedCard = cards[handler.focusingCardId];
+      focusedCard.unfocus();
+      // clicked on info toggle again, but glass overlay is
+      // not hidden. So retreive the panels
       var cardPosition = $("#" + handler.focusingCardId).position();
       $("#like-comment-panel").animate({
 	top: cardPosition.top + "px",
@@ -184,6 +216,10 @@ CardsHandler.prototype.init = function() {
     $("#" + handler.focusingCardId).css("z-index", "auto");
     $("#like-comment-panel").addClass("hidden");
     $("#deck-cards-panel").addClass("hidden");
+    var focusedCard = cards[handler.focusingCardId];
+    focusedCard.s[focusedCard.currentSide].addClass("notransition");
+    focusedCard.unfocus();
+    focusedCard.s[focusedCard.currentSide].removeClass("notransition");
   });
   // When clicked the card like button, send ajax request
   // to toggle like of this card

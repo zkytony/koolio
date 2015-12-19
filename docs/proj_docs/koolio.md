@@ -69,3 +69,7 @@ shared to them.
 * **Search for cards/decks.** Type keyword in the searchbar, cards/decks of
   relevance will show up. By default, the user searches for decks and cards
   simoutaneously.
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop

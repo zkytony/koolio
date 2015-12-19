@@ -44,7 +44,7 @@
 	    <p class="nav-dropdown-bar">Signed in as <b><%= current_user.username %></b></p>
 	  </li>
 	  <li>
-	    <%= link_to logout_path do %>
+	    <%= link_to logout_path, method: :delete do %>
 	      Logout<i class="fa fa-sign-out"></i>
 	    <% end %>
 	  </li>

@@ -2,9 +2,7 @@
     Display the thumbnail version for the image
 %>
 <div class="card-img-wrapper">
-  <div class="card-img">
-    <img src="<%="/#{content['store_dir']}/thumb_#{content['file_name']}"%>" alt="IMAGE">
-  </div>
+  <img src="<%="/#{content['store_dir']}/thumb_#{content['file_name']}"%>" alt="IMAGE">
   <% if content['descp'].length > 0 %>
     <div class="card-img-descp">
       <p><%= "#{content['descp']}" %></p>

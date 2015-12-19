@@ -11,7 +11,8 @@ class RecommendContent
     
     # GrabPopularContent is not implemented
     contents = GrabFollowingContent.call(user, n_card, n_deck)
-    contents |= GrabFavoriteContent.call(user, n_card) # take the union here
+    contents |= GrabPopularContent.call(user, n_card) # take the union here
+    contents |= GrabFavoriteContent.call(user, n_card) 
     contents |= GrabSelfLatestContent.call(user, 30000)
     contents
   end
