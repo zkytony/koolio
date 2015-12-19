@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :users do
     post 'follow' => 'users#follow'
     delete 'unfollow' => 'users#unfollow'
+    get 'profile' => 'users#profile'
   end
   resources :decks do
     post 'favorite' => 'decks#favorite'

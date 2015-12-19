@@ -43,6 +43,10 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
+  def profile
+    @user = User.find(params[:user_id])
+  end
+
   private
     
     # strong parameter
