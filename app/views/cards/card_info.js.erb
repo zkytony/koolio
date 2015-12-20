@@ -10,7 +10,7 @@ $("#n_comments").html(<%="#{@info[:n_comments]}"%>);
   $("#like-card-btn").removeClass("liked");
 <% end %>
 
-$("#deck_author").html("<%="#{@info[:author_name]}"%>");
+$("#deck_author").html("<%= j link_to "#{@info[:author_name]}", user_profile_path(@info[:author_id]) %>");
 $("#deck_title").html("<%="#{@info[:deck_title]}"%>");
 
 <% if @info[:comments].length > 0 %>
