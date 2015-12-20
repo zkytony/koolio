@@ -4,6 +4,11 @@
   <title><%= full_title(yield(:title)) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag "masonry-3.3.2/dist/masonry.pkgd.min.js" %>
+  <%= javascript_include_tag "nav.js" %>
+  <%= javascript_include_tag "card.js" %>
+  <%= javascript_include_tag "_card_editor.js" %>
+  <%= javascript_include_tag "homepage_cards_handler.js" %>
   <%= csrf_meta_tags %>
 </head>
 <body>

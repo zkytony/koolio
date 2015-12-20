@@ -1,0 +1,8 @@
+<% @profile_cards.each do |card| %>
+  <% card_front = JSON.parse(card.front_content) %>
+  <% card_back = JSON.parse(card.back_content) %>
+  <%= render partial: "shared/card", locals: { category_class: "home-card", card_id: card.id,
+					      card_front_type: card_front['type'], card_front_content: card_front['content'],
+					      card_back_type: card_back['type'], card_back_content: card_back['content'] 
+					      } %>
+<% end %>

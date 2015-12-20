@@ -19,59 +19,8 @@ $(document).ready(function() {
       $("#login-form-card").addClass('flip');
     }
   });
-
-  $(document).on("click", "#add-card-btn", function() {
-    $(".glass-overlay").css("display", "block");
-    $("#editor-container-home").css("display", "block");
-  });
-
-  $(document).on("click", ".glass-overlay", function() {
-    $(".glass-overlay").css("display", "none");
-    $("#editor-container-home").css("display", "none");
-  });
-
-  var editor = new Editor("new_card");
-  editor.init();
-
-  $("#new_card").on("ajax:success", function(e, data, status, xhr) {
-    // when new card is created, refresh the recommended content
-    // by ajax query to user:show again
-    grabRecommendContents();
-  });
-    
-  $(".home-card").each(function() {
-    dealWithHomeCard($(this));
-  });
-
-  $("#recommended-contents-wrapper").masonry({
-    columnWidth: 270,
-    gutter: 10,
-    itemSelector: ".home-card",
-    transitionDuration: 0
-  });
-
-  var cardsHandler = new CardsHandler();
-  cardsHandler.init();
 });
 
-function grabRecommendContents() {
-  $.ajax({
-    // send to current page (user show)
-    type: 'GET',    
-    dataType: 'script',
-    success: function(data) {
-      // return a script that will render the recommended contents html
-      $(document).ready(function() {
-	$("#recommended-contents-wrapper").masonry('reloadItems');
-	$(".home-card").each(function() {
-	  dealWithHomeCard($(this));
-	});
-	// This is how you reload with masonry
-	$("#recommended-contents-wrapper").masonry();
-      });
-    },
-  });
-}
 
 // homeCard: individual instance of $(".home-card")
 function adjustCardHeight(homeCard) {
@@ -84,18 +33,6 @@ function adjustCardHeight(homeCard) {
   homeCard.height(maxHeight);
 }
 
-// Adjust the height of the given home-card jquery object.
-// Also updates the global cards object
-function dealWithHomeCard(homecard) {
-  var id = homecard.attr("id");
-  if (!cards.hasOwnProperty(id)) {
-    cards[id] = new Card(id, "front");
-  } else {
-    // need to update the front and back jQuery object for the card
-    cards[id].updateFrontBackJQueryObjects();
-  }
-  cards[id].adjustCardHeight();
-}
 
 // AJAX request to request card info which includes number of likes,
 // number of comments, and comments, as well as the deck title,
@@ -170,3 +107,35 @@ function ajaxLikeComment(liked, commentId) {
     }
   });
 }
+
+// card is a Card prototype object
+function flipCard(card) {
+  card.flip();
+
+  // if the card is focused, we may need to adjust the position
+  // of the like-comment panel
+  if (card.focused) {
+    var cardPosition = card.getPosition();
+    var margin = 30;
+    $("#like-comment-panel").animate({
+      top: (cardPosition.top + card.getTrueHeight(card.currentSide) + margin) + "px",
+    }, 300, function() {
+      // show info
+    });
+  }
+
+}
+
+// Adjust the height of the given home-card jquery object.
+// Also updates the global cards object
+function dealWithHomeCard(homecard) {
+  var id = homecard.attr("id");
+  if (!cards.hasOwnProperty(id)) {
+    cards[id] = new Card(id, "front");
+  } else {
+    // need to update the front and back jQuery object for the card
+    cards[id].updateFrontBackJQueryObjects();
+  }
+  cards[id].adjustCardHeight();
+}
+

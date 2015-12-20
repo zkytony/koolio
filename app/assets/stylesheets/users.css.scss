@@ -353,3 +353,124 @@ $deck-cards-padding-top: 20px;
 			     rgba(0,0,0,0), 
 			     rgba($healthy-black, 0.5));
 }
+
+////////////////////////
+//// PROFILE PAGE //////
+////////////////////////
+$whole-contents-width: 980px;
+$left-contents-width: 300px;
+$left-gap: 30px;
+$right-contents-width: $whole-contents-width - $left-gap - $left-contents-width;
+.main-contents-wrapper {
+    @include content-wrapper($whole-contents-width, 95%);
+    min-height: 100px;
+    position: relative;
+    top: 40px;
+}
+
+.left-contents-wrapper, .right-contents-wrapper {
+    float: left;
+    min-height: 100px;
+}
+
+.left-contents-wrapper {
+    width: $left-contents-width;
+}
+
+.right-contents-wrapper {
+    width: $right-contents-width;
+    margin-left: $left-gap;
+}
+
+$prof-width: 250px;
+$stat-height: 100px;
+$profpic-bg: #FCFCFC;
+.profpic-stat {
+    width: 100%;
+    min-height: $prof-width + $stat-height;
+    background-color: $profpic-bg;
+    @include box-sizing(border-box);
+    padding: 20px;
+    @include border-radius(5px);
+
+    .profpic {
+	width: $prof-width;
+	height: $prof-width;
+	margin: auto;
+	background-color: grey;
+	@include border-radius(5px);
+    }
+
+    .username {
+	width: $prof-width;
+	margin: auto;
+	padding: 10px;
+	font-size: 25px;
+    }
+
+    .user-stat {
+	width: $prof-width;
+	min-height: $stat-height;
+	margin: auto;
+    }
+    $stat-item-padding: 10px;
+    .stat-item {
+	float: left;
+	width: 45%;
+	padding: $stat-item-padding;
+	@include box-sizing(border-box);
+	font-size: 15px;
+    }
+
+    .stat-item-number {
+	font-weight: 700;
+    }
+    
+}
+
+$tab-font-size: 17px;
+$vertical-gap: 30px;
+$tab-vertical-padding: 13px;
+$tabs-height: 2*$tab-vertical-padding + $tab-font-size;
+.contents-tabs {
+    width: 100%;
+    height: $tabs-height;
+    background-color: $profpic-bg;
+    @include border-radius(5px);
+
+    ul {
+	list-style-type: none;
+	overflow: hidden;
+    }
+    .tab-item:first-child {
+
+    }
+    .tab-item {
+	float: left;
+	font-size: $tab-font-size;
+	height: 100%;
+	padding-top: $tab-vertical-padding;
+	padding-bottom: $tab-vertical-padding;
+	padding-left: 35px;
+	@include box-sizing(border-box);
+    }
+    .tab-item.selected {
+	font-weight: 700;
+    }
+}
+
+#profile-contents-display {
+    width: 2 * $home-card-width + $home-card-margin * 4;
+    min-height: $home-card-min-height;
+    margin: auto;
+    padding-left: 30px; // compensate for the masonary margins
+    padding-top: 30px;
+    position: relative;
+    top: $vertical-gap;
+    background-color: $profpic-bg;
+    //top: 40px;
+    //left: 10%;
+    @include tablet_landscape_and_below {
+	left: 30px;
+    }
+}

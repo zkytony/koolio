@@ -1,3 +1,45 @@
 <% provide(:title, "#{@user.username}'s Profile") %>
+<%= stylesheet_link_tag "users.css" %>
+<%= javascript_include_tag "users.js" %>
+<%= javascript_include_tag "user_profile.js" %>
 <%= render :partial => 'shared/nav' %>
-
+<%# The place for profile pic and stat %>
+<div class="main-contents-wrapper">
+  <div class="left-contents-wrapper">
+    <div class="profpic-stat">
+      <div class="profpic"></div>
+      <div class="username">
+	<%="#{@user.username}"%>
+      </div>
+      <div class="user-stat">
+	<div class="stat-item">
+	  <div class="stat-item-number"><%="#{@user.cards.count}"%></div>
+	  <div class="stat-item-label">Cards</div>
+	</div>
+	<div class="stat-item">
+	  <div class="stat-item-number"><%="#{@user.decks.count}"%></div>
+	  <div class="stat-item-label">Decks</div>
+	</div>
+	<div class="stat-item">
+	  <div class="stat-item-number"><%="#{@user.followers.count}"%></div>
+	  <div class="stat-item-label">Followers</div>
+	</div>
+	<div class="stat-item">
+	  <div class="stat-item-number"><%="#{@user.following.count}"%></div>
+	  <div class="stat-item-label">Following</div>
+	</div>
+      </div>
+    </div>
+  </div>
+  <div class="right-contents-wrapper">
+    <div class="contents-tabs">
+      <ul>
+	<li class="tab-item selected">All</li>
+	<li class="tab-item">Hot</li>
+	<li class="tab-item">Decks</li>
+      </ul>
+    </div>
+    <div id="profile-contents-display"></div>
+  </div>
+</div>
+<div class="dark-overlay hidden"></div>

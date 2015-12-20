@@ -13,19 +13,7 @@ CardsHandler.prototype.init = function() {
     if (!$(e.target).hasClass("no-flip")) {
       //flip($(this));
       var card = cards[$(this).attr("id")];
-      card.flip();
-
-      // if the card is focused, we may need to adjust the position
-      // of the like-comment panel
-      if (card.focused) {
-	var cardPosition = card.getPosition();
-	var margin = 30;
-	$("#like-comment-panel").animate({
-	  top: (cardPosition.top + card.getTrueHeight(card.currentSide) + margin) + "px",
-	}, 300, function() {
-	  // show info
-	});
-      }
+      flipCard(card);
     }
   });
 
