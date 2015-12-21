@@ -358,8 +358,8 @@ $deck-cards-padding-top: 20px;
 //// PROFILE PAGE //////
 ////////////////////////
 $whole-contents-width: 980px;
-$left-contents-width: 300px;
-$left-gap: 30px;
+$left-contents-width: 250px;
+$left-gap: 60px;
 $right-contents-width: $whole-contents-width - $left-gap - $left-contents-width;
 .main-contents-wrapper {
     @include content-wrapper($whole-contents-width, 95%);
@@ -382,7 +382,7 @@ $right-contents-width: $whole-contents-width - $left-gap - $left-contents-width;
     margin-left: $left-gap;
 }
 
-$prof-width: 250px;
+$prof-width: 200px;
 $stat-height: 100px;
 $profpic-bg: #FCFCFC;
 .profpic-stat {
@@ -403,9 +403,10 @@ $profpic-bg: #FCFCFC;
 
     .username {
 	width: $prof-width;
+	font-weight: 700;
 	margin: auto;
 	padding: 10px;
-	font-size: 25px;
+	font-size: 24px;
     }
 
     .user-stat {

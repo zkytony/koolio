@@ -53,55 +53,12 @@ CardsHandler.prototype.init = function() {
       handler.resetDeckCardsPanel();
       // grab info first
       grabCardInfo(handler.focusingCardRawId);
-
-      // show the panels, with quick animation
-      // first place the panels at the same position
-      // as the parent card, then do the slide
-      var width = 250;
-      var margin = 30;
-      //var height = $("#" + handler.focusingCardId).outerHeight();
-      var cardPosition = $("#" + handler.focusingCardId).position();
-      var focusedCard = cards[handler.focusingCardId];
-      focusedCard.focus();
-      $("#like-comment-panel").removeClass("hidden");
-      $("#deck-cards-panel").removeClass("hidden");
-      // first align the comment panel with the card
-      $("#like-comment-panel").css({
-	top: cardPosition.top + "px",
-	left: cardPosition.left + "px"
-      });
-      $("#deck-cards-panel").css({
-	top: cardPosition.top + "px",
-	left: cardPosition.left + "px"
-      });
-      $("#like-comment-panel").animate({
-	top: (cardPosition.top + focusedCard.getTrueHeight(focusedCard.currentSide) + margin) + "px",
-      }, 300, function() {
-	// show info
-      });
-      $("#deck-cards-panel").animate({
-	left: (cardPosition.left + width + margin) + "px"
-      }, 300, function() {
-	// show info
-      });
+      handler.showCardInfo();
     } else {
       var focusedCard = cards[handler.focusingCardId];
       focusedCard.unfocus();
-      // clicked on info toggle again, but glass overlay is
-      // not hidden. So retreive the panels
-      var cardPosition = $("#" + handler.focusingCardId).position();
-      $("#like-comment-panel").animate({
-	top: cardPosition.top + "px",
-      }, 300, function() {
-	$("#like-comment-panel").addClass("hidden");
-      });
-      $("#deck-cards-panel").animate({
-	left: cardPosition.left + "px"
-      }, 300, function() {
-	$("#deck-cards-panel").addClass("hidden");
-	$("#" + handler.focusingCardId).css("z-index", "auto");
-      });
       $(".dark-overlay").addClass("hidden");
+      handler.retrieveCardInfo();
     }
   });
   $(document).on("click", ".dark-overlay", function() {
@@ -164,4 +121,60 @@ CardsHandler.prototype.resetLikeCommentsPanel = function() {
 CardsHandler.prototype.resetDeckCardsPanel = function() {
   $("#deck_author").html("...");
   $("#deck_title").html("...");
+}
+
+// This method may need to be overriden in the case that
+// not all cards are "masonried" in one div.
+CardsHandler.prototype.showCardInfo = function() {
+  var handler = this;
+  // show the panels, with quick animation
+  // first place the panels at the same position
+  // as the parent card, then do the slide
+  var width = 250;
+  var margin = 30;
+  //var height = $("#" + handler.focusingCardId).outerHeight();
+  var cardPosition = $("#" + handler.focusingCardId).position();
+  var focusedCard = cards[handler.focusingCardId];
+  focusedCard.focus();
+  $("#like-comment-panel").removeClass("hidden");
+  $("#deck-cards-panel").removeClass("hidden");
+  // first align the comment panel with the card
+  $("#like-comment-panel").css({
+    top: cardPosition.top + "px",
+    left: cardPosition.left + "px"
+  });
+  $("#deck-cards-panel").css({
+    top: cardPosition.top + "px",
+    left: cardPosition.left + "px"
+  });
+  $("#like-comment-panel").animate({
+    top: (cardPosition.top + focusedCard.getTrueHeight(focusedCard.currentSide) + margin) + "px",
+  }, 300, function() {
+    // show info
+  });
+  $("#deck-cards-panel").animate({
+    left: (cardPosition.left + width + margin) + "px"
+  }, 300, function() {
+    // show info
+  });  
+}
+
+// This method may need to be overriden in the case that
+// not all cards are "masonried" in one div.
+CardsHandler.prototype.retrieveCardInfo = function() {
+  var handler = this;
+  // clicked on info toggle again, but glass overlay is
+  // not hidden. So retreive the panels
+  var cardPosition = $("#" + handler.focusingCardId).position();
+  $("#like-comment-panel").animate({
+    top: cardPosition.top + "px",
+  }, 300, function() {
+    $("#like-comment-panel").addClass("hidden");
+  });
+  $("#deck-cards-panel").animate({
+    left: cardPosition.left + "px"
+  }, 300, function() {
+    $("#deck-cards-panel").addClass("hidden");
+    $("#" + handler.focusingCardId).css("z-index", "auto");
+  });  
 }
