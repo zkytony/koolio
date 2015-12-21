@@ -453,24 +453,63 @@ $tabs-height: 2*$tab-vertical-padding + $tab-font-size;
 	padding-bottom: $tab-vertical-padding;
 	padding-left: 35px;
 	@include box-sizing(border-box);
+	&:hover {
+	    cursor: pointer;
+	}
     }
     .tab-item.selected {
 	font-weight: 700;
     }
 }
 
-#profile-contents-display {
-    width: 2 * $home-card-width + $home-card-margin * 4;
+.profile-contents-display {
+    width: 100%;//2 * $home-card-width + $home-card-margin * 4;
     min-height: $home-card-min-height;
     margin: auto;
-    padding-left: 30px; // compensate for the masonary margins
-    padding-top: 30px;
     position: relative;
     top: $vertical-gap;
-    background-color: $profpic-bg;
+    @include box-sizing(border-box);
     //top: 40px;
     //left: 10%;
     @include tablet_landscape_and_below {
 	left: 30px;
+    }
+}
+
+.time-period, #hot-contents {
+   background-color: $profpic-bg;
+   padding-left: 60px; // compensate for the masonary margins, and make cards centered
+}
+
+#hot-contents {
+    padding-top: 60px;
+}
+
+#all-contents {
+    
+}
+
+$time-ago-padding: 15px;
+$time-card-padding-top: 30px;
+.time-period {
+    min-height: $home-card-min-height;
+    margin-bottom: 50px;
+    @include box-sizing(border-box);
+    position: relative;
+    padding-top: $time-ago-padding + $time-card-padding-top;
+    @include border-radius(5px);
+
+    .time-ago {
+	width: 100%;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	position: absolute;
+	top: 0px;
+	font-size: 15px;
+	font-weight: 700;
+    }
+
+    .home-card {
+
     }
 }

@@ -34,12 +34,14 @@
   <div class="right-contents-wrapper">
     <div class="contents-tabs">
       <ul>
-	<li class="tab-item selected">All</li>
-	<li class="tab-item">Hot</li>
-	<li class="tab-item">Decks</li>
+	<li class="tab-item selected" id="all-item">All</li>
+	<li class="tab-item" id="hot-item">Hot</li>
+	<li class="tab-item" id="decks-item">Decks</li>
       </ul>
     </div>
-    <div id="profile-contents-display"></div>
+    <div class="profile-contents-display" id="all-contents"></div>
+    <div class="profile-contents-display hidden" id="hot-contents"></div>
+    <div class="profile-contents-display hidden" id="decks-contents"></div>
   </div>
 </div>
 <div class="dark-overlay hidden"></div>

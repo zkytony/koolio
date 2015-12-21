@@ -5,13 +5,21 @@ $(document).ready(function() {
     var userId = path.split("/")[2];
     ajaxGrabCardsForProfile(userId, "all");
 
-    $("#profile-contents-display").masonry({
-	columnWidth: 270,
-	gutter: 10,
-	itemSelector: ".home-card",
-	transitionDuration: 0
+    $(document).on("click", "#hot-item", function() {
+	$(".tab-item").removeClass("selected");
+	$("#hot-item").addClass("selected");
+	ajaxGrabCardsForProfile(userId, "hot");
     });
 
+    $(document).on("click", "#all-item", function() {
+	$(".tab-item").removeClass("selected");
+	$("#all-item").addClass("selected");
+	ajaxGrabCardsForProfile(userId, "all");
+    });
+
+    $(document).on("click", "#decks-item", function() {
+//	ajaxGrabDecksForProfile(userId);
+    });
 
     var cardsHandler = new CardsHandler();
     cardsHandler.init();
@@ -30,12 +38,32 @@ function ajaxGrabCardsForProfile(userId, type) {
 	dataType: 'script', // get the script which will run itself
 	success: function(output) {
 	    //alert(output);
-	    $("#profile-contents-display").masonry('reloadItems');
+	    if (type === "hot") {
+		$("#hot-contents").masonry('reloadItems');
+	    } else if (type === "all") {
+		$(".time-period").masonry('reloadItems');
+	    }
+
 	    $(".home-card").each(function() {
 		dealWithHomeCard($(this));
 	    });
 
-	    $("#profile-contents-display").masonry();
+	    if (type === "hot") {
+		$("#hot-contents").masonry({
+		    columnWidth: 270,
+		    gutter: 20,
+		    itemSelector: ".home-card",
+		    transitionDuration: 0
+		});
+	    } else if (type === "all") {
+		$(".time-period").masonry({
+		    columnWidth: 270,
+		    gutter: 20,
+		    itemSelector: ".home-card",
+		    transitionDuration: 0
+		});
+	    }
 	}
     });
 }
+

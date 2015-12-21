@@ -49,9 +49,9 @@ class UsersController < ApplicationController
 
   # cards to display in the profile page
   def profile_cards
-    type = params[:type]
+    @type = params[:type]
     @user = User.find(params[:user_id])
-    @profile_cards = GrabProfileCards.call(@user, type)
+    @profile_cards = GrabProfileCards.call(@user, @type)
     # user may want to make a comment
     @comment = Comment.new
 
