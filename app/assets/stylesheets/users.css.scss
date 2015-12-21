@@ -358,8 +358,8 @@ $deck-cards-padding-top: 20px;
 //// PROFILE PAGE //////
 ////////////////////////
 $whole-contents-width: 980px;
-$left-contents-width: 250px;
-$left-gap: 60px;
+$left-contents-width: 200px;
+$left-gap: 80px;
 $right-contents-width: $whole-contents-width - $left-gap - $left-contents-width;
 .main-contents-wrapper {
     @include content-wrapper($whole-contents-width, 95%);
@@ -382,9 +382,11 @@ $right-contents-width: $whole-contents-width - $left-gap - $left-contents-width;
     margin-left: $left-gap;
 }
 
-$prof-width: 200px;
+$prof-width: 150px;
 $stat-height: 100px;
-$profpic-bg: #FCFCFC;
+$profpic-bg: #F7F7F7;
+$username-color: #808080;
+$stat-color: #B3B3B3;
 .profpic-stat {
     width: 100%;
     min-height: $prof-width + $stat-height;
@@ -404,6 +406,7 @@ $profpic-bg: #FCFCFC;
     .username {
 	width: $prof-width;
 	font-weight: 700;
+	color: $username-color;
 	margin: auto;
 	padding: 10px;
 	font-size: 24px;
@@ -413,6 +416,7 @@ $profpic-bg: #FCFCFC;
 	width: $prof-width;
 	min-height: $stat-height;
 	margin: auto;
+	color: $stat-color;
     }
     $stat-item-padding: 10px;
     .stat-item {
@@ -420,7 +424,7 @@ $profpic-bg: #FCFCFC;
 	width: 45%;
 	padding: $stat-item-padding;
 	@include box-sizing(border-box);
-	font-size: 15px;
+	font-size: 13px;
     }
 
     .stat-item-number {
@@ -433,11 +437,14 @@ $tab-font-size: 17px;
 $vertical-gap: 30px;
 $tab-vertical-padding: 13px;
 $tabs-height: 2*$tab-vertical-padding + $tab-font-size;
+$tab-unselected-color: #CCCCCC;
+$tab-selected-color: #999999;
 .contents-tabs {
     width: 100%;
-    height: $tabs-height;
+    //height: $tabs-height;
     background-color: $profpic-bg;
     @include border-radius(5px);
+    position: relative;
 
     ul {
 	list-style-type: none;
@@ -446,20 +453,54 @@ $tabs-height: 2*$tab-vertical-padding + $tab-font-size;
     .tab-item:first-child {
 
     }
+    .tab-item:first-child {
+	padding-left: 30px;
+    }
     .tab-item {
 	float: left;
+	font-weight: 700;
 	font-size: $tab-font-size;
+	color: $tab-unselected-color;
+	position: relative;
 	height: 100%;
 	padding-top: $tab-vertical-padding;
 	padding-bottom: $tab-vertical-padding;
-	padding-left: 35px;
+	padding-left: 15px;
+	padding-right: 15px;
 	@include box-sizing(border-box);
 	&:hover {
 	    cursor: pointer;
 	}
+
+	// triangle?
+	/*
+	&:hover:after {
+	    content: "";
+	    width: 0;
+	    height: 0;
+	    border-style: solid;
+	    border-width: 0 5px 5px 5px;
+	    border-color: transparent transparent grey transparent;
+	}*/
     }
     .tab-item.selected {
-	font-weight: 700;
+	color: $tab-selected-color;
+    }
+    .tab-item:first-child.selected:after {
+	left: 30px;
+	margin-left: 0px;
+    }
+    .tab-item.selected:after {
+	content: "";
+	position: absolute;
+	top: $tab-vertical-padding*2 + 13px;
+	left: 50%;//20px;
+	margin-left: -10px;
+	width: 0px;
+	height: 0px;
+	border-left: 12px solid transparent;
+	border-right: 12px solid transparent;
+	border-bottom: 12px solid $bg-color;
     }
 }
 
@@ -490,24 +531,26 @@ $tabs-height: 2*$tab-vertical-padding + $tab-font-size;
     
 }
 
-$time-ago-padding: 15px;
+$time-ago-padding: 18px;
 $time-card-padding-top: 30px;
+$time-ago-color: #CCCCCC;
 .time-period {
     min-height: $home-card-min-height;
     margin-bottom: 50px;
     @include box-sizing(border-box);
     position: relative;
-    padding-top: $time-ago-padding + $time-card-padding-top;
+    padding-top: $time-ago-padding*2 + $time-card-padding-top;
     @include border-radius(5px);
 
     .time-ago {
 	width: 100%;
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-top: $time-ago-padding;
+	padding-bottom: $time-ago-padding;
 	position: absolute;
 	top: 0px;
 	font-size: 15px;
 	font-weight: 700;
+	color: $time-ago-color;
     }
 
     .home-card {

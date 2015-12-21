@@ -39,7 +39,7 @@ function ajaxGrabCardsForProfile(userId, type) {
 	success: function(output) {
 	    //alert(output);
 	    if (type === "hot") {
-//		$("#hot-contents").masonry('reloadItems');
+		$("#hot-contents").masonry('reloadItems');
 	    } else if (type === "all") {
 //		$(".time-period").masonry('reloadItems');
 	    }
