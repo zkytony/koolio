@@ -560,15 +560,16 @@ $time-ago-color: #CCCCCC;
 
 // Deck display on profile page
 $deck-width: 250px;
+$deck-padding: 12px;
 $title-padding: 10px;
 $title-font-size: 15px;
-$scaled-cards-gap: 5px;
+$scaled-cards-gap: 3px;
 $deck-title-color: #CCCCCC;
 .one-deck {
     width: $deck-width;
-    height: $deck-width + 2*$scaled-cards-gap+2*$title-padding;
+    height: $deck-width + 2*$scaled-cards-gap+2*$title-padding + 10px; // need some extra padding at the bottom
     background-color: $white;
-    padding: 0 15px 15px 15px;
+    padding: 0 $deck-padding $deck-padding $deck-padding;
     position: relative;
     @include border-radius(5px);
     h3 {
