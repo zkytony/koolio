@@ -1,28 +1,34 @@
 $(document).ready(function() {
-    // get the user id from the url
-    // the profile url will be '/users/:id/profile'
-    var path = window.location.pathname;  // "/xxx/xxx/xxx.."
-    var userId = path.split("/")[2];
+  // get the user id from the url
+  // the profile url will be '/users/:id/profile'
+  var path = window.location.pathname;  // "/xxx/xxx/xxx.."
+  var userId = path.split("/")[2];
+  ajaxGrabCardsForProfile(userId, "all");
+
+  $(document).on("click", "#hot-item", function() {
+    $(".tab-item").removeClass("selected");
+    $("#hot-item").addClass("selected");
+    ajaxGrabCardsForProfile(userId, "hot");
+  });
+
+  $(document).on("click", "#all-item", function() {
+    $(".tab-item").removeClass("selected");
+    $("#all-item").addClass("selected");
     ajaxGrabCardsForProfile(userId, "all");
+  });
 
-    $(document).on("click", "#hot-item", function() {
-	$(".tab-item").removeClass("selected");
-	$("#hot-item").addClass("selected");
-	ajaxGrabCardsForProfile(userId, "hot");
-    });
+  $(document).on("click", "#decks-item", function() {
+    $(".tab-item").removeClass("selected");
+    $("#decks-item").addClass("selected");
+    ajaxGrabDecksForProfile(userId);
+  });
 
-    $(document).on("click", "#all-item", function() {
-	$(".tab-item").removeClass("selected");
-	$("#all-item").addClass("selected");
-	ajaxGrabCardsForProfile(userId, "all");
-    });
+  $(document).on("click", "#decks-item", function() {
+    //	ajaxGrabDecksForProfile(userId);
+  });
 
-    $(document).on("click", "#decks-item", function() {
-//	ajaxGrabDecksForProfile(userId);
-    });
-
-    var cardsHandler = new ProfileCardsHandler();
-    cardsHandler.init();
+  var cardsHandler = new ProfileCardsHandler();
+  cardsHandler.init();
 });
 
 // AJAX request to grab a certain number of cards
@@ -31,40 +37,56 @@ $(document).ready(function() {
 //        in cards sorted by created time; "hot" will
 //        result in cards sorted by number of likes.
 function ajaxGrabCardsForProfile(userId, type) {
-    $.ajax({
-	type: "GET",
-	url: '/users/' + userId + '/profile_cards',
-	data: { type: type },
-	dataType: 'script', // get the script which will run itself
-	success: function(output) {
-	    //alert(output);
-	    if (type === "hot") {
-		$("#hot-contents").masonry('reloadItems');
-	    } else if (type === "all") {
-//		$(".time-period").masonry('reloadItems');
-	    }
+  $.ajax({
+    type: "GET",
+    url: '/users/' + userId + '/profile_cards',
+    data: { type: type },
+    dataType: 'script', // get the script which will run itself
+    success: function(output) {
+      //alert(output);
+      if (type === "hot") {
+	$("#hot-contents").masonry('reloadItems');
+      } else if (type === "all") {
+	//		$(".time-period").masonry('reloadItems');
+      }
 
-	    $(".home-card").each(function() {
-		dealWithHomeCard($(this));
-	    });
+      $(".home-card").each(function() {
+	dealWithHomeCard($(this));
+      });
 
-	    if (type === "hot") {
-		$("#hot-contents").masonry({
-		    columnWidth: 270,
-		    gutter: 20,
-		    itemSelector: ".home-card",
-		    transitionDuration: 0
-		});
-	    } else if (type === "all") {
-		$(".time-period").masonry({
-		    columnWidth: 270,
-		    gutter: 20,
-		    itemSelector: ".home-card",
-		    transitionDuration: 0
-		});
-	    }
-	}
-    });
+      if (type === "hot") {
+	$("#hot-contents").masonry({
+	  columnWidth: 270,
+	  gutter: 20,
+	  itemSelector: ".home-card",
+	  transitionDuration: 0
+	});
+      } else if (type === "all") {
+	$(".time-period").masonry({
+	  columnWidth: 270,
+	  gutter: 20,
+	  itemSelector: ".home-card",
+	  transitionDuration: 0
+	});
+      }
+    }
+  });
+}
+
+// AJAX request to get a certain number of decks for the
+// given user. The output is a script, which will show the
+// decks in the #decks-contents div. Each deck is shown
+// as a square which has four cells; each cell is a "scaled"
+// version of one card inside the deck.
+function ajaxGrabDecksForProfile(userId) {
+  $.ajax({
+    type: "GET",
+    url: '/users/' + userId + '/profile_decks',
+    dataType: 'script', // get the script which will run itself
+    success: function(output) {
+      //alert(output);
+    }
+  });
 }
 
 // Override the show, retrieve card info prototype for "all".

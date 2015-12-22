@@ -358,8 +358,8 @@ $deck-cards-padding-top: 20px;
 //// PROFILE PAGE //////
 ////////////////////////
 $whole-contents-width: 980px;
-$left-contents-width: 200px;
-$left-gap: 80px;
+$left-contents-width: 225px;
+$left-gap: 70px;
 $right-contents-width: $whole-contents-width - $left-gap - $left-contents-width;
 .main-contents-wrapper {
     @include content-wrapper($whole-contents-width, 95%);
@@ -382,7 +382,7 @@ $right-contents-width: $whole-contents-width - $left-gap - $left-contents-width;
     margin-left: $left-gap;
 }
 
-$prof-width: 150px;
+$prof-width: 175px;
 $stat-height: 100px;
 $profpic-bg: #F7F7F7;
 $username-color: #808080;
@@ -557,3 +557,56 @@ $time-ago-color: #CCCCCC;
 
     }
 }
+
+// Deck display on profile page
+$deck-width: 250px;
+$title-padding: 10px;
+$title-font-size: 15px;
+$scaled-cards-gap: 5px;
+$deck-title-color: #CCCCCC;
+.one-deck {
+    width: $deck-width;
+    height: $deck-width + 2*$scaled-cards-gap+2*$title-padding;
+    background-color: $white;
+    padding: 0 15px 15px 15px;
+    position: relative;
+    @include border-radius(5px);
+    h3 {
+	color: $deck-title-color;
+	font-size: 15px;
+	position: absoute;
+	padding: 10px;
+    }
+}
+
+.four-cards {
+    width: $deck-width;
+    height: $deck-width - $title-padding*2 - $title-font-size;
+    margin: auto;
+    .scaled-card {
+	width: $deck-width / 2 - $scaled-cards-gap*2;
+	height: $deck-width / 2 - $scaled-cards-gap*2;
+	float: left;
+	overflow: hidden;
+	margin: $scaled-cards-gap;;
+
+	img {
+	    width: $deck-width / 2 - $scaled-cards-gap*2;
+	    height: $deck-width / 2 - $scaled-cards-gap*2;
+	}
+    }
+
+    .scaled-card.card-text {
+	background-color: $text-default-bg;
+	padding: 4px;
+	@include box-sizing(border-box);
+	color: $text-default-font-color;
+	h1 {
+	    font-size: 22px;
+	}
+	p {
+	    font-size: 16px;
+	}
+    }
+}
+

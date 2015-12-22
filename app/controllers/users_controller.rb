@@ -60,6 +60,16 @@ class UsersController < ApplicationController
     end
   end
 
+  # decks to display in the profile page
+  def profile_decks
+    @user = User.find(params[:user_id])
+    @profile_decks = GrabProfileDecks.call(@user)
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     
     # strong parameter

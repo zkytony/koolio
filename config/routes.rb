@@ -1,3 +1,4 @@
+
 Rails.application.routes.draw do
   root 'users#new'
   
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
     delete 'unfollow' => 'users#unfollow'
     get 'profile' => 'users#profile'
     get 'profile_cards' => 'users#profile_cards'
+    get 'profile_decks' => 'users#profile_decks'
   end
   resources :decks do
     post 'favorite' => 'decks#favorite'
