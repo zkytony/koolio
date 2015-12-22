@@ -1,23 +1,30 @@
+var noOngoingLoad = true;
 $(document).ready(function() {
   // get the user id from the url
   // the profile url will be '/users/:id/profile'
   var path = window.location.pathname;  // "/xxx/xxx/xxx.."
   var userId = path.split("/")[2];
-  ajaxGrabCardsForProfile(userId, "all");
+  ajaxGrabCardsForProfile(userId, "all", false);
 
   $(document).on("click", "#hot-item", function() {
+    $("#all-contents").html("");
+    $("#decks-contents").html("");
     $(".tab-item").removeClass("selected");
     $("#hot-item").addClass("selected");
-    ajaxGrabCardsForProfile(userId, "hot");
+    ajaxGrabCardsForProfile(userId, "hot", false);
   });
 
   $(document).on("click", "#all-item", function() {
+    $("#all-contents").html("");
+    $("#hot-contents").html("");
     $(".tab-item").removeClass("selected");
     $("#all-item").addClass("selected");
-    ajaxGrabCardsForProfile(userId, "all");
+    ajaxGrabCardsForProfile(userId, "all", false);
   });
 
   $(document).on("click", "#decks-item", function() {
+    $("#all-contents").html("");
+    $("#hot-contents").html("");
     $(".tab-item").removeClass("selected");
     $("#decks-item").addClass("selected");
     ajaxGrabDecksForProfile(userId);
@@ -25,6 +32,24 @@ $(document).ready(function() {
 
   $(document).on("click", "#decks-item", function() {
     //	ajaxGrabDecksForProfile(userId);
+  });
+
+  // When scroll to nearly the bottom, grab more cards for "hot-contents"
+  var limit = 20;
+  $(window).scroll(function() {
+    var isHot = $("#hot-item").hasClass("selected");
+    var isAll = $("#all-item").hasClass("selected")
+    if (isHot || isAll) {
+      if ($(document).height() - limit <= $(window).scrollTop() + $(window).height()) {
+	if (noOngoingLoad) {
+	  if (isHot) {
+	    ajaxGrabCardsForProfile(userId, "hot", true);
+	  } else if (isAll) {
+	    ajaxGrabCardsForProfile(userId, "all", true);
+	  }
+	}
+      }
+    }
   });
 
   var cardsHandler = new ProfileCardsHandler();
@@ -36,11 +61,20 @@ $(document).ready(function() {
 // type - either "all", or "hot". "all" will result
 //        in cards sorted by created time; "hot" will
 //        result in cards sorted by number of likes.
-function ajaxGrabCardsForProfile(userId, type) {
+// more - boolean; true if this ajax is to fetch
+//        more elements
+function ajaxGrabCardsForProfile(userId, type, more) {
+  noOngoingLoad = false;
+
+  var card_ids = [];
+  $(".home-card").each(function() {
+    card_ids.push($(this).attr("id").split("_")[1]);
+  });
+
   $.ajax({
     type: "GET",
     url: '/users/' + userId + '/profile_cards',
-    data: { type: type },
+    data: { type: type, more: more, card_ids: card_ids },
     dataType: 'script', // get the script which will run itself
     success: function(output) {
       //alert(output);
@@ -69,6 +103,7 @@ function ajaxGrabCardsForProfile(userId, type) {
 	  transitionDuration: 0
 	});
       }
+      noOngoingLoad = true;
     }
   });
 }
@@ -93,78 +128,78 @@ function ajaxGrabDecksForProfile(userId) {
 // Since each time period is a masonry subject.
 ProfileCardsHandler.prototype = Object.create(CardsHandler.prototype);
 function ProfileCardsHandler() {
-    CardsHandler.call(this);
+  CardsHandler.call(this);
 }
 
 ProfileCardsHandler.prototype.showCardInfo = function() {
-    // Handle the case where it is currently displaying "all" cards.
-    var type = $(".tab-item.selected").html().toLowerCase()
+  // Handle the case where it is currently displaying "all" cards.
+  var type = $(".tab-item.selected").html().toLowerCase()
 
     var handler = this;
-    // show the panels, with quick animation
-    // first place the panels at the same position
-    // as the parent card, then do the slide
-    var width = 250;
-    var margin = 30;
-    //var height = $("#" + handler.focusingCardId).outerHeight();
-    var cardPosition = $("#" + handler.focusingCardId).position();
+  // show the panels, with quick animation
+  // first place the panels at the same position
+  // as the parent card, then do the slide
+  var width = 250;
+  var margin = 30;
+  //var height = $("#" + handler.focusingCardId).outerHeight();
+  var cardPosition = $("#" + handler.focusingCardId).position();
 
-    if (type === "all") {
-	// each time period's position top attribute should be set
-	// correctly.
-	var parentTimePeriod = $("#" + handler.focusingCardId).closest(".time-period");
-	cardPosition.top = cardPosition.top + parentTimePeriod.position().top;
-    }
+  if (type === "all") {
+    // each time period's position top attribute should be set
+    // correctly.
+    var parentTimePeriod = $("#" + handler.focusingCardId).closest(".time-period");
+    cardPosition.top = cardPosition.top + parentTimePeriod.position().top;
+  }
 
-    var focusedCard = cards[handler.focusingCardRawId];
-    focusedCard.focus();
-    $("#like-comment-panel").removeClass("hidden");
-    $("#deck-cards-panel").removeClass("hidden");
-    // first align the comment panel with the card
-    $("#like-comment-panel").css({
-	top: cardPosition.top + "px",
-	left: cardPosition.left + "px"
-    });
-    $("#deck-cards-panel").css({
-	top: cardPosition.top + "px",
-	left: cardPosition.left + "px"
-    });
-    $("#like-comment-panel").animate({
-	top: (cardPosition.top + focusedCard.getTrueHeight(focusedCard.currentSide) + margin) + "px",
-    }, 300, function() {
-	// show info
-    });
-    $("#deck-cards-panel").animate({
-	left: (cardPosition.left + width + margin) + "px"
-    }, 300, function() {
-	// show info
-    });  ;
+  var focusedCard = cards[handler.focusingCardRawId];
+  focusedCard.focus();
+  $("#like-comment-panel").removeClass("hidden");
+  $("#deck-cards-panel").removeClass("hidden");
+  // first align the comment panel with the card
+  $("#like-comment-panel").css({
+    top: cardPosition.top + "px",
+    left: cardPosition.left + "px"
+  });
+  $("#deck-cards-panel").css({
+    top: cardPosition.top + "px",
+    left: cardPosition.left + "px"
+  });
+  $("#like-comment-panel").animate({
+    top: (cardPosition.top + focusedCard.getTrueHeight(focusedCard.currentSide) + margin) + "px",
+  }, 300, function() {
+    // show info
+  });
+  $("#deck-cards-panel").animate({
+    left: (cardPosition.left + width + margin) + "px"
+  }, 300, function() {
+    // show info
+  });  ;
 }
 
 ProfileCardsHandler.prototype.retrieveCardInfo = function() {
-    var handler = this;
-    // Handle the case where it is currently displaying "all" cards.
-    var type = $(".tab-item.selected").html().toLowerCase()
+  var handler = this;
+  // Handle the case where it is currently displaying "all" cards.
+  var type = $(".tab-item.selected").html().toLowerCase()
     // clicked on info toggle again, but glass overlay is
     // not hidden. So retreive the panels
     var cardPosition = $("#" + handler.focusingCardId).position();
 
-    if (type === "all") {
-	// each time period's position top attribute should be set
-	// correctly.
-	var parentTimePeriod = $("#" + handler.focusingCardId).closest(".time-period");
-	cardPosition.top = cardPosition.top + parentTimePeriod.position().top;
-    }
+  if (type === "all") {
+    // each time period's position top attribute should be set
+    // correctly.
+    var parentTimePeriod = $("#" + handler.focusingCardId).closest(".time-period");
+    cardPosition.top = cardPosition.top + parentTimePeriod.position().top;
+  }
 
-    $("#like-comment-panel").animate({
-	top: cardPosition.top + "px",
-    }, 300, function() {
-	$("#like-comment-panel").addClass("hidden");
-    });
-    $("#deck-cards-panel").animate({
-	left: cardPosition.left + "px"
-    }, 300, function() {
-	$("#deck-cards-panel").addClass("hidden");
-	$("#" + handler.focusingCardId).css("z-index", "auto");
-    });  
+  $("#like-comment-panel").animate({
+    top: cardPosition.top + "px",
+  }, 300, function() {
+    $("#like-comment-panel").addClass("hidden");
+  });
+  $("#deck-cards-panel").animate({
+    left: cardPosition.left + "px"
+  }, 300, function() {
+    $("#deck-cards-panel").addClass("hidden");
+    $("#" + handler.focusingCardId).css("z-index", "auto");
+  });  
 }

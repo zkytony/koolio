@@ -11,11 +11,11 @@ class GrabProfileCards
   #
   # For "hot", the returned object is an array of card
   # objects.
-  def self.call(user, type) 
-    n_cards = 7
+  def self.call(user, type, more, card_ids) 
+    n_cards = 8
     cards = []
     if type == "all"
-      cards = user.cards.sort_by(&:created_at).reverse.slice(0, n_cards)
+      cards = get_needed_cards_sort_by_created_at(user, n_cards, more, card_ids)
       time_dict = {}
       cards.each do |card|
         time_ago = time_ago_in_words card.created_at
@@ -27,7 +27,7 @@ class GrabProfileCards
       end
       time_dict
     elsif type == "hot"
-      cards = user.cards.sort_by(&:likes).reverse.slice(0, n_cards)
+      cards = get_needed_cards_sort_by_likes(user, n_cards, more, card_ids)
       cards
     else
       nil
@@ -35,6 +35,31 @@ class GrabProfileCards
   end
 
   private
+
+    # if more is false or nil, card_ids must be nil;
+    # else, card_ids must be an array
+    #
+    # this method is only for create time sorting
+    def self.get_needed_cards_sort_by_created_at(user, n_cards, more, card_ids)
+      if more
+        puts more.class
+        user.cards.where("cards.id NOT IN (?)", card_ids).sort_by(&:created_at).reverse.slice(0, n_cards)
+      else
+        user.cards.sort_by(&:created_at).reverse.slice(0, n_cards)
+      end
+    end
+
+    # if more is false or nil, card_ids must be nil;
+    # else, card_ids must be an array
+    #
+    # this method is only for likes number sorting
+    def self.get_needed_cards_sort_by_likes(user, n_cards, more, card_ids)
+      if more
+        user.cards.where("cards.id NOT IN (?)", card_ids).sort_by(&:likes).reverse.slice(0, n_cards)
+      else
+        user.cards.sort_by(&:likes).reverse.slice(0, n_cards)
+      end
+    end
 
     # Tried to include ActionHelper to use time_ago_in_words, but failed.
     # So writing this method for outputting time difference in words

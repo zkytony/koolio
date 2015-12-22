@@ -44,28 +44,19 @@ $(document).ready(function() {
   cardsHandler.init();
 });
 
-// Adjust the height of the given home-card jquery object.
-// Also updates the global cards object
-function dealWithHomeCard(homecard) {
-  alert("HI");
-  var id = homecard.attr("id").split("_")[1]; // get the number
-  alert(id);
-  if (!cards.hasOwnProperty(id)) {
-    cards[id] = new Card(id, "front");
-  } else {
-    // need to update the front and back jQuery object for the card
-    cards[id].updateFrontBackJQueryObjects();
-  }
-  cards[id].adjustCardHeight();
-}
-
 // more is a boolean; true if it is grabbing more contents for scrolling
 function grabRecommendContents(more) {
   noOngoingLoad = false;
+  
+  var card_ids = [];
+  $(".home-card").each(function() {
+    card_ids.push($(this).attr("id").split("_")[1]);
+  });
+
   $.ajax({
     // send to current page (user show)
     type: 'GET',
-    data: { more: more, card_ids: Object.keys(cards) },
+    data: { more: more, card_ids: card_ids },
     dataType: 'script',
     success: function(data) {
       // return a script that will render the recommended contents html

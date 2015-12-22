@@ -21,14 +21,11 @@ class UsersController < ApplicationController
   def show
     if logged_in?
       @user = User.find(params[:id])
-      @more = params[:more]
+      @more = params[:more] == "true"
       # more may be nil, since some request may not 
       # have this parameter
-      if @more
-        @recommended = RecommendContent.call(@user, true, params[:card_ids])
-      else
-        @recommended = RecommendContent.call(@user, false, nil)
-      end
+      @recommended = RecommendContent.call(@user, @more, params[:card_ids])
+
       # user may want to create a card in home page
       @card = Card.new 
       # user may want to make a comment
@@ -58,7 +55,9 @@ class UsersController < ApplicationController
   def profile_cards
     @type = params[:type]
     @user = User.find(params[:user_id])
-    @profile_cards = GrabProfileCards.call(@user, @type)
+    @more = params[:more] == "true"
+    card_ids = params[:card_ids]
+    @profile_cards = GrabProfileCards.call(@user, @type, @more, card_ids)
     # user may want to make a comment
     @comment = Comment.new
 

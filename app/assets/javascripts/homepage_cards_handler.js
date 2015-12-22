@@ -12,7 +12,7 @@ CardsHandler.prototype.init = function() {
     // check if the target has class that's in the flipExceptionList
     if (!$(e.target).hasClass("no-flip")) {
       //flip($(this));
-      var card = cards[$(this).attr("id")];
+      var card = cards[$(this).attr("id").split("_")[1]];
       flipCard(card);
     }
   });
