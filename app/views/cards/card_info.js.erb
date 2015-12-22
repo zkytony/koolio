@@ -10,8 +10,9 @@ $("#n_comments").html(<%="#{@info[:n_comments]}"%>);
   $("#like-card-btn").removeClass("liked");
 <% end %>
 
-$("#deck_author").html("<%= j link_to "#{@info[:author_name]}", user_profile_path(@info[:author_id]) %>");
-$("#deck_title").html("<%="#{@info[:deck_title]}"%>");
+$("#deck_author").html("<%= j link_to "#{@info[:author_name]}", user_profile_path(@info[:author_id]), data: { no_turbolink: true } %>");
+$("#deck_title").html("<%="#{@info[:deck].title}"%>");
+$("#more_cards_in_deck").html("<%= j render partial: "shared/deck", locals: { deck: @info[:deck], limit: 6 } %>");
 
 <% if @info[:comments].length > 0 %>
   <% @info[:comments].each do |comment| %>

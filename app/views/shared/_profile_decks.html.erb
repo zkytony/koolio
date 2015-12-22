@@ -1,4 +1,4 @@
 <% @profile_decks.each do |deck| %>
   <%# Take four cards from the deck, ordered by created time %>
-  <%= render partial: "shared/deck", locals: { deck: deck } %>
+  <%= render partial: "shared/deck", locals: { deck: deck, limit: 4 } %>
 <% end %>

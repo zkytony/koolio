@@ -290,7 +290,7 @@ $deck-cards-padding-top: 20px;
     padding: $deck-cards-padding-top 0px;
 
     .user-deck {
-	width: 75%;
+	width: $home-card-width * 0.75;
 	margin: auto;
 	@include box-sizing(border-box);
 	height: $user-deck-height;
@@ -310,12 +310,33 @@ $deck-cards-padding-top: 20px;
 	}
     }
 
-    .more-cards {
-	width: 80%;
+    /* The more cards portion uses the deck partial, but it
+       modifies its style */
+    $tiny-card-size: $home-card-width * 0.9 / 2 - 5px;
+    #more_cards_in_deck {
+	width: $home-card-width * 0.9;
 	margin: auto;
 	margin-top: 20px;
 	font-weight: 700;
 	color: $info-font-color;
+
+	.one-deck {
+	    background-color: transparent; // no background color
+	    min-height: 50px;
+	    padding: 0;
+	    h3 { display: none; } // do not show the title
+	    .four-cards {
+		min-height: $tiny-card-size;
+		.scaled-card {
+		    width: $tiny-card-size;
+		    height: $tiny-card-size;
+		    img {
+			width: $tiny-card-size;
+			height: $tiny-card-size;
+		    }
+		}
+	    }
+	}
     }
 }
 
@@ -567,7 +588,7 @@ $scaled-cards-gap: 3px;
 $deck-title-color: #CCCCCC;
 .one-deck {
     width: $deck-width;
-    height: $deck-width + 2*$scaled-cards-gap+2*$title-padding + 10px; // need some extra padding at the bottom
+    min-height: $deck-width + 2*$scaled-cards-gap+2*$title-padding + 10px; // need some extra padding at the bottom
     background-color: $white;
     padding: 0 $deck-padding $deck-padding $deck-padding;
     position: relative;
@@ -578,36 +599,38 @@ $deck-title-color: #CCCCCC;
 	position: absoute;
 	padding: 10px;
     }
-}
-
-.four-cards {
-    width: $deck-width;
-    height: $deck-width - $title-padding*2 - $title-font-size;
-    margin: auto;
-    .scaled-card {
-	width: $deck-width / 2 - $scaled-cards-gap*2;
-	height: $deck-width / 2 - $scaled-cards-gap*2;
-	float: left;
-	overflow: hidden;
-	margin: $scaled-cards-gap;;
-
-	img {
+    .four-cards {
+	width: $deck-width;
+	min-height: $deck-width - $title-padding*2 - $title-font-size;
+	margin: auto;
+	overflow: auto;
+	.scaled-card {
 	    width: $deck-width / 2 - $scaled-cards-gap*2;
 	    height: $deck-width / 2 - $scaled-cards-gap*2;
+	    float: left;
+	    overflow: hidden;
+	    margin: $scaled-cards-gap;;
+
+	    img {
+		width: $deck-width / 2 - $scaled-cards-gap*2;
+		height: $deck-width / 2 - $scaled-cards-gap*2;
+	    }
+	}
+
+	.scaled-card.card-text {
+	    background-color: $text-default-bg;
+	    padding: 4px;
+	    @include box-sizing(border-box);
+	    color: $text-default-font-color;
+	    h1 {
+		font-size: 22px;
+	    }
+	    p {
+		font-size: 16px;
+	    }
 	}
     }
 
-    .scaled-card.card-text {
-	background-color: $text-default-bg;
-	padding: 4px;
-	@include box-sizing(border-box);
-	color: $text-default-font-color;
-	h1 {
-	    font-size: 22px;
-	}
-	p {
-	    font-size: 16px;
-	}
-    }
+
 }
 

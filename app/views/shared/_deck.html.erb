@@ -1,5 +1,5 @@
 <%# partial for one deck %>
-<% cards = deck.cards.sort_by(&:created_at).reverse.slice(0, 4) %>
+<% cards = deck.cards.sort_by(&:created_at).reverse.slice(0, limit) %>
 <div class="one-deck" id="deck_<%="#{deck.id}"%>">
   <h3><%="#{deck.title}"%></h3>
   <div class="four-cards">

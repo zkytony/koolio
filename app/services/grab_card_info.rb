@@ -26,9 +26,7 @@ class GrabCardInfo
       info = {
         author_name: author.username,
         author_id: author.id,
-        deck_title: deck.title,
-        deck_id: deck.id,
-        n_deck_favorites: deck.favoring_users.count,
+        deck: deck,
         n_likes: card.likes, 
         n_comments: comments.count,
         liked_card: user.liked_card?(card),
