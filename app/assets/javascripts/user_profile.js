@@ -42,6 +42,7 @@ $(document).ready(function() {
     if (isHot || isAll) {
       if ($(document).height() - limit <= $(window).scrollTop() + $(window).height()) {
 	if (noOngoingLoad) {
+	 // alert("DID");
 	  if (isHot) {
 	    ajaxGrabCardsForProfile(userId, "hot", true);
 	  } else if (isAll) {
@@ -81,11 +82,13 @@ function ajaxGrabCardsForProfile(userId, type, more) {
       if (type === "hot") {
 	$("#hot-contents").masonry('reloadItems');
       } else if (type === "all") {
-	//		$(".time-period").masonry('reloadItems');
+	//$(".time-period").masonry('reloadItems');
       }
 
       $(".home-card").each(function() {
-	dealWithHomeCard($(this));
+	  if (!$(this).hasClass("focused")) {
+	      dealWithHomeCard($(this));
+	  }
       });
 
       if (type === "hot") {
@@ -133,9 +136,9 @@ function ProfileCardsHandler() {
 
 ProfileCardsHandler.prototype.showCardInfo = function() {
   // Handle the case where it is currently displaying "all" cards.
-  var type = $(".tab-item.selected").html().toLowerCase()
+  var type = $(".tab-item.selected").html().toLowerCase();
 
-    var handler = this;
+  var handler = this;
   // show the panels, with quick animation
   // first place the panels at the same position
   // as the parent card, then do the slide
@@ -170,36 +173,33 @@ ProfileCardsHandler.prototype.showCardInfo = function() {
     // show info
   });
   $("#deck-cards-panel").animate({
-    left: (cardPosition.left + width + margin) + "px"
+    left: (cardPosition.left + width + margin + 10) + "px"
   }, 300, function() {
     // show info
-  });  ;
+  });
 }
 
-ProfileCardsHandler.prototype.retrieveCardInfo = function() {
+ProfileCardsHandler.prototype.handleFlip = function(cardObj) {
   var handler = this;
-  // Handle the case where it is currently displaying "all" cards.
-  var type = $(".tab-item.selected").html().toLowerCase()
-    // clicked on info toggle again, but glass overlay is
-    // not hidden. So retreive the panels
+  var card = cards[cardObj.attr("id").split("_")[1]];
+  flipCard(card);
+
+  if (card.focused) {
+    var type = $(".tab-item.selected").html().toLowerCase();
+    var margin = 30;
     var cardPosition = $("#" + handler.focusingCardId).position();
 
-  if (type === "all") {
-    // each time period's position top attribute should be set
-    // correctly.
-    var parentTimePeriod = $("#" + handler.focusingCardId).closest(".time-period");
-    cardPosition.top = cardPosition.top + parentTimePeriod.position().top;
-  }
+    if (type === "all") {
+      // each time period's position top attribute should be set
+      // correctly.
+      var parentTimePeriod = $("#" + handler.focusingCardId).closest(".time-period");
+      cardPosition.top = cardPosition.top + parentTimePeriod.position().top;
+    }
 
-  $("#like-comment-panel").animate({
-    top: cardPosition.top + "px",
-  }, 300, function() {
-    $("#like-comment-panel").addClass("hidden");
-  });
-  $("#deck-cards-panel").animate({
-    left: cardPosition.left + "px"
-  }, 300, function() {
-    $("#deck-cards-panel").addClass("hidden");
-    $("#" + handler.focusingCardId).css("z-index", "auto");
-  });  
+    $("#like-comment-panel").stop().animate({
+      top: (cardPosition.top + card.getTrueHeight(card.currentSide) + margin) + "px",
+    }, 300, function() {
+      // show info
+    });    
+  }
 }

@@ -12,8 +12,8 @@ CardsHandler.prototype.init = function() {
     // check if the target has class that's in the flipExceptionList
     if (!$(e.target).hasClass("no-flip")) {
       //flip($(this));
-      var card = cards[$(this).attr("id").split("_")[1]];
-      flipCard(card);
+
+      handler.handleFlip($(this));
     }
   });
 
@@ -163,18 +163,13 @@ CardsHandler.prototype.showCardInfo = function() {
 // not all cards are "masonried" in one div.
 CardsHandler.prototype.retrieveCardInfo = function() {
   var handler = this;
-  // clicked on info toggle again, but glass overlay is
-  // not hidden. So retreive the panels
-  var cardPosition = $("#" + handler.focusingCardId).position();
-  $("#like-comment-panel").animate({
-    top: cardPosition.top + "px",
-  }, 300, function() {
-    $("#like-comment-panel").addClass("hidden");
-  });
-  $("#deck-cards-panel").animate({
-    left: cardPosition.left + "px"
-  }, 300, function() {
-    $("#deck-cards-panel").addClass("hidden");
-    $("#" + handler.focusingCardId).css("z-index", "auto");
-  });  
+  $("#like-comment-panel").addClass("hidden");
+  $("#deck-cards-panel").addClass("hidden");
+  $("#" + handler.focusingCardId).css("z-index", "auto");
+}
+
+// card is a jquery obj
+CardsHandler.prototype.handleFlip = function(cardObj) {
+  var card = cards[cardObj.attr("id").split("_")[1]];
+  flipCard(card);
 }

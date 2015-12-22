@@ -324,6 +324,11 @@ $deck-cards-padding-top: 20px;
 	    background-color: transparent; // no background color
 	    min-height: 50px;
 	    padding: 0;
+	    &:hover {
+		opacity: 0.8;
+		cursor: pointer;
+	    }
+
 	    h3 { display: none; } // do not show the title
 	    .four-cards {
 		min-height: $tiny-card-size;

@@ -63,7 +63,9 @@ function grabRecommendContents(more) {
       $(document).ready(function() {
 	$("#recommended-contents-wrapper").masonry('reloadItems');
 	$(".home-card").each(function() {
-	  dealWithHomeCard($(this));
+	  if (!$(this).hasClass("focused")) {
+	    dealWithHomeCard($(this));
+	  }
 	});
 	// This is how you reload with masonry
 	$("#recommended-contents-wrapper").masonry();
@@ -72,3 +74,4 @@ function grabRecommendContents(more) {
     },
   });
 }
+

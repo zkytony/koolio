@@ -103,6 +103,7 @@ Card.prototype.addSpoilerIfTooLong = function(side) {
 
 Card.prototype.focus = function() {
   this.focused = true;
+  $("#"+this.id).addClass("focused");
 
   // make the card longer if has spoiler
   if (this.s["front"].hasClass("spoiler")) {
@@ -121,6 +122,7 @@ Card.prototype.focus = function() {
 
 Card.prototype.unfocus = function() {
   this.focused = false;
+  $("#"+this.id).removeClass("focused");
   this.s["front"].css("max-height", "300px");//css("cssText", "max-height: 300px");
   this.s["back"].css("max-height", "300px");//css("cssText", "max-height: 300px");
   //this.s["front"].removeAttr("style");
