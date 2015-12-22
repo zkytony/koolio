@@ -24,12 +24,12 @@
 // This class adjusts the size of the card according to
 // the situation, for example, the card is focused.
 function Card(id, side) {
-  this.id = id;
+  this.id = "card_" + id;
   
   // the front or back contents
   this.s = {
-    "front": $("#"+id).find(".flipper-front.card-side"),
-    "back": $("#"+id).find(".flipper-back.card-side")
+    "front": $("#"+this.id).find(".flipper-front.card-side"),
+    "back": $("#"+this.id).find(".flipper-back.card-side")
   }
 
   this.contentType = {

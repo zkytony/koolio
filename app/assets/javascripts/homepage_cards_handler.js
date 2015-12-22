@@ -46,7 +46,7 @@ CardsHandler.prototype.init = function() {
       var focusHomeCard = $(this).parents(".home-card");
       focusHomeCard.css("z-index", "5");
       handler.focusingCardId = focusHomeCard.attr("id");
-      handler.focusingCardRawId = handler.focusingCardId.split("_")[1]
+      handler.focusingCardRawId = handler.focusingCardId.split("_")[1];
       
       // Reset the info panels
       handler.resetLikeCommentsPanel();
@@ -55,7 +55,7 @@ CardsHandler.prototype.init = function() {
       grabCardInfo(handler.focusingCardRawId);
       handler.showCardInfo();
     } else {
-      var focusedCard = cards[handler.focusingCardId];
+      var focusedCard = cards[handler.focusingCardRawId];
       focusedCard.unfocus();
       $(".dark-overlay").addClass("hidden");
       handler.retrieveCardInfo();
@@ -66,7 +66,7 @@ CardsHandler.prototype.init = function() {
     $("#" + handler.focusingCardId).css("z-index", "auto");
     $("#like-comment-panel").addClass("hidden");
     $("#deck-cards-panel").addClass("hidden");
-    var focusedCard = cards[handler.focusingCardId];
+    var focusedCard = cards[handler.focusingCardRawId];
     focusedCard.s[focusedCard.currentSide].addClass("notransition");
     focusedCard.unfocus();
     focusedCard.s[focusedCard.currentSide].removeClass("notransition");
@@ -134,7 +134,7 @@ CardsHandler.prototype.showCardInfo = function() {
   var margin = 30;
   //var height = $("#" + handler.focusingCardId).outerHeight();
   var cardPosition = $("#" + handler.focusingCardId).position();
-  var focusedCard = cards[handler.focusingCardId];
+  var focusedCard = cards[handler.focusingCardRawId];
   focusedCard.focus();
   $("#like-comment-panel").removeClass("hidden");
   $("#deck-cards-panel").removeClass("hidden");

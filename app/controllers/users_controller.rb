@@ -21,7 +21,14 @@ class UsersController < ApplicationController
   def show
     if logged_in?
       @user = User.find(params[:id])
-      @recommended = RecommendContent.call(@user)
+      @more = params[:more]
+      # more may be nil, since some request may not 
+      # have this parameter
+      if @more
+        @recommended = RecommendContent.call(@user, true, params[:card_ids])
+      else
+        @recommended = RecommendContent.call(@user, false, nil)
+      end
       # user may want to create a card in home page
       @card = Card.new 
       # user may want to make a comment

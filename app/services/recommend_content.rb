@@ -5,15 +5,17 @@ class RecommendContent
   # followed by the given user, and grab some of the cards
   # from the decks that this user favorites, and grab some
   # of the popular cards or decks.
-  def self.call(user)
+  def self.call(user, more, card_ids)
     n_card = 7
     n_deck = 5
     
     # GrabPopularContent is not implemented
-    contents = GrabFollowingContent.call(user, n_card, n_deck)
-    contents |= GrabPopularContent.call(user, n_card) # take the union here
-    contents |= GrabFavoriteContent.call(user, n_card) 
-    contents |= GrabSelfLatestContent.call(user, 30000)
+    contents = GrabFollowingContent.call(user, n_card, n_deck, more, card_ids)
+    contents |= GrabPopularContent.call(user, n_card, more, card_ids) # take the union here
+    contents |= GrabFavoriteContent.call(user, n_card, more, card_ids)
+    if !more
+      contents |= GrabSelfLatestContent.call(user, 30000)
+    end
     contents
   end
 end

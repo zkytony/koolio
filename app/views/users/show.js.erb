@@ -1,6 +1,12 @@
+<% if @more %>
+$("#recommended-contents-wrapper").append("<%= j render partial: "shared/recommended" %>"
+				      + "<%= j render :partial => 'shared/card_info_panels/like_comment_panel'%>"
+				      + "<div class=\"hidden\" id=\"deck-cards-panel\"><%= j render :partial => 'shared/card_info_panels/deck_cards_panel'%></div>");
+<% else %>
 $("#recommended-contents-wrapper").html("<%= j render partial: "shared/recommended" %>"
 				      + "<%= j render :partial => 'shared/card_info_panels/like_comment_panel'%>"
 				      + "<div class=\"hidden\" id=\"deck-cards-panel\"><%= j render :partial => 'shared/card_info_panels/deck_cards_panel'%></div>");
+<% end %>
 
 
 

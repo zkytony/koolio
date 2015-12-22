@@ -116,7 +116,7 @@ ProfileCardsHandler.prototype.showCardInfo = function() {
 	cardPosition.top = cardPosition.top + parentTimePeriod.position().top;
     }
 
-    var focusedCard = cards[handler.focusingCardId];
+    var focusedCard = cards[handler.focusingCardRawId];
     focusedCard.focus();
     $("#like-comment-panel").removeClass("hidden");
     $("#deck-cards-panel").removeClass("hidden");

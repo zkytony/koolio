@@ -129,7 +129,7 @@ function flipCard(card) {
 // Adjust the height of the given home-card jquery object.
 // Also updates the global cards object
 function dealWithHomeCard(homecard) {
-  var id = homecard.attr("id");
+  var id = homecard.attr("id").split("_")[1];
   if (!cards.hasOwnProperty(id)) {
     cards[id] = new Card(id, "front");
   } else {

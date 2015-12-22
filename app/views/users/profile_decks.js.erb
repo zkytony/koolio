@@ -1,0 +1,4 @@
+$(".profile-contents-display").html("");
+$(".profile-contents-display").addClass("hidden");
+$("#decks-contents").removeClass("hidden");
+$("#decks-contents").html("<%= j render partial: "shared/profile_decks" %>");

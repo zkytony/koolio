@@ -1,42 +1,55 @@
+var noOngoingLoad = true;
 $(document).ready(function() {
-    $(document).on("click", "#add-card-btn", function() {
-	$(".glass-overlay").css("display", "block");
-	$("#editor-container-home").css("display", "block");
-    });
+  $(document).on("click", "#add-card-btn", function() {
+    $(".glass-overlay").css("display", "block");
+    $("#editor-container-home").css("display", "block");
+  });
 
-    $(document).on("click", ".glass-overlay", function() {
-	$(".glass-overlay").css("display", "none");
-	$("#editor-container-home").css("display", "none");
-    });
+  $(document).on("click", ".glass-overlay", function() {
+    $(".glass-overlay").css("display", "none");
+    $("#editor-container-home").css("display", "none");
+  });
 
-    var editor = new Editor("new_card");
-    editor.init();
+  var editor = new Editor("new_card");
+  editor.init();
 
-    $("#new_card").on("ajax:success", function(e, data, status, xhr) {
-	// when new card is created, refresh the recommended content
-	// by ajax query to user:show again
-	grabRecommendContents();
-    });
-    
-    $(".home-card").each(function() {
-	dealWithHomeCard($(this));
-    });
+  $("#new_card").on("ajax:success", function(e, data, status, xhr) {
+    // when new card is created, refresh the recommended content
+    // by ajax query to user:show again
+    grabRecommendContents(false);
+  });
+  
+  $(".home-card").each(function() {
+    dealWithHomeCard($(this));
+  });
 
-    $("#recommended-contents-wrapper").masonry({
-	columnWidth: 270,
-	gutter: 10,
-	itemSelector: ".home-card",
-	transitionDuration: 0
-    });
+  $("#recommended-contents-wrapper").masonry({
+    columnWidth: 270,
+    gutter: 10,
+    itemSelector: ".home-card",
+    transitionDuration: 0
+  });
 
-    var cardsHandler = new CardsHandler();
-    cardsHandler.init();
+  // When scroll to nearly the bottom, grab more recommended contents
+  var limit = 20;
+  $(window).scroll(function() {
+    if ($(document).height() - limit <= $(window).scrollTop() + $(window).height()) {
+      if (noOngoingLoad) {
+	grabRecommendContents(true);
+      }
+    }
+  });
+
+  var cardsHandler = new CardsHandler();
+  cardsHandler.init();
 });
 
 // Adjust the height of the given home-card jquery object.
 // Also updates the global cards object
 function dealWithHomeCard(homecard) {
-  var id = homecard.attr("id");
+  alert("HI");
+  var id = homecard.attr("id").split("_")[1]; // get the number
+  alert(id);
   if (!cards.hasOwnProperty(id)) {
     cards[id] = new Card(id, "front");
   } else {
@@ -46,10 +59,13 @@ function dealWithHomeCard(homecard) {
   cards[id].adjustCardHeight();
 }
 
-function grabRecommendContents() {
+// more is a boolean; true if it is grabbing more contents for scrolling
+function grabRecommendContents(more) {
+  noOngoingLoad = false;
   $.ajax({
     // send to current page (user show)
-    type: 'GET',    
+    type: 'GET',
+    data: { more: more, card_ids: Object.keys(cards) },
     dataType: 'script',
     success: function(data) {
       // return a script that will render the recommended contents html
@@ -61,7 +77,7 @@ function grabRecommendContents() {
 	// This is how you reload with masonry
 	$("#recommended-contents-wrapper").masonry();
       });
+      noOngoingLoad = true;
     },
   });
 }
-
