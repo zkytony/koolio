@@ -1,0 +1,13 @@
+<%# partial for one deck %>
+<% cards = deck.cards.sort_by(&:created_at).reverse.slice(0, 4) %>
+<div class="one-deck" id="deck_<%="#{deck.id}"%>">
+  <h3><%="#{deck.title}"%></h3>
+  <div class="four-cards">
+    <% cards.each do |card| %>
+      <% card_front = JSON.parse(card.front_content) %>
+      <div class="scaled-card card-<%="#{card_front['type']}"%>">
+	<%= render partial: "shared/card_content_templates/#{card_front['type']}_side", locals: { content: card_front['content'] } %>
+      </div>
+    <% end %>
+  </div>
+</div>
