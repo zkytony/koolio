@@ -14,6 +14,9 @@
       <button class="inner-edit-back-btn" type="button" id="<%="#{side}"%>-img-edit-<%="#{other_side}"%>-btn">edit <%="#{other_side}"%></button>
       <button class="inner-change-type-btn" type="button" id="<%="#{side}"%>-img-change-type-btn">change type</button>
     </div>
+    <div class="hidden" id="waiting">
+      <%= image_tag "tmp/loading.gif" %>
+    </div>
   </div>
   <div class="image-editor-display hidden" id="<%="#{side}"%>-img-editor-display">
     <div class="image-display-wrapper">

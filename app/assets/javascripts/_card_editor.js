@@ -304,6 +304,9 @@ ImageEditor.prototype.sendFileAJAX = function(formdata) {
     contentType: false,
     processData: false,
     dataType: 'json', // get back json
+    beforeSend: function() {
+      $("#waiting").removeClass("hidden");
+    },
     success: function(output) {
       var fileName = output["file_name"];
       var storeDir = output["store_dir"];
@@ -321,6 +324,9 @@ ImageEditor.prototype.sendFileAJAX = function(formdata) {
 	imageEditor.editor.hasDraft[imageEditor.side] = true;
 	imageEditor.editor.updateCreateCardBtn();
       }
+    },
+    complete: function() {
+      $("#waiting").addClass("hidden");
     }
   });
 }
