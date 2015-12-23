@@ -248,7 +248,8 @@ function ImageEditor(editor, side) {
   InnerEditor.call(this, editor, side);
   this.type = "img";
   this.storeDir = undefined;
-  this.imgFile = undefined; // url to that image file
+  this.imgFile = undefined; // file name
+  this.host = undefined; // host is a string: http://xxxx.com
 }
 
 ImageEditor.prototype.init = function() {
@@ -288,6 +289,7 @@ ImageEditor.prototype.grabContent = function() {
   var result = {};
   result["file_name"] = this.imgFile;
   result["store_dir"] = this.storeDir;
+  result["host"] = this.host;
   result["descp"] = $("#" + this.side + "-img-descp").val();
   return result;
 }
@@ -305,13 +307,15 @@ ImageEditor.prototype.sendFileAJAX = function(formdata) {
     success: function(output) {
       var fileName = output["file_name"];
       var storeDir = output["store_dir"];
+      var host = output["host"];
       if (fileName) {
 	imageEditor.imgFile = fileName;
 	imageEditor.storeDir = storeDir;
+	imageEditor.host = host;
 	// Go to display phase, display that imgFile
 	$("#" + imageEditor.side + "-img-editor-uploader").addClass("hidden");
 	$("#" + imageEditor.side + "-img-editor-display").removeClass("hidden");
-	$("#" + imageEditor.side + "-img-display").attr("src", "/" + imageEditor.storeDir + "/" + imageEditor.imgFile);
+	$("#" + imageEditor.side + "-img-display").attr("src", host + "/" + storeDir + "/" + fileName);
 
 	// hasDraft is true for this side
 	imageEditor.editor.hasDraft[imageEditor.side] = true;

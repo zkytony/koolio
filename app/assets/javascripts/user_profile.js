@@ -42,7 +42,6 @@ $(document).ready(function() {
     if (isHot || isAll) {
       if ($(document).height() - limit <= $(window).scrollTop() + $(window).height()) {
 	if (noOngoingLoad) {
-	 // alert("DID");
 	  if (isHot) {
 	    ajaxGrabCardsForProfile(userId, "hot", true);
 	  } else if (isAll) {
