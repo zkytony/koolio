@@ -156,13 +156,22 @@ $text-default-font-color: #808080;
     }
     /* end img card */
 }
-/* Recommend-contents regionr */
+/* Home page wrappers arrangement */
+$recommended-contents-width: 3 * $home-card-width + $home-card-margin * 6;
+$side-contents-width: $home-card-width + $home-card-margin;
+$home-total-width: $recommended-contents-width + $side-contents-width;
+#home-main-contents-wrapper {
+    width: $home-total-width;
+    margin: auto;
+}
+
+/* Recommend-contents region */
 #recommended-contents-wrapper {
-    width: 3 * $home-card-width + $home-card-margin * 6;
+    width: $recommended-contents-width;
     min-height: $home-card-min-height;
     position: relative;
     top: 40px;
-    left: 10%;
+    //left: 10%;
     @include tablet_landscape_and_below {
 	left: 30px;
     }
