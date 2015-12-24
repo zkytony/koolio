@@ -6,7 +6,7 @@ $nav-logo-color: $white;
 
 /* Navbar variables */
 $nav-height: 40px;
-$nav-width: 85%;
+$nav-width: $home-total-width; //85%;
 $nav-padding: 10px;
 $nav-logo-size: 35px;
 $nav-logo-width: 150px;
@@ -14,36 +14,54 @@ $nav-logo-margin-right: 50px;
 $nav-search-field-height: $nav-height - 12px;
 $nav-search-field-width: 400px;
 $nav-search-field-font-size: 14px;
+$nav-option-padding: 20px;
 $nav-option-btn-size: $nav-height;
 $nav-dropdown-width: 100px;
+$nav-first-part-width: $nav-logo-width + $nav-logo-margin-right + $nav-search-field-width + 30px; // 30px is for margins
+$nav-second-part-width: $nav-option-btn-size * 4 + $nav-option-padding * 3;
 
 .nav-wrapper {
+    @include content-wrapper($nav-width, 100%);
     background-color: $nav-bg-color;
     padding: 10px;
+    position: relative;
+    top: 0;
 }
 
+
 .nav-container {
-    @include content-wrapper($nav-width, 100%);
+    width: 100%;
     height: $nav-height;
     margin: auto;
+    position: relative;
+    left: 0;
+    top: 0;
 }
 
 .nav-first-part {
-    float: left;
-    width: 71%;
+    //float: left;
+    width: $nav-first-part-width;
     height: $nav-height;
     @include tablet-landscape-and-below {
-	width: 72%;
+	width: $nav-first-part-width;
+//	width: 72%;
     }
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .nav-second-part {
-    float: left;
-    width: 29%;
+    //float: left;
+    width: $nav-second-part-width;
     height: $nav-height;
     @include tablet-landscape-and-below {
-	width: 28%;
+	width: $nav-second-part-width;
+//	width: 28%;
     }
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 .nav-logo, .nav-search-wrapper {
@@ -76,6 +94,9 @@ $nav-dropdown-width: 100px;
     }
 }
 
+.nav-option-btn:last-child {
+    padding-right: 0px;
+}
 .nav-option-btn {
     float: left;
     width: $nav-option-btn-size;
@@ -87,7 +108,7 @@ $nav-dropdown-width: 100px;
 	    color: $white;
 	}
     }
-    padding-left: 20px;
+    padding-right: $nav-option-padding;
 }
 
 .nav-option-highlighted, .nav-option-sign-in {
@@ -120,7 +141,7 @@ $nav-dropdown-width: 100px;
     max-width: $nav-dropdown-width + 200px;
     background-color: $white;
     position: absolute;
-    right: (100% - $nav-width) / 2;
+    right: 0px;//$nav-width;
     padding: 0px 2px;
     z-index: 10;
 

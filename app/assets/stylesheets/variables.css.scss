@@ -52,5 +52,71 @@ $side-panel-width: 185px;
 $min-screen-width: $center-content-width + $side-panel-width * 2 + 10px;
 $margin-between-rows: 25px;
 
-/* user info partial */
+
 $user-info-profile-width: 70px;
+
+/* Card Editors */
+$add-card-btn-radius: 30px;
+$home-card-editor-width: 750px;
+$home-card-editor-height: 480px;
+
+$default-border-radius: 3px;
+
+/* Home cards */
+$home-card-width: 250px;
+$home-card-min-height: $home-card-width;
+$home-card-margin: 15px;
+/*** TEXT ***/
+$text-body-font-size: 18px;
+$text-title-font-size: 24px;
+$text-default-bg: #FCFCFC;
+$text-default-font-color: #808080;
+/*** IMG card ***/
+$img-min-width: 50%;
+$img-min-height: 50%;
+$img-descp-font-size: 21px;
+/* Home page wrappers arrangement */
+$recommended-contents-width: 3 * $home-card-width + $home-card-margin * 6;
+$side-contents-width: $home-card-width + $home-card-margin;
+$home-total-width: $recommended-contents-width + $side-contents-width;
+/* info panels */
+$info-panel-bg: #E6E6E6;
+$info-font-color: darken($darker-grey, 15%);
+$comment-box-height: 55px;
+$liked-color: #BB3C41; // for cards
+$liked-comment-color: #007fff;
+$user-deck-height: 40px;
+$deck-cards-padding-top: 20px;
+
+
+/// Profile page ///
+$whole-contents-width: 980px;
+$left-contents-width: 225px;
+$left-gap: 80px;
+$right-contents-width: $whole-contents-width - $left-gap - $left-contents-width;
+/* Deck display on profile page */
+$deck-width: 250px;
+$deck-padding: 12px;
+$title-padding: 10px;
+$title-font-size: 15px;
+$scaled-cards-gap: 3px;
+$deck-title-color: #CCCCCC;
+/* time period */
+$time-ago-padding: 20px;
+$time-card-padding-top: 20px;
+$time-ago-color: #CCCCCC;
+$time-period-vertical-gap: 20px;
+/* The tabs */
+$tab-font-size: 17px;
+$vertical-gap: 20px; // between tabs and the div below it
+$tab-vertical-padding: 13px;
+$tabs-height: 2*$tab-vertical-padding + $tab-font-size;
+$tab-unselected-color: #CCCCCC;
+$tab-selected-color: #999999;
+/* Profile pic and user stats */
+$prof-width: 175px;
+$stat-height: 100px;
+$profpic-bg: #F7F7F7;
+$username-color: #808080;
+$stat-color: #B3B3B3;
+

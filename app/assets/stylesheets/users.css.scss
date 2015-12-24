@@ -6,12 +6,6 @@
 @import "global";
 @import "loading_gif";
 
-$add-card-btn-radius: 30px;
-$home-card-editor-width: 750px;
-$home-card-editor-height: 480px;
-
-$default-border-radius: 3px;
-
 .add-card-btn-container {
     position: fixed;
     bottom: 50px;
@@ -49,16 +43,6 @@ $default-border-radius: 3px;
     }
     background-color: $bg-color;
 }
-
-/* Home cards */
-$home-card-width: 250px;
-$home-card-min-height: $home-card-width;
-$home-card-margin: 15px;
-/*** TEXT ***/
-$text-body-font-size: 18px;
-$text-title-font-size: 24px;
-$text-default-bg: #FCFCFC;
-$text-default-font-color: #808080;
 
 .card-side {
     min-height: $home-card-min-height;
@@ -119,9 +103,6 @@ $text-default-font-color: #808080;
     /* end text card */
 
     /* img card */
-    $img-min-width: 50%;
-    $img-min-height: 50%;
-    $img-descp-font-size: 21px;
     .img-type-side {
 	padding: 0px;
 	background-color: $white;//$healthy-black;
@@ -156,10 +137,6 @@ $text-default-font-color: #808080;
     }
     /* end img card */
 }
-/* Home page wrappers arrangement */
-$recommended-contents-width: 3 * $home-card-width + $home-card-margin * 6;
-$side-contents-width: $home-card-width + $home-card-margin;
-$home-total-width: $recommended-contents-width + $side-contents-width;
 #home-main-contents-wrapper {
     width: $home-total-width;
     margin: auto;
@@ -178,11 +155,6 @@ $home-total-width: $recommended-contents-width + $side-contents-width;
 }
 
 /* info panels */
-$info-panel-bg: #E6E6E6;
-$info-font-color: darken($darker-grey, 15%);
-$comment-box-height: 55px;
-$liked-color: #BB3C41; // for cards
-$liked-comment-color: #007fff;
 #like-comment-panel, #deck-cards-panel {
     width: $home-card-width;
     position: absolute;
@@ -296,8 +268,8 @@ $liked-comment-color: #007fff;
 	}
     }
 }
-$user-deck-height: 40px;
-$deck-cards-padding-top: 20px;
+
+/* Deck cards panel */
 #deck-cards-panel {
     min-height: $user-deck-height;
     overflow: hidden;
@@ -358,6 +330,7 @@ $deck-cards-padding-top: 20px;
 	}
     }
 }
+/* end of deck cards info */
 
 /* One liner info that has a profile pic */
 /* The main container of the info has certain dimension already */
@@ -397,15 +370,12 @@ $deck-cards-padding-top: 20px;
 ////////////////////////
 //// PROFILE PAGE //////
 ////////////////////////
-$whole-contents-width: 980px;
-$left-contents-width: 225px;
-$left-gap: 80px;
-$right-contents-width: $whole-contents-width - $left-gap - $left-contents-width;
 .main-contents-wrapper {
     @include content-wrapper($whole-contents-width, 95%);
     min-height: 100px;
     position: relative;
     top: 40px;
+    overflow: hidden;
 }
 
 .left-contents-wrapper, .right-contents-wrapper {
@@ -422,11 +392,7 @@ $right-contents-width: $whole-contents-width - $left-gap - $left-contents-width;
     margin-left: $left-gap;
 }
 
-$prof-width: 175px;
-$stat-height: 100px;
-$profpic-bg: #F7F7F7;
-$username-color: #808080;
-$stat-color: #B3B3B3;
+/* Profile picture and user stats */
 .profpic-stat {
     width: 100%;
     min-height: $prof-width + $stat-height;
@@ -473,12 +439,6 @@ $stat-color: #B3B3B3;
     
 }
 
-$tab-font-size: 17px;
-$vertical-gap: 20px;
-$tab-vertical-padding: 13px;
-$tabs-height: 2*$tab-vertical-padding + $tab-font-size;
-$tab-unselected-color: #CCCCCC;
-$tab-selected-color: #999999;
 .contents-tabs {
     width: 100%;
     //height: $tabs-height;
@@ -572,10 +532,6 @@ $tab-selected-color: #999999;
     
 }
 
-$time-ago-padding: 20px;
-$time-card-padding-top: 20px;
-$time-ago-color: #CCCCCC;
-$time-period-vertical-gap: 20px;
 .time-period {
     min-height: $home-card-min-height;
     margin-bottom: $time-period-vertical-gap;
@@ -601,13 +557,6 @@ $time-period-vertical-gap: 20px;
     }
 }
 
-// Deck display on profile page
-$deck-width: 250px;
-$deck-padding: 12px;
-$title-padding: 10px;
-$title-font-size: 15px;
-$scaled-cards-gap: 3px;
-$deck-title-color: #CCCCCC;
 .one-deck {
     width: $deck-width;
     min-height: $deck-width + 2*$scaled-cards-gap+2*$title-padding + 10px; // need some extra padding at the bottom
