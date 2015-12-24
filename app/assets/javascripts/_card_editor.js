@@ -330,7 +330,12 @@ ImageEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
 
 ImageEditor.prototype.reset = function() {
   var imageEditor = this;
-  $("#" + imageEditor.side + "-image-editor-container").addClass("hidden");
+  $("#" + imageEditor.side + "-img-editor-container").addClass("hidden");
+  $("#" + imageEditor.side + "-img-editor-display").addClass("hidden");
+  $("#" + imageEditor.side + "-img-editor-uploader").removeClass("hidden");
+  $("#" + imageEditor.side + "-img-display").attr("src", "");
+  $("#" + imageEditor.side + "-img-descp").val("");
+  $("#" + imageEditor.side + "-img-url").val("");
 }
 
 // Return the content of the image editor as JSON string
