@@ -292,11 +292,18 @@ ImageEditor.prototype.init = function() {
   $("#" + imageEditor.side + "-img-url").keyup(function(e){
     if(e.keyCode == 13) {
       var url = $("#" + imageEditor.side + "-img-url").val();
+      if (!isUrl(url)) {
+	$("#" + imageEditor.side + "-url-alert-msg").removeClass("hidden");
+	$("#" + imageEditor.side + "-url-alert-msg").html("Hmm... Invalid URL.");
+	return;
+      }
+
       // check if the url is an image; This is asynchronous
       $("<img>", {
 	src: url,
 	error: function() { 
 	  $("#" + imageEditor.side + "-url-alert-msg").removeClass("hidden");
+	  $("#" + imageEditor.side + "-url-alert-msg").html("Ooops. Not an image.");
 	},
 	load: function() {
 	  $("#" + imageEditor.side + "-url-alert-msg").addClass("hidden");
@@ -393,6 +400,7 @@ ImageEditor.prototype.displayPhase = function(output) {
 }
 /* End of ImageEditor */
 
-function IsValidImageUrl(url) {
-  return false;
+function isUrl(s) {
+   var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+   return regexp.test(s);
 }
