@@ -41,8 +41,8 @@ CardsHandler.prototype.init = function() {
   // element has .toggle-off class. 
   $(document).on("click", ".info-toggle", function() {
     // only do the following if the dark-overlay is hidden
-    if ($(".dark-overlay").hasClass("hidden")) {
-      $(".dark-overlay").removeClass("hidden");
+    if ($("#overlay-for-focus-card").hasClass("hidden")) {
+      $("#overlay-for-focus-card").removeClass("hidden");
       var focusHomeCard = $(this).parents(".home-card");
       focusHomeCard.css("z-index", "5");
       handler.focusingCardId = focusHomeCard.attr("id");
@@ -57,12 +57,12 @@ CardsHandler.prototype.init = function() {
     } else {
       var focusedCard = cards[handler.focusingCardRawId];
       focusedCard.unfocus();
-      $(".dark-overlay").addClass("hidden");
+      $("#overlay-for-focus-card").addClass("hidden");
       handler.retrieveCardInfo();
     }
   });
-  $(document).on("click", ".dark-overlay", function() {
-    $(".dark-overlay").addClass("hidden");
+  $(document).on("click", "#overlay-for-focus-card", function() {
+    $("#overlay-for-focus-card").addClass("hidden");
     $("#" + handler.focusingCardId).css("z-index", "auto");
     $("#like-comment-panel").addClass("hidden");
     $("#deck-cards-panel").addClass("hidden");

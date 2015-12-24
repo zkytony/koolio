@@ -260,10 +260,59 @@ ImageEditor.prototype.init = function() {
   $(document).on("change", "#" + imageEditor.side + "-side-img-file", function() {
     var formdata = new FormData();
     var file = $(this).prop('files')[0];
-    formdata.append("file", file);
-    formdata.append("type", "img");
+    formdata.append("target", file);
+    formdata.append("file_type", "img");
+    formdata.append("source_type", "upload");
     
     imageEditor.sendFileAJAX(formdata);
+  });
+
+  // When clicked the link button, a form pops up
+  $(document).on("click", "#" + imageEditor.side + "-side-img-link", function() {
+    $("#" + imageEditor.side + "-img-link-paste").removeClass("hidden");
+    $("#" + imageEditor.side + "-img-url").focus();
+    // disable the two buttons
+    $("#" + imageEditor.side + "-side-img-file").prop("disabled", true);
+    $("#" + imageEditor.side + "-side-img-link").prop("disabled", true);
+  });
+
+  $(document.body).click(function(e) {
+    var linkDiv = $("#" + imageEditor.side + "-img-link-paste");
+    if (!linkDiv.hasClass("hidden")) {
+      if (e.target.id !== "#" + imageEditor.side + "-img-link-paste" && !$.contains(linkDiv[0], e.target)) {
+	linkDiv.addClass("hidden");
+	$("#" + imageEditor.side + "-side-img-file").prop("disabled", false);
+	$("#" + imageEditor.side + "-side-img-link").prop("disabled", false);
+      }
+    }
+  });
+
+  // When hit enter in the url input field, first validate
+  // if the url is for an image, then use ajax to send the image to server.
+  $("#" + imageEditor.side + "-img-url").keyup(function(e){
+    if(e.keyCode == 13) {
+      var url = $("#" + imageEditor.side + "-img-url").val();
+      // check if the url is an image; This is asynchronous
+      $("<img>", {
+	src: url,
+	error: function() { 
+	  $("#" + imageEditor.side + "-url-alert-msg").removeClass("hidden");
+	},
+	load: function() {
+	  $("#" + imageEditor.side + "-url-alert-msg").addClass("hidden");
+	  $("#" + imageEditor.side + "-img-link-paste").addClass("hidden");
+	  $("#" + imageEditor.side + "-img-link-paste").val("");
+	  // now send an ajax request to the file uploader, and let
+	  // the server side download and save the iamge.
+	  var formdata = new FormData();
+	  formdata.append("target", url);
+	  formdata.append("file_type", "img");
+	  formdata.append("source_type", "link");
+
+	  imageEditor.sendFileAJAX(formdata);
+	}
+      });
+    }
   });
 
   imageEditor.reset();
@@ -300,7 +349,7 @@ ImageEditor.prototype.sendFileAJAX = function(formdata) {
   $.ajax({
     type: 'post',
     url: '/uploaded_files',
-    data: formdata,  // formdata has a property "file"
+    data: formdata,  // formdata has a property "target" & "file_type" & "source_type"
     contentType: false,
     processData: false,
     dataType: 'json', // get back json
@@ -308,26 +357,37 @@ ImageEditor.prototype.sendFileAJAX = function(formdata) {
       $("#waiting").removeClass("hidden");
     },
     success: function(output) {
-      var fileName = output["file_name"];
-      var storeDir = output["store_dir"];
-      var host = output["host"];
-      if (fileName) {
-	imageEditor.imgFile = fileName;
-	imageEditor.storeDir = storeDir;
-	imageEditor.host = host;
-	// Go to display phase, display that imgFile
-	$("#" + imageEditor.side + "-img-editor-uploader").addClass("hidden");
-	$("#" + imageEditor.side + "-img-editor-display").removeClass("hidden");
-	$("#" + imageEditor.side + "-img-display").attr("src", host + "/" + storeDir + "/" + fileName);
-
-	// hasDraft is true for this side
-	imageEditor.editor.hasDraft[imageEditor.side] = true;
-	imageEditor.editor.updateCreateCardBtn();
-      }
+      imageEditor.displayPhase(output);
     },
     complete: function() {
       $("#waiting").addClass("hidden");
     }
   });
 }
+
+// Go to the display phase of the image editor. Show the image.
+ImageEditor.prototype.displayPhase = function(output) {
+  var imageEditor = this;
+  var fileName = output["file_name"];
+  var storeDir = output["store_dir"];
+  var host = output["host"];
+  if (fileName) {
+    imageEditor.imgFile = fileName;
+    imageEditor.storeDir = storeDir;
+    imageEditor.host = host;
+    // Go to display phase, display that imgFile
+    $("#" + imageEditor.side + "-img-editor-uploader").addClass("hidden");
+    $("#" + imageEditor.side + "-img-editor-display").removeClass("hidden");
+    $("#" + imageEditor.side + "-img-display").attr("src", host + "/" + storeDir + "/" + fileName);
+
+    // hasDraft is true for this side
+    imageEditor.editor.hasDraft[imageEditor.side] = true;
+    imageEditor.editor.updateCreateCardBtn();
+  }
+
+}
 /* End of ImageEditor */
+
+function IsValidImageUrl(url) {
+  return false;
+}

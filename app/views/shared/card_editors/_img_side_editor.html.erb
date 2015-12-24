@@ -1,4 +1,5 @@
 <div class="image-editor">
+  <!-- START IMAGE EDITOR UPLOADER -->
   <div class="image-editor-uploader" id="<%="#{side}"%>-img-editor-uploader">
     <div class="image-uploader-wrapper">
       <!-- button class="image-uploader-half right-dash image-upload-type-btn"><i class="fa fa-upload"></i></button -->
@@ -8,7 +9,7 @@
 	  <i class="fa fa-upload" id="upload-file-icon"></i> 
 	</div>
       </label>
-      <button class="image-uploader-half left-dash image-upload-type-btn" type="button"><i class="fa fa-link"></i></button>
+      <button class="image-uploader-half left-dash image-upload-type-btn" id="<%="#{side}"%>-side-img-link" type="button"><i class="fa fa-link"></i></button>
     </div>
     <div class="inner-editor-btn-row">
       <button class="inner-edit-back-btn" type="button" id="<%="#{side}"%>-img-edit-<%="#{other_side}"%>-btn">edit <%="#{other_side}"%></button>
@@ -18,6 +19,8 @@
       <%= image_tag "tmp/loading.gif" %>
     </div>
   </div>
+  <!-- END IMAGE EDITOR UPLOADER -->
+  <!-- START IMAGE EDITOR DISPLAY -->
   <div class="image-editor-display hidden" id="<%="#{side}"%>-img-editor-display">
     <div class="image-display-wrapper">
       <img id="<%="#{side}"%>-img-display" src="" alt="">
@@ -29,5 +32,11 @@
       <button class="inner-edit-back-btn" type="button" id="<%="#{side}"%>-img-edit-<%="#{other_side}"%>-btn">edit <%="#{other_side}"%></button>
       <button class="inner-change-type-btn" type="button" id="<%="#{side}"%>-img-change-type-btn">change type</button>
     </div>
+  </div>
+  <!-- END IMAGE EDITOR DISPLAY -->
+  <!-- IMAGE LINK PASTE -->
+  <div class="image-link-paste hidden" id="<%="#{side}"%>-img-link-paste">
+    <input type="text" placeholder="enter your link here" id="<%="#{side}"%>-img-url">
+    <p class="url-alert-msg hidden" id="<%="#{side}"%>-url-alert-msg">Ooops. Not an image.</p>
   </div>
 </div>
