@@ -105,6 +105,10 @@ $text-default-font-color: #808080;
     /* text card */
     .card-text-body {
 	font-size: $text-body-font-size;
+	// allow \n as line breaks
+	white-space: pre-line;
+	margin-top: -$text-body-font-size; // needs to compensate the line-height at the
+	                   // top due to white-space: pre-line
     }
     .card-text-title h1 {
 	font-size: $text-title-font-size;
