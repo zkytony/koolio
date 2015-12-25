@@ -162,7 +162,7 @@ ProfileCardsHandler.prototype.showCardInfo = function() {
   // if the deck panel is out of bound, reverse the deckPanelLeft
   // to show it on the other side
   var deckPanelLeft = (cardPosition.left + width + margin);
-  if (deckPanelLeft + width > $(".profile-contents-display").outerWidth()) {
+  if (deckPanelLeft + width > $("#" + type + "-contents").outerWidth()) {
     deckPanelLeft = (cardPosition.left - width - margin);
   }
   handler.showCardInfoSetup(
