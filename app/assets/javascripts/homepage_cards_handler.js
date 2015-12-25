@@ -136,27 +136,40 @@ CardsHandler.prototype.showCardInfo = function() {
   var cardPosition = $("#" + handler.focusingCardId).position();
   var focusedCard = cards[handler.focusingCardRawId];
   focusedCard.focus();
+  var deckPanelLeft = (cardPosition.left + width + margin);
+  handler.showCardInfoSetup(
+    { 
+      top: (cardPosition.top + focusedCard.getTrueHeight(focusedCard.currentSide) + margin) + "px",
+      left: cardPosition.left + "px",
+      opacity: 0      
+    }, // like panel initial
+    {
+      top: cardPosition.top + "px",
+      left: deckPanelLeft,
+      opacity: 0
+    } // deck panel initial
+  );
+
+  handler.showCardInfoAnimate(
+    { 
+      opacity: 1
+    }, // like panel final
+    {
+      opacity: 1
+    } // deck panel finall
+  );
+}
+
+CardsHandler.prototype.showCardInfoSetup = function(likePanelIniCSS, deckPanelIniCSS) {
   $("#like-comment-panel").removeClass("hidden");
-  $("#deck-cards-panel").removeClass("hidden");
-  // first align the comment panel with the card
-  $("#like-comment-panel").css({
-    top: cardPosition.top + "px",
-    left: cardPosition.left + "px"
-  });
-  $("#deck-cards-panel").css({
-    top: cardPosition.top + "px",
-    left: cardPosition.left + "px"
-  });
-  $("#like-comment-panel").animate({
-    top: (cardPosition.top + focusedCard.getTrueHeight(focusedCard.currentSide) + margin) + "px",
-  }, 300, function() {
-    // show info
-  });
-  $("#deck-cards-panel").animate({
-    left: (cardPosition.left + width + margin) + "px"
-  }, 300, function() {
-    // show info
-  });  
+  $("#deck-cards-panel").removeClass("hidden");  
+  $("#like-comment-panel").css(likePanelIniCSS);
+  $("#deck-cards-panel").css(deckPanelIniCSS);
+}
+
+CardsHandler.prototype.showCardInfoAnimate = function(likePanelFinalCSS, deckPanelFinalCSS) {
+  $("#like-comment-panel").animate(likePanelFinalCSS, 150, function() {});
+  $("#deck-cards-panel").animate(deckPanelFinalCSS, 150, function() {});  
 }
 
 // This method may need to be overriden in the case that

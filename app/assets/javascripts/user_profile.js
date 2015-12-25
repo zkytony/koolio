@@ -142,7 +142,7 @@ ProfileCardsHandler.prototype.showCardInfo = function() {
   // first place the panels at the same position
   // as the parent card, then do the slide
   var width = 250;
-  var margin = 30;
+  var margin = 40;
   //var height = $("#" + handler.focusingCardId).outerHeight();
   var cardPosition = $("#" + handler.focusingCardId).position();
 
@@ -158,24 +158,34 @@ ProfileCardsHandler.prototype.showCardInfo = function() {
   $("#like-comment-panel").removeClass("hidden");
   $("#deck-cards-panel").removeClass("hidden");
   // first align the comment panel with the card
-  $("#like-comment-panel").css({
-    top: cardPosition.top + "px",
-    left: cardPosition.left + "px"
-  });
-  $("#deck-cards-panel").css({
-    top: cardPosition.top + "px",
-    left: cardPosition.left + "px"
-  });
-  $("#like-comment-panel").animate({
-    top: (cardPosition.top + focusedCard.getTrueHeight(focusedCard.currentSide) + margin) + "px",
-  }, 300, function() {
-    // show info
-  });
-  $("#deck-cards-panel").animate({
-    left: (cardPosition.left + width + margin + 10) + "px"
-  }, 300, function() {
-    // show info
-  });
+
+  // if the deck panel is out of bound, reverse the deckPanelLeft
+  // to show it on the other side
+  var deckPanelLeft = (cardPosition.left + width + margin);
+  if (deckPanelLeft + width > $(".profile-contents-display").outerWidth()) {
+    deckPanelLeft = (cardPosition.left - width - margin);
+  }
+  handler.showCardInfoSetup(
+    { 
+      top: (cardPosition.top + focusedCard.getTrueHeight(focusedCard.currentSide) + margin) + "px",
+      left: cardPosition.left + "px",
+      opacity: 0      
+    }, // like panel initial
+    {
+      top: cardPosition.top + "px",
+      left: deckPanelLeft,
+      opacity: 0
+    } // deck panel initial
+  );
+
+  handler.showCardInfoAnimate(
+    { 
+      opacity: 1
+    }, // like panel initial
+    {
+      opacity: 1
+    } // deck panel initial
+  );
 }
 
 ProfileCardsHandler.prototype.handleFlip = function(cardObj) {
