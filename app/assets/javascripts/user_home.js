@@ -5,8 +5,8 @@ $(document).ready(function() {
     $("#editor-container-home").css("display", "block");
   });
 
-  $(document).on("click", ".glass-overlay", function() {
-    $(".glass-overlay").css("display", "none");
+  $(document).on("click", "#overlay-for-editor", function() {
+    $("#overlay-for-editor").css("display", "none");
     $("#editor-container-home").css("display", "none");
   });
 

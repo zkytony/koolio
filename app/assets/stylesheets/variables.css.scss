@@ -138,10 +138,11 @@ $left-gap: 80px;
 $whole-contents-width: $left-contents-width + $left-gap + $right-contents-width;
 $whole-contents-left-shift: -($nav-width - $whole-contents-width) / 2; // align the navbar with the left edge of the profile pic region
 /* Deck display on profile page */
-$deck-display-gap: 60px;
-$deck-width: $right-contents-width / 2 - $deck-display-gap;//250px;
+$deck-display-gap: 15px;
+$deck-width: $right-contents-width / 3 - 2*$deck-display-gap;//250px;
 $deck-padding: 12px;
 $title-padding: 10px;
 $title-font-size: 15px;
 $scaled-cards-gap: 3px;
 $deck-title-color: #CCCCCC;
+$deck-height: $deck-width + 2*$scaled-cards-gap+2*$title-padding + 10px; // need some extra padding at the bottom

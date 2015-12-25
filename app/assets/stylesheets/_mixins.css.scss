@@ -385,8 +385,8 @@ $mq-desktop		: 1382px !default;
 }
 
 @mixin center-absolute-element {
-    //margin-left: auto;
-    //margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
     left: 0;
     right: 0;
 }

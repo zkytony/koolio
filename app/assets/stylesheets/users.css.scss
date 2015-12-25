@@ -311,6 +311,7 @@
 	    background-color: transparent; // no background color
 	    min-height: 50px;
 	    padding: 0;
+	    float: none;
 	    &:hover {
 		opacity: 0.8;
 		cursor: pointer;
@@ -555,13 +556,18 @@
     }
 }
 
-.one-deck {
-    width: $deck-width;
-    min-height: $deck-width + 2*$scaled-cards-gap+2*$title-padding + 10px; // need some extra padding at the bottom
-    background-color: $white;
+.one-deck, .add-deck-btn {
     padding: 0 $deck-padding $deck-padding $deck-padding;
-    position: relative;
+    float:left;
+    margin-bottom: $deck-display-gap;
+    margin-right: $deck-display-gap;
     @include border-radius($default-border-radius);
+}
+
+.one-deck {
+    min-height: $deck-height;
+    background-color: $white;
+    position: relative;
     h3 {
 	color: $deck-title-color;
 	font-size: 15px;
@@ -601,5 +607,47 @@
 		font-size: 16px;
 	    }
 	}
+    }
+}
+/* END ONE CARD */
+
+.add-deck-btn {
+    width: $deck-width - 2*2px;
+    background-color: rgba(lighten($bg-color, 10%), 0.7);
+    height: $deck-height - 2*2px;
+    position: relative;
+    border: 2px dashed $white;
+    //@include box-sizing(border-box);
+    &:hover {
+	cursor: pointer;
+	background-color: rgba(lighten($bg-color, 10%), 0.9);
+	.add-deck-circle {
+	    background-color: $darker-grey
+	}
+    }
+    
+    .add-deck-circle {
+	background-color: #E6E6E6;
+	width: 35px;
+	height: 35px;
+	position: absolute;
+	left: ($deck-width+2* $deck-padding - 2*2px - 35px) / 2;
+	top: 70px;
+	@include border-radius(50%);
+	border: 2px solid $white;
+    }
+
+    .add-deck-circle p {
+	@include center-vertically-and-horizontally;
+	color: $white;
+	font-size: 40px;
+    }
+
+    p {
+	font-weight: 600;
+	text-align: center;
+	transform: translate(0%, 125px);
+	color: #999999;
+	font-size: 15px;
     }
 }

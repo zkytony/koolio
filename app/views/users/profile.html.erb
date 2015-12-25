@@ -1,6 +1,8 @@
 <% provide(:title, "#{@user.username}'s Profile") %>
+<%= stylesheet_link_tag "_deck_editor.css" %>
 <%= stylesheet_link_tag "users.css" %>
 <%= javascript_include_tag "users.js" %>
+<%= javascript_include_tag "_deck_editor.js" %>
 <%= javascript_include_tag "user_profile.js" %>
 <%= render :partial => 'shared/nav' %>
 <%# The place for profile pic and stat %>
@@ -44,4 +46,5 @@
     <div class="profile-contents-display hidden" id="decks-contents"></div>
   </div>
 </div>
+<%= render partial: "shared/deck_editor", locals: { context: "prof" } %>
 <div class="dark-overlay hidden" id="overlay-for-focus-card"></div>

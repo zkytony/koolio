@@ -54,6 +54,9 @@ $(document).ready(function() {
 
   var cardsHandler = new ProfileCardsHandler();
   cardsHandler.init();
+
+  var deckEditor = new DeckEditor("prof-deck-editor");
+  deckEditor.init();
 });
 
 // AJAX request to grab a certain number of cards

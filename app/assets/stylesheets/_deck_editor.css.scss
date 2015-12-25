@@ -1,0 +1,123 @@
+@import "global";
+
+// deck editor
+$deck-editor-bg: $white;
+$deck-editor-width: 350px;
+$deck-editor-height: 330px;
+$deck-editor-label-width: 120px;
+$deck-editor-field-name-color: #999999;
+$deck-editor-field-height: 30px;
+.deck-editor {
+    width: $deck-editor-width;
+    min-height: $deck-editor-height;
+    background-color: $deck-editor-bg;
+    @include border-radius($default-border-radius);
+    @include center-vertically-and-horizontally;
+    z-index: 5;
+    padding: 25px;
+    padding-bottom: 50px;
+    form {
+	.field-item {
+	    vertical-align: middle;
+	    width: 100%;
+	    min-height: 30px;
+	    margin-bottom: 20px;
+	    overflow: auto;
+	    input[type="text"], textarea {
+		float: right;
+		width: $deck-editor-width - $deck-editor-label-width;
+		@include box-sizing(border-box);
+		border: 1px solid #E6E6E6;
+		@include border-radius($default-border-radius);
+		font-family: "MyriadPro", "Arial", sans-serif;
+		padding: 10px;
+		font-size: 14px;
+	    }
+	    textarea {
+		height: 60px;
+		resize: none;
+	    }
+	    input {
+		height: $deck-editor-field-height;
+	    }
+	    .radio-name {
+		display: inline-block;
+		margin-top: ($deck-editor-field-height - 14px) / 2;
+		font-weight: 600;
+		color: $deck-editor-field-name-color;
+	    }
+	    input[type="radio"] {
+		-webkit-appearance: checkbox; /* Chrome, Safari, Opera */
+		-moz-appearance: checkbox;    /* Firefox */
+		-ms-appearance: checkbox;     /* not currently supported */
+		vertical-align: -20%;
+		margin-left: 15px;
+		margin-right: 40px;
+		width: 15px;
+		height: 15px;
+		margin-top: ($deck-editor-field-height - 14px) / 2;
+	    }
+/*
+	    input[type="radio"]:before {
+		content:""; 
+		display:inline-block; 
+		width:13px; 
+		height:13px; 
+		border: 1px solid #E6E6E6;
+		@include border-radius($default-border-radius);
+		background:$white;
+	    }
+	    input[type="radio"]:checked:before {
+		content:""; 
+		display:inline-block; 
+		width:15px; 
+		height:15px; 
+		border: none;
+		@include border-radius($default-border-radius);
+		background:#3B99FC;
+	    }
+*/
+	    .field-name {
+		width: $deck-editor-label-width;
+		display: in-line;
+		float: left;
+		font-weight: 600;
+		font-size: 15px;
+		color: $deck-editor-field-name-color;
+		margin-top: ($deck-editor-field-height - 14px) / 2;
+	    }
+	}
+	.field-btns {
+	    width: $deck-editor-width;
+	    height: 40px;
+	    position: absolute;
+	    bottom: 10px;
+	    
+	    button {
+		width: 80px;
+		height: 35px;
+		border: none;
+		@include border-radius($default-border-radius);
+		position: absolute;
+		font-weight: 700;
+		font-size: 16px;
+		color: $white;
+	    }
+
+	    #deck-editor-cancel-btn {
+		background-color: #E6E6E6;
+		left: 0;
+		&:hover {
+		    background-color: darken(#E6E6E6, 15%);
+		}
+	    }
+	    #deck-editor-submit-btn {
+		background-color: #56BC8A;
+		right: 0;
+		&:hover {
+		    background-color: darken(#56BC8A, 15%);
+		}
+	    }
+	}
+    }
+}
