@@ -6,7 +6,7 @@ class RecommendContent
   # from the decks that this user favorites, and grab some
   # of the popular cards or decks.
   def self.call(user, more, card_ids)
-    n_card = 7
+    n_card = 15
     n_deck = 5
     
     # GrabPopularContent is not implemented

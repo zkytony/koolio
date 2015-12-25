@@ -12,7 +12,7 @@ class GrabProfileCards
   # For "hot", the returned object is an array of card
   # objects.
   def self.call(user, type, more, card_ids) 
-    n_cards = 8
+    n_cards = 15
     cards = []
     if type == "all"
       cards = get_needed_cards_sort_by_created_at(user, n_cards, more, card_ids)
