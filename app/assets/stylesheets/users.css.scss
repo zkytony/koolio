@@ -525,11 +525,12 @@
 }
 
 #hot-contents {
-    padding-top: 60px;
+    padding-top: $time-ago-padding * 2;
+    padding-bottom: $time-ago-padding * 2;
 }
 
 #all-contents {
-    
+
 }
 
 .time-period {
