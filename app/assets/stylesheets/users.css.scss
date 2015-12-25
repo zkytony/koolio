@@ -454,7 +454,7 @@
 
     }
     .tab-item:first-child {
-	padding-left: 40px;
+	padding-left: $tab-padding-left;
     }
     .tab-item {
 	float: left;
@@ -521,7 +521,7 @@
 
 .time-period, #hot-contents {
    background-color: $profpic-bg;
-   padding-left: 68px; // compensate for the masonary margins, and make cards centered
+   padding-left: $tab-padding-left; // align with tabs
 }
 
 #hot-contents {

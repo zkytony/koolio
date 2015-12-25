@@ -90,10 +90,6 @@ $deck-cards-padding-top: 20px;
 
 
 /// Profile page ///
-$whole-contents-width: 980px;
-$left-contents-width: 225px;
-$left-gap: 80px;
-$right-contents-width: $whole-contents-width - $left-gap - $left-contents-width;
 /* Deck display on profile page */
 $deck-width: 250px;
 $deck-padding: 12px;
@@ -108,6 +104,7 @@ $time-ago-color: #CCCCCC;
 $time-period-vertical-gap: 20px;
 /* The tabs */
 $tab-font-size: 17px;
+$tab-padding-left: 40px;
 $vertical-gap: 20px; // between tabs and the div below it
 $tab-vertical-padding: 13px;
 $tabs-height: 2*$tab-vertical-padding + $tab-font-size;
@@ -119,4 +116,9 @@ $stat-height: 100px;
 $profpic-bg: #F7F7F7;
 $username-color: #808080;
 $stat-color: #B3B3B3;
-
+/* General */
+$left-contents-width: 225px;
+$left-gap: 80px;
+$display-cards-gap: 40px; // set by the masonry in js
+$right-contents-width: $tab-padding-left*2 + 2 * $home-card-width + $display-cards-gap; //$whole-contents-width - $left-gap - $left-contents-width;
+$whole-contents-width: $left-contents-width + $left-gap + $right-contents-width;
