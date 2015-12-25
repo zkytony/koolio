@@ -62,6 +62,10 @@ $home-card-editor-height: 480px;
 
 $default-border-radius: 3px;
 
+ /* Navbar colors */
+$nav-bg-color: $bg-color;
+$nav-logo-color: $white;
+
 /* Home cards */
 $home-card-width: 250px;
 $home-card-min-height: $home-card-width;
@@ -90,6 +94,21 @@ $liked-comment-color: #007fff;
 $user-deck-height: 40px;
 $deck-cards-padding-top: 20px;
 
+/* Navbar variables */
+$nav-height: 40px;
+$nav-width: $home-total-width * 1.2;//85%;//$home-total-width + ;
+$nav-padding: 10px;
+$nav-logo-size: 38px;
+$nav-logo-width: $nav-logo-size;//150px;
+$nav-logo-margin-right: 20px;
+$nav-search-field-height: $nav-height - 12px;
+$nav-search-field-width: 470px;
+$nav-search-field-font-size: 14px;
+$nav-option-padding: 20px;
+$nav-option-btn-size: $nav-height;
+$nav-dropdown-width: 160px;
+$nav-first-part-width: $nav-logo-width + $nav-logo-margin-right + $nav-search-field-width + 30px; // 30px is for margins
+$nav-username-font-size: 16px;
 
 /// Profile page ///
 /* time period */
@@ -111,12 +130,13 @@ $stat-height: 100px;
 $profpic-bg: #F7F7F7;
 $username-color: #808080;
 $stat-color: #B3B3B3;
-/* General */
-$left-contents-width: 225px;
-$left-gap: 80px;
+/* General Profile page */
 $display-cards-gap: 40px; // set by the masonry in js
+$left-contents-width: 225px;
 $right-contents-width: $tab-padding-left*2 + 2 * $home-card-width + $display-cards-gap; //$whole-contents-width - $left-gap - $left-contents-width;
+$left-gap: 80px;
 $whole-contents-width: $left-contents-width + $left-gap + $right-contents-width;
+$whole-contents-left-shift: -($nav-width - $whole-contents-width) / 2; // align the navbar with the left edge of the profile pic region
 /* Deck display on profile page */
 $deck-display-gap: 60px;
 $deck-width: $right-contents-width / 2 - $deck-display-gap;//250px;

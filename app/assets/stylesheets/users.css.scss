@@ -375,6 +375,7 @@
     @include content-wrapper($whole-contents-width, 95%);
     min-height: 100px;
     position: relative;
+    left: $whole-contents-left-shift;
     top: 40px;
 }
 
