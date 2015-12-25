@@ -4,7 +4,7 @@
       <!-- Nav First Part -->
       <div class="nav-first-part">
 	<div class="nav-logo">
-	  <a href=""><h1>KOOLIO</h1></a>
+	  <a href=""><%= image_tag "tmp/logo.png" %></a>
 	</div>
 	<div class="nav-search-wrapper">
 	  <form class="nav-search-form">
@@ -27,10 +27,9 @@
 	  <div class="nav-option-btn">
 	    <a href="#"><i class="fa fa-inbox"></i></a>
 	  </div>
-	  <div class="nav-option-btn nav-profile-pic">
-	    <a class="nav-pic" id="nav-pic">
-	      <%= image_tag "default-profile.jpg", :id => "nav-pic-img" %>
-	    </a>
+	  <div class="nav-username" id="nav-username">
+	    <p><%= current_user.username %></p>
+	    <%= render "shared/nav_dropdown" %>
 	  </div>
 	<% else %>
 	  <div class="nav-option-btn nav-right-push-1 nav-option-sign-in">
@@ -40,29 +39,5 @@
       </div>
       <!-- Nav Contents End -->
     </div>
-    <% if logged_in? %>
-      <div class="nav-dropdown hidden" id="profile-pic-dropdown">
-	<ul>
-	  <li>
-	    <p class="nav-dropdown-bar">Signed in as <b><%= current_user.username %></b></p>
-	  </li>
-	  <li>
-	    <%= link_to user_profile_path(current_user), data: { no_turbolink: true } do %>
-	      Profile<i class="fa fa-user"></i>
-	    <% end %>
-	  </li>
-	  <li>
-	    <a href="">
-	      Settings<i class="fa fa-cog"></i>
-	    </a>
-	  </li>
-	  <li>
-	    <%= link_to logout_path, method: :delete do %>
-	      Logout<i class="fa fa-sign-out"></i>
-	    <% end %>
-	  </li>
-	</ul>
-      </div>
-    <% end %>
   </div>
 </nav>

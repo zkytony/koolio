@@ -74,7 +74,8 @@ $text-default-font-color: #808080;
 /*** IMG card ***/
 $img-min-width: 50%;
 $img-min-height: 50%;
-$img-descp-font-size: 21px;
+$img-descp-font-size: 19px;
+$img-descp-color: #F7F7F7;
 /* Home page wrappers arrangement */
 $recommended-contents-width: 3 * $home-card-width + $home-card-margin * 6;
 $side-contents-width: $home-card-width + $home-card-margin;
@@ -90,13 +91,6 @@ $deck-cards-padding-top: 20px;
 
 
 /// Profile page ///
-/* Deck display on profile page */
-$deck-width: 250px;
-$deck-padding: 12px;
-$title-padding: 10px;
-$title-font-size: 15px;
-$scaled-cards-gap: 3px;
-$deck-title-color: #CCCCCC;
 /* time period */
 $time-ago-padding: 20px;
 $time-card-padding-top: 20px;
@@ -122,3 +116,11 @@ $left-gap: 80px;
 $display-cards-gap: 40px; // set by the masonry in js
 $right-contents-width: $tab-padding-left*2 + 2 * $home-card-width + $display-cards-gap; //$whole-contents-width - $left-gap - $left-contents-width;
 $whole-contents-width: $left-contents-width + $left-gap + $right-contents-width;
+/* Deck display on profile page */
+$deck-display-gap: 60px;
+$deck-width: $right-contents-width / 2 - $deck-display-gap;//250px;
+$deck-padding: 12px;
+$title-padding: 10px;
+$title-font-size: 15px;
+$scaled-cards-gap: 3px;
+$deck-title-color: #CCCCCC;

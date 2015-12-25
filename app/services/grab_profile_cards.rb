@@ -69,10 +69,9 @@ class GrabProfileCards
       diff_s = (now - time).round
 
       case diff_m
-        when 0..1
-          return diff_m == 0 ?
-                 "just now" : "1m"
-        when 2...45
+        when 0..5
+          return "just now"
+        when 6...45
           return "#{diff_m}m"
         when 45...90
           return "1h"

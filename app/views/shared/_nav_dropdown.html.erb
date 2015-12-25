@@ -1,0 +1,22 @@
+<div class="nav-dropdown hidden" id="profile-pic-dropdown">
+  <ul>
+    <li>
+      <div id="nav-avatar"><%= image_tag "default-profile.jpg" %></div>
+    </li>
+    <li class="nav-dropdown-link">
+      <%= link_to user_profile_path(current_user), data: { no_turbolink: true } do %>
+	Profile<i class="fa fa-user"></i>
+      <% end %>
+    </li>
+    <li class="nav-dropdown-link">
+      <a href="">
+	Settings<i class="fa fa-cog"></i>
+      </a>
+    </li>
+    <li class="nav-dropdown-link">
+      <%= link_to logout_path, method: :delete do %>
+	Logout<i class="fa fa-sign-out"></i>
+      <% end %>
+    </li>
+  </ul>
+</div>

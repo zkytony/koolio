@@ -128,7 +128,7 @@
 		width: 100%;
 		padding: 5px;
 		font-size: $img-descp-font-size;
-		color: $white;
+		color: $img-descp-color;
 		background-color: rgba(0,0,0,0.6);
 		//@include linear-gradient(to bottom, rgba(0,0,0,0.3), $healthy-black);
 		@include box-sizing(border-box);
@@ -375,7 +375,6 @@
     min-height: 100px;
     position: relative;
     top: 40px;
-    overflow: hidden;
 }
 
 .left-contents-wrapper, .right-contents-wrapper {
@@ -496,11 +495,7 @@
 	top: $tab-vertical-padding*2 + 13px;
 	left: 50%;//20px;
 	margin-left: -10px;
-	width: 0px;
-	height: 0px;
-	border-left: 12px solid transparent;
-	border-right: 12px solid transparent;
-	border-bottom: 12px solid $bg-color;
+	@include little-triangle(12px, 12px, 12px, $bg-color);
     }
 }
 
@@ -570,6 +565,9 @@
 	font-size: 15px;
 	position: absoute;
 	padding: 10px;
+	padding-top: 13px;
+	padding-bottom: 6px;
+	font-weight: 600;
     }
     .four-cards {
 	width: $deck-width;

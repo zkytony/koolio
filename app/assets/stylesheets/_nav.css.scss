@@ -8,17 +8,18 @@ $nav-logo-color: $white;
 $nav-height: 40px;
 $nav-width: $home-total-width; //85%;
 $nav-padding: 10px;
-$nav-logo-size: 35px;
-$nav-logo-width: 150px;
-$nav-logo-margin-right: 50px;
+$nav-logo-size: 38px;
+$nav-logo-width: $nav-logo-size;//150px;
+$nav-logo-margin-right: 20px;
 $nav-search-field-height: $nav-height - 12px;
 $nav-search-field-width: 400px;
 $nav-search-field-font-size: 14px;
 $nav-option-padding: 20px;
 $nav-option-btn-size: $nav-height;
-$nav-dropdown-width: 100px;
+$nav-dropdown-width: 160px;
 $nav-first-part-width: $nav-logo-width + $nav-logo-margin-right + $nav-search-field-width + 30px; // 30px is for margins
-$nav-second-part-width: $nav-option-btn-size * 4 + $nav-option-padding * 3;
+//$nav-second-part-width: $nav-option-btn-size * 4 + $nav-option-padding * 3;
+$nav-username-font-size: 16px;
 
 .nav-wrapper {
     @include content-wrapper($nav-width, 100%);
@@ -53,10 +54,10 @@ $nav-second-part-width: $nav-option-btn-size * 4 + $nav-option-padding * 3;
 
 .nav-second-part {
     //float: left;
-    width: $nav-second-part-width;
+    //width: $nav-second-part-width;
     height: $nav-height;
     @include tablet-landscape-and-below {
-	width: $nav-second-part-width;
+	//width: $nav-second-part-width;
 //	width: 28%;
     }
     position: absolute;
@@ -74,6 +75,10 @@ $nav-second-part-width: $nav-option-btn-size * 4 + $nav-option-padding * 3;
     }
     h1 {
 	font-size: $nav-logo-size;
+    }
+    img {
+	width: $nav-logo-size;
+	height: $nav-logo-size;
     }
     width: $nav-logo-width;
     margin-right: $nav-logo-margin-right;
@@ -94,11 +99,11 @@ $nav-second-part-width: $nav-option-btn-size * 4 + $nav-option-padding * 3;
     }
 }
 
-.nav-option-btn:last-child {
-    padding-right: 0px;
-}
-.nav-option-btn {
+.nav-option-btn, .nav-username {
     float: left;
+}
+
+.nav-option-btn {
     width: $nav-option-btn-size;
     height: $nav-option-btn-size;
     font-size: $nav-option-btn-size;
@@ -136,14 +141,36 @@ $nav-second-part-width: $nav-option-btn-size * 4 + $nav-option-padding * 3;
     }
 }
 
-.nav-dropdown {
-    min-width: $nav-dropdown-width;
-    max-width: $nav-dropdown-width + 200px;
-    background-color: $white;
+.nav-username {
+    height: $nav-option-btn-size;
+    position: relative;
+    p {
+	font-size: $nav-username-font-size;
+	padding-top: ($nav-height -  $nav-username-font-size) / 2;
+	padding-bottom: ($nav-height -  $nav-username-font-size) / 2;
+	font-weight: 600;
+    }
+}
+
+// add a triangle
+$nav-dropdown-bg: $white;
+.nav-dropdown:before {
+    @include little-triangle(10px, 10px, 10px, $nav-dropdown-bg);
     position: absolute;
-    right: 0px;//$nav-width;
+    top: -8px;
+    right: 10px;;
+}
+
+.nav-dropdown {
+    width: $nav-dropdown-width;
+    //max-width: $nav-dropdown-width + 200px;
+    background-color: $nav-dropdown-bg;
+    position: absolute;
+    right: 0;
     padding: 0px 2px;
     z-index: 10;
+    @include box-shadow(0px, 0px, 10px, lighten($healthy-black, 40%));
+    @include border-radius(2px);
 
     @include tablet-landscape-and-below {
 	right: 0px;
@@ -167,6 +194,7 @@ $nav-second-part-width: $nav-option-btn-size * 4 + $nav-option-padding * 3;
 		display: block;
 		width: 90%;
 		padding: 5px;
+		color: $decent-purple;
 		.fa {
 		    position: absolute;
 		    right: 10px;
@@ -174,12 +202,31 @@ $nav-second-part-width: $nav-option-btn-size * 4 + $nav-option-padding * 3;
 		}
 		&:hover {
 		    color: $white;
-		    background-color: $theme-purple;
+		    background-color: $decent-purple;
 		    .fa {
 			color: $light-grey;
 		    }
 		}
 	    }
 	}
+	li.nav-dropdown-link:hover {
+	    color: $white;
+	    background-color: $decent-purple;
+	    .fa {
+		color: $light-grey;
+	    }
+	}
+    }
+}
+$nav-avatar-size: 42px;
+#nav-avatar {
+    width: $nav-avatar-size;
+    height: $nav-avatar-size; 
+    margin: auto;
+    padding: 10px;
+    img {
+	width: $nav-avatar-size;
+	height: $nav-avatar-size; 
+	@include border-radius(50%);
     }
 }

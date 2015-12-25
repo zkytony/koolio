@@ -383,3 +383,19 @@ $mq-desktop		: 1382px !default;
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+@mixin center-absolute-element {
+    //margin-left: auto;
+    //margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+@mixin little-triangle($left, $right, $bottom, $color) {
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-left: $left solid transparent;
+    border-right: $right solid transparent;
+    border-bottom: $bottom solid $color;
+}
