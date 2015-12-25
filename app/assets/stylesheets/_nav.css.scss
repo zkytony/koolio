@@ -83,7 +83,7 @@ $nav-username-font-size: 16px;
     width: $nav-logo-width;
     margin-right: $nav-logo-margin-right;
     @include tablet-landscape-and-below {
-	margin-right: $nav-logo-margin-right - 30px;;
+	margin-right: $nav-logo-margin-right - 10px;;
     }
 }
 

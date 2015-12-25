@@ -148,6 +148,7 @@
     min-height: $home-card-min-height;
     position: relative;
     top: 40px;
+    padding-left: $recommended-contents-left-padding;
     //left: 10%;
     @include tablet_landscape_and_below {
 	left: 30px;

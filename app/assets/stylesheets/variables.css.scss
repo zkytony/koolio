@@ -78,8 +78,9 @@ $img-descp-font-size: 19px;
 $img-descp-color: #F7F7F7;
 /* Home page wrappers arrangement */
 $recommended-contents-width: 3 * $home-card-width + $home-card-margin * 6;
-$side-contents-width: $home-card-width + $home-card-margin;
+$side-contents-width: 0px; // no need for now //$home-card-width + $home-card-margin;
 $home-total-width: $recommended-contents-width + $side-contents-width;
+$recommended-contents-left-padding: $home-card-margin;
 /* info panels */
 $info-panel-bg: #E6E6E6;
 $info-font-color: darken($darker-grey, 15%);
