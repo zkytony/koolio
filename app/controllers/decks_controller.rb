@@ -10,16 +10,22 @@ class DecksController < ApplicationController
   end
 
   def create
-    @deck = current_user.decks.build(deck_params)
-    tags = params[:tags].split(",");
-    if @deck.save!
-      tags.each do |tag_name|
-        @deck.add_tag({name: tag_name})
-      end
+    shared_editors = Set.new
+    params[:deck_shared_editors].split(",").each do |email|
+      shared_editors.add User.find_by(email: email)
+    end
 
-      redirect_to @deck
-    else
-      redirect_to new_deck_path
+    shared_visitors = Set.new
+    params[:deck_shared_visitors].split(",").each do |email|
+      shared_visitors.add User.find_by(email: email)
+    end
+
+    tags = params[:deck_tags].split(",").to_set
+    @deck = CreateDeck.call(deck_params, current_user, 
+                    params[:deck_property] == "public",
+                    shared_editors, shared_visitors, tags)
+    respond_to do |format|
+      format.js
     end
   end
 

@@ -308,6 +308,7 @@
 	color: $info-font-color;
 
 	.one-deck {
+	    width: 2*$tiny-card-size + 20px;
 	    background-color: transparent; // no background color
 	    min-height: 50px;
 	    padding: 0;
@@ -319,6 +320,8 @@
 
 	    h3 { display: none; } // do not show the title
 	    .four-cards {
+		width: 2*$tiny-card-size + 20px;
+		margin: 0;
 		min-height: $tiny-card-size;
 		.scaled-card {
 		    width: $tiny-card-size;
@@ -531,6 +534,10 @@
 
 }
 
+#decks-contents {
+    overflow: auto;
+}
+
 .time-period {
     min-height: $home-card-min-height;
     margin-bottom: $time-period-vertical-gap;
@@ -650,4 +657,8 @@
 	color: #999999;
 	font-size: 15px;
     }
+}
+
+.deck-square:nth-child(3n+3) {
+    margin-right: 0px;
 }

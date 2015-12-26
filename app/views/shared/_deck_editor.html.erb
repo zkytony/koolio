@@ -1,30 +1,31 @@
 <div class="deck-editor hidden" id="<%="#{context}"%>-deck-editor">
-  <form>
+  <%= form_for(@deck, remote: true, authenticity_token: true) do |f| %>
     <div class="field-item">
-      <p class="field-name">Name</p><input type="text" name="deck-title" id="deck-title" value="" placeholder="me">
+      <p class="field-name">Name</p>
+      <%= f.text_field :title, placeholder: "me" %>
     </div>
     <div class="field-item">
       <p class="field-name">Description</p>
-      <textarea name="deck-descp" id="deck-descp" placeholder="This is a deck about myself"></textarea>
+      <%= f.text_area :description, placeholder: "This is a deck about myself" %>
     </div>
     <div class="field-item" id="deck-prop-select">
       <p class="field-name">Property</p>
-      <label class="radio-name" for="prop-public">public</label><input type="radio" name="deck-property" id="prop-public" value="public" checked="checked">
-      <label class="radio-name" for="prop-private">private</label><input type="radio" name="deck-property" id="prop-private" value="private">
+      <label class="radio-name" for="prop-public">public</label><input type="radio" name="deck_property" class="deck-prop-radios" id="prop-public" value="public" checked="checked">
+      <label class="radio-name" for="prop-private">private</label><input type="radio" name="deck_property" class="deck-prop-radios" id="prop-private" value="private">
+    </div>
+    <div class="field-item hidden" id="share-as-visitors">
+      <p class="field-name">Share as visitors</p><input type="text" name="deck_shared_visitors" id="deck-shared-visitors" value="" placeholder="email">
+    </div>
+    <div class="field-item" id="share-as-editors">
+      <p class="field-name">Share as editors</p><input type="text" name="deck_shared_editors" id="deck-shared-editors" value=""  placeholder="email">
     </div>
     <div class="field-item">
-      <p class="field-name">Share as editors</p><input type="text" name="deck-share-editor" id="deck-share-editor" value="">      
-    </div>
-    <div class="field-item">
-      <p class="field-name">Share as visitors</p><input type="text" name="deck-share-visitor" id="deck-share-visitor" value="">
-    </div>
-    <div class="field-item">
-      <p class="field-name">Tags</p><input type="text" name="deck-tags" id="deck-tags" value="">
+      <p class="field-name">Tags</p><input type="text" name="deck_tags" id="deck-tags" value="" placeholder="at least one tag. comma.">
     </div>
     <div class="field-btns">
       <button id="deck-editor-cancel-btn" type="button">Cancel</button>
-      <button id="deck-editor-submit-btn">Submit</button>
+      <button id="deck-editor-submit-btn" disabled>Submit</button>
     </div>
-  </form>
+  <% end %>
 </div>
 <div class="glass-overlay" id="overlay-for-deck-editor"></div>

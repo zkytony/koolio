@@ -49,6 +49,9 @@ class UsersController < ApplicationController
 
   def profile
     @user = User.find(params[:user_id])
+    if @user.id == current_user.id
+      @deck = Deck.new # user may want to create a deck
+    end
   end
 
   # cards to display in the profile page
@@ -69,7 +72,9 @@ class UsersController < ApplicationController
   # decks to display in the profile page
   def profile_decks
     @user = User.find(params[:user_id])
-    @profile_decks = GrabProfileDecks.call(@user)
+    @more = params[:more] == "true"
+    deck_ids = params[:deck_ids]
+    @profile_decks = GrabProfileDecks.call(@user, @more, deck_ids)
     
     respond_to do |format|
       format.js

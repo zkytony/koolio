@@ -27,7 +27,7 @@ $(document).ready(function() {
     $("#hot-contents").html("");
     $(".tab-item").removeClass("selected");
     $("#decks-item").addClass("selected");
-    ajaxGrabDecksForProfile(userId);
+    ajaxGrabDecksForProfile(userId, false);
   });
 
   $(document).on("click", "#decks-item", function() {
@@ -38,14 +38,17 @@ $(document).ready(function() {
   var limit = 20;
   $(window).scroll(function() {
     var isHot = $("#hot-item").hasClass("selected");
-    var isAll = $("#all-item").hasClass("selected")
-    if (isHot || isAll) {
+    var isAll = $("#all-item").hasClass("selected");
+    var isDecks = $("#decks-item").hasClass("selected");
+    if (isHot || isAll || isDecks) {
       if ($(document).height() - limit <= $(window).scrollTop() + $(window).height()) {
 	if (noOngoingLoad) {
 	  if (isHot) {
 	    ajaxGrabCardsForProfile(userId, "hot", true);
 	  } else if (isAll) {
 	    ajaxGrabCardsForProfile(userId, "all", true);
+	  } else if (isDecks) {
+	    ajaxGrabDecksForProfile(userId, true);
 	  }
 	}
       }
@@ -118,13 +121,22 @@ function ajaxGrabCardsForProfile(userId, type, more) {
 // decks in the #decks-contents div. Each deck is shown
 // as a square which has four cells; each cell is a "scaled"
 // version of one card inside the deck.
-function ajaxGrabDecksForProfile(userId) {
+function ajaxGrabDecksForProfile(userId, more) {
+  noOngoingLoad = false;
+
+  var deck_ids = [];
+  $(".one-deck").each(function() {
+    deck_ids.push($(this).attr("id").split("_")[1]);
+  });
+
   $.ajax({
     type: "GET",
+    data: { more: more, deck_ids: deck_ids },
     url: '/users/' + userId + '/profile_decks',
     dataType: 'script', // get the script which will run itself
     success: function(output) {
       //alert(output);
+      noOngoingLoad = true;
     }
   });
 }

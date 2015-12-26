@@ -1,0 +1,3 @@
+<% if @deck %>
+  $("<%= j render partial: "shared/deck", locals: { deck: @deck, limit: 4 } %>").insertAfter("#prof-add-deck-btn");
+<% end %>

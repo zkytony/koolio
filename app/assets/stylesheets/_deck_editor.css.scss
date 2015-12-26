@@ -12,7 +12,7 @@ $deck-editor-field-height: 30px;
     min-height: $deck-editor-height;
     background-color: $deck-editor-bg;
     @include border-radius($default-border-radius);
-    @include center-vertically-and-horizontally;
+    @include center-vertically-and-horizontally(fixed);
     z-index: 5;
     padding: 25px;
     padding-bottom: 50px;
@@ -116,6 +116,12 @@ $deck-editor-field-height: 30px;
 		right: 0;
 		&:hover {
 		    background-color: darken(#56BC8A, 15%);
+		}
+		&:disabled {
+		    background-color: #E6E6E6;
+		    &:hover {
+			background-color: #E6E6E6;
+		    }
 		}
 	    }
 	}

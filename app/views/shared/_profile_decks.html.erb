@@ -1,9 +1,11 @@
-<div class="add-deck-btn" id="prof-add-deck-btn">
-  <div class="add-deck-circle">
-    <p>+</p>
+<% if @user.id == current_user.id && render_btn %>
+  <div class="add-deck-btn deck-square" id="prof-add-deck-btn">
+    <div class="add-deck-circle">
+      <p>+</p>
+    </div>
+    <p>create a deck</p>
   </div>
-  <p>create a deck</p>
-</div>
+<% end %>
 <% @profile_decks.each do |deck| %>
   <%# Take four cards from the deck, ordered by created time %>
   <%= render partial: "shared/deck", locals: { deck: deck, limit: 4 } %>

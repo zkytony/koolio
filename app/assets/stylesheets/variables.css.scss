@@ -139,7 +139,7 @@ $whole-contents-width: $left-contents-width + $left-gap + $right-contents-width;
 $whole-contents-left-shift: -($nav-width - $whole-contents-width) / 2; // align the navbar with the left edge of the profile pic region
 /* Deck display on profile page */
 $deck-display-gap: 15px;
-$deck-width: $right-contents-width / 3 - 2*$deck-display-gap;//250px;
+$deck-width: $right-contents-width / 3 - 2.3*$deck-display-gap; // this is a bit tricky
 $deck-padding: 12px;
 $title-padding: 10px;
 $title-font-size: 15px;

@@ -46,5 +46,7 @@
     <div class="profile-contents-display hidden" id="decks-contents"></div>
   </div>
 </div>
-<%= render partial: "shared/deck_editor", locals: { context: "prof" } %>
+<% if @user.id == current_user.id %>
+  <%= render partial: "shared/deck_editor", locals: { context: "prof" } %>
+<% end %>
 <div class="dark-overlay hidden" id="overlay-for-focus-card"></div>
