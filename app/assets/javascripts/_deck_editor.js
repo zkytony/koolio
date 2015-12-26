@@ -27,22 +27,13 @@ DeckEditor.prototype.init = function() {
     });
 
     // when form changes, validate it 
-    $(document).on("change", "#new_deck :input", function() {
+    $(document).on("keyup", "#new_deck :input", function() {
 	if (editor.validate()) {
 	    $("#deck-editor-submit-btn").prop("disabled", false);
 	} else {
 	    $("#deck-editor-submit-btn").prop("disabled", true);
 	}
     });
-
-/*    // Before submitting, validate the form
-    $("#new_deck").submit(function(e) {
-	e.preventDefault();
-	if (editor.validate()) {
-	    $(this).submit();
-	}
-    });
-*/
 
     // on ajax success
     $(document).on("ajax:success", "#new_deck", function() {
