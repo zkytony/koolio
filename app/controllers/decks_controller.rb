@@ -20,7 +20,7 @@ class DecksController < ApplicationController
       shared_visitors.add User.find_by(email: email)
     end
 
-    tags = params[:deck_tags].split(",").to_set
+    tags = params[:item][:tags]
     @deck = CreateDeck.call(deck_params, current_user, 
                     params[:deck_property] == "public",
                     shared_editors, shared_visitors, tags)

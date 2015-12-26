@@ -57,26 +57,7 @@ $deck-editor-field-height: 30px;
 		height: 15px;
 		margin-top: ($deck-editor-field-height - 14px) / 2;
 	    }
-/*
-	    input[type="radio"]:before {
-		content:""; 
-		display:inline-block; 
-		width:13px; 
-		height:13px; 
-		border: 1px solid #E6E6E6;
-		@include border-radius($default-border-radius);
-		background:$white;
-	    }
-	    input[type="radio"]:checked:before {
-		content:""; 
-		display:inline-block; 
-		width:15px; 
-		height:15px; 
-		border: none;
-		@include border-radius($default-border-radius);
-		background:#3B99FC;
-	    }
-*/
+
 	    .field-name {
 		width: $deck-editor-label-width;
 		display: in-line;
@@ -126,4 +107,26 @@ $deck-editor-field-height: 30px;
 	    }
 	}
     }
+    #added-tags {
+	@include box-sizing(border-box);
+	overflow: hidden;
+	.tagit-new {
+	    margin: 0px;
+	    input[type="text"] {
+		padding-left: 5px;
+		height: 15px;
+		border: none;
+		width: 70px;
+	    }
+	}
+
+	.tagit-choice {
+	    .tagit-label {
+		color: $deck-editor-field-name-color;
+		font-weight: 600;
+		font-size: 12px;
+	    }
+	}
+    }
 }
+/* DECK EDITOR */

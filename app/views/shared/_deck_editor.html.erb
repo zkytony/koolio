@@ -2,11 +2,11 @@
   <%= form_for(@deck, remote: true, authenticity_token: true) do |f| %>
     <div class="field-item">
       <p class="field-name">Name</p>
-      <%= f.text_field :title, placeholder: "me" %>
+      <%= f.text_field :title, placeholder: "" %>
     </div>
     <div class="field-item">
       <p class="field-name">Description</p>
-      <%= f.text_area :description, placeholder: "This is a deck about myself" %>
+      <%= f.text_area :description, placeholder: "" %>
     </div>
     <div class="field-item" id="deck-prop-select">
       <p class="field-name">Property</p>
@@ -14,13 +14,14 @@
       <label class="radio-name" for="prop-private">private</label><input type="radio" name="deck_property" class="deck-prop-radios" id="prop-private" value="private">
     </div>
     <div class="field-item hidden" id="share-as-visitors">
-      <p class="field-name">Share as visitors</p><input type="text" name="deck_shared_visitors" id="deck-shared-visitors" value="" placeholder="email">
+      <p class="field-name">Share as visitors</p><input type="text" name="deck_shared_visitors" id="deck-shared-visitors" value="" placeholder="">
     </div>
     <div class="field-item" id="share-as-editors">
-      <p class="field-name">Share as editors</p><input type="text" name="deck_shared_editors" id="deck-shared-editors" value=""  placeholder="email">
+      <p class="field-name">Share as editors</p><input type="text" name="deck_shared_editors" id="deck-shared-editors" value=""  placeholder="">
     </div>
-    <div class="field-item">
-      <p class="field-name">Tags</p><input type="text" name="deck_tags" id="deck-tags" value="" placeholder="at least one tag. comma.">
+    <div class="field-item"  id="tags-field"">
+      <p class="field-name">Tags</p>
+      <ul id="added-tags"></ul>
     </div>
     <div class="field-btns">
       <button id="deck-editor-cancel-btn" type="button">Cancel</button>
