@@ -49,6 +49,7 @@
     max-height: $home-card-min-height + 50px;
 }
 
+$info-toggle-size: 80px;
 .home-card {
     width: $home-card-width;
     min-height: $home-card-min-height;
@@ -66,26 +67,47 @@
 	color: $text-default-font-color;
     }
     
-    /* info toggle */
-    .info-toggle-wrapper {
-	width: 80px;
-	height: 80px;
-	position: absolute;
-	right: 0px;
+    /* info toggle & quick like btn*/
+    .info-toggle-wrapper, .quick-card-like-btn-wrapper {
+	width: $info-toggle-size;
+	height: $info-toggle-size;
+	position: absolute;	
 	bottom: 0px;
 	z-index: 100;
-	@include linear-gradient(to bottom right, rgba(0,0,0,0), rgba(0,0,0,0), rgba($healthy-black, 0.5));
 	// initial opacity is 0
 	opacity: 0;
     }
-    .info-toggle {
-	text-align: right;
+    .info-toggle-wrapper {
+	right: 0px;
+	@include linear-gradient(to bottom right, 
+				 rgba(0,0,0,0), 
+				 rgba(0,0,0,0), 
+				 rgba(lighten($healthy-black, 10%), 0.5));
+	.info-toggle {
+	    text-align: right;
+	    right: 10px;
+	    color: $white;
+	    cursor: pointer;
+	    font-size: 30px;
+	    bottom: -3px;
+	}
+    }
+    .quick-card-like-btn, .info-toggle {
 	position: absolute; 
-	right: 10px;
-	bottom: -3px;
-	color: $white;
-	font-size: 30px;
-	cursor: pointer;
+    }
+
+    .quick-card-like-btn-wrapper {
+	left: 0px;
+	.quick-card-like-btn {
+	    left: 10px;
+	    color: $info-font-color;
+	    cursor: pointer;
+	    font-size: 22px;
+	    bottom: 0px;
+	}
+	.quick-card-like-btn.liked {
+	    color: $liked-color;
+	}
     }
  
     /* text card */

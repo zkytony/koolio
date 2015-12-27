@@ -3,4 +3,7 @@ var likeCount = parseInt($("#n_likes").html());
 $("#n_likes").html(likeCount+1);
 $("#like-card-btn").addClass("liked");
 $("#n_likes").addClass("liked");
+// also update the other like button
+$("#quick_like_<%="#{@card.id}"%>_front").addClass("liked");
+$("#quick_like_<%="#{@card.id}"%>_back").addClass("liked");
 

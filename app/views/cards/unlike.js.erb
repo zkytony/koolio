@@ -3,3 +3,6 @@ var likeCount = parseInt($("#n_likes").html());
 $("#n_likes").html(likeCount-1);
 $("#like-card-btn").removeClass("liked");
 $("#n_likes").removeClass("liked");
+// also update the other like button
+$("#quick_like_<%="#{@card.id}"%>_front").removeClass("liked");
+$("#quick_like_<%="#{@card.id}"%>_back").removeClass("liked");

@@ -17,8 +17,28 @@ CardsHandler.prototype.init = function() {
     }
   });
 
-  // toggle info fade in and fade out
+  // when hover on a card, display info toggle and like btn
   $(document).on({
+    mouseenter: function () {
+      $(this).find(".quick-card-like-btn-wrapper").stop().animate({
+	opacity: 1
+      }, 150);
+      $(this).find(".info-toggle-wrapper").stop().animate({
+	opacity: 1
+      }, 150);
+    },
+    mouseleave: function () {
+      $(this).find(".quick-card-like-btn-wrapper").stop().animate({
+	opacity: 0
+      }, 150);
+      $(this).find(".info-toggle-wrapper").stop().animate({
+	opacity: 0
+      }, 150);
+    }
+  }, ".home-card");
+
+  // toggle info fade in and fade out
+/*  $(document).on({
     mouseenter: function () {
       $(this).stop().animate({
 	opacity: 1
@@ -30,6 +50,7 @@ CardsHandler.prototype.init = function() {
       }, 150);
     }
   }, ".info-toggle-wrapper");
+*/
 
   // show dark-overlay when hit info-toggle
   // change the z-index of the current card to
@@ -76,6 +97,13 @@ CardsHandler.prototype.init = function() {
   $(document).on("click", "#like-card-btn", function() {
     var liked = $("#like-card-btn").hasClass("liked");
     ajaxLikeCard(liked, handler.focusingCardRawId);
+  });
+
+  // this is another button to toggle like card
+  $(document).on("click", ".quick-card-like-btn", function() {
+    var liked = $(this).hasClass("liked");
+    var cardId = $(this).attr("id").split("_")[2];
+    ajaxLikeCard(liked, cardId);
   });
 
   // When clicked like comment btn, ajax request to toggle like

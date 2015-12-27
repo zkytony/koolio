@@ -47,8 +47,8 @@ class CardsController < ApplicationController
 
   def like
     # action triggered by ajax call
-    card = Card.find(params[:card_id])
-    current_user.like_card(card)
+    @card = Card.find(params[:card_id])
+    current_user.like_card(@card)
 
     respond_to do |format|
       format.js
@@ -57,8 +57,8 @@ class CardsController < ApplicationController
 
   def unlike
     # action triggered by ajax call
-    card = Card.find(params[:card_id])
-    current_user.unlike_card(card)
+    @card = Card.find(params[:card_id])
+    current_user.unlike_card(@card)
 
     respond_to do |format|
       format.js
