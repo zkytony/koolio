@@ -46,9 +46,9 @@ DeckEditor.prototype.init = function() {
   // when form changes, validate it 
   $(document).on("keyup", "#new_deck :input", function() {
     if (editor.validate()) {
-      editor.toggleSubmitButton(false);
-    } else {
       editor.toggleSubmitButton(true);
+    } else {
+      editor.toggleSubmitButton(false);
     }
   });
 
