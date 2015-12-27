@@ -100,13 +100,19 @@ $info-toggle-size: 80px;
 	left: 0px;
 	.quick-card-like-btn {
 	    left: 10px;
-	    color: $info-font-color;
+	    color: rgba($info-font-color, 0.7);
 	    cursor: pointer;
 	    font-size: 22px;
 	    bottom: 0px;
+	    &:hover {
+		color: rgba(lighten($liked-color, 20%), 1.0);
+	    }
 	}
 	.quick-card-like-btn.liked {
-	    color: $liked-color;
+	    color: rgba($liked-color, 0.7);
+	    &:hover {
+		color: rgba($liked-color, 1.0);
+	    }
 	}
     }
  

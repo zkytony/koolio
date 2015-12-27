@@ -18,6 +18,7 @@ CardsHandler.prototype.init = function() {
   });
 
   // when hover on a card, display info toggle and like btn
+/*
   $(document).on({
     mouseenter: function () {
       $(this).find(".quick-card-like-btn-wrapper").stop().animate({
@@ -36,9 +37,10 @@ CardsHandler.prototype.init = function() {
       }, 150);
     }
   }, ".home-card");
+*/
 
   // toggle info fade in and fade out
-/*  $(document).on({
+  $(document).on({
     mouseenter: function () {
       $(this).stop().animate({
 	opacity: 1
@@ -50,8 +52,20 @@ CardsHandler.prototype.init = function() {
       }, 150);
     }
   }, ".info-toggle-wrapper");
-*/
 
+  // quick like btn fde in
+  $(document).on({
+    mouseenter: function () {
+      $(this).stop().animate({
+	opacity: 1
+      }, 150);
+    },
+    mouseleave: function () {
+      $(this).stop().animate({
+	opacity: 0
+      }, 150);
+    }
+  }, ".quick-card-like-btn-wrapper");
   // show dark-overlay when hit info-toggle
   // change the z-index of the current card to
   // 5, which is greater than the overlay z-index(3),
