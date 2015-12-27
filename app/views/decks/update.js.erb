@@ -1,4 +1,5 @@
+// first remove the edited deck, then add the newly edited version
 <% if @deck %>
+$("#deck_<%="#{@deck.id}"%>").remove();
 $("<%= j render partial: "shared/deck", locals: { deck: @deck, limit: 4 } %>").insertAfter("#prof-add-deck-btn");
-// animation to prompt user of the newly added deck
 <% end %>

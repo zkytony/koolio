@@ -318,7 +318,7 @@
 		cursor: pointer;
 	    }
 
-	    h3 { display: none; } // do not show the title
+	    h3, .deck-gear { display: none; } // do not show the title and gear
 	    .four-cards {
 		width: 2*$tiny-card-size + 20px;
 		margin: 0;
@@ -575,15 +575,29 @@
     min-height: $deck-height;
     background-color: $white;
     position: relative;
-    h3 {
+    h3 { 	
 	color: $deck-title-color;
-	font-size: 15px;
+	font-size: $title-font-size;
+    }
+    h3, .deck-gear {
 	position: absoute;
-	padding: 10px;
-	padding-top: 13px;
-	padding-bottom: 6px;
+	padding: $title-padding;
+	padding-top: $title-padding;
+	padding-bottom: $title-padding * 0.5;
 	font-weight: 600;
     }
+    .deck-gear {
+	font-size: $title-font-size;
+	color: lighten($deck-title-color, 15%);
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	&:hover {
+	    cursor: pointer;
+	    color: darken($deck-title-color, 15%);
+	}
+    }
+    
     .four-cards {
 	width: $deck-width;
 	min-height: $deck-width - $title-padding*2 - $title-font-size;
@@ -594,7 +608,8 @@
 	    height: $deck-width / 2 - $scaled-cards-gap*2;
 	    float: left;
 	    overflow: hidden;
-	    margin: $scaled-cards-gap;;
+	    margin: $scaled-cards-gap;
+	    @include border-radius(2px);
 
 	    img {
 		width: $deck-width / 2 - $scaled-cards-gap*2;
@@ -616,7 +631,7 @@
 	}
     }
 }
-/* END ONE CARD */
+/* END ONE DECK */
 
 .add-deck-btn {
     width: $deck-width - 2*2px;

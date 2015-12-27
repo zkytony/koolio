@@ -29,11 +29,18 @@ class Deck < ActiveRecord::Base
       card
     end
   end
-
+  
+  # will not create duplicate tags
+  # If the tag already exists, return nil; otherwise
+  # return the added tag
   def add_tag(tag_params)
     tag = Tag.find_or_create_by(tag_params)
-    self.tags << tag
-    tag
+    if !self.tags.include? tag
+      self.tags << tag
+      tag
+    else
+      nil
+    end
   end
 
   def remove_tag(tag)
@@ -56,6 +63,15 @@ class Deck < ActiveRecord::Base
     result
   end
 
+  # returns an array of string with tag names
+  def all_tags
+    result = []
+    self.tags.each_with_index do |tag, index|
+      result << tag.name
+    end
+    result
+  end
+
   def creator
     self.user
   end
@@ -64,28 +80,75 @@ class Deck < ActiveRecord::Base
     self.creator.id == user.id
   end
 
-  def share_to(user, role="")
+  # Share deck to given user
+  #
+  # This method prevents duplicates by checking if the
+  # given user has already have the rights for the role.
+  #
+  # If a deck is "open", the deck is always viewable by
+  # the given user. Therefore this method will not create
+  # the additional viewer association between the user and
+  # the deck. 
+  #
+  # no_assoc - should be true if it is certain that the deck has 
+  #            NOT been shared to the user. False otherwise. 
+  #            (default: false)
+  #
+  # Return false if:
+  # - the given role is neither "EDITOR" nor "VIEWER",
+  #   case insensitive. OR
+  # - the user has already been shared with the role
+  def share_to(user, role="", no_assoc = false)
     case role.upcase
     when "EDITOR"
-      self.deck_editor_associations.create(user_id: user.id)
+      if no_assoc or !self.editable_by? user
+        self.deck_editor_associations.create(user_id: user.id)
+      else
+        return false
+      end
     when "VIEWER"
-      self.deck_viewer_associations.create(user_id: user.id)
+      if no_assoc or !self.viewable_by? user
+        self.deck_viewer_associations.create(user_id: user.id)
+      else
+        return false
+      end
     else
       false
     end
   end
 
+  # Change the type of role of a user to a new given role
+  #
+  # If the user is the creator of the deck, his role cannot
+  # be changed. So return false.
+  #
+  # If the deck has not been shared to the user, then this
+  # method will perform the sharing. Namely, after this
+  # method executes, if the role argument is valid, then
+  # this deck will certainly be shared to the user with the
+  # given role
   def change_share_role(user, role="")
+    if self.creator? user
+      return false
+    end
+
     deck_user_assoc = self.deck_user_associations.find_by(user_id: user.id)
-    case role.upcase
-    when "EDITOR"
-      deck_user_assoc.type = "DeckEditorAssociation"
-      deck_user_assoc.save!
-    when "VIEWER"
-      deck_user_assoc.type = "DeckViewerAssociation"
-      deck_user_assoc.save!
+    if deck_user_assoc
+      # this deck is shared to the given user
+      case role.upcase
+      when "EDITOR"
+        deck_user_assoc.type = "DeckEditorAssociation"
+        deck_user_assoc.save!
+      when "VIEWER"
+        deck_user_assoc.type = "DeckViewerAssociation"
+        deck_user_assoc.save!
+      else
+        return false
+      end
     else
-      false
+      # this deck has not been shared to the given user.
+      # share it now
+      self.share_to(user, role, true)
     end
   end
 

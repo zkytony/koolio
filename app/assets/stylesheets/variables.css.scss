@@ -140,9 +140,9 @@ $whole-contents-left-shift: -($nav-width - $whole-contents-width) / 2; // align 
 /* Deck display on profile page */
 $deck-display-gap: 15px;
 $deck-width: $right-contents-width / 3 - 2.3*$deck-display-gap; // this is a bit tricky
-$deck-padding: 12px;
+$deck-padding: 6px;
 $title-padding: 10px;
-$title-font-size: 15px;
+$title-font-size: 13px;
 $scaled-cards-gap: 3px;
-$deck-title-color: #CCCCCC;
+$deck-title-color: #999999;
 $deck-height: $deck-width + 2*$scaled-cards-gap+2*$title-padding + 10px; // need some extra padding at the bottom

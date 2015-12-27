@@ -7,6 +7,20 @@ $deck-editor-height: 330px;
 $deck-editor-label-width: 120px;
 $deck-editor-field-name-color: #999999;
 $deck-editor-field-height: 30px;
+$deck-editor-padding: 25px;
+$field-item-min-height: 30px;
+$field-item-magin: 20px;
+$field-border-color: #E6E6E6;
+$field-input-font-size: 14px;
+$field-input-padding: 10px;
+$field-radio-size: 15px;
+$field-name-font-size: 15px;
+$field-btn-width: 80px;
+$field-btn-height: 35px;
+$field-btn-bottom-gap: 10px;
+$deck-submit-btn-color: #56BC8A;
+$deck-update-btn-color: #f0ad4e;
+$deck-delete-btn-color: #ED5E68;
 .deck-editor {
     width: $deck-editor-width;
     min-height: $deck-editor-height;
@@ -14,27 +28,27 @@ $deck-editor-field-height: 30px;
     @include border-radius($default-border-radius);
     @include center-vertically-and-horizontally(fixed);
     z-index: 5;
-    padding: 25px;
-    padding-bottom: 50px;
+    padding: $deck-editor-padding;
+    padding-bottom: 2*$deck-editor-padding;
     form {
 	.field-item {
 	    vertical-align: middle;
 	    width: 100%;
-	    min-height: 30px;
-	    margin-bottom: 20px;
+	    min-height: $field-item-min-height;
+	    margin-bottom: $field-item-magin;
 	    overflow: auto;
 	    input[type="text"], textarea {
 		float: right;
 		width: $deck-editor-width - $deck-editor-label-width;
 		@include box-sizing(border-box);
-		border: 1px solid #E6E6E6;
+		border: 1px solid $field-border-color;
 		@include border-radius($default-border-radius);
 		font-family: "MyriadPro", "Arial", sans-serif;
-		padding: 10px;
-		font-size: 14px;
+		padding: $field-input-padding;
+		font-size: $field-input-font-size;
 	    }
 	    textarea {
-		height: 60px;
+		height: 2*$field-item-min-height;
 		resize: none;
 	    }
 	    input {
@@ -42,7 +56,7 @@ $deck-editor-field-height: 30px;
 	    }
 	    .radio-name {
 		display: inline-block;
-		margin-top: ($deck-editor-field-height - 14px) / 2;
+		margin-top: ($deck-editor-field-height - $field-input-font-size) / 2;
 		font-weight: 600;
 		color: $deck-editor-field-name-color;
 	    }
@@ -53,8 +67,8 @@ $deck-editor-field-height: 30px;
 		vertical-align: -20%;
 		margin-left: 15px;
 		margin-right: 40px;
-		width: 15px;
-		height: 15px;
+		width: $field-radio-size;
+		height: $field-radio-size;
 		margin-top: ($deck-editor-field-height - 14px) / 2;
 	    }
 
@@ -63,45 +77,80 @@ $deck-editor-field-height: 30px;
 		display: in-line;
 		float: left;
 		font-weight: 600;
-		font-size: 15px;
+		font-size: $field-name-font-size;
 		color: $deck-editor-field-name-color;
-		margin-top: ($deck-editor-field-height - 14px) / 2;
+		margin-top: ($deck-editor-field-height - $field-input-font-size) / 2;
 	    }
 	}
 	.field-btns {
 	    width: $deck-editor-width;
-	    height: 40px;
+	    height: $field-btn-height + 5px;
 	    position: absolute;
-	    bottom: 10px;
+	    bottom: $field-btn-bottom-gap;
 	    
 	    button {
-		width: 80px;
-		height: 35px;
+		width: $field-btn-width;
+		height: $field-btn-height;
 		border: none;
 		@include border-radius($default-border-radius);
 		position: absolute;
 		font-weight: 700;
-		font-size: 16px;
+		font-size: $field-btn-height / 2;
 		color: $white;
 	    }
 
 	    #deck-editor-cancel-btn {
-		background-color: #E6E6E6;
+		background-color: darken($field-border-color, 5%);
 		left: 0;
 		&:hover {
-		    background-color: darken(#E6E6E6, 15%);
+		    background-color: darken($field-border-color, 15%);
 		}
 	    }
 	    #deck-editor-submit-btn {
-		background-color: #56BC8A;
+		background-color: $deck-submit-btn-color;
 		right: 0;
 		&:hover {
-		    background-color: darken(#56BC8A, 15%);
+		    background-color: darken($deck-submit-btn-color, 15%);
 		}
 		&:disabled {
-		    background-color: #E6E6E6;
+		    background-color: lighten($deck-submit-btn-color, 15%);
 		    &:hover {
-			background-color: #E6E6E6;
+			background-color: lighten($deck-submit-btn-color, 15%);
+		    }
+		}
+	    }
+	    #deck-editor-update-btn {
+		background-color: $deck-update-btn-color;
+		right: 0;
+		&:hover {
+		    background-color: darken($deck-update-btn-color, 15%);
+		}
+		&:disabled {
+		    background-color: lighten($deck-update-btn-color, 15%);
+		    &:hover {
+			background-color: lighten($deck-update-btn-color, 15%);
+		    }
+		}
+	    }
+	    $deck-delete-btn-width: $field-btn-width * 0.75;
+	    $deck-delete-btn-height: $field-btn-height * 0.75;
+	    #deck-editor-delete-btn {
+		width: $deck-delete-btn-width;
+		height: $deck-delete-btn-height;
+		background-color: transparent;//
+		color: $deck-delete-btn-color;
+		right: ($deck-editor-width - $deck-delete-btn-width) / 2;
+		top: $deck-delete-btn-height / 2;
+		font-size: 13px;
+		&:hover {
+		    background-color: transparent;//darken($deck-delete-btn-color, 15%);
+		    color: darken($deck-delete-btn-color, 15%);
+		}
+		&:disabled {
+		    background-color: transparent; //lighten($deck-delete-btn-color, 15%);
+		    color: lighten($deck-delete-btn-color, 15%);
+		    &:hover {
+			color: lighten($deck-delete-btn-color, 15%);
 		    }
 		}
 	    }

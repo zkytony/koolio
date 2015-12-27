@@ -42,10 +42,7 @@ RSpec.describe Deck, type: :model do
     tag = deck.add_tag({name: "test"})
     expect(deck.tags.count).to be 1
     expect(tag.decks.count).to be 1
-    expect {
-      deck.add_tag({name: "test"})      
-    }.to raise_error(ActiveRecord::RecordNotUnique)
-
+    deck.add_tag({name: "test"})
     expect(deck.tags.count).to be 1
     expect(tag.decks.count).to be 1
   end
@@ -89,11 +86,12 @@ RSpec.describe Deck, type: :model do
   end
 
   it "should share a deck to another user as viewer" do
+    # deck is not open
     userA = User.create(username: "userA", email: "userA@example.com",
                        password: "123456", password_confirmation: "123456")
     userB = User.create(username: "userB", email: "userB@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
     deck.share_to(userB, "Viewer")
     expect(deck.editors.count).to be 1     # including userA himself
     expect(deck.normal_viewers.count).to be 1
@@ -101,11 +99,12 @@ RSpec.describe Deck, type: :model do
   end
 
   it "should change type of share" do
+    # deck is not open
     userA = User.create(username: "userA", email: "userA@example.com",
                        password: "123456", password_confirmation: "123456")
     userB = User.create(username: "userB", email: "userB@example.com",
                        password: "123456", password_confirmation: "123456")
-    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
     deck.share_to(userB, "Viewer")
     expect(deck.editable_by?(userB)).to be false
     deck.change_share_role(userB, "Editor")
@@ -123,6 +122,41 @@ RSpec.describe Deck, type: :model do
     expect(deck.viewable_by?(userB)).to be true
     deck.unshare(userB)
     expect(deck.viewable_by?(userB)).to be false
+  end
+
+  it "should not change the share role of the creator" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                       password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+    expect(deck.creator? userA).to be true
+    expect(deck.change_share_role(userA, "Viewer")).to be false
+  end
+
+  it "should avoid duplicating shares" do 
+    userA = User.create(username: "userA", email: "userA@example.com",
+                        password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                        password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+    deck.share_to(userB, "Viewer")
+    expect(deck.viewable_by?(userB)).to be true
+    expect(deck.normal_viewers.count).to be 1
+    # share to the same person again. Should not duplicate the association
+    deck.share_to(userB, "Viewer")
+    expect(deck.normal_viewers.count).to be 1
+  end
+
+  it "should just share when calling change role but there is no association" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                       password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                       password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+    # userB is not shared. But change_share_role should share it.
+    deck.change_share_role(userB, "Editor")
+    expect(deck.editors.count).to be 2
   end
 
   it "should recognize who it is recommended to and by" do

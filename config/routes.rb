@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :decks do
     post 'favorite' => 'decks#favorite'
     delete 'unfavorite' => 'decks#unfavorite'
+    get 'deck_info' => 'decks#deck_info'
   end
   # Also want to have paths for cards directly
   resources :cards do
