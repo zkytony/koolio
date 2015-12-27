@@ -1,0 +1,4 @@
+// first remove the deleted deck
+<% if @deck %>
+$("#deck_<%="#{@deck.id}"%>").remove();
+<% end %>

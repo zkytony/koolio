@@ -44,8 +44,10 @@ class DecksController < ApplicationController
   def destroy
     @deck = Deck.find(params[:id])
     @deck.destroy
-    flash[:success] = "Deck deleted"
-    redirect_to current_user
+    
+    respond_to do |format|
+      format.js
+    end
   end
 
   def deck_info

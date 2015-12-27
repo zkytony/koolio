@@ -172,4 +172,20 @@ RSpec.describe Deck, type: :model do
     expect(card.is_recommended_by?(userA)).to be true
     expect(card.is_recommended_to?(userB)).to be true
   end
+
+  it "should delete the deck even it has cards & tags and it is shared" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                        password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                        password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+    card = deck.build_card({front_content: "Hi", back_content: "Bye"}, userA)    
+    deck.add_tag({name: "tag1"})
+    deck.share_to(userB, "Editor")
+    
+    deck.destroy
+    expect(userA.decks.count).to be 0
+    expect(Card.all.count).to be 0
+    expect(userA.editable_decks.count).to be 0
+  end
 end

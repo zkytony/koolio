@@ -35,22 +35,20 @@ DeckEditor.prototype.init = function() {
     } else {
       $("#share-as-visitors").addClass("hidden");
     }
+    // validate
+    if (editor.validate()) {
+      editor.toggleSubmitButton(true);
+    } else {
+      editor.toggleSubmitButton(false);
+    }
   });
 
   // when form changes, validate it 
   $(document).on("keyup", "#new_deck :input", function() {
     if (editor.validate()) {
-      if (editor.editDeckId) {
-	$("#deck-editor-update-btn").prop("disabled", false);
-      } else {
-	$("#deck-editor-submit-btn").prop("disabled", false);
-      }
+      editor.toggleSubmitButton(false);
     } else {
-      if (editor.editDeckId) {
-	$("#deck-editor-update-btn").prop("disabled", true);
-      } else {
-	$("#deck-editor-submit-btn").prop("disabled", true);
-      }
+      editor.toggleSubmitButton(true);
     }
   });
 
@@ -65,6 +63,16 @@ DeckEditor.prototype.init = function() {
   $(document).on("click", "#deck-editor-cancel-btn", function() {
     editor.hide();
     editor.reset();
+  });
+
+  // when clicked delete button, delete the deck
+  // this is only possible when in edit mode.
+  $(document).on("click", "#deck-editor-delete-btn", function() {
+    // assume in edit mode
+    // change the _method input to delete
+    $("#deck-method-field").val("delete");
+    // submit the form
+    $("#new_deck").submit();
   });
 
   // when clicked on the deck-gear, bring out the deck editor
@@ -84,10 +92,11 @@ DeckEditor.prototype.init = function() {
 }
 
 DeckEditor.prototype.validate = function() {
+  var editor = this;
   if ($("#deck_title").val().length <= 0
     || $("#deck_description").val().length <= 0) {
       return false;
-  } else if (this.tagsCount <= 0) {
+  } else if (editor.tagsCount <= 0) {
     return false;
   }
   return true;
@@ -101,6 +110,8 @@ DeckEditor.prototype.reset = function() {
   $("#prop-private").prop("checked", false);
   this.tags.tagit('removeAll');
   this.editDeckId = undefined;
+  // remove the hidden method field
+  $("#deck-method-field").remove();
 }
 
 // make the given tag string a pretty tag element,
@@ -199,9 +210,20 @@ DeckEditor.prototype.showDeckInfo = function(deckId) {
 
       // add li elements to deck_tags
       var tags = output["tags"];
+      editor.tagsCount = tags.length;
       tags.forEach(function(tag) {
 	editor.tags.tagit('createTag', tag);
       });
     }
   });
+}
+
+// on - whether to enable the button
+DeckEditor.prototype.toggleSubmitButton = function(on) {
+  var editor = this;
+  if (editor.editDeckId) {
+    $("#deck-editor-update-btn").prop("disabled", !on);
+  } else {
+    $("#deck-editor-submit-btn").prop("disabled", !on);
+  } 
 }
