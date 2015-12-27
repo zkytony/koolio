@@ -13,7 +13,7 @@ DeckEditor.prototype.init = function() {
   editor.initTagsField(null);
 
   $(document).on("click", "#prof-add-deck-btn", function() {
-    if (editor.editMode) {
+    if (editor.editDeckId) {
       // previously edit mode, so there may be valus in the
       // form fields. Reset the editor
       editor.reset();
@@ -193,7 +193,6 @@ DeckEditor.prototype.showDeckInfo = function(deckId) {
     url: '/decks/' + deckId + '/deck_info',
     dataType: 'json',
     success: function(output) {
-      console.log(output);
       // fill the form
       $("#deck_title").val(output["deck"]["title"]);
       $("#deck_description").val(output["deck"]["description"]);
