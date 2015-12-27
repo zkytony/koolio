@@ -2,9 +2,11 @@
 <% cards = deck.cards.sort_by(&:created_at).reverse.slice(0, limit) %>
 <div class="one-deck deck-square" id="deck_<%="#{deck.id}"%>">
   <h3><%="#{deck.title}"%></h3>
-  <div class="deck-gear">
-    <i class="fa fa-gear"></i>
-  </div>
+  <% if deck.editable_by? current_user %>
+    <div class="deck-gear">
+      <i class="fa fa-gear"></i>
+    </div>
+  <% end %>
   <div class="four-cards">
     <% cards.each do |card| %>
       <% card_front = JSON.parse(card.front_content) %>
