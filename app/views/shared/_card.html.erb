@@ -1,6 +1,10 @@
 <%# This partial takes locals: category_class, card_id, card_front_type, card_front_content, card_back_type, card_back_content %>
 <%# category_class is the additional class identifying the context of this card. For example, "home-card" is a category_class for
     cards showing on the home page %>
+<% liked_class = "" %>
+<% if current_user_liked_card %>
+  <% liked_class = "liked" %>
+<% end %>
 <div class="<%="#{category_class}"%> flipper" id="card_<%="#{card_id}" %>">
   <div class="flipper-front flip-dir1 card-side <%="#{card_front_type}-type-side"%>" id="card_<%="#{card_id}"%>_front_<%="#{card_front_type}"%>">
     <!-- Deal with front -->
@@ -13,7 +17,7 @@
     </div>
     <!-- quick like btn -->
     <div class="quick-card-like-btn-wrapper">
-      <div class="quick-card-like-btn" id="quick_like_<%="#{card_id}"%>_front"><i class="fa fa-heart no-flip" id="quick_like_<%="#{card_id}"%>"></i></div>
+      <div class="quick-card-like-btn <%="#{liked_class}"%>" id="quick_like_<%="#{card_id}"%>_front"><i class="fa fa-heart no-flip" id="quick_like_<%="#{card_id}"%>"></i></div>
     </div>
     <!-- End dealing with front -->
   </div>
@@ -28,7 +32,7 @@
     </div>
     <!-- quick like btn -->
     <div class="quick-card-like-btn-wrapper">
-      <div class="quick-card-like-btn" id="quick_like_<%="#{card_id}"%>_back"><i class="fa fa-heart no-flip"></i></div>
+      <div class="quick-card-like-btn <%="#{liked_class}"%>" id="quick_like_<%="#{card_id}"%>_back"><i class="fa fa-heart no-flip"></i></div>
     </div>
     <!-- End dealing with back -->
   </div>
