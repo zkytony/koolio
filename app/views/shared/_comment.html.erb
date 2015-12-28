@@ -1,9 +1,11 @@
 <div class="comment slim-info" id="comment_<%="#{comment_id}"%>">
   <div class="left profile">
-    <%= image_tag "default-profile.jpg", :id => "nav-pic-img" %>
+    <img class="user-avatar" id="nav-pic-img" src="<%= "#{author.my_avatar!('front')}" %>" alt="FRONT">
   </div>
   <div class="right">
-    <div class="comment_author_name"><%="#{author_name}"%></div>
+    <div class="comment_author_name">
+      <%= link_to "#{author.username}", user_profile_path(author, data: { no_turbolink: true }) %>
+    </div>
     <p class="comment_content""><%="#{content}"%></p>
     <div class="comment-likes">
       <% if comment_liked %>

@@ -12,7 +12,7 @@
 <div class="main-contents-wrapper">
   <div class="left-contents-wrapper">
     <div class="profpic-stat">
-      <div class="profpic"></div>
+      <%= render partial: "shared/avatar_card", locals: { user: @user, extra_class: "profpic" } %>
       <div class="username">
 	<%="#{@user.username}"%>
       </div>

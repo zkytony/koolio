@@ -14,15 +14,7 @@ do a masonary
   <div class="setting-item" id="avatar-setting">
     <div class="setting-name"><h4>avatar</h4></div>
     <div class="setting-current-value">
-      <%# The avatar is a flippable card with one img on each side %>
-      <div class="flipper" id="avatar-card"">
-	<div class="flipper-front flip-dir1 avatar-side">
-	  <img id="avatar-front-img" src="<%= "#{@user.my_avatar!('front')}" %>" alt="FRONT">
-	</div>
-	<div class="flipper-back flip-dir1 avatar-side">
-	  <img id="avatar-back-img" src="<%= "#{@user.my_avatar!('back')}" %>" alt="BACK">
-	</div>
-      </div>
+      <%= render partial: "shared/avatar_card", locals: { user: @user, extra_class: "" } %>
     </div>
     <button id="change-avatar-btn">change avatar</button>
   </div>

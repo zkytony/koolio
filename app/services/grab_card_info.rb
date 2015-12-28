@@ -20,12 +20,8 @@ class GrabCardInfo
       comments = card.comments
       cards = deck.cards.order(:likes).reverse_order.take(n_cards)
       # use hash and convert it to JSON
-      # PROBLEM: BETTER ADD A LIKE COLUMN TO cards AND comments TO SPPED THINGS UP
-      # OR IS IT BETTER TO JUST RETRIEVE EVERYTHING WHEN GRABBING THE RECOMMENDED CONTENT?
-      # OR A COMBINATION OF AJAX AND RETRIEVE INITIALLY?
       info = {
-        author_name: author.username,
-        author_id: author.id,
+        author: author,
         deck: deck,
         n_likes: card.likes, 
         n_comments: comments.count,

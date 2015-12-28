@@ -30,6 +30,11 @@ $(document).ready(function() {
     ajaxGrabDecksForProfile(userId, false);
   });
 
+  // when click on avatar, flip it
+  $(document).on("click", "#avatar-card", function() {
+    flip($(this));
+  });
+
   $(document).on("click", "#decks-item", function() {
     //	ajaxGrabDecksForProfile(userId);
   });

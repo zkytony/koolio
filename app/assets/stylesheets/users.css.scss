@@ -438,8 +438,18 @@ $info-toggle-size: 80px;
 	width: $prof-width;
 	height: $prof-width;
 	margin: auto;
-	background-color: grey;
-	@include border-radius($default-border-radius);
+	position: relative;
+
+	.avatar-side {
+	    width: $prof-width;
+	    height: $prof-width;
+	    @include border-radius($default-border-radius);
+	    overflow: hidden;
+	    img {
+		width: $prof-width;
+		height: $prof-width;
+	    }
+	}
     }
 
     .username {
