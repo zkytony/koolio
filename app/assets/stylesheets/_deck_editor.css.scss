@@ -1,26 +1,5 @@
 @import "global";
 
-// deck editor
-$deck-editor-bg: $white;
-$deck-editor-width: 350px;
-$deck-editor-height: 330px;
-$deck-editor-label-width: 120px;
-$deck-editor-field-name-color: #999999;
-$deck-editor-field-height: 30px;
-$deck-editor-padding: 25px;
-$field-item-min-height: 30px;
-$field-item-magin: 20px;
-$field-border-color: #E6E6E6;
-$field-input-font-size: 14px;
-$field-input-padding: 10px;
-$field-radio-size: 15px;
-$field-name-font-size: 15px;
-$field-btn-width: 80px;
-$field-btn-height: 35px;
-$field-btn-bottom-gap: 10px;
-$deck-submit-btn-color: #56BC8A;
-$deck-update-btn-color: #f0ad4e;
-$deck-delete-btn-color: #ED5E68;
 .deck-editor {
     width: $deck-editor-width;
     min-height: $deck-editor-height;

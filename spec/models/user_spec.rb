@@ -65,6 +65,26 @@ RSpec.describe User, :type => :model do
     ben.destroy
   end
 
+  it "should update attributes of a user without needing password" do
+    ben = User.create!(username: "ben", email: "ben@example.com",
+                       password: "123456", password_confirmation: "123456")    
+    ben[:username] = "ben2"
+    ben.save!
+    new_ben = User.find(ben.id)
+    expect(new_ben.username).to eq "ben2"
+  end
+
+  it "should update the password" do
+    ben = User.create!(username: "ben", email: "ben@example.com",
+                       password: "123456", password_confirmation: "123456")    
+    #ben[:password] = "1234567"
+    ben.password = "1234567"
+    ben.password_confirmation = "1234567"
+    ben.save!
+    new_ben = User.authenticate("ben", "1234567")
+    expect(new_ben.id).to eq ben.id
+  end
+
   it "should follow another user" do
     ben = User.create!(username: "ben", email: "ben@example.com",
                        password: "123456", password_confirmation: "123456")

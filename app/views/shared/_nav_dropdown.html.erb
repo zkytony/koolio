@@ -9,9 +9,9 @@
       <% end %>
     </li>
     <li class="nav-dropdown-link">
-      <a href="">
-	Settings<i class="fa fa-cog"></i>
-      </a>
+      <%= link_to user_settings_path(current_user), data: { no_turbolink: true } do %>
+	Settings<i class="fa fa-gear"></i>
+      <% end %>
     </li>
     <li class="nav-dropdown-link">
       <%= link_to logout_path, method: :delete do %>

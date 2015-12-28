@@ -1,0 +1,56 @@
+<% provide(:title, "Settings") %>
+<%= render :partial => 'shared/nav' %>
+<%= stylesheet_link_tag "users.css" %>
+<%= stylesheet_link_tag "_user_settings.css" %>
+<%= javascript_include_tag "user_settings.js" %>
+<%# Setting items: username, email, password, first name, last name,
+birthday, gender, avatar
+
+do a masonary
+%>
+<div id="setting-items-wrapper">
+  <div class="hidden user_setting_id" id="user_<%="#{@user.id}"%>_setting"></div>
+  <div class="setting-item" id="avatar-setting">
+    <div class="setting-name"><h4>avatar</h4></div>
+    <div class="setting-current-value"></div>
+    <button class="setting-action-btn setting-change-btn" id="change-avatar-btn">Change</button>
+  </div>
+
+  <%= render partial: "shared/setting_item", locals: { setting_for: "username", setting_name: "username",
+						       current_value: @user.username,
+						       setting_fields: "<input type=\"text\" name=\"user_name\" id=\"user_name\">"
+						     } %>
+  <%= render partial: "shared/setting_item", locals: { setting_for: "email",    setting_name: "email",
+						       current_value: @user.email,
+						       setting_fields: "<input type=\"text\" name=\"user_email\" id=\"user_email\">"
+						     } %>
+  <%= render partial: "shared/setting_item", locals: { setting_for: "password", setting_name: "password",
+						       current_value: "<i class=\"fa fa-lock\"></i>",
+						       setting_fields: "<input type=\"password\" name=\"user_password\" id=\"user_password\">"
+						     } %>
+  <%= render partial: "shared/setting_item", locals: { setting_for: "name",     setting_name: "first / last name", 
+						       current_value: @user.full_name ? @user.full_name : "not set",
+						       setting_fields: "<input type=\"text\" name=\"user_first_name\" id=\"user_first_name\"><input type=\"text\" name=\"user_last_name\" id=\"user_last_name\">"
+						     } %>
+  <%= render partial: "shared/setting_item", locals: { setting_for: "gender",   setting_name: "gender",
+						       current_value: @user.gender ? @user.gender : "not set",
+						       setting_fields: "<label class=\"radio-name\" for=\"user_gender_male\">male</label>
+                                                                        <input type=\"radio\" name=\"gender\" id=\"user_gender_male\" value=\"male\">
+                                                                        <label class=\"radio-name\" for=\"user_gender_female\">female</label>
+                                                                        <input type=\"radio\" name=\"gender\" id=\"user_gender_female\" value=\"female\">"
+						     } %>
+  <%= render partial: "shared/setting_item", locals: { setting_for: "birthday", setting_name: "birthday",
+						       current_value: @user.birthday ? @user.birthday : "not set",
+						       setting_fields: render(partial: "shared/birthday_selector")
+						      } %>
+  <div class="setting-item dummy">
+    <%# dummy %>
+  </div>
+  <div class="setting-item dummy">
+    <%# dummy %>
+  </div>
+  <div class="setting-item" id="confirm-btns-wrapper">
+    <button id="setting-confirm-btn">Update</button>
+  </div>
+</div>
+

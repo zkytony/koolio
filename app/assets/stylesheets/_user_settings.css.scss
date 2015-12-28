@@ -1,0 +1,139 @@
+@import "global";
+
+$setting-item-width: 200px;
+$setting-item-min-height: 100px;
+$setting-item-default-bg: #FCFCFC;
+$setting-name-color: #999999;
+$setting-text-width: 160px;
+$setting-text-font-size: 13px;
+#setting-items-wrapper {
+    width: $setting-item-width*3 + 30px;
+    margin: auto;
+    margin-top: 40px;
+}
+.setting-item {
+    width: $setting-item-width;
+    min-height: $setting-item-min-height;
+    @include box-sizing(border-box);
+    margin-bottom: 15px;
+
+    .setting-item-side {
+	width: 100%;
+	min-height: $setting-item-min-height;
+	background-color: $setting-item-default-bg;
+	@include border-radius($default-border-radius);
+    }
+
+    .setting-fields {
+	width: $setting-text-width;
+	margin: auto;
+	input[type=text], input[type=password] {
+	    padding-bottom: 4px;
+	    padding-left: 6px;
+	    font-size: $setting-text-font-size;
+	    width: $setting-text-width;
+	    background-color: $setting-item-default-bg;
+	    border: none;
+	    border-bottom: 1px solid $setting-name-color;
+	    color: darken($setting-name-color, 25%);
+	    @include box-sizing(border-box);
+	}
+	#user_first_name {
+	    margin-right: 5px;
+	}
+	#user_first_name, #user_last_name {
+	    width: ($setting-text-width - 10px) / 2;
+	}
+
+	.radio-name {
+	    display: inline-block;
+	    margin-top: ($deck-editor-field-height - $field-input-font-size) / 2;
+	    font-weight: 600;
+	    color: darken($setting-name-color, 25%);
+	}
+	// radio button
+	input[type=radio] {
+	    margin-left: 4px;
+	    margin-right: 11px;
+	    width: 12px;//$field-radio-size;
+	    height: 12px;//$field-radio-size;
+	    vertical-align: -10%;
+	}
+
+	// date selector
+
+    }
+
+    .setting-name {
+	padding: 15px;
+	padding-bottom: 10px;
+	h4 {
+	    font-weight: 600;
+	    color: $setting-name-color;
+	}
+    }
+    
+    .setting-current-value {
+//	font-weight: 600;
+	word-wrap: break-word;
+	color: $setting-name-color;
+	text-align: center;
+	font-size: 18px;
+    }
+
+    .setting-action-btn {
+	float: right;
+	padding: 4px;
+	font-size: 12px;
+	border: none;
+	color: $white;
+	margin: 10px;
+	@include border-radius(2px);
+    }
+    .setting-change-btn {
+	background-color: $deck-submit-btn-color;
+	&:hover {
+	    background-color: darken($deck-submit-btn-color, 15%);
+	}
+    }
+    $cancel-btn-color: #999999;
+    .setting-cancel-btn {
+	background-color: $cancel-btn-color;
+	&:hover {
+	    background-color: darken($cancel-btn-color, 15%);
+	}
+    }
+}
+
+.setting-item.dummy {
+    opacity: 0;
+}
+
+#avatar-setting, #avatar-setting .setting-item-side {
+    height: $setting-item-width * 1.5 + 20px;
+    background-color: $setting-item-default-bg;
+}
+
+#setting-confirm-btn {
+    @include center-vertically-and-horizontally;
+    padding: 10px;
+    font-size: 16px;
+    background-color: $deck-update-btn-color;
+    border: none;
+    @include border-radius($default-border-radius);
+    color: $white;
+    font-weight: 600;
+    &:hover {
+	background-color: darken($deck-update-btn-color, 15%);
+    }
+}
+
+#confirm-btns-wrapper {
+    background-color: $setting-item-default-bg;
+}
+
+#birthday-setting {
+    .setting-fields {
+	width: $setting-text-width + 14px;
+    }
+}

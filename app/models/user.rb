@@ -45,7 +45,8 @@ class User < ActiveRecord::Base
                         format: { with: VALID_EMAIL_REGEX },
                         length: { maximum: 255 }
   validates :password,  presence: true,
-                        length: { minimum: 6 }
+                        length: { minimum: 6 }, on: :create
+  validates :password,  length: { minimum: 6 }, on: :update, allow_blank: true
   
   has_secure_password   # Enforces validation on the virtual password & password_confirmation attributes
 
@@ -177,5 +178,15 @@ class User < ActiveRecord::Base
 
   def turndown_recommendation(other_user, recommendable)
     self.passive_recommendations.find_by(from_user_id: other_user.id, recommendable: recommendable).destroy
+  end
+
+  # get full name. If neither first name nor last name is set,
+  # then return nil
+  def full_name
+    if !self.first_name and !self.last_name
+      return nil
+    else
+      "#{self.first_name} #{self.last_name}"
+    end
   end
 end

@@ -81,6 +81,27 @@ class UsersController < ApplicationController
     end
   end
 
+  # settings
+  def settings
+    @user = User.find(params[:user_id])
+    if logged_in? && current_user.id === @user.id
+      
+    else
+      redirect_to :back
+    end
+  end
+
+  # update
+  def update
+    @user = User.find(params[:id])
+    new_attrs = params[:new_attrs]
+    puts new_attrs
+    if new_attrs
+      UpdateUser.call(@user, new_attrs)
+    end
+    
+  end
+
   private
     
     # strong parameter
