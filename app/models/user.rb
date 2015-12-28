@@ -198,10 +198,11 @@ class User < ActiveRecord::Base
   def my_avatar!(side)
     if self.avatar
       file = JSON.parse(self.avatar)[side]
-      "#{file['host']}/#{file['store_dir']}/thumb_#{file['file_name']}"
-    else
-      "/assets/default-profile.svg"
+      if file
+        return "#{file['host']}/#{file['store_dir']}/thumb_#{file['file_name']}"
+      end
     end
+    "/assets/default-profile.svg"
   end
 
   def avatar_json(side)
