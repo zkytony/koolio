@@ -373,4 +373,19 @@ RSpec.describe User, :type => :model do
     expect(userA.recommendings_of_cards.count).to be 0
     expect(userB.recommended_cards.count).to be 0
   end
+
+  it "should inspect avatar" do
+    user = User.create(username: "userA", email: "userA@example.com",
+                        password: "123456", password_confirmation: "123456")
+
+    default_avatar = {
+      front: "/assets/default-profile.svg",
+      back: "/assets/default-profile.svg"
+    }
+    user.avatar = default_avatar.to_json
+    user.save!
+    
+    expect(user.my_avatar!["front"]).to eq "/assets/default-profile.svg"
+    expect(user.my_avatar!["back"]).to eq "/assets/default-profile.svg"
+  end
 end

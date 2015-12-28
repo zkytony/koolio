@@ -95,11 +95,13 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     new_attrs = params[:new_attrs]
-    puts new_attrs
     if new_attrs
-      UpdateUser.call(@user, new_attrs)
+      @user = UpdateUser.call(@user, new_attrs)
     end
     
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

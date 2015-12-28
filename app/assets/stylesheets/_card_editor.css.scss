@@ -177,7 +177,7 @@ $inner-btn-row-height: 20%;
     background-color: $inner-editor-bg;
 }
 
-.inner-edit-back-btn, .inner-change-type-btn {
+.inner-edit-back-btn, .inner-change-type-btn, .inner-confirm-btn {
     padding: 10px 12px;
     position: absolute;
     border: none;
@@ -198,6 +198,13 @@ $inner-btn-row-height: 20%;
     left: 20px;
     color: $grey-black;
     @include decent-interact-bg($light-grey);
+}
+
+.inner-confirm-btn {
+    right: 20px;
+    background-color: $soft-green;
+    color: $white;
+    @include decent-interact-bg($soft-green);
 }
 /**** END GENERALS OF EDITORS ****/
 /**** TEXT EDITOR ****/
@@ -274,7 +281,7 @@ $img-uploader-wrapper-width: 90%;
 	padding-bottom: 5%;
 	position: relative;
 	
-	.inner-edit-back-btn, .inner-change-type-btn {
+	.inner-edit-back-btn, .inner-change-type-btn, inner-confirm-btn {
 	    top: 5%;
 	}
 

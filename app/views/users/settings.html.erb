@@ -1,6 +1,7 @@
 <% provide(:title, "Settings") %>
 <%= render :partial => 'shared/nav' %>
 <%= stylesheet_link_tag "users.css" %>
+<%= stylesheet_link_tag "_card_editor.css" %>
 <%= stylesheet_link_tag "_user_settings.css" %>
 <%= javascript_include_tag "user_settings.js" %>
 <%# Setting items: username, email, password, first name, last name,
@@ -12,8 +13,18 @@ do a masonary
   <div class="hidden user_setting_id" id="user_<%="#{@user.id}"%>_setting"></div>
   <div class="setting-item" id="avatar-setting">
     <div class="setting-name"><h4>avatar</h4></div>
-    <div class="setting-current-value"></div>
-    <button class="setting-action-btn setting-change-btn" id="change-avatar-btn">Change</button>
+    <div class="setting-current-value">
+      <%# The avatar is a flippable card with one img on each side %>
+      <div class="flipper" id="avatar-card"">
+	<div class="flipper-front flip-dir1 avatar-side">
+	  <img id="avatar-front-img" src="<%= "#{@user.my_avatar!('front')}" %>" alt="FRONT">
+	</div>
+	<div class="flipper-back flip-dir1 avatar-side">
+	  <img id="avatar-back-img" src="<%= "#{@user.my_avatar!('back')}" %>" alt="BACK">
+	</div>
+      </div>
+    </div>
+    <button id="change-avatar-btn">change avatar</button>
   </div>
 
   <%= render partial: "shared/setting_item", locals: { setting_for: "username", setting_name: "username",
@@ -53,4 +64,12 @@ do a masonary
     <button id="setting-confirm-btn">Update</button>
   </div>
 </div>
-
+<div class="flipper hidden" id="avatar-editors">
+  <div class="flipper-front flip-dir1 avatar-editor-side" id="avatar-editor-front">
+    <%= render partial: "shared/card_editors/img_side_editor", locals: { side: "front", other_side: "back" } %>
+  </div>
+  <div class="flipper-back flip-dir1 avatar-editor-side" id="avatar-editor-back">
+    <%= render partial: "shared/card_editors/img_side_editor", locals: { side: "back", other_side: "front" } %>
+  </div>
+</div>
+<div class="dark-overlay hidden" id="overlay-for-avatar-editor"></div>

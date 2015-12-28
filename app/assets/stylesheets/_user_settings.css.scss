@@ -110,8 +110,37 @@ $setting-text-font-size: 13px;
 }
 
 #avatar-setting, #avatar-setting .setting-item-side {
-    height: $setting-item-width * 1.5 + 20px;
+    height: $setting-item-width * 1.5 + 25px;
     background-color: $setting-item-default-bg;
+}
+
+$avatar-size: 175px;
+$change-avatar-btn-width: 120px;
+$change-avatar-btn-color: lighten(#004CCC, 15%);
+#avatar-setting {
+    position: relative;
+    .avatar-side {
+	margin-left: ($setting-item-width - $avatar-size) / 2;
+	@include border-radius($default-border-radius);
+    }
+    img {
+	@include border-radius($default-border-radius);
+	width: $avatar-size;
+	height: $avatar-size;
+    }
+    #change-avatar-btn {
+	position: absolute;
+	bottom: 20px;
+	width: $change-avatar-btn-width;
+	border: none;
+	height: 25px;
+	margin-left: ($setting-item-width - $change-avatar-btn-width) / 2;
+	@include border-radius(2px);
+	&:hover {
+	    background-color: darken($change-avatar-btn-color, 15%);
+	    color: $white;
+	}
+    }
 }
 
 #setting-confirm-btn {
@@ -135,5 +164,37 @@ $setting-text-font-size: 13px;
 #birthday-setting {
     .setting-fields {
 	width: $setting-text-width + 14px;
+    }
+}
+
+$avatar-editor-width: 367px;
+$avatar-editor-upload-height: 273px;
+$avatar-editor-display-height: 300px;
+#avatar-editors {
+    width: $avatar-editor-width;
+    height: $avatar-editor-upload-height;
+    z-index: 10;
+    @include center-vertically-and-horizontally;
+
+    .image-editor, .image-editor-uploader {
+	width: 100%;
+	height: 100%;
+    }
+
+    .image-editor-display {
+	height: $avatar-editor-display-height;
+	
+    }
+
+    .avatar-editor-side {
+	width: $avatar-editor-width;
+	height: $avatar-editor-upload-height;
+	.inner-editor-btn-row {
+	    bottom: 7px;
+	}
+	.inner-edit-back-btn {
+	    right: auto;
+	    left: 20px;
+	}
     }
 }

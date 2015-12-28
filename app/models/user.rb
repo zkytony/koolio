@@ -189,4 +189,24 @@ class User < ActiveRecord::Base
       "#{self.first_name} #{self.last_name}"
     end
   end
+  
+  # return a hash object with "front", and "back" as attributes,
+  # each of which has value that is the url to the thumbnail
+  # version of the avatar on that side
+  #
+  # assume side is either "front" or "back"
+  def my_avatar!(side)
+    if self.avatar
+      file = JSON.parse(self.avatar)[side]
+      "#{file['host']}/#{file['store_dir']}/thumb_#{file['file_name']}"
+    else
+      "/assets/default-profile.svg"
+    end
+  end
+
+  def avatar_json(side)
+    if self.avatar
+      JSON.parse(self.avatar)[side]
+    end
+  end
 end

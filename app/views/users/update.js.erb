@@ -1,0 +1,20 @@
+// update the setting current value for the items
+
+// username
+$("#username-setting .setting-current-value").html("<%="#{@user.username}"%>");
+
+// email
+$("#email-setting .setting-current-value").html("<%="#{@user.email}"%>");
+
+// first / last name
+$("#name-setting .setting-current-value").html("<%=@user.full_name ? "#{@user.full_name}" : "not set"%>");
+
+// gender
+$("#gender-setting .setting-current-value").html("<%=@user.gender ? "#{@user.gender}" : "not set"%>");
+
+// birthday
+$("#birthday-setting .setting-current-value").html("<%=@user.birthday ? "#{@user.birthday}" : "not set"%>");
+
+// avatar
+$("#avatar-front-img").attr("src", "<%="#{@user.my_avatar!('front')}"%>");
+$("#avatar-back-img").attr("src", "<%="#{@user.my_avatar!('back')}"%>");
