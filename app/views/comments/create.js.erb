@@ -3,11 +3,11 @@ var commentCount = parseInt($("#n_comments").html());
 
 if (commentCount > 0) {
   $("#comment_list").append(
-    "<%= j render partial: "shared/comment", locals: { content: "#{@comment.content}", n_likes: "#{@comment.likes}", author_name: "#{@comment.user.username}", comment_id: "#{@comment.id}", comment_liked: false } %>"
+    "<%= j render partial: "shared/comment", locals: { content: "#{@comment.content}", n_likes: "#{@comment.likes}", author_name: "#{@comment.user.username}", comment_id: "#{@comment.id}", comment_liked: false, author: @comment.user } %>"
   );
 } else {
   $("#comment_list").html(
-    "<%= j render partial: "shared/comment", locals: { content: "#{@comment.content}", n_likes: "#{@comment.likes}", author_name: "#{@comment.user.username}", comment_id: "#{@comment.id}", comment_liked: false } %>"
+    "<%= j render partial: "shared/comment", locals: { content: "#{@comment.content}", n_likes: "#{@comment.likes}", author_name: "#{@comment.user.username}", comment_id: "#{@comment.id}", comment_liked: false, author: @comment.user } %>"
   );
 }
 
