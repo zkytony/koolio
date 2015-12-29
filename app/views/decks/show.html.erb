@@ -5,9 +5,14 @@
 <%= javascript_include_tag "flexible_cards_handler.js" %>
 <%= javascript_include_tag "decks.js" %>
 <%= render :partial => 'shared/nav' %>
-<div class="add-card-btn-container">
-  <button class="add-card-btn" id="add-card-btn"><i class="fa fa-plus"></i></button>
-</div>
+<% if @deck.editable_by? current_user %>
+  <div class="add-card-btn-container">
+    <button class="add-card-btn" id="add-card-btn"><i class="fa fa-plus"></i></button>
+  </div>
+  <div class="home-card-editor-container" id="editor-container-deck">
+    <%= render :partial => 'shared/card_editor' %>
+  </div>
+<% end %>
 <div class="main-contents-wrapper">
   <div class="left-contents-wrapper deck-info-panel">
     <div class="deck-title">
@@ -36,9 +41,6 @@
   <div class="right-contents-wrapper" id="deck-cards-container">
     <%= render partial: "shared/deck_cards" %>
   </div>
-</div>
-<div class="home-card-editor-container" id="editor-container-deck">
-  <%= render :partial => 'shared/card_editor' %>
 </div>
 <!-- overlays -->
 <div class="glass-overlay" id="overlay-for-editor"></div>
