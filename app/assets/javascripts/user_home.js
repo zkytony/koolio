@@ -40,7 +40,7 @@ $(document).ready(function() {
     }
   });
 
-  var cardsHandler = new CardsHandler();
+  var cardsHandler = new FlexCardsHandler("recommended-contents-wrapper", 30);
   cardsHandler.init();
 });
 

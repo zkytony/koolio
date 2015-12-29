@@ -1,5 +1,6 @@
 <% provide(:title, "#{@user.username}") %>
 <%= stylesheet_link_tag "users.css" %>
+<%= javascript_include_tag "flexible_cards_handler.js" %>
 <%= javascript_include_tag "user_home.js" %>
 <%= javascript_include_tag "users.js" %>
 <%= render :partial => 'shared/nav' %>
