@@ -1,18 +1,24 @@
 <%# partial for one deck %>
 <% cards = deck.cards.sort_by(&:created_at).reverse.slice(0, limit) %>
 <div class="one-deck deck-square" id="deck_<%="#{deck.id}"%>">
-  <h3><%="#{deck.title}"%></h3>
+  <h3>
+    <%= link_to deck_path(deck), data: { no_turbolink: true } do %>
+      <%="#{deck.title}"%>
+    <% end %>
+  </h3>
   <% if deck.editable_by? current_user %>
     <div class="deck-gear">
       <i class="fa fa-gear"></i>
     </div>
   <% end %>
-  <div class="four-cards">
-    <% cards.each do |card| %>
-      <% card_front = JSON.parse(card.front_content) %>
-      <div class="scaled-card card-<%="#{card_front['type']}"%>">
-	<%= render partial: "shared/card_content_templates/#{card_front['type']}_side", locals: { content: card_front['content'] } %>
-      </div>
-    <% end %>
+  <%= link_to deck_path(deck), data: { no_turbolink: true } do %>
+    <div class="four-cards">
+      <% cards.each do |card| %>
+	<% card_front = JSON.parse(card.front_content) %>
+	<div class="scaled-card card-<%="#{card_front['type']}"%>">
+	  <%= render partial: "shared/card_content_templates/#{card_front['type']}_side", locals: { content: card_front['content'] } %>
+	</div>
+      <% end %>
+  <% end %>
   </div>
 </div>

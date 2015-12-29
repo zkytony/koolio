@@ -635,12 +635,19 @@ $info-toggle-size: 80px;
 	    color: darken($deck-title-color, 15%);
 	}
     }
+
+    a {
+	display: block;
+    }
     
     .four-cards {
 	width: $deck-width;
 	min-height: $deck-width - $title-padding*2 - $title-font-size;
 	margin: auto;
 	overflow: auto;
+	&:hover {
+	    opacity: 0.8;
+	}
 	.scaled-card {
 	    width: $deck-width / 2 - $scaled-cards-gap*2;
 	    height: $deck-width / 2 - $scaled-cards-gap*2;

@@ -1,0 +1,74 @@
+var cards = {};
+var noOngoingLoad = true;
+// decks
+$(document).ready(function() {
+  $(".home-card").each(function() {
+    dealWithHomeCard($(this));
+  });
+
+  $("#deck-cards-container").masonry({
+    columnWidth: 250,
+    gutter: 30,
+    itemSelector: ".home-card",
+    transitionDuration: 0
+  });
+
+  $(document).on("click", "#add-card-btn", function() {
+    $(".glass-overlay").css("display", "block");
+    $("#editor-container-deck").css("display", "block");
+  });
+
+  $(document).on("click", "#overlay-for-editor", function() {
+    $("#overlay-for-editor").css("display", "none");
+    $("#editor-container-deck").css("display", "none");
+  });
+
+  var editor = new Editor("new_card");
+  editor.init();
+
+  $("#new_card").on("ajax:success", function(e, data, status, xhr) {
+    // when new card is created, refresh the recommended content
+    // by ajax query to user:show again
+    ajaxGrabDeckCards(false);
+    $("#editor-container-deck").css("display", "none");
+  });
+
+  // When scroll to nearly the bottom, grab more cards for "hot-contents"
+  var limit = 20;
+  $(window).scroll(function() {
+    if ($(document).height() - limit <= $(window).scrollTop() + $(window).height()) {
+      if (noOngoingLoad) {
+	//var deckId = $(".deck-info-panel").attr("id").split("_")[1];
+	ajaxGrabDeckCards(true);
+      }
+    }
+  });
+
+  var cardsHandler = new FlexCardsHandler("deck-cards-container", 30);
+  cardsHandler.init();
+});
+
+function ajaxGrabDeckCards(more) {
+  noOngoingLoad = false;
+  var card_ids = [];
+  if (more) {
+    $(".home-card").each(function() {
+      card_ids.push($(this).attr("id").split("_")[1]);
+    });
+  }
+
+  $.ajax({
+    // send to current page (deck show)
+    type: 'GET',
+    data: { more: more, card_ids: card_ids },
+    dataType: 'script',
+    success: function(data) {
+      $("#deck-cards-container").masonry('reloadItems');
+      $(".home-card").each(function() {
+	dealWithHomeCard($(this));
+      });
+      $("#deck-cards-container").masonry();
+      noOngoingLoad = true;
+    }
+  });
+}

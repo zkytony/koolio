@@ -1,74 +1,45 @@
-<% provide(:title, "A Deck of Cards") %>
-
+<% provide(:title, "#{@deck.title}") %>
+<%= stylesheet_link_tag "users.css" %>
 <%= stylesheet_link_tag "decks.css" %>
-
-<div class="container">
-  <div class="main-content-wrapper">
-    <div class="left-panel-wrapper">      
-      <div class="deck-owner-info">
-	<%= render partial: "shared/user_info", locals: {user: @deck.user, deck: @deck} %>
+<%= javascript_include_tag "card.js" %>
+<%= javascript_include_tag "flexible_cards_handler.js" %>
+<%= javascript_include_tag "decks.js" %>
+<%= render :partial => 'shared/nav' %>
+<div class="add-card-btn-container">
+  <button class="add-card-btn" id="add-card-btn"><i class="fa fa-plus"></i></button>
+</div>
+<div class="main-contents-wrapper">
+  <div class="left-contents-wrapper deck-info-panel">
+    <div class="deck-title">
+      <h2><%="#{@deck.title}"%></h2>
+    </div>
+    <div class="deck-descp">
+      <p><%="#{@deck.description}"%></p>
+    </div>
+    <div class="deck-stats">
+      <div class="deck-stat-item">
+	<div class="deck-stat-num"><%="#{@deck.cards.count}"%></div>
+	<div class="deck-stat-for">Cards</div>
       </div>
-      <div class="deck-tags">
-	<h3>Tags</h3>
-	<% if current_user.owns_deck?(@deck) %>
-	  <%= link_to edit_deck_path(@deck), class: "option-edit-tags" do %>
-	    <i class="fa fa-pencil"></i>
-	  <% end %>
-	<% end %>
-	<ul class="tags">
-	  <% @deck.tags.each do |one_tag| %>
-	    <li><%= link_to one_tag.name, "#" %></li>
-	  <% end %>
-	</ul>
+      <div class="deck-stat-item">
+	<div class="deck-stat-num"><%="#{@deck.favoring_users.count}"%></div>
+	<div class="deck-stat-for">Favorites</div>
       </div>
     </div>
-    <div class="center-content-wrapper">
-      <div class="deck-show-header">
-	<h1><%= @deck.title %></h1>
-	<div class="deck-info-header">
-	  <% if !current_user.favoring_deck?(@deck) %>
-	    <%= render partial: "shared/favorite_deck_button", locals: {deck: @deck} %>
-	  <% else %>
-	    <%= render partial: "shared/unfavorite_deck_button", locals: {deck: @deck} %>
-	  <% end %>
-	  <p>
-	    <i class="fa fa-square-o"></i><%= @deck.cards.count%>
-	  </p>
-	</div>
-	<% if current_user.owns_deck?(@deck) %>
-	  <div class="deck-options">
-	    <ul>
-	      <li class="option-add-card">
-		<%= link_to request.original_url + "/cards/new" do %>
-		  <i class="fa fa-plus"></i>
-		<% end %>
-	      </li>
-	      <li>
-		<%= link_to edit_deck_path(@deck) do %>
-		  <i class="fa fa-pencil"></i>
-		<% end %>
-	      </li>
-	      <li>
-		<%= link_to deck_path(@deck), method: :delete do %>
-		  <i class="fa fa-ellipsis-v"></i>
-		<% end %>
-	      </li>
-	    </ul>
-	  </div>
-	<% end %>
+    <div class="deck-author-info">
+      <div class="deck-author-profile">
+	<img src="<%= "#{@deck.creator.my_avatar!('front')}" %>" alt="FRONT">
       </div>
-      <div class="deck-description">
-	<p>
-	  <%= @deck.description %>
-	</p>
-      </div>
-      <div class="cards-display-wrapper">
-	<% @deck.cards.each do |card| %>
-	  <%= render :partial => "shared/card", locals: {card: card, deck: @deck} %>
-	<% end %>
-      </div>
-    </div>
-    <div class="right-panel-wrapper">
+      <div class="deck-author-name"><%="#{@deck.creator.username}"%></div>
     </div>
   </div>
+  <div class="right-contents-wrapper" id="deck-cards-container">
+    <%= render partial: "shared/deck_cards" %>
+  </div>
 </div>
+<div class="home-card-editor-container" id="editor-container-deck">
+  <%= render :partial => 'shared/card_editor' %>
+</div>
+<!-- overlays -->
+<div class="glass-overlay" id="overlay-for-editor"></div>
+<div class="dark-overlay hidden" id="overlay-for-focus-card"></div>

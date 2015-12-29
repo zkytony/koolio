@@ -2,7 +2,6 @@ class CreateCard
   def self.call(card_params, user, deck_id)
     # if the provided deck_id is nil, then
     # put this card into user's default deck
-    @deck = nil
     if deck_id
       @deck = Deck.find(deck_id)
     else

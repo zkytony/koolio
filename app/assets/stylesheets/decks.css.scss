@@ -1,244 +1,89 @@
 @import "global";
-@import "cards.css.scss";
 
-$side-panel-bg-color: lighten($bg-color, 5%);
-
-body, .container {
-    @media screen {
-	min-width: $min-screen-width;
-    }
+$left-gap: 80px;
+$deck-info-panel-width: 190px;
+$deck-stroke: #EFEFEF;
+$deck-info-panel-padding: 20px;
+$deck-title-color: #808080;
+$deck-descp-color: #999999;
+$deck-stats-color: #B3B3B3;
+$deck-author-avatar-size: 33px;
+$deck-author-name-font-size: 14px;
+$deck-main-contents-width: $nav-width + 2 * $nav-padding;
+$deck-cards-container-width: $deck-main-contents-width - $deck-info-panel-width - $left-gap;
+.main-contents-wrapper {
+    width: $deck-main-contents-width;
+    left: 0px;
+}
+.left-contents-wrapper, .deck-info-panel {
+    width: $deck-info-panel-width;
 }
 
-.main-content-wrapper {
-    width: $center-content-width + $side-panel-width * 2;
-    min-height: $center-content-min-height;
-    margin: auto;
-    //@include box-shadow(0px, -550px, 100px, $soft-black)
-}
+.deck-info-panel {
+    background-color: $white;
+    @include border-radius($default-border-radius);
+    border: 1px solid $deck-stroke;
+    padding: $deck-info-panel-padding;
+    @include box-sizing(border-box);
 
-.left-panel-wrapper, .center-content-wrapper, .right-panel-wrapper {
-    float: left;
-}
-
-.left-panel-wrapper, .right-panel-wrapper {
-    width: $side-panel-width - 4px;
-    min-height: 330px;
-    padding-bottom: 20px;
-    background-color: $side-panel-bg-color;
-    position: relative;
-    z-index: 1;
-}
-
-.deck-tags {
-    padding: 10px;
-    position: relative;
-
-    h3 {
-	font-size: 15px;
+    .deck-title {
+	color: $deck-title-color;
+	white-space: word-wrap;
+	margin-bottom: 16px;
     }
 
-    ul {
-	margin: 10px 0px;
-	li {
-	    list-style: none;
-	    display: inline;
+    .deck-descp {
+	white-space: word-wrap; // good?
+	color: $deck-descp-color;
+	margin-bottom: 16px;
+    }
+
+    .deck-stats {
+	overflow: auto;
+	margin-bottom: 16px;
+	.deck-stat-item:first-child {
+	    margin-right: 45px;
 	}
-    }
-
-    .option-edit-tags {
-	position: absolute;
-	right: 12px;
-	top: 12px;
-	font-size: 15px;
-	padding: 8px;
-	&:hover {
-	    background-color: $darker-grey;
-	}
-    }
-
-}
-
-.center-content-wrapper {
-    width: $center-content-width;
-    min-height: $center-content-min-height;
-    background-color: lighten($bg-color, 7%);
-    @include box-shadow(0px, 0px, 20px, darken($bg-color, 30%));
-    position: relative;
-    z-index: 3;
-}
-
-.deck-show-header {
-    @include background-image-gradient("/assets/tmp/deck-wall.jpg");
-    background-repeat: no-repeat;
-    @include background-size(cover);
-
-    width: 100%;
-    height: $deck-header-height;
-    background-color: $theme-purple;
-    position: relative;
-
-    * {
-	font-family: Trebuchet MS, sans-serif;
-    }
-
-    h1, h2, h3, h4, h5, h6, h7 {
-	font-weight: 500;
-    }
-
-    h1 {
-	max-width: 85%;
-	font-size: 28px;
-	padding: 10px 20px;
-	position: absolute;
-	left: 0px;
-	bottom: 0px;
-	color: $white;
-	word-break: break-all;	
-    }
-}
-
-.deck-info-header {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    min-width: $deck-header-info-width;
-    height: $deck-header-info-height;
-    background-color: $bg-color;
-    margin: 7px;
-
-    button {
-	border: none;
-	background-color: $bg-color;
-    }
-    p, button {
-	font-size: $deck-header-info-height - 13px;
-	padding: 5px 5px 5px 5px;
-	color: $theme-purple;
-	float:left;
-	.fa {
-	    font-size: 17px;
-	    font-family: FontAwesome; /* not overriding */
-	    margin-right: 5px;
-	}
-    }
-}
-
-.deck-options {
-    background-color: $bg-color;
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
-    margin: 10px;
-    
-    ul {
-	margin: 0px;
-	
-	li {
-	    margin: 0px;
-	    padding: 5px 10px;
-	    list-style: none;
+	.deck-stat-item {
 	    float: left;
-	    font-size: 20px;
-	    
-	    .fa {
-		font-family: FontAwesome; /* not overriding */
+	    color: $deck-stats-color;
+	}
+	.deck-stat-num {
+	    font-weight: 700;
+	    font-size: 16px;
+	}
+	.deck-stat-for {
+	    font-size: 11px;
+	}
+    }
+    .deck-author-info {
+	.deck-author-profile, .deck-author-name {
+	    float: left;
+	}
+	.deck-author-profile {
+	    width: $deck-author-avatar-size;
+	    height: $deck-author-avatar-size;
+	    img {
+		width: $deck-author-avatar-size;
+		height: $deck-author-avatar-size;
+		@include border-radius(50%);
 	    }
-	    
-	    &:hover {
-		background-color: $decent-purple;
-		a {
-		    color: $white;
-		}
-	    }
-	    
+	}
+	.deck-author-name {
+	    font-weight: 600;
+	    font-size: $deck-author-name-font-size;
+	    margin-left: 13px;
+	    margin-top: ($deck-author-avatar-size - $deck-author-name-font-size ) / 2;
+	    color: $deck-title-color;
 	}
     }
 }
 
-.option-add-card {
-    background-color: $darker-grey;
+.right-contents-wrapper, #deck-cards-container {
+    width: $deck-cards-container-width;
+    margin-left: $left-gap;
 }
 
-.deck-description {
-    width: 75%;
-    margin: 10px auto;
-    background-color: $bg-color;
-    @include border-radius(15px);
-    @include box-shadow(0px, 3px, 5px, darken($bg-color, 15%));
+#deck-cards-container {
 
-    p {
-	padding: 7px 10px;
-	font-size: 15px;
-    }
 }
-
-.cards-display-wrapper {
-    float: left;
-    width: 100%;
-    min-height: $cards-display-min-height;
-}
-
-.card-wrapper {
-}
-
-/* for <ul> */
-$tag-height: 24px;
-$hole-radius: 3px;
-$tag-color: $decent-blue;
-.tag {
-    margin:0;
-    padding:0;
-    list-style:none;
-}
-
-.tags li, .tags a {
-    text-align: right;
-    font-size: 12px;
-    margin-bottom: 3px;
-    float: left;
-    min-width: 60%;
-    height: $tag-height;
-    line-height: $tag-height;
-    position:relative;
-}
-
-.tags a{
-    margin-left: 20px;
-    padding: 0 10px 0 $tag-height / 2;
-    background: $tag-color;
-    color: $white;
-    @include border-right-radius(4px);
-
-    &:before{
-	content: "";
-	float: left;
-	position: absolute;
-	top: 0;
-	left: -$tag-height / 2;
-	width: 0;
-	height: 0;
-	border-color: transparent $tag-color transparent transparent;
-	border-style: solid;
-	border-width: $tag-height / 2 $tag-height / 2 $tag-height / 2 0;
-    }
-    &:after{
-	content:"";
-	position:absolute;
-	top: $tag-height / 2- $hole-radius;
-	left: 0;
-	float: left;
-	width: $hole-radius * 2;
-	height: $hole-radius * 2;
-	background: $side-panel-bg-color;
-	@include border-radius($hole-radius);
-	@include box-shadow(-1px, -1px, 2px, darken($tag-color, 20%));
-    }
-    &:hover {
-	background-color: darken($tag-color, 10%);
-    }
-    &:hover:before {
-	border-color: transparent darken($tag-color, 10%) transparent transparent;
-    }
-} 
-
-

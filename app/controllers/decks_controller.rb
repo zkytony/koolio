@@ -21,6 +21,12 @@ class DecksController < ApplicationController
 
   def show
     @deck = Deck.find(params[:id])
+    @more = params[:more] == "true"
+    @grabbed_cards = GrabDeckCards.call(@deck, @more, params[:card_ids])
+    # user may want to create a card in this deck
+    @card = Card.new 
+    # user may want to make a comment
+    @comment = Comment.new
   end
 
   def edit

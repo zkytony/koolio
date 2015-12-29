@@ -3,7 +3,7 @@
   <!-- form_for -->
   <%= form_for(@card, remote: true, authenticity_token: true) do |f| %>
     <!-- Hidden fields -->
-    <!-- :deck_id field is generated when a deck is selected -->
+    <%= hidden_field_tag 'deck_id', @deck.id %>
     <%= f.hidden_field :front_content %>
     <%= f.hidden_field :back_content %>
     <!-- End Hidden fields -->

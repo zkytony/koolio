@@ -26,6 +26,8 @@ class UsersController < ApplicationController
       # have this parameter
       @recommended = RecommendContent.call(@user, @more, params[:card_ids])
 
+      # default deck
+      @deck = @user.decks.find_by(title: "default")
       # user may want to create a card in home page
       @card = Card.new 
       # user may want to make a comment

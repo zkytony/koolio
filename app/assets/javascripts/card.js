@@ -175,3 +175,33 @@ function adjustImgSizeByHeight(imgObj, newHeight) {
   imgObj.outerWidth(newWidth);
   imgObj.outerHeight(newHeight);
 }
+
+// card is a Card prototype object
+function flipCard(card) {
+  card.flip();
+
+  // if the card is focused, we may need to adjust the position
+  // of the like-comment panel
+  if (card.focused) {
+    var cardPosition = card.getPosition();
+    var margin = 30;
+    $("#like-comment-panel").animate({
+      top: (cardPosition.top + card.getTrueHeight(card.currentSide) + margin) + "px",
+    }, 300, function() {
+      // show info
+    });
+  }
+}
+
+// Adjust the height of the given home-card jquery object.
+// Also updates the global cards object
+function dealWithHomeCard(homecard) {
+  var id = homecard.attr("id").split("_")[1];
+  if (!cards.hasOwnProperty(id)) {
+    cards[id] = new Card(id, "front");
+  } else {
+    // need to update the front and back jQuery object for the card
+    cards[id].updateFrontBackJQueryObjects();
+  }
+  cards[id].adjustCardHeight();
+}

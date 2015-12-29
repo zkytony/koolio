@@ -7,7 +7,7 @@ class RecommendContent
       if more
         contents = Card.where("cards.id NOT IN (?)", card_ids).sort_by(&:likes).slice(0, n_card)
       else
-        contents = Card.all.sort_by(&:likes).slice(0, n_card)
+        contents = Card.all.sort_by(&:likes).reverse.slice(0, n_card)
       end
       contents
     end
