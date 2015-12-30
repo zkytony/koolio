@@ -31,7 +31,6 @@ class User < ActiveRecord::Base
   has_many :activities, as: :trackable, dependent: :destroy
   has_many :activities, dependent: :destroy
 
-  has_many :notifications, as: :notifier, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
   has_many :uploaded_files
@@ -111,9 +110,11 @@ class User < ActiveRecord::Base
   end
 
   def like_card(card)
-    if self.like_of_cards.create(card_id: card.id)
+    like = self.like_of_cards.create(card_id: card.id)
+    if like
       # increment count in the card's likes column
       card.increment!(:likes)
+      like
     end
   end
 
@@ -141,9 +142,11 @@ class User < ActiveRecord::Base
   end
 
   def like_comment(comment)
-    if self.like_of_comments.create(comment_id: comment.id)
+    like = self.like_of_comments.create(comment_id: comment.id)
+    if like
       # increment count in the card's likes column
       comment.increment!(:likes)
+      like
     end
   end
 
@@ -209,5 +212,9 @@ class User < ActiveRecord::Base
     if self.avatar
       JSON.parse(self.avatar)[side]
     end
+  end
+
+  def create_notification(action, notifier)
+    self.notifications.create(action: action, notifier: notifier)
   end
 end

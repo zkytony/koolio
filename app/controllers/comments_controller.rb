@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
   def create
     @comment = CreateComment.call(comment_params, current_user)
     if @comment
+      @comment.card.user.create_notification("MakeComment", @comment)
+
       respond_to do |format|
         format.js
       end
@@ -12,7 +14,8 @@ class CommentsController < ApplicationController
   def like
     # action triggered by ajax call
     @comment = Comment.find(params[:comment_id])
-    current_user.like_comment(@comment)
+    like = current_user.like_comment(@comment)
+    @comment.user.create_notification("LikeComment", like)
 
     respond_to do |format|
       format.js

@@ -11,4 +11,20 @@ class Comment < ActiveRecord::Base
   belongs_to :card
 
   has_many :activities, as: :trackable, dependent: :destroy
+
+  has_many :notifications, as: :notifier,  dependent: :destroy
+
+  def message
+    {
+      who: self.user.username,
+      who_id: self.user.id,
+      who_link: "/users/#{self.user.id}/profile",
+      action: "commented on your card",
+      target_type: "Card",
+      target_link: nil,
+      target_id: self.card_id,
+      target_identifier: "#{self.content[0, 10]}...",
+      when: self.created_at
+    }
+  end
 end

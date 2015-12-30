@@ -9,4 +9,14 @@ class Recommendation < ActiveRecord::Base
   belongs_to :recommendable, polymorphic: true
 
   has_many :notifications, as: :notifier, dependent: :destroy
+
+  def message
+    {
+      who: self.from_user_id,
+      action: "recommended:#{self.recommendable_type}",
+      target_type: "#{self.recommendable_type}",
+      target_id: self.recommendable_id,
+      when: time_ago_in_words self.created_at
+    }.to_json
+  end
 end

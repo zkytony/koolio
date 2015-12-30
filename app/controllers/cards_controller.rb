@@ -48,7 +48,9 @@ class CardsController < ApplicationController
   def like
     # action triggered by ajax call
     @card = Card.find(params[:card_id])
-    current_user.like_card(@card)
+    like = current_user.like_card(@card)
+
+    @card.user.create_notification("LikeCard", like)
 
     respond_to do |format|
       format.js

@@ -7,4 +7,14 @@ class DeckUserAssociation < ActiveRecord::Base
   belongs_to :deck
 
   has_many :notifications, as: :notifier, dependent: :destroy
+
+  def message
+    {
+      who: self.user_id,
+      action: "shared deck:#{self.type}",
+      target_type: "Deck",
+      target_id: self.deck_id, 
+      when: self.created_at
+    }.to_json
+  end
 end

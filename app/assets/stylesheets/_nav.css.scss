@@ -239,6 +239,14 @@ $nav-inbox-padding: 20px;
 	    background-color: $nav-inbox-item-bg;
 	    padding: 10px;
 	    margin-bottom: 2px;
+
+	    a {
+		font-weight: 600;
+		color: $decent-blue;
+		&:hover {
+		    color: darken($decent-blue, 10%);
+		}
+	    }
 	}
     }
 }

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   get 'signup' => 'users#new'
+  get 'notifications' => 'users#notifications'
   resources :users do
     post 'follow' => 'users#follow'
     delete 'unfollow' => 'users#unfollow'
@@ -13,7 +14,6 @@ Rails.application.routes.draw do
     get 'profile_cards' => 'users#profile_cards'
     get 'profile_decks' => 'users#profile_decks'
     get 'settings' => 'users#settings'
-    
   end
   resources :decks do
     post 'favorite' => 'decks#favorite'

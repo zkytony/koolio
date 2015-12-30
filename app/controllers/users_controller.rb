@@ -106,6 +106,15 @@ class UsersController < ApplicationController
     end
   end
 
+  # get notifications for current user
+  def notifications
+    @notifs = GrabNotifications.call(current_user)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     
     # strong parameter
