@@ -366,13 +366,13 @@ ImageEditor.prototype.sendFileAJAX = function(formdata) {
     processData: false,
     dataType: 'json', // get back json
     beforeSend: function() {
-      $("#waiting").removeClass("hidden");
+      $("#" + imageEditor.side + "_waiting").removeClass("hidden");
     },
     success: function(output) {
       imageEditor.displayPhase(output);
     },
     complete: function() {
-      $("#waiting").addClass("hidden");
+      $("#" + imageEditor.side + "_waiting").addClass("hidden");
     }
   });
 }
