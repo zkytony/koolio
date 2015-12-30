@@ -128,6 +128,9 @@ $info-toggle-size: 80px;
 	font-size: $text-title-font-size;
 	padding-bottom: 15px;
     }
+    .text-type-side {
+	border: 1px solid $deck-stroke;
+    }
     /* end text card */
 
     /* img card */

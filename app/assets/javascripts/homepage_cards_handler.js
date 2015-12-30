@@ -79,32 +79,13 @@ CardsHandler.prototype.init = function() {
     if ($("#overlay-for-focus-card").hasClass("hidden")) {
       $("#overlay-for-focus-card").removeClass("hidden");
       var focusHomeCard = $(this).parents(".home-card");
-      focusHomeCard.css("z-index", "5");
-      handler.focusingCardId = focusHomeCard.attr("id");
-      handler.focusingCardRawId = handler.focusingCardId.split("_")[1];
-      
-      // Reset the info panels
-      handler.resetLikeCommentsPanel();
-      handler.resetDeckCardsPanel();
-      // grab info first
-      grabCardInfo(handler.focusingCardRawId);
-      handler.showCardInfo();
+      handler.handleFocusOn(focusHomeCard);
     } else {
-      var focusedCard = cards[handler.focusingCardRawId];
-      focusedCard.unfocus();
-      $("#overlay-for-focus-card").addClass("hidden");
-      handler.retrieveCardInfo();
+      handler.handleFocusOff();
     }
   });
   $(document).on("click", "#overlay-for-focus-card", function() {
-    $("#overlay-for-focus-card").addClass("hidden");
-    $("#" + handler.focusingCardId).css("z-index", "auto");
-    $("#like-comment-panel").addClass("hidden");
-    $("#deck-cards-panel").addClass("hidden");
-    var focusedCard = cards[handler.focusingCardRawId];
-    focusedCard.s[focusedCard.currentSide].addClass("notransition");
-    focusedCard.unfocus();
-    focusedCard.s[focusedCard.currentSide].removeClass("notransition");
+    handler.handleFocusOff();
   });
   // When clicked the card like button, send ajax request
   // to toggle like of this card
@@ -227,4 +208,30 @@ CardsHandler.prototype.retrieveCardInfo = function() {
 CardsHandler.prototype.handleFlip = function(cardObj) {
   var card = cards[cardObj.attr("id").split("_")[1]];
   flipCard(card);
+}
+
+CardsHandler.prototype.handleFocusOn = function(focusHomeCard) {
+    var handler = this;
+    focusHomeCard.css("z-index", "5");
+    handler.focusingCardId = focusHomeCard.attr("id");
+    handler.focusingCardRawId = handler.focusingCardId.split("_")[1];
+    
+    // Reset the info panels
+    handler.resetLikeCommentsPanel();
+    handler.resetDeckCardsPanel();
+    // grab info first
+    grabCardInfo(handler.focusingCardRawId);
+    handler.showCardInfo();
+}
+
+CardsHandler.prototype.handleFocusOff = function() {
+  var handler = this;
+  $("#overlay-for-focus-card").addClass("hidden");
+  $("#" + handler.focusingCardId).css("z-index", "auto");
+  $("#like-comment-panel").addClass("hidden");
+  $("#deck-cards-panel").addClass("hidden");
+  var focusedCard = cards[handler.focusingCardRawId];
+  focusedCard.s[focusedCard.currentSide].addClass("notransition");
+  focusedCard.unfocus();
+  focusedCard.s[focusedCard.currentSide].removeClass("notransition");
 }

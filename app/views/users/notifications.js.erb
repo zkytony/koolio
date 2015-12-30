@@ -1,7 +1,7 @@
 // replace the current inbox
 <% if @notifs.length > 0 %>
   $("#nav-inbox ul").html("");
-  $("#nav-inbox-btn i").css("color", "#ffff99");
+  $("#nav-inbox-btn i").css("color", "#FFFF99");
 <% end %>
 <% @notifs.each do |msg| %>
   $("#nav-inbox ul").append("<%= j render partial: "shared/notification", locals: { msg: msg } %>");

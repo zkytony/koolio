@@ -22,7 +22,9 @@ class DecksController < ApplicationController
   def show
     @deck = Deck.find(params[:id])
     @more = params[:more] == "true"
-    @grabbed_cards = GrabDeckCards.call(@deck, @more, params[:card_ids])
+    @all = params[:all] == "true"
+    
+    @grabbed_cards = GrabDeckCards.call(@deck, @more, @all, params[:card_ids])
     # user may want to create a card in this deck
     @card = Card.new 
     # user may want to make a comment
@@ -75,6 +77,18 @@ class DecksController < ApplicationController
     @deck = Deck.find(params[:deck_id])
     current_user.unfavor_deck(@deck)
     redirect_to @deck
+  end
+
+  def card_show
+    @deck = Deck.find(params[:deck_id])
+    @more = params[:more] == "true"
+
+    @grabbed_cards = GrabDeckCards.call(@deck, @more, true, params[:card_ids])
+    # user may want to create a card in this deck
+    @card = Card.new 
+    # user may want to make a comment
+    @comment = Comment.new
+    render :show
   end
 
   private

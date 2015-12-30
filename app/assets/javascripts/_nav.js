@@ -3,28 +3,35 @@ $(document).ready(function() {
 	$("#profile-pic-dropdown").removeClass("hidden");
     });
 
+    $("#nav-inbox").css("left", $("#nav-inbox-btn").position().left - $("#nav-inbox").width());
+
     grabNotifications();
 
     // toggle dropdown when hover on name
     $(document).on({
 	mouseenter: function () {
 	    $("#profile-pic-dropdown").removeClass("hidden");
+	    $("#nav-inbox").addClass("hidden");
+	    $("#nav-inbox-btn").removeClass("nav-option-highlighted");
 	},
 	mouseleave: function () {
 	    $("#profile-pic-dropdown").addClass("hidden");
 	}
     }, "#nav-username");
 
-    // toggle inbox when click
-    $(document).on("click", "#nav-inbox-btn", function() {
-	if ($("#nav-inbox").hasClass("hidden")) {
+    // toggle inbox when hover
+    $(document).on({
+	mouseenter: function () {
 	    $("#nav-inbox").removeClass("hidden");
 	    $("#nav-inbox-btn").addClass("nav-option-highlighted");
-	} else {
+	},
+    }, "#nav-inbox-btn");
+    $(document).on({
+	mouseleave: function () {
 	    $("#nav-inbox").addClass("hidden");
 	    $("#nav-inbox-btn").removeClass("nav-option-highlighted");
 	}
-    });
+    }, "#nav-inbox");
 });
 
 function grabNotifications() {

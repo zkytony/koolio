@@ -71,7 +71,7 @@
 	margin: ($nav-height - $nav-search-field-height) / 2 0px;
 	font-size: $nav-search-field-font-size;
 	padding-left: 5px;
-	border: none;
+	border: 1px solid $deck-stroke;
 	@include border-radius(3px);
     }
 }
@@ -224,7 +224,7 @@ $nav-inbox-padding: 20px;
     right: 0;
     padding: $nav-inbox-padding;
     z-index: 10;
-    @include box-shadow(0px, 0px, 10px, lighten($healthy-black, 40%));
+    @include box-shadow(0px, 0px, 3px, lighten($deck-stroke, 40%));
     @include border-radius($default-border-radius);
     @include box-sizing(border-box);
 

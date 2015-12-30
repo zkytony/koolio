@@ -15,7 +15,7 @@
       <!-- Nav Second Part -->
       <div class="nav-second-part">
 	<% if logged_in? %>
-	  <div class="nav-option-btn nav-option-highlighted">
+	  <div class="nav-option-btn">
 	    <%# Have not figured out how to prevent multiple event binding. So not using turbolink for now %>
 	    <%= link_to current_user, data: { no_turbolink: true } do %>
 	      <i class="fa fa-home"></i>

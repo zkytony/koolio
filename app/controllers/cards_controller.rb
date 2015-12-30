@@ -19,6 +19,7 @@ class CardsController < ApplicationController
 
   def show
     @card = Card.find(params[:id])
+    redirect_to "/decks/#{@card.deck.id}/cards/#{@card.id}"
   end
 
   def edit

@@ -29,7 +29,7 @@ $(document).ready(function() {
   $("#new_card").on("ajax:success", function(e, data, status, xhr) {
     // when new card is created, refresh the recommended content
     // by ajax query to user:show again
-    ajaxGrabDeckCards(false);
+    ajaxGrabDeckCards(false, false);
     $("#editor-container-deck").css("display", "none");
   });
 
@@ -39,16 +39,30 @@ $(document).ready(function() {
     if ($(document).height() - limit <= $(window).scrollTop() + $(window).height()) {
       if (noOngoingLoad) {
 	//var deckId = $(".deck-info-panel").attr("id").split("_")[1];
-	ajaxGrabDeckCards(true);
+	ajaxGrabDeckCards(true, false);
       }
     }
   });
 
   var cardsHandler = new FlexCardsHandler("deck-cards-container", 30);
   cardsHandler.init();
+
+  // If on deck/id/cards/id page, do these js
+  var url = window.location.href;
+  if (url.indexOf("cards") > -1) {
+    var cardId = url.substr(url.lastIndexOf('/') + 1);
+    $("#overlay-for-focus-card").removeClass("hidden");
+    cardsHandler.handleFocusOn($("#card_" + cardId));
+    // all card grabbed. No more load
+    noOngoingLoad = false;
+    // scroll to the card
+    $('html, body').animate({
+      scrollTop: $("#card_" + cardId).offset().top
+    }, 1200);
+  }
 });
 
-function ajaxGrabDeckCards(more) {
+function ajaxGrabDeckCards(more, all) {
   noOngoingLoad = false;
   var card_ids = [];
   if (more) {
@@ -60,7 +74,7 @@ function ajaxGrabDeckCards(more) {
   $.ajax({
     // send to current page (deck show)
     type: 'GET',
-    data: { more: more, card_ids: card_ids },
+    data: { more: more, card_ids: card_ids, all: all},
     dataType: 'script',
     success: function(data) {
       $("#deck-cards-container").masonry('reloadItems');

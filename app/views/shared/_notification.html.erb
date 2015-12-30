@@ -1,9 +1,15 @@
 <li class="one-notif">
-  <%= link_to msg[:who_link], data: { no_turbolink: true} do %>
+  <%= link_to msg[:who_link], data: { no_turbolink: true } do %>
     <%= "#{msg[:who]}" %>
   <% end %>
   <%= "#{msg[:action]}" %>
   <% if msg[:target_identifier] %>
-    <%= ":#{msg[:target_identifier]}"%>
+    <% if msg[:target_link] %>
+      <%= link_to msg[:target_link], data: { no_turbolink: true } do %>
+	<%= " #{msg[:target_identifier]}"%>
+      <% end %>
+    <% else %>
+      <%= " #{msg[:target_identifier]}"%>
+    <% end %>
   <% end %>
 </li>

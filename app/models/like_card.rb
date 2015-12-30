@@ -11,11 +11,11 @@ class LikeCard < ActiveRecord::Base
       who: self.user.username,
       who_id: self.user.id,
       who_link: "/users/#{self.user.id}/profile",
-      action: "liked your card",
+      action: "liked your",
       target_type: "Card",
-      target_link: nil,
+      target_link: "/cards/#{self.card.id}/",
       target_id: self.card_id,
-      target_identifier: nil,
+      target_identifier: "card",
       when: self.created_at
     }
   end
