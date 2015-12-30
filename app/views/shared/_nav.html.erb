@@ -24,12 +24,13 @@
 	  <div class="nav-option-btn">
 	    <a href="#"><i class="fa fa-compass"></i></a>
 	  </div>
-	  <div class="nav-option-btn">
+	  <div class="nav-option-btn" id="nav-inbox-btn">
 	    <a href="#"><i class="fa fa-inbox"></i></a>
+	    <%= render partial: "shared/nav_inbox" %>
 	  </div>
 	  <div class="nav-username" id="nav-username">
 	    <p><%= current_user.username %></p>
-	    <%= render "shared/nav_dropdown" %>
+	    <%= render partial: "shared/nav_dropdown" %>
 	  </div>
 	<% else %>
 	  <div class="nav-option-btn nav-right-push-1 nav-option-sign-in">

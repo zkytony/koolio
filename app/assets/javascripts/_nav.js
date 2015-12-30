@@ -13,4 +13,15 @@ $(document).ready(function() {
 	}
     }, "#nav-username");
 
+    // toggle inbox when click
+    $(document).on("click", "#nav-inbox-btn", function() {
+	if ($("#nav-inbox").hasClass("hidden")) {
+	    $("#nav-inbox").removeClass("hidden");
+	    $("#nav-inbox-btn").addClass("nav-option-highlighted");
+	} else {
+	    $("#nav-inbox").addClass("hidden");
+	    $("#nav-inbox-btn").removeClass("nav-option-highlighted");
+	}
+    });
+
 });
