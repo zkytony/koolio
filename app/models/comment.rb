@@ -21,7 +21,7 @@ class Comment < ActiveRecord::Base
       who_link: "/users/#{self.user.id}/profile",
       action: "commented on your card",
       target_type: "Card",
-      target_link: nil,
+      target_link: "/cards/#{self.card.id}/",
       target_id: self.card_id,
       target_identifier: "#{self.content[0, 10]}...",
       when: self.created_at
