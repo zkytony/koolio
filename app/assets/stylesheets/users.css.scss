@@ -120,8 +120,13 @@ $info-toggle-size: 80px;
     .card-text-body {
 	font-size: $text-body-font-size;
 	// allow \n as line breaks
-	white-space: pre-line;
-	margin-top: -$text-body-font-size; // needs to compensate the line-height at the
+	white-space: pre-wrap;//pre-line;
+	//line-height: $text-body-font-size + 5px;
+	margin-top: -$text-body-font-size*2.5; // needs to compensate the line-height at the
+	                   // top due to white-space: pre-line
+    }
+    .card-text-body.no-title {
+	margin-top: -$text-body-font-size*3.2; // needs to compensate the line-height at the
 	                   // top due to white-space: pre-line
     }
     .card-text-title h1 {
