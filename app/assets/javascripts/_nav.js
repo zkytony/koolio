@@ -3,7 +3,9 @@ $(document).ready(function() {
 	$("#profile-pic-dropdown").removeClass("hidden");
     });
 
-    $("#nav-inbox").css("left", $("#nav-inbox-btn").position().left - $("#nav-inbox").width());
+    if ($("#nav-inbox-btn").position()) {
+	$("#nav-inbox").css("left", $("#nav-inbox-btn").position().left - $("#nav-inbox").width());
+    }
 
     grabNotifications();
 
