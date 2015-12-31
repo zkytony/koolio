@@ -1,4 +1,6 @@
 class Deck < ActiveRecord::Base
+  include PgSearch
+
   validates :user_id, presence: true
   validates :title, presence: true,
                     length: { maximum: 175 }
@@ -21,6 +23,8 @@ class Deck < ActiveRecord::Base
 
   has_many :recommendations, as: :recommendable, dependent: :destroy
   has_many :activities, as: :trackable, dependent: :destroy
+
+  multisearchable :against => [:title, :description]
 
   def build_card(card_params, user)
     if self.editable_by?(user)

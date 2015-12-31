@@ -7,9 +7,9 @@
 	  <a href=""><%= image_tag "tmp/logo.png" %></a>
 	</div>
 	<div class="nav-search-wrapper">
-	  <form class="nav-search-form">
-	    <input type="text" placeholder="Search on Koolio">
-	  </form>
+	  <%= form_tag "/search", method: "get", class: "nav-search-form", id: "nav-search" do %>
+	    <input type="text" placeholder="Search on Koolio" id="nav-search-input">
+	  <% end %>
 	</div>
       </div>
       <!-- Nav Second Part -->

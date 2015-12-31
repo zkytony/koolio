@@ -34,6 +34,13 @@ $(document).ready(function() {
 	    $("#nav-inbox-btn").removeClass("nav-option-highlighted");
 	}
     }, "#nav-inbox");
+
+    // before submitting the search, change its action; appending the
+    // search string
+    $("#nav-search").submit(function() {
+	var query = $("#nav-search-input").val();
+	$("#nav-search").attr("action", "/search/" + query);
+    });
 });
 
 function grabNotifications() {

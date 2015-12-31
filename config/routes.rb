@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   get 'signup' => 'users#new'
   get 'notifications' => 'users#notifications'
+  
+  get 'search/*query' => 'searches#search'
+
   resources :users do
     post 'follow' => 'users#follow'
     delete 'unfollow' => 'users#unfollow'

@@ -1,0 +1,41 @@
+/*
+  For search
+ */
+
+@import "global";
+#search-results-container {
+    margin: auto;
+    width: $recommended-contents-width;
+    min-height: $home-card-min-height;
+    position: relative;
+    top: 40px;
+    padding-left: $recommended-contents-left-padding;
+    //left: 10%;
+    @include tablet_landscape_and_below {
+	left: 30px;
+    }
+
+    $search-deck-padding: 10px;
+    $search-tiny-card-size: ($home-card-width - 2*$search-deck-padding - 4*$scaled-cards-gap) / 2;
+    .one-deck {
+	width: $home-card-width;
+	min-height: $home-card-width;
+	@include box-sizing(border-box);
+	.four-cards {
+	    width: $home-card-width - $search-deck-padding * 2;
+	    .scaled-card {
+		width: $search-tiny-card-size; //$deck-width / 2 - $scaled-cards-gap*2;
+		height: $search-tiny-card-size; //$deck-width / 2 - $scaled-cards-gap*2;
+		float: left;
+		overflow: hidden;
+		margin: $scaled-cards-gap;
+		@include border-radius(2px);
+
+		img {
+		    width: $search-tiny-card-size; //$deck-width / 2 - $scaled-cards-gap*2;
+		    height: $search-tiny-card-size; //$deck-width / 2 - $scaled-cards-gap*2;
+		}
+	    }
+	}
+    }
+}

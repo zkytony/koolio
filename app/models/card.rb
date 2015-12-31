@@ -1,4 +1,6 @@
 class Card < ActiveRecord::Base
+  include PgSearch
+
   validates :deck_id, presence: true
   validates :user_id, presence: true
   validates_inclusion_of :hide, :in => [true, false]
@@ -12,6 +14,8 @@ class Card < ActiveRecord::Base
 
   has_many :recommendations, as: :recommendable, dependent: :destroy
   has_many :activities, as: :trackable, dependent: :destroy
+
+  multisearchable :against => [:front_content, :back_content]
 
   def viewable_by?(user)
     self.creator?(user) || (!self.hide && self.deck.viewable_by?(user))

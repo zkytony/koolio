@@ -1,0 +1,33 @@
+<% provide(:title, "Search Results") %>
+<%= stylesheet_link_tag "users.css" %>
+<%= stylesheet_link_tag "search.css" %>
+<%= javascript_include_tag "flexible_cards_handler.js" %>
+<%= javascript_include_tag "search.js" %>
+<%= render :partial => 'shared/nav' %>
+<div id="search-results-container">
+  <% @docs.each do |doc| %>
+    <% searchable = doc.searchable %>
+    <% if searchable.class.name == "Card" %>
+      <% card = searchable %>
+      <%# this card must be viewable by the current user %>
+      <% card_front = JSON.parse(card.front_content) %>
+      <% card_back = JSON.parse(card.back_content) %>
+      <%= render partial: "shared/card", locals: { category_class: "home-card", card_id: card.id,
+						  card_front_type: card_front['type'], card_front_content: card_front['content'],
+						  card_back_type: card_back['type'], card_back_content: card_back['content'],
+						  current_user_liked_card: current_user.liked_card?(card)
+						  } %>
+    <% elsif searchable.class.name == "Deck" %>
+      <% deck = searchable %>
+      <%= render partial: "shared/deck", locals: { deck: deck, limit: 4 } %>
+    <% end %>
+  <% end %>
+  <!-- info panels -->
+  <%= render :partial => 'shared/card_info_panels/like_comment_panel'%>
+  <div class="hidden" id="deck-cards-panel">
+    <%= render :partial => 'shared/card_info_panels/deck_cards_panel'%>
+  </div>
+  <!-- end info panels -->
+</div>
+<!-- overlays -->
+<div class="dark-overlay hidden" id="overlay-for-focus-card"></div>
