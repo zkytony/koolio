@@ -24,7 +24,7 @@ class Deck < ActiveRecord::Base
   has_many :recommendations, as: :recommendable, dependent: :destroy
   has_many :activities, as: :trackable, dependent: :destroy
 
-  multisearchable :against => [:title, :description]
+  multisearchable :against => [:title, :description, :tags_names]
 
   def build_card(card_params, user)
     if self.editable_by?(user)
@@ -41,6 +41,13 @@ class Deck < ActiveRecord::Base
     tag = Tag.find_or_create_by(tag_params)
     if !self.tags.include? tag
       self.tags << tag
+      tags_names = self.tags_names
+      if tags_names
+        self.tags_names = self.tags_names + " " + tag.name
+      else
+        self.tags_names = tag.name
+      end
+      self.save!
       tag
     else
       nil
@@ -55,13 +62,13 @@ class Deck < ActiveRecord::Base
     self.tags.delete_all
   end
 
-  # returns a string of tags separated by comma
+  # returns a string of tags separated by spaces
   def tags_by_name
     result = ''
     self.tags.each_with_index do |tag, index|
       result += tag.name
       if index != self.tags.size - 1
-        result += ","
+        result += " "
       end
     end
     result

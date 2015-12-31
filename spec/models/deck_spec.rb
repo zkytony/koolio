@@ -188,4 +188,14 @@ RSpec.describe Deck, type: :model do
     expect(Card.all.count).to be 0
     expect(userA.editable_decks.count).to be 0
   end
+
+  it "should update the tags_names attribute of the deck when added a new tag" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                        password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+    deck.add_tag({name: "hey"})
+    expect(deck.tags_names).to eq "hey"
+    deck.add_tag({name: "haha"})
+    expect(deck.tags_names).to eq "hey haha"
+  end
 end

@@ -19,8 +19,10 @@
     $search-tiny-card-size: ($home-card-width - 2*$search-deck-padding - 4*$scaled-cards-gap) / 2;
     .one-deck {
 	width: $home-card-width;
-	min-height: $home-card-width;
+	min-height: 0px;
+	height: $home-card-width + 20px;
 	@include box-sizing(border-box);
+	margin-bottom: 30px;
 	.four-cards {
 	    width: $home-card-width - $search-deck-padding * 2;
 	    .scaled-card {

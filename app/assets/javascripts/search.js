@@ -8,7 +8,6 @@ $(document).ready(function() {
     $("#search-results-container").masonry({
 	columnWidth: 270,
 	gutter: 10,
-	itemSelector: ".home-card",
 	transitionDuration: 0
     });
 

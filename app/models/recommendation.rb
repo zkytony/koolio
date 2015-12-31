@@ -16,7 +16,7 @@ class Recommendation < ActiveRecord::Base
       action: "recommended:#{self.recommendable_type}",
       target_type: "#{self.recommendable_type}",
       target_id: self.recommendable_id,
-      when: time_ago_in_words self.created_at
-    }.to_json
+      when: self.created_at
+    }
   end
 end
