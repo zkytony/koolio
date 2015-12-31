@@ -22,10 +22,13 @@ class UpdateDeck
       deck.update_attributes(deck_params)
       # remove all tags
       deck.remove_all_tags
+      deck.update_attributes({:tags_names => nil})
       # add tags
+      tag_params = []
       tags.each do |tag_name|
-        deck.add_tag({name: tag_name}) # this will only add new tags for this deck
+        tag_params << {name: tag_name}
       end
+      deck.add_tags(tag_params)
 
       # share visitors
       shared_visitors.each do |person|

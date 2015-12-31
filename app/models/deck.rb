@@ -36,7 +36,10 @@ class Deck < ActiveRecord::Base
   
   # will not create duplicate tags
   # If the tag already exists, return nil; otherwise
-  # return the added tag
+  # return the added tag.
+  #
+  # This method does not update the pg_search document.
+  # Use add_tags to do update, because it is more efficient
   def add_tag(tag_params)
     tag = Tag.find_or_create_by(tag_params)
     if !self.tags.include? tag
@@ -51,6 +54,19 @@ class Deck < ActiveRecord::Base
       tag
     else
       nil
+    end
+  end
+
+  # adds all given tags to this deck if not already
+  # The given tags is an array of tag_params, which
+  # has one attribute name
+  def add_tags(tags)
+    if !tags.empty?
+      tags.each do |tag_param|
+        self.add_tag(tag_param)
+      end
+      # update pg search document
+      self.update_pg_search_document
     end
   end
 

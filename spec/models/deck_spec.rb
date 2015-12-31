@@ -198,4 +198,27 @@ RSpec.describe Deck, type: :model do
     deck.add_tag({name: "haha"})
     expect(deck.tags_names).to eq "hey haha"
   end
+
+  it "should not duplicate tags in tags_names" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                        password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
+    deck.add_tag({name: "hey"})
+    deck.add_tag({name: "haha"})
+    deck.add_tag({name: "hey"})
+    deck.add_tag({name: "hey"})
+    tag = Tag.find_or_create_by({name: "hey"})
+    expect(deck.tags.include? tag).to be true
+    expect(deck.tags_names).to eq "hey haha"
+  end
+
+  it "should be able to add multiple tags using the add_tags method" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                        password: "123456", password_confirmation: "123456")
+    deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)    
+    tags = [{name: "hey"}, {name: "haha"}, {name: "lol"}]
+    deck.add_tags(tags)
+    expect(deck.tags.count).to be 3
+    expect(deck.tags_names).to eq "hey haha lol"
+  end
 end
