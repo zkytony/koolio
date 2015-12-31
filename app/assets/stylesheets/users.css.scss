@@ -646,6 +646,10 @@ $info-toggle-size: 80px;
 
     a {
 	display: block;
+	color: $deck-title-color;
+	&:hover {
+	    color: $decent-blue;
+	}
     }
     
     .four-cards {
