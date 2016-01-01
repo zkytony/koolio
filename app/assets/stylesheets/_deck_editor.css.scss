@@ -135,7 +135,7 @@
 	    }
 	}
     }
-    #added-tags {
+    #added-tags, #deck-shared-editors, #deck-shared-visitors {
 	@include box-sizing(border-box);
 	overflow: hidden;
 	.tagit-new {

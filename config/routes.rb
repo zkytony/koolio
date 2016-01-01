@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get 'profile_cards' => 'users#profile_cards'
     get 'profile_decks' => 'users#profile_decks'
     get 'settings' => 'users#settings'
+    get 'mutual_follows' => 'users#mutual_follows'
   end
   resources :decks do
     post 'favorite' => 'decks#favorite'

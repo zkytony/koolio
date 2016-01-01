@@ -103,13 +103,25 @@ class DecksController < ApplicationController
     # needed for creating or updating a deck
     def prepare_arguments
       shared_editors = Set.new
-      params[:deck_shared_editors].split(",").each do |email|
-        shared_editors.add User.find_by(email: email)
+      shared_editors_param = params[:item][:shared_editors]
+      if shared_editors_param
+        shared_editors_param.split(",").each do |username|
+          user = User.find_by(username: username)
+          if user
+            shared_editors.add user
+          end
+        end
       end
 
       shared_visitors = Set.new
-      params[:deck_shared_visitors].split(",").each do |email|
-        shared_visitors.add User.find_by(email: email)
+      shared_visitors_param = params[:item][:shared_visitors]
+      if shared_visitors_param
+        shared_visitors_param.split(",").each do |username|
+          user = User.find_by(username: username)
+          if user
+            shared_visitors.add user
+          end
+        end
       end
 
       tags = params[:item][:tags]

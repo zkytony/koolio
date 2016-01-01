@@ -3,14 +3,19 @@ function DeckEditor(id) {
   this.id = id;
   this.tagsCount = 0;
   this.tags = $("#added-tags");
+  this.sharedEditors = $("#deck-shared-editors");
+  this.sharedVisitors = $("#deck-shared-visitors");
   // indicate whether the deck editor is in edit mode
   this.editDeckId = undefined;
+  this.usersPrompt = [];
 }
 
 DeckEditor.prototype.init = function() {
   var editor = this;
 
   editor.initTagsField(null);
+  editor.initShareEditorsField(null);
+  editor.initShareVisitorsField(null);
 
   $(document).on("click", "#prof-add-deck-btn", function() {
     if (editor.editDeckId) {
@@ -89,6 +94,7 @@ DeckEditor.prototype.init = function() {
   // Dynamically prompt the user about the users while he is typing
   // This is good, because this way we can retrieve the user_id
   // at the same time as the user is selected.
+  //editor.ajaxGrabMutualFollowings();
 }
 
 DeckEditor.prototype.validate = function() {
@@ -109,21 +115,11 @@ DeckEditor.prototype.reset = function() {
   $("#prop-public").prop("checked", true);
   $("#prop-private").prop("checked", false);
   this.tags.tagit('removeAll');
+  this.sharedEditors.tagit('removeAll');
+  this.sharedVisitors.tagit('removeAll');
   this.editDeckId = undefined;
   // remove the hidden method field
   $("#deck-method-field").remove();
-}
-
-// make the given tag string a pretty tag element,
-// and append it to "id", which is supposed to be
-// an input text field
-// raw - the raw string to be converted
-// id - the id of the element that the element will be appended to
-// return the width of the new item
-DeckEditor.prototype.makePrettyBlock = function(raw, id) {
-  var htmlString = "<li class='one-tag' id='tag-" + raw + "'>" + raw + "</li>";
-  $("#"+id).append(htmlString);
-  return $("#tag-" + raw).outerWidth();
 }
 
 // for some reason the .assignedTags() method do not
@@ -134,6 +130,22 @@ DeckEditor.prototype.getTags = function() {
     tags.push($(this).html());
   });
   return tags;
+}
+
+DeckEditor.prototype.getSharedEditors = function() {
+  var users = [];
+  $("#deck-shared-editors .tagit-label").each(function() {
+    users.push($(this).html());
+  });
+  return users;
+}
+
+DeckEditor.prototype.getSharedVisitors = function() {
+  var users = [];
+  $("#deck-shared-visitors .tagit-label").each(function() {
+    users.push($(this).html());
+  });
+  return users;
 }
 
 DeckEditor.prototype.show = function() {
@@ -184,6 +196,30 @@ DeckEditor.prototype.initTagsField = function(availableTags) {
   });
 }
 
+DeckEditor.prototype.initShareEditorsField = function(currentSharedUsers) {
+  var editor = this;
+  editor.sharedEditors.tagit({
+    availableTags: currentSharedUsers,
+    fieldName: "shared_editors",
+    onTagAdded: function(event, ui) {
+    },
+    onTagRemoved: function(event, ui) {
+    }
+  });
+}
+
+DeckEditor.prototype.initShareVisitorsField = function(currentSharedUsers) {
+  var editor = this;
+  editor.sharedVisitors.tagit({
+    availableTags: currentSharedUsers,
+    fieldName: "shared_visitors",
+    onTagAdded: function(event, ui) {
+    },
+    onTagRemoved: function(event, ui) {
+    }
+  });
+}
+
 // given the deckId, display the info, such as title, decscription,
 // in the editor. Make AJAX request.
 DeckEditor.prototype.showDeckInfo = function(deckId) {
@@ -207,11 +243,23 @@ DeckEditor.prototype.showDeckInfo = function(deckId) {
 	$("#share-as-visitors").removeClass("hidden");
       }
 
-      // add li elements to deck_tags
+      // fill up tags
       var tags = output["tags"];
       editor.tagsCount = tags.length;
       tags.forEach(function(tag) {
 	editor.tags.tagit('createTag', tag);
+      });
+
+      // fill up shared editors
+      var editors = output["shared_editors"];
+      editors.forEach(function(user) {
+	editor.sharedEditors.tagit('createTag', user["username"]);
+      });
+
+      // fill up shared visitors
+      var editors = output["shared_visitors"];
+      editors.forEach(function(user) {
+	editor.sharedVisitors.tagit('createTag', user["username"]);
       });
     }
   });
@@ -225,4 +273,21 @@ DeckEditor.prototype.toggleSubmitButton = function(on) {
   } else {
     $("#deck-editor-submit-btn").prop("disabled", !on);
   } 
+}
+
+// ajax request to grab users that are mutually following
+// with the current user
+DeckEditor.prototype.ajaxGrabMutualFollowings = function() {
+  // get user id from window location
+  var userId = window.location.pathname.split('/')[2];
+  //alert(userId);
+  $.ajax({
+    method: "GET",
+    url: "/users/" + userId + "/mutual_follows",
+    contentType: "json",
+    success: function(output) {
+      //console.log(output);
+      //alert(output);
+    }
+  });
 }

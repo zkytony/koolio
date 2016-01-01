@@ -6,6 +6,9 @@ class GrabCardInfo
   # number of favorites of the deck, other cards in the deck,
   # author title, author id.
   #
+  # Since a deck can be shared to others, the author in the
+  # info here is the author of the card.
+  #
   # Comments and cards are sorted by number of likes.
   #
   # If the user does not have permission to view the card,
@@ -16,7 +19,7 @@ class GrabCardInfo
       n_cards = 5
 
       deck = card.deck
-      author = deck.user
+      author = card.user
       comments = card.comments
       cards = deck.cards.order(:likes).reverse_order.take(n_cards)
       # use hash and convert it to JSON

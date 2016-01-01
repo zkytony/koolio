@@ -115,6 +115,16 @@ class UsersController < ApplicationController
     end
   end
 
+  # get a list of mutually_followed users of the current user in json
+  def mutual_follows
+    @user = User.find(params[:user_id])
+    users = @user.mutual_follows
+    
+    respond_to do |format|
+      format.json { render json: { users: users } }
+    end
+  end
+
   private
     
     # strong parameter

@@ -377,15 +377,32 @@ RSpec.describe User, :type => :model do
   it "should inspect avatar" do
     user = User.create(username: "userA", email: "userA@example.com",
                         password: "123456", password_confirmation: "123456")
-
-    default_avatar = {
-      front: "/assets/default-profile.svg",
-      back: "/assets/default-profile.svg"
-    }
-    user.avatar = default_avatar.to_json
-    user.save!
     
-    expect(user.my_avatar!["front"]).to eq "/assets/default-profile.svg"
-    expect(user.my_avatar!["back"]).to eq "/assets/default-profile.svg"
+    expect(user.my_avatar!("front")).to eq "/assets/default-profile.svg"
+    expect(user.my_avatar!("back")).to eq "/assets/default-profile.svg"
+  end
+
+  it "should return list of mutually followed users of given user" do
+    userA = User.create(username: "userA", email: "userA@example.com",
+                        password: "123456", password_confirmation: "123456")
+    userB = User.create(username: "userB", email: "userB@example.com",
+                        password: "123456", password_confirmation: "123456")
+    userC = User.create(username: "userC", email: "userC@example.com",
+                        password: "123456", password_confirmation: "123456")
+    userD = User.create(username: "userD", email: "userD@example.com",
+                        password: "123456", password_confirmation: "123456")    
+    userA.follow(userB)
+    userA.follow(userC)
+    userA.follow(userD)
+    
+    userB.follow(userA)
+    userC.follow(userA)
+    userD.follow(userA)
+    
+    mutuals = userA.mutual_follows
+    expect(mutuals.length).to be 3
+    expect(mutuals.include?(userB)).to be true
+    expect(mutuals.include?(userC)).to be true
+    expect(mutuals.include?(userD)).to be true
   end
 end

@@ -354,7 +354,7 @@ $info-toggle-size: 80px;
 		cursor: pointer;
 	    }
 
-	    h3, .deck-gear { display: none; } // do not show the title and gear
+	    h3, .deck-gear, .share-info { display: none; } // do not show the title and gear
 	    .four-cards {
 		width: 2*$tiny-card-size + 20px;
 		margin: 0;
@@ -486,6 +486,10 @@ $info-toggle-size: 80px;
 
     .stat-item-number {
 	font-weight: 700;
+	font-size: 15px;
+    }
+    .stat-item-label {
+	font-size: 11px;
     }
     
 }
@@ -642,6 +646,13 @@ $info-toggle-size: 80px;
 	    cursor: pointer;
 	    color: darken($deck-title-color, 15%);
 	}
+    }
+    .share-info {
+	font-size: 11px;
+	position: absolute;
+	top: $title-padding + 13px;
+	left: 16px;
+	color: lighten($deck-title-color, 15%);
     }
 
     a {

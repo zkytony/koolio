@@ -73,6 +73,18 @@ class User < ActiveRecord::Base
   def following_mutually?(other_user)
     self.following.include?(other_user) && other_user.following.include?(self)
   end
+  
+  # list of mutually following users of the given user
+  def mutual_follows
+    # Naive method
+    users = []
+    self.following.each do |other|
+      if other.following? self
+        users << other
+      end
+    end
+    users
+  end
 
   def self.find_by_email(email)
     User.find_by email: email
@@ -216,5 +228,19 @@ class User < ActiveRecord::Base
 
   def create_notification(action, notifier)
     self.notifications.create(action: action, notifier: notifier)
+  end
+
+  # return this user's shared role with the given deck, either "editor"
+  # or "visitor". If neither, return nil. Even if this user can
+  # view the deck, if the deck is not shared to that user as visitor,
+  # then this method returns nil
+  def role(deck)
+    if deck.editors.include? self
+      "editor"
+    elsif deck.normal_viewers.include? self
+      "viewer"
+    else
+      nil
+    end
   end
 end

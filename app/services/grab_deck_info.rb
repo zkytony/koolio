@@ -11,8 +11,8 @@ class GrabDeckInfo
         deck: deck,
         author: deck.creator,
         tags: deck.all_tags,
-        shared_editors: deck.editors,
-        shared_viewers: deck.normal_viewers
+        shared_editors: deck.editors - [deck.creator],
+        shared_visitors: deck.normal_viewers
       }
     end
   end
