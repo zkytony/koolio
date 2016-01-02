@@ -144,16 +144,16 @@ $info-toggle-size: 80px;
 	background-color: $white;//$healthy-black;
 	
 	.card-img-wrapper {
-	    width: 100%;
+	    width: $home-card-width;
 	    height: 100%;
 	    @include box-sizing(border-box);
 	    display: inline-block;
 	    position: relative;
 
-	    .card-img img {
+	    img {
 		@include box-sizing(border-box);
 		//min-width: $img-min-width;
-		width: 100%;
+		width: $home-card-width;
 		//min-height: $img-min-height;
 		height: 100%;
 	    }
@@ -161,7 +161,7 @@ $info-toggle-size: 80px;
 	    .card-img-descp {
 		position: absolute;
 		bottom: 0px;
-		width: 100%;
+		width: $home-card-width;
 		padding: 5px;
 		font-size: $img-descp-font-size;
 		color: $img-descp-color;
