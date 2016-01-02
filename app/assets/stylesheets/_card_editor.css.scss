@@ -110,7 +110,7 @@ $type-select-width: 75%;
 }
 .more-type-btn {
     background-color: $type-btn-color;
-    @include decent-interact-bg($type-btn-color);
+    //@include decent-interact-bg($type-btn-color);
 }
 
 .previous-type {

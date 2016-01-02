@@ -311,7 +311,7 @@ ImageEditor.prototype.init = function() {
   $(document.body).click(function(e) {
     var linkDiv = $("#" + imageEditor.side + "-img-link-paste");
     if (!linkDiv.hasClass("hidden")) {
-      if (e.target.id !== "#" + imageEditor.side + "-img-link-paste" && !$.contains(linkDiv[0], e.target)) {
+      if (e.target.id !== "#" + imageEditor.side + "-side-img-link" && e.target.id !== "#" + imageEditor.side + "-img-link-paste" && !$.contains(linkDiv[0], e.target)) {
 	linkDiv.addClass("hidden");
 	$("#" + imageEditor.side + "-side-img-file").prop("disabled", false);
 	$("#" + imageEditor.side + "-side-img-link").prop("disabled", false);
@@ -443,6 +443,9 @@ VideoEditor.prototype.init = function() {
     });
   });
 
+  // When clicked the link button, a form pops up
+  $("#" + videoEditor.side + "-side-video-link").prop("disabled", true);
+
   videoEditor.reset();
   InnerEditor.prototype.init.call(videoEditor);
 }
@@ -479,7 +482,7 @@ VideoEditor.prototype.displayPhase = function(output) {
   }
 }
 
-// Return the content of the image editor as JSON string
+// Return the content of the video editor as JSON string
 VideoEditor.prototype.grabContent = function() {
   var result = {};
   result["file_name"] = this.videoFile;
