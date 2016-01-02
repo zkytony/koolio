@@ -30,12 +30,16 @@
 	<div class="deck-stat-for">Favorites</div>
       </div>
     </div>
-    <div class="deck-author-info">
-      <div class="deck-author-profile">
-	<img src="<%= "#{@deck.creator.my_avatar!('front')}" %>" alt="FRONT">
+    <% @deck.editors.each do |editor| %>
+      <div class="deck-author-info">
+	<div class="deck-author-profile">
+	  <img src="<%= "#{editor.my_avatar!('front')}" %>" alt="FRONT">
+	</div>
+	<div class="deck-author-name">
+	  <%= link_to "#{editor.username}", user_profile_path(editor), data: { no_turbolink: true} %>
+	</div>
       </div>
-      <div class="deck-author-name"><%="#{@deck.creator.username}"%></div>
-    </div>
+    <% end %>
   </div>
   <div class="right-contents-wrapper" id="deck-cards-container">
     <%= render partial: "shared/deck_cards" %>

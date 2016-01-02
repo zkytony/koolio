@@ -56,6 +56,8 @@ $deck-cards-container-width: $deck-main-contents-width - $deck-info-panel-width 
 	}
     }
     .deck-author-info {
+	overflow: hidden;
+	margin-bottom: 12px;
 	.deck-author-profile, .deck-author-name {
 	    float: left;
 	}
@@ -69,12 +71,21 @@ $deck-cards-container-width: $deck-main-contents-width - $deck-info-panel-width 
 	    }
 	}
 	.deck-author-name {
-	    font-weight: 600;
-	    font-size: $deck-author-name-font-size;
 	    margin-left: 13px;
 	    margin-top: ($deck-author-avatar-size - $deck-author-name-font-size ) / 2;
-	    color: $deck-title-color;
+	    a {
+		font-weight: 600;
+		font-size: $deck-author-name-font-size;
+		color: $deck-title-color;
+		&:hover {
+		    color: $decent-blue;
+		}
+	    }
 	}
+    }
+
+    .deck-author-info:last-child {
+	margin-bottom: 0px;
     }
 }
 

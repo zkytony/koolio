@@ -234,7 +234,6 @@ $info-toggle-size: 80px;
 }
 #like-comment-panel {
     min-height: 40px + $comment-box-height;
-    max-height: 500px;
     overflow: hidden;
     padding: 20px 0px;
 
@@ -410,17 +409,17 @@ $info-toggle-size: 80px;
 	width: 20%;
     }
     .right {
-	width: 80%;
+	width: 78%;
+	margin-left: 2%;
     }
     .left, .right {
 	float: left;
     }
     .profile {
-	@include border-radius(50%);
-	overflow: hidden;
 	img {
 	    width: 100%;
 	    height: 100%;
+	    @include border-radius(50%);
 	}
     }
 }
