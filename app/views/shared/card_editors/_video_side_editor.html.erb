@@ -1,0 +1,40 @@
+<div class="video-editor">
+  <!-- START VIDEO EDITOR UPLOADER -->
+  <div class="video-editor-uploader" id="<%="#{side}"%>-video-editor-uploader">
+    <div class="video-uploader-wrapper">
+      <!-- button class="video-uploader-half right-dash video-upload-type-btn"><i class="fa fa-upload"></i></button -->
+      <label for="<%="#{side}"%>-side-video-file">
+	<div class="video-uploader-half right-dash video-upload-type-btn">
+	  <input type="file" id="<%="#{side}"%>-side-video-file" accept='video/*' class="hidden">
+	  <i class="fa fa-upload" id="upload-file-icon"></i> 
+	</div>
+      </label>
+      <button class="video-uploader-half left-dash video-upload-type-btn" id="<%="#{side}"%>-side-video-link" type="button"><i class="fa fa-link"></i></button>
+    </div>
+    <div class="inner-editor-btn-row">
+      <button class="inner-edit-back-btn" type="button" id="<%="#{side}"%>-video-edit-<%="#{other_side}"%>-btn">edit <%="#{other_side}"%></button>
+      <button class="inner-change-type-btn" type="button" id="<%="#{side}"%>-video-change-type-btn">change type</button>
+    </div>
+    <div class="hidden waiting" id="video_<%="#{side}"%>_waiting">
+      <%= image_tag "tmp/loading.gif" %>
+    </div>
+  </div>
+  <!-- END VIDEO EDITOR UPLOADER -->
+  <!-- START VIDEO EDITOR DISPLAY -->
+  <div class="video-editor-display hidden" id="<%="#{side}"%>-video-editor-display">
+    <div class="video-display-wrapper">
+      <video id="<%="#{side}"%>-video-display" controls></video>
+    </div>
+    <div class="inner-editor-btn-row">
+      <button class="inner-edit-back-btn" type="button" id="<%="#{side}"%>-video-edit-<%="#{other_side}"%>-btn">edit <%="#{other_side}"%></button>
+      <button class="inner-change-type-btn" type="button" id="<%="#{side}"%>-video-change-type-btn">change type</button>
+    </div>
+  </div>
+
+  <!-- END VIDEO EDITOR DISPLAY -->
+  <!-- VIDEO LINK PASTE -->
+  <div class="video-link-paste hidden" id="<%="#{side}"%>-video-link-paste">
+    <input type="text" placeholder="enter your link here" id="<%="#{side}"%>-video-url">
+    <p class="url-alert-msg hidden" id="<%="#{side}"%>-url-alert-msg">Ooops. Not an video.</p>
+  </div>
+</div>

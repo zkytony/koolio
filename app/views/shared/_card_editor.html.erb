@@ -25,6 +25,9 @@
 	  <!-- ########## END FRONT IMAGE EDITOR ########## -->
 	</div>
 	<div class="editor-left-part hidden" id="front-video-editor-container">
+	  <!-- ########## FRONT VIDEO EDITOR ########## -->
+	  <%= render partial: "shared/card_editors/video_side_editor", locals: { side: "front", other_side: "back"} %>
+	  <!-- ########## END FRONT VIDEO EDITOR ########## -->
 	</div>
       </div>
       <!-- END FRONT -->
@@ -44,6 +47,9 @@
 	  <!-- ########## END BACK IMAGE EDITOR ########## -->
 	</div>
 	<div class="editor-left-part hidden" id="back-video-editor-container">
+	  <!-- ########## BACK VIDEO EDITOR ########## -->
+	  <%= render partial: "shared/card_editors/video_side_editor", locals: { side: "back", other_side: "front"} %>
+	  <!-- ########## END BACK VIDEO EDITOR ########## -->
 	</div>
       </div>
     </div>

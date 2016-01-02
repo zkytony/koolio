@@ -43,14 +43,20 @@ Editor.prototype.init = function() {
   fi.init();
   var bi = new ImageEditor(editor, "back");
   bi.init();
+  var fv = new VideoEditor(editor, "front");
+  fv.init();
+  var bv = new VideoEditor(editor, "back");
+  bv.init();
   editor.innerEditors = {
     "front": {
       "text": ft,
-      "img": fi
+      "img": fi,
+      "video": fv
     },
     "back": {
       "text": bt,
-      "img": bi
+      "img": bi,
+      "video": bv
     }
   }
 
@@ -195,6 +201,28 @@ InnerEditor.prototype.grabContent = function() {
 InnerEditor.prototype.reset = function() {
   // could not implement here
 }
+
+// Post the file to the server
+InnerEditor.prototype.sendFileAJAX = function(formdata, successCallBack) {
+  var innerEditor = this;
+  $.ajax({
+    type: 'post',
+    url: '/uploaded_files',
+    data: formdata,  // formdata has a property "target" & "file_type" & "source_type"
+    contentType: false,
+    processData: false,
+    dataType: 'json', // get back json
+    beforeSend: function() {
+      $("#" + innerEditor.type + "_" + innerEditor.side + "_waiting").removeClass("hidden");
+    },
+    success: function(output) {
+      successCallBack(output);
+    },
+    complete: function() {
+      $("#" + innerEditor.type + "_" + innerEditor.side + "_waiting").addClass("hidden");
+    }
+  });
+}
 /* End of InnerEditor */
 
 /* TextEditor object, inherits InnerEditor */
@@ -242,7 +270,9 @@ TextEditor.prototype.grabContent = function() {
 }
 /* End of TextEditor */
 
+//////////////////////////////////////////////
 /* ImageEditor object, inherits InnerEditor */
+//////////////////////////////////////////////
 ImageEditor.prototype = Object.create(InnerEditor.prototype);
 function ImageEditor(editor, side) {
   InnerEditor.call(this, editor, side);
@@ -264,7 +294,9 @@ ImageEditor.prototype.init = function() {
     formdata.append("file_type", "img");
     formdata.append("source_type", "upload");
     
-    imageEditor.sendFileAJAX(formdata);
+    imageEditor.sendFileAJAX(formdata, function(output) {
+      imageEditor.displayPhase(output);
+    });
   });
 
   // When clicked the link button, a form pops up
@@ -316,7 +348,9 @@ ImageEditor.prototype.init = function() {
 	  formdata.append("file_type", "img");
 	  formdata.append("source_type", "link");
 
-	  imageEditor.sendFileAJAX(formdata);
+	  imageEditor.sendFileAJAX(formdata, function(output) {
+	    imageEditor.displayPhase(output);
+	  });
 	}
       });
     }
@@ -355,28 +389,6 @@ ImageEditor.prototype.grabContent = function() {
   return result;
 }
 
-// Post the file to the server
-ImageEditor.prototype.sendFileAJAX = function(formdata) {
-  var imageEditor = this;
-  $.ajax({
-    type: 'post',
-    url: '/uploaded_files',
-    data: formdata,  // formdata has a property "target" & "file_type" & "source_type"
-    contentType: false,
-    processData: false,
-    dataType: 'json', // get back json
-    beforeSend: function() {
-      $("#" + imageEditor.side + "_waiting").removeClass("hidden");
-    },
-    success: function(output) {
-      imageEditor.displayPhase(output);
-    },
-    complete: function() {
-      $("#" + imageEditor.side + "_waiting").addClass("hidden");
-    }
-  });
-}
-
 // Go to the display phase of the image editor. Show the image.
 ImageEditor.prototype.displayPhase = function(output) {
   var imageEditor = this;
@@ -389,6 +401,7 @@ ImageEditor.prototype.displayPhase = function(output) {
     imageEditor.host = host;
     // Go to display phase, display that imgFile
     $("#" + imageEditor.side + "-img-editor-uploader").addClass("hidden");
+
     $("#" + imageEditor.side + "-img-editor-display").removeClass("hidden");
     $("#" + imageEditor.side + "-img-display").attr("src", host + "/" + storeDir + "/" + fileName);
 
@@ -396,7 +409,6 @@ ImageEditor.prototype.displayPhase = function(output) {
     imageEditor.editor.hasDraft[imageEditor.side] = true;
     imageEditor.editor.updateCreateCardBtn();
   }
-
 }
 /* End of ImageEditor */
 
@@ -404,3 +416,85 @@ function isUrl(s) {
    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
    return regexp.test(s);
 }
+
+//////////////////////////////////////////////
+/* VideoEditor object, inherits InnerEditor */
+//////////////////////////////////////////////
+VideoEditor.prototype = Object.create(InnerEditor.prototype);
+function VideoEditor(editor, side) {
+  InnerEditor.call(this, editor, side);
+  this.type = "video";
+  this.storeDir = undefined;
+  this.videoFile = undefined; // file name
+  this.host = undefined; // host is a string: http://xxxx.com
+}
+
+VideoEditor.prototype.init = function() {
+  var videoEditor = this;
+  $(document).on("change", "#" + videoEditor.side + "-side-video-file", function() {
+    var formdata = new FormData();
+    var file = $(this).prop('files')[0];
+    formdata.append("target", file);
+    formdata.append("file_type", "video");
+    formdata.append("source_type", "upload");
+    
+    videoEditor.sendFileAJAX(formdata, function(output) {
+      videoEditor.displayPhase(output);
+    });
+  });
+
+  videoEditor.reset();
+  InnerEditor.prototype.init.call(videoEditor);
+}
+
+VideoEditor.prototype.reset = function() {
+  var videoEditor = this;
+  $("#" + videoEditor.side + "-video-editor-container").addClass("hidden");
+  $("#" + videoEditor.side + "-video-editor-uploader").removeClass("hidden");
+  $("#" + videoEditor.side + "-video-url").val("");
+  $("#" + videoEditor.side + "-video-editor-display").addClass("hidden");
+  $("#" + videoEditor.side + "-video-display").html("");
+}
+
+// Go to the display phase of the video editor. Show the video.
+VideoEditor.prototype.displayPhase = function(output) {
+  var videoEditor = this;
+  var fileName = output["file_name"];
+  var storeDir = output["store_dir"];
+  var host = output["host"];
+  if (fileName) {
+    videoEditor.videoFile = fileName;
+    videoEditor.storeDir = storeDir;
+    videoEditor.host = host;
+
+    var videoType = fileName.substring(fileName.lastIndexOf(".")+1);
+    // Go to display phase, display that videoFile
+    $("#" + videoEditor.side + "-video-editor-uploader").addClass("hidden");
+    $("#" + videoEditor.side + "-video-editor-display").removeClass("hidden");
+    $("#" + videoEditor.side + "-video-display").html("<source src=\"" + host + "/" + storeDir + "/" + fileName + "\" type=\"video/" + videoType + "\">Your browser does not support video tag.");
+
+    // hasDraft is true for this side
+    videoEditor.editor.hasDraft[videoEditor.side] = true;
+    videoEditor.editor.updateCreateCardBtn();
+  }
+}
+
+// Return the content of the image editor as JSON string
+VideoEditor.prototype.grabContent = function() {
+  var result = {};
+  result["file_name"] = this.videoFile;
+  result["store_dir"] = this.storeDir;
+  result["host"] = this.host;
+  result["video_type"] = this.videoFile.substring(this.videoFile.lastIndexOf(".")+1);
+  return result;
+}
+
+VideoEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
+  var videoEditor = this;
+  if (videoEditor.editor.hasDraft[this.side]) {
+    $("#" + videoEditor.side + "-type-video-btn").addClass("previous-type");
+  } else {
+    $("#" + videoEditor.side + "-type-video-btn").removeClass("previous-type");
+  }
+}
+/* End of VideoEditor */

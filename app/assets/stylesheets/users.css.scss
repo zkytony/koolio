@@ -172,6 +172,36 @@ $info-toggle-size: 80px;
 	}
     }
     /* end img card */
+
+    /* video card */
+    .video-type-side {
+	padding: 0px;
+	background-color: $healthy-black;
+
+	.card-video-wrapper {
+	    width: 100%;
+	    height: 100%;
+	    @include box-sizing(border-box);
+	    display: inline-block;
+	    position: relative;
+	}
+
+	.video-no-flip-region  {
+	    width:100%; 
+	    position: absolute; 
+	    bottom: 0; 
+	    height: 50px; 
+	}
+
+	.quick-card-like-btn-wrapper {
+	    top: 0;
+	    bottom: auto;
+	    .quick-card-like-btn {
+		top: 10px;
+		bottom: auto;
+	    }
+	}
+    }
 }
 #home-main-contents-wrapper {
     width: $home-total-width;
@@ -622,9 +652,11 @@ $info-toggle-size: 80px;
 }
 
 .one-deck {
+    width: $deck-width;
     min-height: $deck-height;
     background-color: $white;
     position: relative;
+    overflow: hidden;
     h3 { 	
 	color: $deck-title-color;
 	font-size: $title-font-size;

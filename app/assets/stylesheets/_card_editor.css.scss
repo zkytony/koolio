@@ -15,6 +15,21 @@ $inner-editor-radius: 10px; // e.g. text-editor, img-editor
 .card-editor {
     width: $editor-width;
     height: $editor-height;
+
+    /**** loading gif ****/
+    .waiting {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: rgba($white, 0.8);
+
+	img {
+	    position: absolute;
+	    @include center-vertically-and-horizontally;
+	}
+    }
 }
 
 
@@ -284,21 +299,6 @@ $img-uploader-wrapper-width: 90%;
 	.inner-edit-back-btn, .inner-change-type-btn, inner-confirm-btn {
 	    top: 5%;
 	}
-
-	/**** loading gif ****/
-	.waiting {
-	    width: 100%;
-	    height: 100%;
-	    position: absolute;
-	    left: 0;
-	    top: 0;
-	    background-color: rgba($white, 0.8);
-
-	    img {
-		position: absolute;
-		@include center-vertically-and-horizontally;
-	    }
-	}
     }
 
     /* Display -- where the user really creates a card */
@@ -420,3 +420,159 @@ $img-uploader-wrapper-width: 90%;
     }
 }
 /**** END IMAGE EDITOR ****/
+
+/**** VIDEO EDITOR ****/
+$video-editor-width: 75%;
+$video-body-font-size: 16px;
+$video-editor-bg: $inner-editor-bg;
+$video-uploader-icon-size: 77px;
+$video-uploader-wrapper-height: 100% - $inner-btn-row-height;
+$video-uploader-wrapper-width: 90%;
+.video-editor {
+    width: $video-editor-width;
+    height: $video-editor-width ;
+    @include center-vertically-and-horizontally;
+
+    .video-editor-uploader, .video-editor-display {
+	width: 100%;
+	background-color: $video-editor-bg;
+	@include border-radius($inner-editor-radius);
+	@include box-sizing(border-box);	
+	position: relative;
+    }
+
+    /* Uploader */
+    .video-editor-uploader {
+	/* The height of this area is equal to 
+	   height of fixed-options-btn-row + height of create-card-btn
+	 */
+	height: $fixed-options-height * 0.5 + $create-card-btn-height;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	position: relative;
+	
+	.inner-edit-back-btn, .inner-change-type-btn, inner-confirm-btn {
+	    top: 5%;
+	}
+
+	/**** loading gif ****/
+	.waiting {
+	    width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    left: 0;
+	    top: 0;
+	    background-color: rgba($white, 0.8);
+
+	    video {
+		position: absolute;
+		@include center-vertically-and-horizontally;
+	    }
+	}
+    }
+
+    /* Display -- where the user really creates a card */
+    .video-editor-display {
+	height: 100%;
+    }
+    
+    /* Upload video phase */
+    .video-uploader-wrapper {
+	width: $video-uploader-wrapper-width;
+	height: $video-uploader-wrapper-height;
+	margin: auto;
+
+	.video-uploader-half {
+	    width: 50%;
+	    height: 100%;
+	    float: left;
+	    @include box-sizing(border-box);
+	}
+	.video-uploader-half.right-dash {
+	    border-right: 2px dashed darken($video-editor-bg, 15%);
+	}
+	.video-uploader-half.left-dash {
+	    border-left: 2px dashed darken($video-editor-bg, 15%);
+	}
+	
+	// type refers to file or link
+	.video-upload-type-btn {
+	    border: none;
+	    background-color: $video-editor-bg;
+	    font-size: $video-uploader-icon-size;
+	    color: darken($video-editor-bg, 15%);
+
+	    #upload-file-icon {
+		// center it
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 25%;
+		left: 15%;
+	    }
+
+	    &:hover {
+		color: darken($video-editor-bg, 25%);
+		cursor: pointer;
+	    }
+	}
+
+	.video-upload-type-btn:disabled {
+	    &:hover {
+		color: darken($video-editor-bg, 15%);
+		cursor: auto;
+	    }
+	}
+    }
+
+    $video-link-width: $video-uploader-wrapper-width;
+    $video-link-height: 45px;
+    .video-link-paste {
+	width: $video-link-width;
+	height: $video-link-height;
+	@include center-vertically-and-horizontally(absolute);
+
+	input[type="text"] {
+	    @include box-sizing(border-box);
+	    width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    font-size: 17px;
+	    padding-left: 10px;
+	    border: none;
+	    color: $decent-blue;
+	    @include box-shadow(0px,3px,20px,$darker-grey);
+	}
+
+	.url-alert-msg {
+	    background-color: $alert-red;
+	    color: darken($alert-red, 30%);
+	    position: absolute;
+	    left: $video-link-width - 32%;
+	    top: $video-link-height;
+	    padding: 5px;
+	}
+    }
+
+    $video-editor-display-min-width: 50%;
+    $video-editor-display-min-height: 50%;
+    $video-display-height: 65%;
+    $video-descp-font-size: 17px;
+    /* Display video phase */
+    .video-display-wrapper {
+	width: 100%;
+	height: $video-display-height;
+	position: relative;
+	
+	video {
+	    padding: 10px;
+	    @include box-sizing(border-box);
+	    //min-width: $video-editor-display-min-width;
+	    max-width: 100%;
+	    min-height: $video-editor-display-min-height;
+	    max-height: 100%;
+	    @include center-vertically-and-horizontally;	    
+	}
+    }
+}
+/**** END VIDEO EDITOR ****/
