@@ -50,12 +50,19 @@ function Card(id, side) {
 }
 
 Card.prototype.adjustCardHeight = function() {
-  // if both sides are not image are image, then just go the usual way
+  // if both sides are not image
   if (this.contentType["front"] !== "img" && this.contentType["back"] !== "img") {
-    var maxHeight = Math.max(this.s["back"].outerHeight(), this.s["front"].outerHeight());
-    this.s["back"].outerHeight(maxHeight);
-    this.s["front"].outerHeight(maxHeight);
-    $("#"+this.id).height(maxHeight);
+    // if either side is video, limit the max height to 250
+    if (this.contentType["front"] === "video" || this.contentType["back"] === "video") {
+      this.s["back"].outerHeight(250);
+      this.s["front"].outerHeight(250);
+      $("#"+this.id).height(250);
+    } else {
+      var maxHeight = Math.max(this.s["back"].outerHeight(), this.s["front"].outerHeight());
+      this.s["back"].outerHeight(maxHeight);
+      this.s["front"].outerHeight(maxHeight);
+      $("#"+this.id).height(maxHeight);
+    }
   } else if (this.contentType["front"] === "img" && this.contentType["back"] === "img") {
     // if both sides are images, use 250px
     this.s["back"].outerHeight(250);
