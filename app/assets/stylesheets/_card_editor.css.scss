@@ -64,6 +64,7 @@ $type-select-width: 75%;
     width: $type-select-width;
     height: $type-select-width; // keep same margin
     @include center-vertically-and-horizontally;
+    background-color: $bg-color;
 }
 
 .type-btn-row {

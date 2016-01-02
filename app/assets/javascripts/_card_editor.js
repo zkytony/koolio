@@ -474,7 +474,10 @@ VideoEditor.prototype.displayPhase = function(output) {
     // Go to display phase, display that videoFile
     $("#" + videoEditor.side + "-video-editor-uploader").addClass("hidden");
     $("#" + videoEditor.side + "-video-editor-display").removeClass("hidden");
-    $("#" + videoEditor.side + "-video-display").html("<source src=\"" + host + "/" + storeDir + "/" + fileName + "\" type=\"video/" + videoType + "\">Your browser does not support video tag.");
+    $("#" + videoEditor.side + "-video-display").add("source").attr({
+      "src": host + "/" + storeDir + "/" + fileName,
+      "type": "video/" + videoType
+    });
 
     // hasDraft is true for this side
     videoEditor.editor.hasDraft[videoEditor.side] = true;
