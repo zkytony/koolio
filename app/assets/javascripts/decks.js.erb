@@ -1,5 +1,6 @@
 var cards = {};
 var noOngoingLoad = true;
+var selectedCards = {};
 // decks
 $(document).ready(function() {
   $(".home-card").each(function() {
@@ -60,6 +61,59 @@ $(document).ready(function() {
       scrollTop: $("#card_" + cardId).offset().top
     }, 1200);
   }
+
+  // When clicked on "select cards" button, get into another mode
+  $(document).on("click", "#deck-select-cards", function() {
+    if (!$(this).hasClass("inmode")) {
+      // add a layer over each card, so that cards don't flip
+      $(".home-card").each(function() {
+	$(this).css("overflow", "hidden");
+	$(this).children(".card-overlay").removeClass("hidden");
+      });
+      // change button msg
+      $(this).html("cancel");
+      // disable add card btn
+      $("#add-card-btn").prop("disabled", true);
+      // change the button style
+      $(this).addClass("inmode");
+      // show other options btns
+      $("#deck-delete-cards").removeClass("hidden");
+    } else {
+      // cancel
+      $(".home-card").each(function() {
+	$(this).css("overflow", "visible");
+	$(this).children(".card-overlay").addClass("hidden");
+      });
+      $(this).html("select cards");
+      $("#add-card-btn").prop("disabled", false);
+      $(this).removeClass("inmode");
+      $("#deck-delete-cards").addClass("hidden");
+    }
+  });
+
+  // when clicked on a card-overlay, select this card -> add a border
+  $(document).on("click", ".card-overlay", function() {
+    var cardId = $(this).closest(".home-card").attr("id").split("_")[1];
+    if (!$(this).hasClass("selected")) {
+      $(this).css("background-color", "rgba(99, 166, 164, 0.4)");
+      $(this).addClass("selected");
+      selectedCards[cardId] = true;
+    } else {
+      $(this).css("background-color", "rgba(17, 17, 17, 0.5)");
+      $(this).removeClass("selected");
+      delete selectedCards[cardId];
+    }
+    if (Object.keys(selectedCards).length > 0) {
+      $("#deck-delete-cards").prop("disabled", false);
+    } else {
+      $("#deck-delete-cards").prop("disabled", true);
+    }
+  });
+
+  // when clicked on delete btn, send ajax request to delete cards
+  $(document).on("click", "#deck-delete-cards", function() {
+    ajaxDeleteCards();
+  });
 });
 
 function ajaxGrabDeckCards(more, all) {
@@ -83,6 +137,25 @@ function ajaxGrabDeckCards(more, all) {
       });
       $("#deck-cards-container").masonry();
       noOngoingLoad = true;
+    }
+  });
+}
+
+// uses selectedCards
+function ajaxDeleteCards() {
+  var deckId = $("#_deck_id").val();
+  $.ajax({
+    // send to current page (deck show)
+    type: 'POST',
+    url: '/decks/' + deckId + "/delete_cards",
+    data: { card_ids: Object.keys(selectedCards) },
+    dataType: 'script',
+    success: function(data) {
+      $("#deck-cards-container").masonry('reloadItems');
+      $(".home-card").each(function() {
+	dealWithHomeCard($(this));
+      });
+      $("#deck-cards-container").masonry();
     }
   });
 }

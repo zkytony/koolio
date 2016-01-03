@@ -91,6 +91,19 @@ class DecksController < ApplicationController
     render :show
   end
 
+  # action for deleting cards
+  def delete_cards
+    if @deck.editable_by? current_user
+      @deck = Deck.find(params[:deck_id])
+      @card_ids = params[:card_ids]
+      DeleteCardsInDeck.call(@deck, @card_ids)
+      
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+
   private
     
     # strong parameter

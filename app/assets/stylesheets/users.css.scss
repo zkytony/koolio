@@ -25,6 +25,10 @@
     &:hover{
 	background-color: $grey-blue;
     }
+    
+    &:disabled {
+	background-color: $grey-blue;
+    }
 }
 
 .home-card-editor-container {
@@ -56,6 +60,17 @@ $info-toggle-size: 80px;
     max-height: $home-card-min-height + 50px;
     margin-bottom: 30px;
     float: left;
+
+    .card-overlay {
+	width: $home-card-width;
+	height: $home-card-min-height + 50px;
+	background-color: rgba($healthy-black, 0.5);
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5;
+	@include border-radius($default-border-radius);
+    }
 
     .flipper-front, .flipper-back {
 	padding: 20px;

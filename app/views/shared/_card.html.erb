@@ -6,6 +6,7 @@
   <% liked_class = "liked" %>
 <% end %>
 <div class="<%="#{category_class}"%> flipper" id="card_<%="#{card_id}" %>">
+  <div class="card-overlay no-flip hidden"></div>
   <div class="flipper-front flip-dir1 card-side <%="#{card_front_type}-type-side"%>" id="card_<%="#{card_id}"%>_front_<%="#{card_front_type}"%>">
     <!-- Deal with front -->
     <div class="card-<%="#{card_front_type}"%>">

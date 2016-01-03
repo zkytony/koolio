@@ -1,0 +1,7 @@
+<% if !@card_ids.empty? %>
+  <% @card_ids.each do |card_id| %>
+    $("#card_" + "<%="#{card_id}"%>").remove();
+  <% end %>
+  var curCardsCount = parseInt($("#deck_cards_num").html());
+  $("#deck_cards_num").html(curCardsCount + <%=@card_ids.size%>);
+<% end %>
