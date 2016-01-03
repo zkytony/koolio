@@ -30,16 +30,21 @@ class UpdateDeck
       end
       deck.add_tags(tag_params)
 
+      # Sharing is only intended for mutually followed users
+      # to avoid unwanted shares
+
+      mutuals = user.mutual_follows
+
       # share visitors
       shared_visitors.each do |person|
-        if !deck.viewable_by? person
+        if mutuals.include?(person) && !deck.viewable_by?(person)
           deck.share_to(person, "Viewer")
         end
       end
 
       # share editors
       shared_editors.each do |person|
-        if !deck.editable_by? person
+        if mutuals.include?(person) && !deck.editable_by?(person)
           deck.share_to(person, "Editor")
         end
       end
