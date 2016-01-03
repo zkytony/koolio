@@ -93,8 +93,8 @@ class DecksController < ApplicationController
 
   # action for deleting cards
   def delete_cards
+    @deck = Deck.find(params[:deck_id])
     if @deck.editable_by? current_user
-      @deck = Deck.find(params[:deck_id])
       @card_ids = params[:card_ids]
       DeleteCardsInDeck.call(@deck, @card_ids)
       
