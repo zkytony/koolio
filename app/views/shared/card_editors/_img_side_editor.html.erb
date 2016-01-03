@@ -20,6 +20,21 @@
     </div>
   </div>
   <!-- END IMAGE EDITOR UPLOADER -->
+  <!-- Display the uploaded image in a cropper -->
+  <div class="image-editor-cropper hidden" id="<%="#{side}"%>-img-editor-cropper">
+    <div class="image-cropper-wrapper" id="<%="#{side}"%>-img-cropper-wrapper">
+      <img id="<%="#{side}"%>-img-to-crop" src="" alt="your browser may not support FileReader API.">
+    </div>
+    <input type="hidden" name="crop_x" id="crop_x">
+    <input type="hidden" name="crop_y" id="crop_y">
+    <input type="hidden" name="crop_w" id="crop_w">
+    <input type="hidden" name="crop_h" id="crop_h">
+    <div class="image-cropper-btns">
+      <button class="image-cropper-cancel" id="<%="#{side}"%>-img-cropper-cancel-btn" type="button">Cancel</button>
+      <button class="image-cropper-confirm" id="<%="#{side}"%>-img-cropper-confirm-btn" type="button">OK</button>
+    </div>
+  </div>
+  <!-- END CROPPER -->
   <!-- START IMAGE EDITOR DISPLAY -->
   <div class="image-editor-display hidden" id="<%="#{side}"%>-img-editor-display">
     <div class="image-display-wrapper">

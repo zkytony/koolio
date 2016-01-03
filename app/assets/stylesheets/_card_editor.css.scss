@@ -8,13 +8,14 @@ $editor-btn-radius: 10px;
 $inner-editor-radius: 10px; // e.g. text-editor, img-editor
 
 #card-editor-flipper {
-    width: $editor-width;
+    width: $editor-left-part-width;
     height: $editor-height;
+    z-index: 4;
 }
 
 .card-editor {
-    width: $editor-width;
-    height: $editor-height;
+    width: 100%;
+    height: 100%;
 
     /**** loading gif ****/
     .waiting {
@@ -34,8 +35,8 @@ $inner-editor-radius: 10px; // e.g. text-editor, img-editor
 
 
 #front-wrapper, #back-wrapper {
-    width: $editor-left-part-width;
-    height: $editor-height;
+    width: 100%;
+    height: 100%;
 }
 
 .editor-left-part {
@@ -134,6 +135,7 @@ $create-card-btn-font-size: 24px;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 3;
 }
 
 .fixed-options-btn-row {
@@ -306,6 +308,11 @@ $img-uploader-wrapper-width: 90%;
     .image-editor-display {
 	height: 100%;
     }
+
+    /* Cropper -- where the user crops the uploaded image */
+    .image-editor-cropper {
+	height: 100%;
+    }
     
     /* Upload image phase */
     .image-uploader-wrapper {
@@ -356,6 +363,70 @@ $img-uploader-wrapper-width: 90%;
 	}
     }
 
+    /* Crop image phase */
+    $cropper-width: 480px;
+    $cropper-height: 480px;
+    .image-editor-cropper {
+	width: $cropper-width;
+	height: $cropper-height;
+	background-color: $bg-color;
+	@include center-vertically-and-horizontally;
+	@include border-radius($default-border-radius);
+	@include box-sizing(border-box);
+	padding-bottom: 20px;
+    }
+    .image-cropper-wrapper {
+	width: $cropper-width;
+	height: $cropper-height - 40px;
+	position: relative;
+	.jcrop-active {
+	    width: $cropper-width;
+	    height: $cropper-height - 40px;
+	    @include center-vertically-and-horizontally;
+	}
+	img {
+	    padding: 10px;
+	    @include box-sizing(border-box);
+	    //min-width: $img-editor-display-min-width;
+	    max-width: $cropper-width;
+	    max-height: $cropper-height - 40px;
+	    @include center-vertically-and-horizontally;	    
+	}
+    }
+    $image-cropper-btn-width: 70px;
+    $image-cropper-btn-height: 28px;
+    $confirm-color: #56AF54;
+    $cancel-color: $light-grey;
+    .image-cropper-btns {
+	width: $image-cropper-btn-width * 2 + 30px;
+	height: $image-cropper-btn-height;
+	margin: auto;
+	position: relative;
+
+	button {
+	    width: $image-cropper-btn-width;
+	    height: $image-cropper-btn-height;
+	    border: none;
+	    @include border-radius($default-border-radius);
+	    font-weight: 600;
+	    font-size: 12px;
+	}
+	.image-cropper-cancel {
+	    color: $healthy-black;
+	    position: absolute;
+	    left: 0;
+	    background-color: $cancel-color;
+	    @include decent-interact-bg($cancel-color);
+	}
+	.image-cropper-confirm {
+	    color: $white;
+	    position: absolute;
+	    right: 0;
+	    background-color: $confirm-color;
+	    @include decent-interact-bg($confirm-color);
+	}
+    }
+
     $img-editor-display-min-width: 50%;
     $img-editor-display-min-height: 50%;
     $img-display-height: 65%;
@@ -365,6 +436,12 @@ $img-uploader-wrapper-width: 90%;
 	width: 100%;
 	height: $img-display-height;
 	position: relative;
+	.jcrop-active {
+	    max-width: auto;
+	    min-height: $img-editor-display-min-height;
+	    max-height: 100%;
+	    @include center-vertically-and-horizontally;
+	}
 	
 	img {
 	    padding: 10px;

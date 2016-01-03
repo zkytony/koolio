@@ -2,7 +2,14 @@ require 'uri'
 
 class UploadedFilesController < ApplicationController
   def create
-    uploaded_file = CreateUploadedFile.call(params[:target], params[:file_type], params[:source_type], current_user)
+    coords = {}
+    if params[:file_type] == "img"
+      coords[:x] = params[:crop_x]
+      coords[:y] = params[:crop_y]
+      coords[:w] = params[:crop_w]
+      coords[:h] = params[:crop_h]
+    end
+    uploaded_file = CreateUploadedFile.call(params[:target], params[:file_type], params[:source_type], coords, current_user)
     if uploaded_file
       file_uri = URI.parse(uploaded_file.name.url)
       root_url = "#{file_uri.scheme}://#{file_uri.host}"

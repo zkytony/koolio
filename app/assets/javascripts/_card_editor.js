@@ -280,24 +280,79 @@ function ImageEditor(editor, side) {
   this.storeDir = undefined;
   this.imgFile = undefined; // file name
   this.host = undefined; // host is a string: http://xxxx.com
+  // attributes of the cropped image
+  this.cropX = undefined;
+  this.cropY = undefined;
+  this.cropW = undefined;
+  this.cropH = undefined;
 }
 
 ImageEditor.prototype.init = function() {
   var imageEditor = this;
 
-  // Make an AJAX call to send the file to the server once
-  // it is selected.
+  // initialize JCrop
+  initJCrop(imageEditor.side);
+
+  function initJCrop() {
+    $("#" + imageEditor.side + "-img-to-crop").Jcrop({
+      setSelect: [0, 0, 250, 250],
+      aspectRatio: 1,
+      boxWidth: 500,
+      boxHeight: 450,
+      minSize: [ 100, 100 ],
+      onSelect: updateCroppingAttributes,
+      onChange: updateCroppingAttributes,
+    });
+  }
+
+  // When selected an image, use FileReader to load it, then
+  // display the cropping phase
   $(document).on("change", "#" + imageEditor.side + "-side-img-file", function() {
+    var input = $(this)[0];
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+	$("#" + imageEditor.side + "-img-to-crop").attr("src", e.target.result);
+	imageEditor.cropPhase();
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  });
+
+  // when clicked 'OK' in cropping phase, get the cropped image, and
+  // use ajax to send the file to the server
+  $(document).on("click", "#" + imageEditor.side + "-img-cropper-confirm-btn", function() {
+    var file = $("#" + imageEditor.side + "-side-img-file").prop('files')[0];
     var formdata = new FormData();
-    var file = $(this).prop('files')[0];
     formdata.append("target", file);
     formdata.append("file_type", "img");
     formdata.append("source_type", "upload");
-    
+    formdata.append("crop_x", $("#crop_x").val());
+    formdata.append("crop_y", $("#crop_y").val());
+    formdata.append("crop_w", $("#crop_w").val());
+    formdata.append("crop_h", $("#crop_h").val());
+
     imageEditor.sendFileAJAX(formdata, function(output) {
       imageEditor.displayPhase(output);
     });
+    // hide the cropper
+    $("#" + imageEditor.side + "-img-editor-uploader").removeClass("hidden");
+    $("#" + imageEditor.side + "-img-editor-cropper").addClass("hidden");    
   });
+
+  // when clicked the cancel crop btn, reset the cropper and hide it
+  $(document).on("click", "#" + imageEditor.side + "-img-cropper-cancel-btn", function() {
+    $("#" + imageEditor.side + "-img-editor-uploader").removeClass("hidden");
+    $("#" + imageEditor.side + "-img-editor-cropper").addClass("hidden");
+    // reset jcrop
+    $("#" + imageEditor.side + "-img-cropper-wrapper").html("");
+    $("#" + imageEditor.side + "-img-cropper-wrapper").prepend("<img id='" + imageEditor.side + "-img-to-crop' src='' alt='your browser may not support FileReader API.'>");
+    initJCrop(imageEditor.side);
+   // $("#" + imageEditor.side + "-side-img-file").wrap('<form>').closest('form').get(0).reset();
+   // $("#" + imageEditor.side + "-side-img-file").unwrap();
+  //  $("#" + imageEditor.side + "-img-editor-uploader .image-upload-type-btn").prepend(
+    //  "<input type='file' id='" + imageEditor.side + "-side-img-file' accept='image/png,image/jpeg' class='hidden'>");
+  });  
 
   // When clicked the link button, a form pops up
   $(document).on("click", "#" + imageEditor.side + "-side-img-link", function() {
@@ -360,6 +415,18 @@ ImageEditor.prototype.init = function() {
   InnerEditor.prototype.init.call(imageEditor);
 }
 
+function initJCrop(side) {
+  $("#" + side + "-img-to-crop").Jcrop({
+    setSelect: [0, 0, 250, 250],
+    aspectRatio: 1,
+    boxWidth: 500,
+    boxHeight: 450,
+    minSize: [ 100, 100 ],
+    onSelect: updateCroppingAttributes,
+    onChange: updateCroppingAttributes,
+  });
+}
+
 ImageEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
   var imageEditor = this;
   if (imageEditor.editor.hasDraft[this.side]) {
@@ -378,6 +445,18 @@ ImageEditor.prototype.reset = function() {
   $("#" + imageEditor.side + "-img-descp").val("");
   $("#" + imageEditor.side + "-img-url").val("");
 }
+
+// go to crop phase;
+// input is a javascript input[type='file'] object, not a jquery object
+ImageEditor.prototype.cropPhase = function() {
+  var imageEditor = this;
+
+  // hide the upload phase
+  $("#" + imageEditor.side + "-img-editor-uploader").addClass("hidden");
+  $("#" + imageEditor.side + "-img-editor-cropper").removeClass("hidden");
+  $("#" + imageEditor.side + "-img-editor-display").addClass("hidden");
+  imageEditor.editor.hasDraft[imageEditor.side] = true;
+};
 
 // Return the content of the image editor as JSON string
 ImageEditor.prototype.grabContent = function() {
@@ -401,14 +480,21 @@ ImageEditor.prototype.displayPhase = function(output) {
     imageEditor.host = host;
     // Go to display phase, display that imgFile
     $("#" + imageEditor.side + "-img-editor-uploader").addClass("hidden");
-
+    $("#" + imageEditor.side + "-img-editor-cropper").addClass("hidden");
     $("#" + imageEditor.side + "-img-editor-display").removeClass("hidden");
-    $("#" + imageEditor.side + "-img-display").attr("src", host + "/" + storeDir + "/" + fileName);
+    $("#" + imageEditor.side + "-img-display").attr("src", host + "/" + storeDir + "/cropped_" + fileName);
 
     // hasDraft is true for this side
     imageEditor.editor.hasDraft[imageEditor.side] = true;
     imageEditor.editor.updateCreateCardBtn();
   }
+}
+
+function updateCroppingAttributes(c) {
+  $("#crop_x").val(c.x);
+  $("#crop_y").val(c.y);
+  $("#crop_w").val(c.w);
+  $("#crop_h").val(c.h);
 }
 /* End of ImageEditor */
 

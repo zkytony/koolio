@@ -12,11 +12,17 @@ class CreateUploadedFile
   # @return returns nil if the source_type is neither "upload"
   #         nor "link", or if the UploadedFile record failed to
   #         be saved with the given arguments.
-  def self.call(target, file_type, source_type, user)
+  def self.call(target, file_type, source_type, coords, user)
     uploaded_file = user.uploaded_files.new
     uploaded_file.type = file_type
     if source_type == "upload"
-      uploaded_file.name = target
+      # if iamge, get the crop_coords
+      if file_type == "img"
+        uploaded_file.coords = coords
+        uploaded_file.name = target
+      else
+        uploaded_file.name = target
+      end
     elsif source_type == "link"
       uploaded_file.remote_name_url = target
     else

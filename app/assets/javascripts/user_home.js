@@ -10,15 +10,12 @@ $(document).ready(function() {
     $("#editor-container-home").css("display", "none");
   });
 
-  var editor = new Editor("new_card");
-  editor.init();
-
   $("#new_card").on("ajax:success", function(e, data, status, xhr) {
     // when new card is created, refresh the recommended content
     // by ajax query to user:show again
     grabRecommendContents(false);
   });
-  
+
   $(".home-card").each(function() {
     dealWithHomeCard($(this));
   });
@@ -39,6 +36,9 @@ $(document).ready(function() {
       }
     }
   });
+
+  var editor = new Editor("new_card");
+  editor.init();
 
   var cardsHandler = new FlexCardsHandler("recommended-contents-wrapper", 30);
   cardsHandler.init();
