@@ -285,11 +285,18 @@ function ImageEditor(editor, side) {
   this.cropY = undefined;
   this.cropW = undefined;
   this.cropH = undefined;
+
+  // either upload or link
+  this.currentSource = undefined;
+  // either a file or a url
+  this.currentTarget = undefined;
 }
 
 ImageEditor.prototype.init = function() {
   var imageEditor = this;
 
+
+  //////////////////// CROPPING BEGGIN ///////////////////////
   // initialize JCrop
   initJCrop(imageEditor.side);
 
@@ -313,6 +320,8 @@ ImageEditor.prototype.init = function() {
       var reader = new FileReader();
       reader.onload = function (e) {
 	$("#" + imageEditor.side + "-img-to-crop").attr("src", e.target.result);
+	imageEditor.currentTarget = $("#" + imageEditor.side + "-side-img-file").prop('files')[0];
+	imageEditor.currentSource = "upload";
 	imageEditor.cropPhase();
       };
       reader.readAsDataURL(input.files[0]);
@@ -322,11 +331,10 @@ ImageEditor.prototype.init = function() {
   // when clicked 'OK' in cropping phase, get the cropped image, and
   // use ajax to send the file to the server
   $(document).on("click", "#" + imageEditor.side + "-img-cropper-confirm-btn", function() {
-    var file = $("#" + imageEditor.side + "-side-img-file").prop('files')[0];
     var formdata = new FormData();
-    formdata.append("target", file);
+    formdata.append("target", imageEditor.currentTarget);
     formdata.append("file_type", "img");
-    formdata.append("source_type", "upload");
+    formdata.append("source_type", imageEditor.currentSource);
     formdata.append("crop_x", $("#crop_x").val());
     formdata.append("crop_y", $("#crop_y").val());
     formdata.append("crop_w", $("#crop_w").val());
@@ -348,11 +356,8 @@ ImageEditor.prototype.init = function() {
     $("#" + imageEditor.side + "-img-cropper-wrapper").html("");
     $("#" + imageEditor.side + "-img-cropper-wrapper").prepend("<img id='" + imageEditor.side + "-img-to-crop' src='' alt='your browser may not support FileReader API.'>");
     initJCrop(imageEditor.side);
-   // $("#" + imageEditor.side + "-side-img-file").wrap('<form>').closest('form').get(0).reset();
-   // $("#" + imageEditor.side + "-side-img-file").unwrap();
-  //  $("#" + imageEditor.side + "-img-editor-uploader .image-upload-type-btn").prepend(
-    //  "<input type='file' id='" + imageEditor.side + "-side-img-file' accept='image/png,image/jpeg' class='hidden'>");
-  });  
+  });
+  //////////// CROPING DONE /////////////////
 
   // When clicked the link button, a form pops up
   $(document).on("click", "#" + imageEditor.side + "-side-img-link", function() {
@@ -398,14 +403,19 @@ ImageEditor.prototype.init = function() {
 	  $("#" + imageEditor.side + "-img-link-paste").val("");
 	  // now send an ajax request to the file uploader, and let
 	  // the server side download and save the iamge.
-	  var formdata = new FormData();
-	  formdata.append("target", url);
-	  formdata.append("file_type", "img");
-	  formdata.append("source_type", "link");
+//	  var formdata = new FormData();
+//	  formdata.append("target", url);
+//	  formdata.append("file_type", "img");
+//	  formdata.append("source_type", "link");
 
-	  imageEditor.sendFileAJAX(formdata, function(output) {
-	    imageEditor.displayPhase(output);
-	  });
+	  $("#" + imageEditor.side + "-img-to-crop").attr("src", url);
+	  imageEditor.currentSource = "link";
+	  imageEditor.currentTarget = url;
+	  imageEditor.cropPhase();
+
+//	  imageEditor.sendFileAJAX(formdata, function(output) {
+//	    imageEditor.displayPhase(output);
+//	  });
 	}
       });
     }

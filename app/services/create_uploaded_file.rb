@@ -24,7 +24,12 @@ class CreateUploadedFile
         uploaded_file.name = target
       end
     elsif source_type == "link"
-      uploaded_file.remote_name_url = target
+      if file_type == "img"
+        uploaded_file.coords = coords
+        uploaded_file.remote_name_url = target
+      else
+        uploaded_file.remote_name_url = target
+      end
     else
       return nil # invalid source_type
     end
