@@ -42,16 +42,16 @@ $(document).ready(function() {
 
     // when hit confirm
     $(document).on("click", ".inner-confirm-btn", function() {
-	// If one side has uploaded image, take the thumbUrl
+	// If one side has uploaded image, take the croppedUrl
 	// as the src for that side's avatar;
 
 	// check front
-	if (avatarEditors["front"].thumbUrl()) {
-	    $("#avatar-front-img").attr("src", avatarEditors["front"].thumbUrl());
+	if (avatarEditors["front"].croppedUrl()) {
+	    $("#avatar-front-img").attr("src", avatarEditors["front"].croppedUrl());
 	}
 	// check back
-	if (avatarEditors["back"].thumbUrl()) {
-	    $("#avatar-back-img").attr("src", avatarEditors["back"].thumbUrl());
+	if (avatarEditors["back"].croppedUrl()) {
+	    $("#avatar-back-img").attr("src", avatarEditors["back"].croppedUrl());
 	}
 	// hide the editor
 	$("#avatar-editors").addClass("hidden");
@@ -115,41 +115,102 @@ function getGender() {
 
 // avatar editor, referring to one side of the avatar editors
 function AvatarEditor(side) {
-    this.side = side;
-    this.storeDir = undefined;
-    this.imgFile = undefined; // file name
-    this.host = undefined; // host is a string: http://xxxx.com
-    this.confirmCallback = null;
+  this.side = side;
+  this.storeDir = undefined;
+  this.imgFile = undefined; // file name
+  this.host = undefined; // host is a string: http://xxxx.com
+  this.confirmCallback = null;
+  // attributes of the cropped image
+  this.cropX = undefined;
+  this.cropY = undefined;
+  this.cropW = undefined;
+  this.cropH = undefined;
+
+  // either upload or link
+  this.currentSource = undefined;
+  // either a file or a url
+  this.currentTarget = undefined;
 }
 
 AvatarEditor.prototype.init = function() {
-    var avatarEditor = this;
-    var otherSide = null;
-    if (avatarEditor.side == "front") {
-	otherSide = "back";
-    } else {
-	otherSide = "front";
+  var avatarEditor = this;
+  var otherSide = null;
+  if (avatarEditor.side == "front") {
+    otherSide = "back";
+  } else {
+    otherSide = "front";
+  }
+
+  // UI twisting
+  $(".inner-change-type-btn").addClass("hidden");
+  $(".image-descp").addClass("hidden");
+  $(".inner-confirm-btn").removeClass("hidden");
+
+  // when click on edit-SIDE button, flip the editor
+  $(document).on("click", "#" + avatarEditor.side + "-img-edit-" + otherSide + "-btn", function() {
+    avatarEditor.flip();
+  });
+
+  //////////////////// CROPPING BEGGIN ///////////////////////
+  // initialize JCrop
+  initJCrop(avatarEditor.side);
+
+  function initJCrop() {
+    $("#" + avatarEditor.side + "-img-to-crop").Jcrop({
+      setSelect: [0, 0, 250, 250],
+      aspectRatio: 1,
+      boxWidth: 500,
+      boxHeight: 450,
+      minSize: [ 100, 100 ],
+      onSelect: updateCroppingAttributes,
+      onChange: updateCroppingAttributes,
+    });
+  }
+
+  // When selected an image, use FileReader to load it, then
+  // display the cropping phase
+  $(document).on("change", "#" + avatarEditor.side + "-side-img-file", function() {
+    var input = $(this)[0];
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+	$("#" + avatarEditor.side + "-img-to-crop").attr("src", e.target.result);
+	avatarEditor.currentTarget = $("#" + avatarEditor.side + "-side-img-file").prop('files')[0];
+	avatarEditor.currentSource = "upload";
+	avatarEditor.cropPhase();
+      };
+      reader.readAsDataURL(input.files[0]);
     }
+  });
 
-    // UI twisting
-    $(".inner-change-type-btn").addClass("hidden");
-    $(".image-descp").addClass("hidden");
-    $(".inner-confirm-btn").removeClass("hidden");
+  // when clicked 'OK' in cropping phase, get the cropped image, and
+  // use ajax to send the file to the server
+  $(document).on("click", "#" + avatarEditor.side + "-img-cropper-confirm-btn", function() {
+    var formdata = new FormData();
+    formdata.append("target", avatarEditor.currentTarget);
+    formdata.append("file_type", "img");
+    formdata.append("source_type", avatarEditor.currentSource);
+    formdata.append("crop_x", $("#crop_x").val());
+    formdata.append("crop_y", $("#crop_y").val());
+    formdata.append("crop_w", $("#crop_w").val());
+    formdata.append("crop_h", $("#crop_h").val());
 
-    // when click on edit-SIDE button, flip the editor
-    $(document).on("click", "#" + avatarEditor.side + "-img-edit-" + otherSide + "-btn", function() {
-	avatarEditor.flip();
-    });
+    avatarEditor.sendFileAJAX(formdata);
+    // hide the cropper
+    $("#" + avatarEditor.side + "-img-editor-uploader").removeClass("hidden");
+    $("#" + avatarEditor.side + "-img-editor-cropper").addClass("hidden");
+  });
 
-    $(document).on("change", "#" + avatarEditor.side + "-side-img-file", function() {
-	var formdata = new FormData();
-	var file = $(this).prop('files')[0];
-	formdata.append("target", file);
-	formdata.append("file_type", "img");
-	formdata.append("source_type", "upload");
-	
-	avatarEditor.sendFileAJAX(formdata);
-    });
+  // when clicked the cancel crop btn, reset the cropper and hide it
+  $(document).on("click", "#" + avatarEditor.side + "-img-cropper-cancel-btn", function() {
+    $("#" + avatarEditor.side + "-img-editor-uploader").removeClass("hidden");
+    $("#" + avatarEditor.side + "-img-editor-cropper").addClass("hidden");
+    // reset jcrop
+    $("#" + avatarEditor.side + "-img-cropper-wrapper").html("");
+    $("#" + avatarEditor.side + "-img-cropper-wrapper").prepend("<img id='" + avatarEditor.side + "-img-to-crop' src='' alt='your browser may not support FileReader API.'>");
+    initJCrop(avatarEditor.side);
+  });
+  //////////// CROPING DONE /////////////////
 }
 
 AvatarEditor.prototype.flip = function() {
@@ -174,7 +235,7 @@ AvatarEditor.prototype.sendFileAJAX = function(formdata) {
 	processData: false,
 	dataType: 'json', // get back json
 	beforeSend: function() {
-	    $("#waiting").removeClass("hidden");
+	  $("#img_" + avatarEditor.side + "_waiting").removeClass("hidden");
 	},
 	success: function(output) {
 	    var fileName = output["file_name"];
@@ -184,23 +245,23 @@ AvatarEditor.prototype.sendFileAJAX = function(formdata) {
 		avatarEditor.imgFile = fileName;
 		avatarEditor.storeDir = storeDir;
 		avatarEditor.host = host;
-		avatarEditor.displayPhase(host + "/" + storeDir + "/thumb_" + fileName);
+		avatarEditor.displayPhase(host + "/" + storeDir + "/cropped_" + fileName);
 	    }
 	},
 	complete: function() {
-	    $("#waiting").addClass("hidden");
+	  $("#img_" + avatarEditor.side + "_waiting").addClass("hidden");
 	}
     });
 }
 
 // Go to the display phase of the image editor. Show the image.
-AvatarEditor.prototype.displayPhase = function(thumbUrl) {
+AvatarEditor.prototype.displayPhase = function(croppedUrl) {
     var avatarEditor = this;
-    if (thumbUrl) {
+    if (croppedUrl) {
 	// Go to display phase, display that imgFile
 	$("#" + avatarEditor.side + "-img-editor-uploader").addClass("hidden");
 	$("#" + avatarEditor.side + "-img-editor-display").removeClass("hidden");
-	$("#" + avatarEditor.side + "-img-display").attr("src", thumbUrl);
+	$("#" + avatarEditor.side + "-img-display").attr("src", croppedUrl);
 
 	// hasDraft is true for this side
 	//avatarEditor.editor.hasDraft[avatarEditor.side] = true;
@@ -223,12 +284,23 @@ AvatarEditor.prototype.onConfirm = function(callback) {
     this.confirmCallback = callback;
 }
 
-AvatarEditor.prototype.thumbUrl = function() {
+AvatarEditor.prototype.croppedUrl = function() {
     if (!this.host) {
 	return null;
     }
-    return this.host + "/" + this.storeDir + "/thumb_" + this.imgFile;
+    return this.host + "/" + this.storeDir + "/cropped_" + this.imgFile;
 }
+
+// go to crop phase;
+// input is a javascript input[type='file'] object, not a jquery object
+AvatarEditor.prototype.cropPhase = function() {
+  var avatarEditor = this;
+
+  // hide the upload phase
+  $("#" + avatarEditor.side + "-img-editor-uploader").addClass("hidden");
+  $("#" + avatarEditor.side + "-img-editor-cropper").removeClass("hidden");
+  $("#" + avatarEditor.side + "-img-editor-display").addClass("hidden");
+};
 
 function getUrl(href) {
     var l = document.createElement("a");

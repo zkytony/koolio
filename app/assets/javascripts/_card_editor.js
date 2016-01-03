@@ -295,22 +295,9 @@ function ImageEditor(editor, side) {
 ImageEditor.prototype.init = function() {
   var imageEditor = this;
 
-
   //////////////////// CROPPING BEGGIN ///////////////////////
   // initialize JCrop
   initJCrop(imageEditor.side);
-
-  function initJCrop() {
-    $("#" + imageEditor.side + "-img-to-crop").Jcrop({
-      setSelect: [0, 0, 250, 250],
-      aspectRatio: 1,
-      boxWidth: 500,
-      boxHeight: 450,
-      minSize: [ 100, 100 ],
-      onSelect: updateCroppingAttributes,
-      onChange: updateCroppingAttributes,
-    });
-  }
 
   // When selected an image, use FileReader to load it, then
   // display the cropping phase
@@ -450,6 +437,7 @@ ImageEditor.prototype.reset = function() {
   var imageEditor = this;
   $("#" + imageEditor.side + "-img-editor-container").addClass("hidden");
   $("#" + imageEditor.side + "-img-editor-display").addClass("hidden");
+  $("#" + imageEditor.side + "-img-editor-cropper").addClass("hidden");
   $("#" + imageEditor.side + "-img-editor-uploader").removeClass("hidden");
   $("#" + imageEditor.side + "-img-display").attr("src", "");
   $("#" + imageEditor.side + "-img-descp").val("");

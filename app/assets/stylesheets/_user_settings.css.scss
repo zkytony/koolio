@@ -183,7 +183,6 @@ $avatar-editor-display-height: 300px;
 
     .image-editor-display {
 	height: $avatar-editor-display-height;
-	
     }
 
     .avatar-editor-side {
@@ -195,6 +194,21 @@ $avatar-editor-display-height: 300px;
 	.inner-edit-back-btn {
 	    right: auto;
 	    left: 20px;
+	}
+    }
+
+    /**** loading gif ****/
+    .waiting {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-color: rgba($white, 0.8);
+
+	img {
+	    position: absolute;
+	    @include center-vertically-and-horizontally;
 	}
     }
 }

@@ -214,7 +214,7 @@ class User < ActiveRecord::Base
     if self.avatar
       file = JSON.parse(self.avatar)[side]
       if file
-        return "#{file['host']}/#{file['store_dir']}/thumb_#{file['file_name']}"
+        return "#{file['host']}/#{file['store_dir']}/cropped_#{file['file_name']}"
       end
     end
     "/assets/default-profile.svg"
