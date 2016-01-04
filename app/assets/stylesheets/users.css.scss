@@ -473,7 +473,7 @@ $info-toggle-size: 80px;
 //// PROFILE PAGE //////
 ////////////////////////
 .main-contents-wrapper {
-    @include content-wrapper($whole-contents-width, 95%);
+    @include content-wrapper($whole-contents-width, 85%);
     min-height: 100px;
     position: relative;
     left: $whole-contents-left-shift;
@@ -503,6 +503,8 @@ $info-toggle-size: 80px;
     padding: 20px;
     @include border-radius($default-border-radius);
     position: relative;
+
+    margin-bottom: 20px;
 
     .profpic {
 	width: $prof-width;
