@@ -7,9 +7,11 @@
   </div>
   <div class="comment-box" id="comment_box">
     <!-- AJAX submit -->
-    <%= form_for(@comment, remote: true, authenticity_token: true) do |f| %>
-      <%= f.hidden_field :card_id %>
-      <%= f.text_area :content, placeholder: "add comment" %>
+    <% if @comment %>
+      <%= form_for(@comment, remote: true, authenticity_token: true) do |f| %>
+	<%= f.hidden_field :card_id %>
+	<%= f.text_area :content, placeholder: "add comment" %>
+      <% end %>
     <% end %>
   </div>  
 </div>

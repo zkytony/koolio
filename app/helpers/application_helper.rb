@@ -25,4 +25,24 @@ module ApplicationHelper
       login_path
     end
   end
+
+  def render_card(card, category_class)
+    card_front = JSON.parse(card.front_content)
+    card_back = JSON.parse(card.back_content)
+
+    liked = nil
+    if current_user 
+      liked = current_user.liked_card?(card)
+    end
+
+    render partial: "shared/card", locals: { 
+      category_class: category_class, 
+      card_id: card.id,
+      card_front_type: card_front['type'], 
+      card_front_content: card_front['content'],
+      card_back_type: card_back['type'], 
+      card_back_content: card_back['content'],
+      current_user_liked_card: liked
+    }
+  end
 end

@@ -257,6 +257,12 @@ $info-toggle-size: 80px;
     width: $home-card-width;
     background-color: $info-panel-bg;
     @include border-radius($default-border-radius);
+
+    #like-card-btn.disabled {
+	color: #A4A4A4; // grey
+	cursor: default;
+    }
+
 }
 #like-comment-panel {
     min-height: 40px + $comment-box-height;

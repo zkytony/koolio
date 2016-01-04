@@ -21,6 +21,12 @@ class Card < ActiveRecord::Base
     self.creator?(user) || (!self.hide && self.deck.viewable_by?(user))
   end
 
+  # can this card be explored by anybody? No user is 
+  # supplied.
+  def explorable?
+    !self.hide && self.deck.open
+  end
+
   def creator
     self.user
   end

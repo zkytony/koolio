@@ -14,27 +14,44 @@ class GrabCardInfo
   # If the user does not have permission to view the card,
   # the resulting JSON string will be empty.
   def self.call(card, user)
-    if card.viewable_by?(user)
-      n_comments = 10
-      n_cards = 5
-
-      deck = card.deck
-      author = card.user
-      comments = card.comments
-      cards = deck.cards.order(:likes).reverse_order.take(n_cards)
-      # use hash and convert it to JSON
-      info = {
-        author: author,
-        deck: deck,
-        n_likes: card.likes, 
-        n_comments: comments.count,
-        liked_card: user.liked_card?(card),
-        other_cards: cards, 
-        comments: comments.order(:likes).reverse_order.take(n_comments)
-      }
-      info
+    if !user.nil?
+      if card.viewable_by?(user)
+        info = grab_info(card)
+        info[:liked_card] = user.liked_card?(card)
+        info
+      else
+        nil
+      end
     else
-      nil
+      if card.explorable?
+        info = grab_info(card)
+        info[:liked_card] = nil
+        info
+      else
+        nil
+      end
     end
+  end
+
+  private
+
+  def self.grab_info(card)
+    n_comments = 10
+    n_cards = 5
+
+    deck = card.deck
+    author = card.user
+    comments = card.comments
+    cards = deck.cards.order(:likes).reverse_order.take(n_cards)
+    # use hash and convert it to JSON
+    info = {
+      author: author,
+      deck: deck,
+      n_likes: card.likes, 
+      n_comments: comments.count,
+      other_cards: cards, 
+      comments: comments.order(:likes).reverse_order.take(n_comments)
+    }
+    info
   end
 end

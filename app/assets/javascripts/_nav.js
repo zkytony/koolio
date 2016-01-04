@@ -7,7 +7,9 @@ $(document).ready(function() {
 	$("#nav-inbox").css("left", $("#nav-inbox-btn").position().left - $("#nav-inbox").width());
     }
 
-    grabNotifications();
+    if ($("#nav-inbox").length) {
+	grabNotifications();
+    }
 
     // toggle dropdown when hover on name
     $(document).on({

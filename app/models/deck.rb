@@ -195,6 +195,12 @@ class Deck < ActiveRecord::Base
     return self.open || self.shared_users.include?(user)
   end
 
+  # can this deck be explored by anybody? No user is 
+  # supplied.
+  def explorable?
+    return self.open
+  end
+
   def is_recommended_by?(user)
     return user.recommendings_of_decks.include?(self)
   end

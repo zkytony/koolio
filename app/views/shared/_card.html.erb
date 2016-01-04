@@ -4,6 +4,8 @@
 <% liked_class = "" %>
 <% if current_user_liked_card %>
   <% liked_class = "liked" %>
+<% elsif current_user_liked_card.nil? %>
+  <% liked_class = "hidden" %>
 <% end %>
 <div class="<%="#{category_class}"%> flipper" id="card_<%="#{card_id}" %>">
   <div class="card-overlay no-flip hidden"></div>

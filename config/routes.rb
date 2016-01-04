@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   get 'signup' => 'users#new'
   get 'notifications' => 'users#notifications'
+  get 'explore' => 'users#explore'
   
   get 'search/*query' => 'searches#search'
 

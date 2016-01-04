@@ -1,26 +1,10 @@
 var noOngoingLoad = true;
 $(document).ready(function() {
-  $(document).on("click", "#add-card-btn", function() {
-    $(".glass-overlay").css("display", "block");
-    $("#editor-container-home").css("display", "block");
-  });
-
-  $(document).on("click", "#overlay-for-editor", function() {
-    $("#overlay-for-editor").css("display", "none");
-    $("#editor-container-home").css("display", "none");
-  });
-
-  $("#new_card").on("ajax:success", function(e, data, status, xhr) {
-    // when new card is created, refresh the recommended content
-    // by ajax query to user:show again
-    grabRecommendContents(false);
-  });
-
-  $("#nav-home-btn").addClass("nav-option-highlighted");
-
   $(".home-card").each(function() {
     dealWithHomeCard($(this));
   });
+
+  $("#nav-explore-btn").addClass("nav-option-highlighted");
 
   $("#recommended-contents-wrapper").masonry({
     columnWidth: 270,
@@ -57,6 +41,7 @@ function grabRecommendContents(more) {
   $.ajax({
     // send to current page (user show)
     type: 'GET',
+    url: '/explore',
     data: { more: more, card_ids: card_ids },
     dataType: 'script',
     success: function(data) {

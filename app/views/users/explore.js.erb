@@ -1,0 +1,5 @@
+<% if @more %>
+$("#recommended-contents-wrapper").append("<%= j render partial: "shared/recommended" %>");
+<% else %>
+$("#recommended-contents-wrapper").html("<%= j render partial: "shared/recommended" %>");
+<% end %>

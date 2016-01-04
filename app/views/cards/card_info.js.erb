@@ -5,6 +5,9 @@ $("#n_comments").html(<%="#{@info[:n_comments]}"%>);
 <% if @info[:liked_card] %>
   $("#n_likes").addClass("liked");
   $("#like-card-btn").addClass("liked");
+<% elsif @info[:liked_card].nil? %>
+  <%# nil ==> disable like button %>
+  $("#like-card-btn").addClass("disabled");
 <% else %>
   $("#n_likes").removeClass("liked");
   $("#like-card-btn").removeClass("liked");

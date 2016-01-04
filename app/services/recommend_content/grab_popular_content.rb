@@ -1,7 +1,9 @@
 class RecommendContent
   class GrabPopularContent
     # For now: Popular content are cards with the highest
-    # number of likes. 
+    # number of likes.
+    #
+    # Currently only grab cards
     def self.call(user, n_card, more, card_ids)
       contents = []
       if more

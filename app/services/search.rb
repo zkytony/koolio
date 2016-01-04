@@ -6,8 +6,14 @@ class Search
     #   and return its cards
     filtered_docs = []
     PgSearch.multisearch(str).limit(20).find_each do |document|
-      if document.searchable.viewable_by? user
-        filtered_docs << document
+      if !user.nil?
+        if document.searchable.viewable_by? user 
+          filtered_docs << document
+        end
+      else
+        if document.searchable.explorable?
+          filtered_docs << document
+        end
       end
     end
     filtered_docs

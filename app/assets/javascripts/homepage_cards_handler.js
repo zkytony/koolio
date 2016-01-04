@@ -17,28 +17,6 @@ CardsHandler.prototype.init = function() {
     }
   });
 
-  // when hover on a card, display info toggle and like btn
-/*
-  $(document).on({
-    mouseenter: function () {
-      $(this).find(".quick-card-like-btn-wrapper").stop().animate({
-	opacity: 1
-      }, 150);
-      $(this).find(".info-toggle-wrapper").stop().animate({
-	opacity: 1
-      }, 150);
-    },
-    mouseleave: function () {
-      $(this).find(".quick-card-like-btn-wrapper").stop().animate({
-	opacity: 0
-      }, 150);
-      $(this).find(".info-toggle-wrapper").stop().animate({
-	opacity: 0
-      }, 150);
-    }
-  }, ".home-card");
-*/
-
   // toggle info fade in and fade out
   $(document).on({
     mouseenter: function () {
@@ -88,10 +66,13 @@ CardsHandler.prototype.init = function() {
     handler.handleFocusOff();
   });
   // When clicked the card like button, send ajax request
-  // to toggle like of this card
+  // to toggle like of this card, if and only if the btn is
+  // not disabled
   $(document).on("click", "#like-card-btn", function() {
-    var liked = $("#like-card-btn").hasClass("liked");
-    ajaxLikeCard(liked, handler.focusingCardRawId);
+    if (!$("#like-card-btn").hasClass("disabled")) {
+      var liked = $("#like-card-btn").hasClass("liked");
+      ajaxLikeCard(liked, handler.focusingCardRawId);
+    }
   });
 
   // this is another button to toggle like card

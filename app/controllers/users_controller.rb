@@ -4,6 +4,9 @@ class UsersController < ApplicationController
   end
 
   def new
+    if logged_in?
+      redirect_to current_user
+    end
     @user = User.new
   end
 
@@ -24,7 +27,7 @@ class UsersController < ApplicationController
       @more = params[:more] == "true"
       # more may be nil, since some request may not 
       # have this parameter
-      @recommended = RecommendContent.call(@user, @more, params[:card_ids])
+      @recommended = RecommendContent.call(@user, @more, params[:card_ids], :home)
 
       # default deck
       @deck = @user.decks.first #find_by(title: "default")
@@ -34,6 +37,24 @@ class UsersController < ApplicationController
       @comment = Comment.new
     else
       redirect_to root_path
+    end
+  end
+
+  # explore page. grab the popular only
+  def explore
+    if logged_in?
+      @more = params[:more] == "true"
+      @recommended = RecommendContent.call(current_user, @more, params[:card_ids], :explore)
+
+      # user may want to make a comment
+      @comment = Comment.new
+
+      respond_to do |format|
+        format.html
+        format.js
+      end
+    else
+      @recommended = RecommendContent.call(nil, @more, params[:card_ids], :explore)
     end
   end
 
