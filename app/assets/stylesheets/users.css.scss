@@ -136,9 +136,17 @@ $info-toggle-size: 80px;
 	font-size: $text-body-font-size;
 	// allow \n as line breaks
 	white-space: pre-wrap;//pre-line;
-	//line-height: $text-body-font-size + 5px;
+	// wrap line:
 	margin-top: -$text-body-font-size*2.5; // needs to compensate the line-height at the
 	                   // top due to white-space: pre-line
+	
+	a {
+	    word-break: break-all;
+	    color: $decent-blue;
+	    &:hover {
+		text-decoration: underline;
+	    }
+	}
     }
     .card-text-body.no-title {
 	margin-top: -$text-body-font-size*3.2; // needs to compensate the line-height at the

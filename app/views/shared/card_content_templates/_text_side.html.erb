@@ -12,6 +12,6 @@
 <% else %>
   <div class="card-text-body">
 <% end %>
-  <p><%= "#{content['body']}" %></p>
+  <p><%= auto_link(content['body'], :html => { :class => 'no-flip' }) %></p>
 </div>
 

@@ -399,3 +399,10 @@ $mq-desktop		: 1382px !default;
     border-right: $right solid transparent;
     border-bottom: $bottom solid $color;
 }
+
+@mixin hyphens($value: auto) {
+  -webkit-hyphens: $value;
+  -moz-hyphens: $value;
+  -ms-hyphens: $value;
+  hyphens: $value;
+}

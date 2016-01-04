@@ -20,6 +20,7 @@ gem 'paperclip'
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem "mini_magick"
 gem 'fog-aws'
+gem 'rails_autolink'
 
 group :development, :test do
   gem 'byebug'
