@@ -18,14 +18,14 @@ class RecommendContent
       if more
         # avoid duplicates
         card_providers.each do |provider|
-          contents << provider.cards.offset(rand(provider.cards.count)).where("cards.id NOT IN (?)", card_ids)
+          contents |= provider.cards.where("cards.id NOT IN (?)", card_ids).sort_by{ rand }.first(3)
         end
         # deck_providers.each do |provider|
         #   contents << provider.decks.offset(rand(provider.cards.count)).where("cards.id NOT IN (?)", card_ids)
         # end
       else
         card_providers.each do |provider|
-          contents << provider.cards.offset(rand(provider.cards.count)).first
+          contents |= provider.cards.sort_by{ rand }.first(5)
         end
 
         # deck_providers.each do |provider|
