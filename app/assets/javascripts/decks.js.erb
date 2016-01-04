@@ -68,19 +68,7 @@ $(document).ready(function() {
   // When clicked on "select cards" button, get into another mode
   $(document).on("click", "#deck-select-cards", function() {
     if (!$(this).hasClass("inmode")) {
-      // add a layer over each card, so that cards don't flip
-      $(".home-card").each(function() {
-	$(this).css("overflow", "hidden");
-	$(this).children(".card-overlay").removeClass("hidden");
-      });
-      // change button msg
-      $(this).html("cancel");
-      // disable add card btn
-      $("#add-card-btn").prop("disabled", true);
-      // change the button style
-      $(this).addClass("inmode");
-      // show other options btns
-      $("#deck-delete-cards").removeClass("hidden");
+      engageSelectionMode();
     } else {
       cancelSelectionMode();
     }
@@ -90,19 +78,13 @@ $(document).ready(function() {
   $(document).on("click", ".card-overlay", function() {
     var cardId = $(this).closest(".home-card").attr("id").split("_")[1];
     if (!$(this).hasClass("selected")) {
-      $(this).css("background-color", "rgba(99, 166, 164, 0.4)");
       $(this).addClass("selected");
       selectedCards[cardId] = true;
     } else {
-      $(this).css("background-color", "rgba(17, 17, 17, 0.5)");
       $(this).removeClass("selected");
       delete selectedCards[cardId];
     }
-    if (Object.keys(selectedCards).length > 0) {
-      $("#deck-delete-cards").prop("disabled", false);
-    } else {
-      $("#deck-delete-cards").prop("disabled", true);
-    }
+    toggleDeleteCardsBtn();
   });
 
   // when clicked on delete btn, send ajax request to delete cards
@@ -117,16 +99,46 @@ $(document).ready(function() {
   });
 });
 
+function toggleDeleteCardsBtn() {
+  if (Object.keys(selectedCards).length > 0) {
+    $("#deck-delete-cards").prop("disabled", false);
+  } else {
+    $("#deck-delete-cards").prop("disabled", true);
+  }
+}
+
+function engageSelectionMode() {
+  // add a layer over each card, so that cards don't flip
+  $(".home-card").each(function() {
+    $(this).css("overflow", "hidden");
+    $(this).children(".card-overlay").removeClass("hidden");
+  });
+  // change button msg
+  $("#deck-select-cards").html("cancel");
+  // disable add card btn
+  $("#add-card-btn").prop("disabled", true);
+  // change the button style
+  $("#deck-select-cards").addClass("inmode");
+  // show other options btns
+  $("#deck-delete-cards").removeClass("hidden");
+
+  toggleDeleteCardsBtn();
+}
+
 function cancelSelectionMode() {
   // cancel
   $(".home-card").each(function() {
     $(this).css("overflow", "visible");
-    $(this).children(".card-overlay").addClass("hidden");
+    var overlay = $(this).children(".card-overlay");
+    overlay.addClass("hidden");
+    overlay.removeClass("selected");
+    overlay.css("background-color", "rgba(17, 17, 17, 0.5)");
   });
   $("#deck-select-cards").html("select cards");
   $("#add-card-btn").prop("disabled", false);
   $("#deck-select-cards").removeClass("inmode");
   $("#deck-delete-cards").addClass("hidden");
+  selectedCards = {};
 }
 
 function ajaxGrabDeckCards(more, all) {

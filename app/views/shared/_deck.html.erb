@@ -16,7 +16,7 @@
       <% cards.each do |card| %>
 	<% card_front = JSON.parse(card.front_content) %>
 	<div class="scaled-card card-<%="#{card_front['type']}"%>">
-	  <%= render partial: "shared/card_content_templates/#{card_front['type']}_side", locals: { content: card_front['content'] } %>
+	  <%= render partial: "shared/card_content_templates/#{card_front['type']}_side", locals: { content: card_front['content'], recognize_link: false } %>
 	</div>
       <% end %>
   <% end %>

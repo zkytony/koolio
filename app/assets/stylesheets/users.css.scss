@@ -71,6 +71,9 @@ $info-toggle-size: 80px;
 	z-index: 5;
 	@include border-radius($default-border-radius);
     }
+    .card-overlay.selected {
+	background-color: rgba(99, 166, 164, 0.4);
+    }
 
     .flipper-front, .flipper-back {
 	padding: 20px;
