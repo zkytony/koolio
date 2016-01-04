@@ -8,14 +8,43 @@
   <button class="add-card-btn" id="add-card-btn"><i class="fa fa-plus"></i></button>
 </div>
 <div id="home-main-contents-wrapper">
+
   <div id="recommended-contents-wrapper">
-    <%= render :partial => 'shared/recommended' %>
-    <!-- info panels -->
-    <%= render :partial => 'shared/card_info_panels/like_comment_panel'%>
-    <div class="hidden" id="deck-cards-panel">
-      <%= render :partial => 'shared/card_info_panels/deck_cards_panel'%>
-    </div>
-    <!-- end info panels -->
+    <% if @recommended.size > 0 %>
+      <%= render :partial => 'shared/recommended' %>
+      <!-- info panels -->
+      <%= render :partial => 'shared/card_info_panels/like_comment_panel'%>
+      <div class="hidden" id="deck-cards-panel">
+	<%= render :partial => 'shared/card_info_panels/deck_cards_panel'%>
+      </div>
+      <!-- end info panels -->
+    <% else %>
+      <!-- NO CONTENT MESSAGE -->
+      <div class="no-content-msg">
+	<div class="msg-title">
+	  it's empty here.
+	</div>
+	<div class="msg-suggestions">
+	  <ul>
+	    <%= link_to explore_path, data: { no_turbolink: true } do %>
+	      <li>
+		explore koolio
+		<i class="fa fa-compass"></i>
+	      </li>
+	    <% end %>
+	    <li class="no-effect">
+	      follow people, and 'favorite' decks
+	      <i class="fa fa-eye"></i>
+	    </li>
+	    <li id="add-card-prompt">
+	      create a card
+	      <i class="fa fa-plus-circle"></i>
+	    </li>
+	  </ul>
+	</div>
+      </div>
+      <!-- NO CONTENT MESSAGE -->
+    <% end %>
   </div>
   <div id="home-side-contents-wrapper"></div>
 </div>

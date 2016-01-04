@@ -5,6 +5,11 @@ $(document).ready(function() {
     $("#editor-container-home").css("display", "block");
   });
 
+  $(document).on("click", "#add-card-prompt", function() {
+    $(".glass-overlay").css("display", "block");
+    $("#editor-container-home").css("display", "block");
+  });
+
   $(document).on("click", "#overlay-for-editor", function() {
     $("#overlay-for-editor").css("display", "none");
     $("#editor-container-home").css("display", "none");
@@ -25,6 +30,7 @@ $(document).ready(function() {
   $("#recommended-contents-wrapper").masonry({
     columnWidth: 270,
     gutter: 10,
+    itemSelector: '.home-card',
     transitionDuration: 0
   });
 

@@ -247,6 +247,58 @@ $info-toggle-size: 80px;
     }
 }
 
+/* No content msg */
+$msg-item-height: 50px;
+$msg-title-height: 60px;
+$no-content-msg-height: 3*$msg-item-height + $msg-title-height;
+.no-content-msg {
+    width: 500px;
+    height: $no-content-msg-height;
+    background-color: darken($bg-color, 5%);
+    margin: auto;
+    margin-top: 70px;
+    @include border-radius($default-border-radius);
+    .msg-title {
+	height: $msg-title-height;
+	text-align: center;
+	font-size: 35px;
+	color: darken($bg-color, 30%);
+	padding: 15px;
+	@include box-sizing(border-box);
+	font-weight: 600;
+    }
+    .msg-suggestions {
+	height: 80%;
+	ul {
+	    list-style-type: none;
+	    li {
+		height: $msg-item-height;
+		font-weight: 600;
+		padding: 10px;
+		font-size: 22px;
+		color: darken($bg-color, 30%);
+		@include box-sizing(border-box);
+		padding-left: 30px;
+		.fa {
+		    margin-left: 5px;
+		}
+		&:hover {
+		    color: #F7F7F7;
+		    cursor: pointer;
+		    background-color: $bg-color;
+		}
+	    }
+	    li.no-effect {
+		&:hover {
+		    color: darken($bg-color, 30%);
+		    background-color: darken($bg-color, 5%);
+		    cursor: default;
+		}
+	    }
+	}
+    }
+}
+
 /* info panels */
 #like-comment-panel, #deck-cards-panel {
     width: $home-card-width;
