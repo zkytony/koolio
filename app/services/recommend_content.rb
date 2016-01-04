@@ -16,11 +16,12 @@ class RecommendContent
     contents = []
     if context == :explore
       contents |= GrabPopularContent.call(user, n_card, more, card_ids) # take the union here
+      contents
     elsif context == :home
-      if !more
-        contents |= GrabSelfLatestContent.call(user, 120)
-      end
       contents |= GrabFollowingContent.call(user, n_card, n_deck, more, card_ids)
+      if !more
+        contents |= GrabSelfLatestContent.call(user, 30)
+      end
       contents |= GrabFavoriteContent.call(user, n_card, more, card_ids)
       contents
     else

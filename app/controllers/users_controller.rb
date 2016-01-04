@@ -54,6 +54,7 @@ class UsersController < ApplicationController
         format.js
       end
     else
+      # explore without user sepcified
       @recommended = RecommendContent.call(nil, @more, params[:card_ids], :explore)
     end
   end
