@@ -32,6 +32,9 @@ $(document).ready(function() {
     // by ajax query to user:show again
     ajaxGrabDeckCards(false, false);
     $("#editor-container-deck").css("display", "none");
+    // increment the card count
+    var cur = parseInt($("#deck_cards_num").html());
+    $("#deck_cards_num").html(cur + 1)
   });
 
   // When scroll to nearly the bottom, grab more cards for "hot-contents"
@@ -79,15 +82,7 @@ $(document).ready(function() {
       // show other options btns
       $("#deck-delete-cards").removeClass("hidden");
     } else {
-      // cancel
-      $(".home-card").each(function() {
-	$(this).css("overflow", "visible");
-	$(this).children(".card-overlay").addClass("hidden");
-      });
-      $(this).html("select cards");
-      $("#add-card-btn").prop("disabled", false);
-      $(this).removeClass("inmode");
-      $("#deck-delete-cards").addClass("hidden");
+      cancelSelectionMode();
     }
   });
 
@@ -114,7 +109,25 @@ $(document).ready(function() {
   $(document).on("click", "#deck-delete-cards", function() {
     ajaxDeleteCards();
   });
+
+  // when clicked on the favorite button, toggle favorite
+  $(document).on("click", ".deck-favorite-btn", function() {
+    var btn = $(this);
+    ajaxToggleFavoriteDeck(btn.attr("data-deckid"), !btn.hasClass("favored"));
+  });
 });
+
+function cancelSelectionMode() {
+  // cancel
+  $(".home-card").each(function() {
+    $(this).css("overflow", "visible");
+    $(this).children(".card-overlay").addClass("hidden");
+  });
+  $("#deck-select-cards").html("select cards");
+  $("#add-card-btn").prop("disabled", false);
+  $("#deck-select-cards").removeClass("inmode");
+  $("#deck-delete-cards").addClass("hidden");
+}
 
 function ajaxGrabDeckCards(more, all) {
   noOngoingLoad = false;
@@ -156,6 +169,22 @@ function ajaxDeleteCards() {
 	dealWithHomeCard($(this));
       });
       $("#deck-cards-container").masonry();
+      // deactivate "inmode"
+      cancelSelectionMode();
+    }
+  });
+}
+
+function ajaxToggleFavoriteDeck(deckId, favorite) {
+  var action = "favorite";
+  if (!favorite) {
+    action = "unfavorite";
+  }
+  $.ajax({
+    type: "POST",
+    url: "/decks/" + deckId + "/" + action,
+    contentType: "script",
+    success: function(data) {
     }
   });
 }

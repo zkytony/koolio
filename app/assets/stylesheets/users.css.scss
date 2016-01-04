@@ -485,6 +485,7 @@ $info-toggle-size: 80px;
     @include box-sizing(border-box);
     padding: 20px;
     @include border-radius($default-border-radius);
+    position: relative;
 
     .profpic {
 	width: $prof-width;
@@ -510,7 +511,8 @@ $info-toggle-size: 80px;
 	color: $username-color;
 	margin: auto;
 	padding: 10px 0px 10px 0px;
-	font-size: 24px;
+	font-size: $prof-username-font-size;
+	word-break: break-all;
     }
 
     .user-stat {
@@ -570,17 +572,6 @@ $info-toggle-size: 80px;
 	&:hover {
 	    cursor: pointer;
 	}
-
-	// triangle?
-	/*
-	&:hover:after {
-	    content: "";
-	    width: 0;
-	    height: 0;
-	    border-style: solid;
-	    border-width: 0 5px 5px 5px;
-	    border-color: transparent transparent grey transparent;
-	}*/
     }
     .tab-item.selected {
 	color: $tab-selected-color;
@@ -596,6 +587,12 @@ $info-toggle-size: 80px;
 	left: 50%;//20px;
 	margin-left: -10px;
 	@include little-triangle(12px, 12px, 12px, $bg-color);
+    }
+
+    .follow-btn {
+	position: absolute;
+	top: 11px;//$prof-width - 10px; // 20px is padding
+	right: 11px;//30px;
     }
 }
 
@@ -790,4 +787,24 @@ $info-toggle-size: 80px;
 
 .deck-square:nth-child(3n+3) {
     margin-right: 0px;
+}
+
+.follow-btn {
+    width: $prof-username-font-size;
+    height: $prof-username-font-size;
+    font-size: $prof-username-font-size - 5px;
+    @include border-radius(50%);
+    border: none;
+    color: $white;
+    background-color: darken($art-grey-1, 5%);
+    &:hover {
+	background-color: darken($art-grey-1, 10%);
+    }
+}
+
+.follow-btn.followed {
+    background-color: lighten($yummy-green, 10%);
+    &:hover {
+	background-color: lighten($yummy-green, 5%);
+    }
 }

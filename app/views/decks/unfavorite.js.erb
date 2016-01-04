@@ -1,0 +1,5 @@
+if ($('#deck_favs_num').length) {
+  var cur = parseInt($('#deck_favs_num').html());
+  $('#deck_favs_num').html(cur - 1);
+}
+$("#deck_<%="#{@deck.id}"%>_favorite_btn").removeClass("favored").html("favorite");

@@ -90,6 +90,13 @@
 	    color: $white;
 	}
     }
+    a.disabled {
+	pointer-events: none;
+	color: darken($light-grey, 5%);
+	&:hover {
+	    color: darken($light-grey, 5%);
+	}
+    }
     padding-right: $nav-option-padding;
 }
 

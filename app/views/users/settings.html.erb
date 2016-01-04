@@ -21,7 +21,7 @@ do a masonary
 
   <%= render partial: "shared/setting_item", locals: { setting_for: "username", setting_name: "username",
 						       current_value: @user.username,
-						       setting_fields: "<input type=\"text\" name=\"user_name\" id=\"user_name\" autocomplete=\"off\">"
+						       setting_fields: "<input type=\"text\" name=\"user_name\" id=\"user_name\" autocomplete=\"off\" maxlength=\"19\">"
 						     } %>
   <%= render partial: "shared/setting_item", locals: { setting_for: "email",    setting_name: "email",
 						       current_value: @user.email,

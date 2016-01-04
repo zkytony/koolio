@@ -1,0 +1,6 @@
+if ($('#stat-followers').length) {
+  var cur = parseInt($('#stat-followers').html());
+  $('#stat-followers').html(cur - 1);
+}
+// change the followed btn to follow btn
+$("#user_<%="#{@user.id}"%>_follow_btn").removeClass("followed").html("+");

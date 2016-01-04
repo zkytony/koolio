@@ -1,0 +1,7 @@
+if ($('#stat-followers').length) {
+  var cur = parseInt($('#stat-followers').html());
+  $('#stat-followers').html(cur + 1);
+}
+// change the follow btn to followed btn
+$("#user_<%="#{@user.id}"%>_follow_btn").addClass("followed").html("&#10004");
+

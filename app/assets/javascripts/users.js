@@ -19,5 +19,25 @@ $(document).ready(function() {
       $("#login-form-card").addClass('flip');
     }
   });
+
+  // when clicked on follow btn, ajax request follow
+  $(document).on("click", ".follow-btn", function() {
+    ajaxToggleFollowUser($(this).attr("data-userid"), !$(this).hasClass("followed"));
+  });
 });
+
+// userId is the id of the user to be followed
+function ajaxToggleFollowUser(userId, follow) {
+  var action = "follow";
+  if (!follow) {
+    action = "unfollow";
+  }
+  $.ajax({
+    type: "POST",
+    url: "/users/" + userId + "/" + action,
+    contentType: "script",
+    success: function(data) {
+    }
+  });
+}
 

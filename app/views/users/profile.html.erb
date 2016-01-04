@@ -26,11 +26,11 @@
 	  <div class="stat-item-label">Decks</div>
 	</div>
 	<div class="stat-item">
-	  <div class="stat-item-number"><%="#{@user.followers.count}"%></div>
+	  <div class="stat-item-number" id="stat-followers"><%="#{@user.followers.count}"%></div>
 	  <div class="stat-item-label">Followers</div>
 	</div>
 	<div class="stat-item">
-	  <div class="stat-item-number"><%="#{@user.following.count}"%></div>
+	  <div class="stat-item-number" id="stat-following"><%="#{@user.following.count}"%></div>
 	  <div class="stat-item-label">Following</div>
 	</div>
       </div>
@@ -43,6 +43,7 @@
 	<li class="tab-item" id="hot-item">Hot</li>
 	<li class="tab-item" id="decks-item">Decks</li>
       </ul>
+      <%= render partial: "shared/follow_button", locals: { user: @user }%>
     </div>
     <div class="profile-contents-display" id="all-contents"></div>
     <div class="profile-contents-display hidden" id="hot-contents"></div>

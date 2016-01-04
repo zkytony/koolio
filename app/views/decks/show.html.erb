@@ -42,16 +42,18 @@
 	</div>
       </div>
     <% end %>
+    <%= render partial: "shared/favorite_deck_button", locals: { deck: @deck } %>
   </div>
   <div class="right-contents-wrapper" id="deck-cards-container">
     <%= render partial: "shared/deck_cards" %>
   </div>
+  <div class="deck-option-btns">
   <% if current_editable %>
-    <div class="deck-option-btns">
       <button id="deck-select-cards">select cards</button>
       <button class="hidden" id="deck-delete-cards" disabled><i class="fa fa-trash"></i></button>
-    </div>
+  <% else %>
   <% end %>
+  </div>
 </div>
 <!-- overlays -->
 <div class="glass-overlay" id="overlay-for-editor"></div>

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :users do
     post 'follow' => 'users#follow'
-    delete 'unfollow' => 'users#unfollow'
+    post 'unfollow' => 'users#unfollow'
     get 'profile' => 'users#profile'
     get 'profile_cards' => 'users#profile_cards'
     get 'profile_decks' => 'users#profile_decks'
@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   end
   resources :decks do
     post 'favorite' => 'decks#favorite'
-    delete 'unfavorite' => 'decks#unfavorite'
+    post 'unfavorite' => 'decks#unfavorite'
     get 'deck_info' => 'decks#deck_info'
     get 'cards/:card_id' => 'decks#card_show'
     post 'delete_cards' => 'decks#delete_cards'
