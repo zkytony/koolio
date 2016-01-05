@@ -446,6 +446,32 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	}
     }
 
+    // follow button
+    .follow-btn {
+	width: 20px;
+	height: 20px;
+	font-size: 14px;
+	margin-left: 5px;
+	background-color: $bg-color;
+	&:hover {
+	    background-color: darken($bg-color, 5%);
+	}
+    }
+    .follow-btn.followed {
+	background-color: lighten($yummy-green, 10%);
+	&:hover {
+	    background-color: lighten($yummy-green, 5%);
+	}
+    }
+
+    // favorite btn
+    button.deck-favorite-btn {
+	padding: 3px;
+	position: absolute;
+	right: 10px;
+	bottom: 7px;
+    }
+
     /* The more cards portion uses the deck partial, but it
        modifies its style */
     $tiny-card-size: $home-card-width * 0.9 / 2 - 5px;
@@ -860,6 +886,7 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     margin-right: 0px;
 }
 
+// for user follow btn
 .follow-btn {
     width: $prof-username-font-size;
     height: $prof-username-font-size;
@@ -877,5 +904,32 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     background-color: lighten($yummy-green, 10%);
     &:hover {
 	background-color: lighten($yummy-green, 5%);
+    }
+}
+
+// for deck favorite btn
+button.deck-favorite-btn {
+    font-size: 13px;
+    @include box-sizing(border-box);
+    border: none;
+    @include border-radius($default-border-radius);
+    background-color: darken(#FFFFCC, 15%);
+    color: $deck-title-color;
+    &:hover {
+	background-color: darken(#FFFFCC, 25%);
+    }
+    &:active {
+	background-color: darken(#FFFFCC, 30%);
+    }
+}
+
+button.deck-favorite-btn.favored {
+    color:  $deck-title-color;
+    background-color: #E6E6E6;
+    &:hover {
+	background-color: darken(#E6E6E6, 10%);
+    }
+    &:active {
+	background-color: darken(#E6E6E6, 15%);
     }
 }

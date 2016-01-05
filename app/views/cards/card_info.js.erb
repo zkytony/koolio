@@ -13,8 +13,10 @@ $("#n_comments").html(<%="#{@info[:n_comments]}"%>);
   $("#like-card-btn").removeClass("liked");
 <% end %>
 
-$("#deck_author").html("<%= j link_to "#{@info[:author].username}", user_profile_path(@info[:author].id), data: { no_turbolink: true } %>");
-$("#deck_title").html("<%="#{@info[:deck].title}"%>");
+$("#deck_author").html("<%= j link_to "#{@info[:author].username}", user_profile_path(@info[:author].id), data: { no_turbolink: true } %>"
+		     + "<%= j render partial: "shared/follow_button", locals: { user: @info[:author] } %>");
+$("#deck_title").html("<%="#{@info[:deck].title}"%>" + 
+		      "<%= j render partial: "shared/favorite_deck_button", locals: { deck: @info[:deck] } %>");
 $("#deck-author-pic").attr("src", "<%= "#{@info[:author].my_avatar!('front')}" %>");
 $("#more_cards_in_deck").html("<%= j render partial: "shared/deck", locals: { deck: @info[:deck], limit: 6 } %>");
 

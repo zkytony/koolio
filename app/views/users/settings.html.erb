@@ -21,19 +21,19 @@ do a masonary
 
   <%= render partial: "shared/setting_item", locals: { setting_for: "username", setting_name: "username",
 						       current_value: @user.username,
-						       setting_fields: "<input type=\"text\" name=\"user_name\" id=\"user_name\" autocomplete=\"off\" maxlength=\"19\">"
+						       setting_fields: "<input type=\"text\" name=\"user_name\" id=\"user_name\" autocomplete=\"off\" maxlength=\"19\" value=\"\">"
 						     } %>
   <%= render partial: "shared/setting_item", locals: { setting_for: "email",    setting_name: "email",
 						       current_value: @user.email,
-						       setting_fields: "<input type=\"text\" name=\"user_email\" id=\"user_email\" autocomplete=\"off\">"
+						       setting_fields: "<input type=\"text\" name=\"user_email\" id=\"user_email\" autocomplete=\"off\" value=\"\">"
 						     } %>
   <%= render partial: "shared/setting_item", locals: { setting_for: "password", setting_name: "password",
 						       current_value: "<i class=\"fa fa-lock\"></i>",
-						       setting_fields: "<input type=\"password\" name=\"user_password\" id=\"user_password\" autocomplete=\"off\">"
+						       setting_fields: "<input type=\"password\" name=\"user_password\" id=\"user_password\" autocomplete=\"off\" value=\"\">"
 						     } %>
   <%= render partial: "shared/setting_item", locals: { setting_for: "name",     setting_name: "first / last name", 
 						       current_value: @user.full_name ? @user.full_name : "not set",
-						       setting_fields: "<input type=\"text\" name=\"user_first_name\" id=\"user_first_name\"><input type=\"text\" name=\"user_last_name\" id=\"user_last_name\" autocomplete=\"off\">"
+						       setting_fields: "<input type=\"text\" name=\"user_first_name\" id=\"user_first_name\" value=\"\"><input type=\"text\" name=\"user_last_name\" id=\"user_last_name\" autocomplete=\"off\" value=\"\">"
 						     } %>
   <%= render partial: "shared/setting_item", locals: { setting_for: "gender",   setting_name: "gender",
 						       current_value: @user.gender ? @user.gender : "not set",

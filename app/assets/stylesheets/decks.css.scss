@@ -162,34 +162,9 @@ $move-yellow: #E49303;
     }
 }
 
-// for deck favorite btn
-$deck-favorite-btn-width: 75px;
 button.deck-favorite-btn {
-    font-size: 13px;
-    padding: 5px;
-    @include box-sizing(border-box);
-    border: none;
-    @include border-radius($default-border-radius);
     width: $deck-favorite-btn-width;
-    background-color: darken(#FFFFCC, 15%);
-    color: $deck-title-color;
-    font-weight: 600;
     margin-top: 5px;
-    &:hover {
-	background-color: darken(#FFFFCC, 25%);
-    }
-    &:active {
-	background-color: darken(#FFFFCC, 30%);
-    }
-}
-
-button.deck-favorite-btn.favored {
-    color:  $deck-title-color;
-    background-color: #E6E6E6;
-    &:hover {
-	background-color: darken(#E6E6E6, 10%);
-    }
-    &:active {
-	background-color: darken(#E6E6E6, 15%);
-    }
+    padding: 5px;
+    font-weight: 600;
 }

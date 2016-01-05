@@ -24,6 +24,13 @@ $(document).ready(function() {
   $(document).on("click", ".follow-btn", function() {
     ajaxToggleFollowUser($(this).attr("data-userid"), !$(this).hasClass("followed"));
   });
+
+  // when clicked on the favorite button, toggle favorite;
+  // this is for the info panels.
+  $(document).on("click", ".deck-favorite-btn", function() {
+    var btn = $(this);
+    ajaxToggleFavoriteDeck(btn.attr("data-deckid"), !btn.hasClass("favored"));
+  });
 });
 
 // userId is the id of the user to be followed
@@ -41,3 +48,17 @@ function ajaxToggleFollowUser(userId, follow) {
   });
 }
 
+// toggle favorite of a deck
+function ajaxToggleFavoriteDeck(deckId, favorite) {
+  var action = "favorite";
+  if (!favorite) {
+    action = "unfavorite";
+  }
+  $.ajax({
+    type: "POST",
+    url: "/decks/" + deckId + "/" + action,
+    contentType: "script",
+    success: function(data) {
+    }
+  });
+}

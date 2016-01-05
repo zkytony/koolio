@@ -2,7 +2,7 @@
   <%= form_for(@deck, remote: true, authenticity_token: true) do |f| %>
     <div class="field-item">
       <p class="field-name">Name</p>
-      <%= f.text_field :title, placeholder: "" %>
+      <%= f.text_field :title, placeholder: "", maxlength: 175 %>
     </div>
     <div class="field-item">
       <p class="field-name">Description</p>
