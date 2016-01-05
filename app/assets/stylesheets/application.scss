@@ -10,8 +10,9 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require Jcrop-2.0.4/css/Jcrop.min
+ *= require Jcrop.min
  *= require_self
  */
 @import "font-awesome";
-@import "global";
+@import "main";
+@import "flip";

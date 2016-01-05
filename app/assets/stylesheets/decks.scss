@@ -1,4 +1,6 @@
-@import "global";
+@import "variables";
+@import "_mixins";
+@import "main";
 
 $left-gap: 80px;
 $deck-info-panel-width: 190px;

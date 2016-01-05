@@ -1,4 +1,5 @@
-@import "global";
+@import "variables";
+@import "_mixins";
 
 body {
     background-image: url("/assets/bg.svg");

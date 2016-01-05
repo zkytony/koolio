@@ -1,3 +1,6 @@
+@import "variables";
+@import "_mixins";
+
 .nav-wrapper {
     @include content-wrapper($nav-width, 100%);
     background-color: $nav-bg-color;

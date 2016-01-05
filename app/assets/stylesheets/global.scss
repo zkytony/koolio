@@ -1,8 +1,7 @@
 /* Core */
-@import "variables.css.scss";
-@import "_mixins.css.scss";
+@import "variables";
+@import "_mixins";
 
-@import "flip.css.scss";
-@import "main.css.scss";
-@import "_nav.css.scss";
-@import "_user_info.css.scss";
+@import "flip";
+@import "main";
+@import "_nav";

@@ -15,5 +15,5 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require jquery-ui
-//= require Jcrop-2.0.4/js/Jcrop.min
+//= require Jcrop.min
 //= require flip.js
