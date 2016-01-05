@@ -132,7 +132,6 @@ function cancelSelectionMode() {
     var overlay = $(this).children(".card-overlay");
     overlay.addClass("hidden");
     overlay.removeClass("selected");
-    overlay.css("background-color", "rgba(17, 17, 17, 0.5)");
   });
   $("#deck-select-cards").html("select cards");
   $("#add-card-btn").prop("disabled", false);
