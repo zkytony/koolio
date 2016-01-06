@@ -9,6 +9,7 @@ $(document).ready(function() {
   $("#recommended-contents-wrapper").masonry({
     columnWidth: 270,
     gutter: 10,
+    itemSelector: '.home-card',
     transitionDuration: 0
   });
 
