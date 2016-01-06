@@ -15,5 +15,12 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require jquery-ui
+//= require masonry.pkgd.min
 //= require Jcrop.min
-//= require flip.js
+//= require flip
+//= require _nav
+//= require util
+//= require cards
+//= require card
+//= require _card_editor
+//= require homepage_cards_handler

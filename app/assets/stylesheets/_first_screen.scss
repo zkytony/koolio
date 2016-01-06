@@ -1,8 +1,9 @@
 @import "variables";
 @import "_mixins";
+@import "_login_form";
 
 body {
-    background-image: url("/assets/bg.svg");
+    background-image: image-url("bg.svg");
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;

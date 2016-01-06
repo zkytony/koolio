@@ -11,12 +11,12 @@ class RecommendContent
       
       if more
         card_providers.each do |provider|
-          contents |= provider.cards.where("cards.id NOT IN (?)", card_ids).sort_by{ rand }.first(3)
+          contents |= provider.cards.where("cards.id NOT IN (?)", card_ids).sort_by{ rand }.first(6)
         end
       else
         # each provider is a deck
         card_providers.each do |provider|
-          contents |= provider.cards.sort_by{ rand }.first(5)
+          contents |= provider.cards.sort_by{ rand }.first(6)
         end
       end
       contents

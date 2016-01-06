@@ -3,8 +3,9 @@
   the home page.
  */
 
-@import "global";
-@import "loading_gif";
+@import "variables";
+@import "_mixins";
+@import "main";
 
 .add-card-btn-container {
     position: fixed;

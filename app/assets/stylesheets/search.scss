@@ -1,8 +1,10 @@
 /*
   For search
  */
+@import "variables";
+@import "_mixins";
+@import "main";
 
-@import "global";
 #search-results-container {
     margin: auto;
     width: $recommended-contents-width;
