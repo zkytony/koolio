@@ -35,3 +35,7 @@ group :test do
   gem 'shoulda-matchers', require: false
   gem 'database_cleaner'
 end
+
+group :production do
+  gem 'unicorn'
+end
