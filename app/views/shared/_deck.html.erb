@@ -1,6 +1,7 @@
 <%# partial for one deck %>
+<% category_class = "" if local_assigns[:category_class].nil? %>
 <% cards = deck.cards.sort_by(&:created_at).reverse.slice(0, limit) %>
-<div class="one-deck deck-square" id="deck_<%="#{deck.id}"%>">
+<div class="one-deck deck-square <%="#{category_class}"%>" id="deck_<%="#{deck.id}"%>">
   <h3>
     <%= link_to deck_path(deck), data: { no_turbolink: true } do %>
       <%="#{deck.title}"%>
