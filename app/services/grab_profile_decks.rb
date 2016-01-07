@@ -8,7 +8,6 @@ class GrabProfileDecks
   # - if more is false, then deck_ids must be nil
   def self.call(user, more, deck_ids)
     n_decks = 9
-    puts deck_ids
     if more
       decks = user.decks.where("decks.id NOT IN (?)", deck_ids).sort_by(&:created_at).reverse.slice(0, n_decks)
     else
