@@ -9,7 +9,7 @@
     Thanks for sign up. 
     Please activate your account: <%= url_for controller: "users", 
 				              action: "activate", 
-					      host: "localhost:3000",
+					      only_path: false,
 					      id: "#{@user.id}", 
 					      tk: @user.activation_digest %>
   </body>
