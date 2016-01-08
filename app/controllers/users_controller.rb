@@ -21,6 +21,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def activate
+    @user = User.find(params[:id])
+    token = params[:tk]
+    if !@user.activated? # if the user is not yet activated
+      if @user.activation_digest == token
+        @user.activate
+        # user is now activated. log in the user
+        log_in @user
+        redirect_to @user
+      else
+        redirect_to root_path
+      end
+    else
+      # if the user is already activated, this action does nothing
+      # so redirect to root path
+      redirect_to root_path
+    end
+  end
+
   def show
     if logged_in?
       @user = User.find(params[:id])

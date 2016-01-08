@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'explore' => 'users#explore'
   
   get 'search/*query' => 'searches#search'
+  get 'activate' => 'users#activate'
 
   resources :users do
     post 'follow' => 'users#follow'
