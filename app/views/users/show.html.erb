@@ -4,11 +4,7 @@
 <%= javascript_include_tag "user_home.js" %>
 <%= javascript_include_tag "users.js" %>
 <%= render :partial => 'shared/nav' %>
-<div class="add-card-btn-container">
-  <button class="add-card-btn" id="add-card-btn"><i class="fa fa-plus"></i></button>
-</div>
 <div id="home-main-contents-wrapper">
-
   <div id="recommended-contents-wrapper">
     <% if @recommended.size > 0 %>
       <%= render :partial => 'shared/recommended' %>
@@ -48,9 +44,14 @@
   </div>
   <div id="home-side-contents-wrapper"></div>
 </div>
-<div class="home-card-editor-container" id="editor-container-home">
-  <%= render :partial => 'shared/card_editor' %>
-</div>
+<% if @user.activated? %>
+  <div class="add-card-btn-container">
+    <button class="add-card-btn" id="add-card-btn"><i class="fa fa-plus"></i></button>
+  </div>
+  <div class="home-card-editor-container" id="editor-container-home">
+    <%= render :partial => 'shared/card_editor' %>
+  </div>
+<% end %>
 <!-- overlays -->
 <div class="glass-overlay" id="overlay-for-editor"></div>
 <div class="dark-overlay hidden" id="overlay-for-focus-card"></div>

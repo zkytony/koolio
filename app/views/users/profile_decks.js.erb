@@ -4,5 +4,5 @@ $("#decks-contents").append("<%= j render partial: "shared/profile_decks", local
 $(".profile-contents-display").html("");
 $(".profile-contents-display").addClass("hidden");
 $("#decks-contents").removeClass("hidden");
-$("#decks-contents").html("<%= j render partial: "shared/profile_decks", locals: { render_btn: true } %>");
+$("#decks-contents").html("<%= j render partial: "shared/profile_decks", locals: { render_btn: @user.activated? } %>");
 <% end %>

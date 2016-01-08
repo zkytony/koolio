@@ -157,3 +157,8 @@ button:disabled {
     background-color: $success-green;
     color: darken($success-green, 40%);
 }
+
+.alert-warning {
+    background-color: lighten($gold, 30%);
+    color: darken($gold, 10%);
+}

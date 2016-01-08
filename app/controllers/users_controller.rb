@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if CreateUserAccount.call(@user)
+      flash[:success] = "Congrats! Please activate your account - an email with activation link is sent"
       log_in @user
       redirect_to @user
     else
