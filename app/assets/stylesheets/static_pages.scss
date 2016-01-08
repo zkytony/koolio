@@ -1,0 +1,109 @@
+// Place all the styles related to the static_pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "variables";
+@import "_mixins";
+@import "main";
+
+$email-form-width: 420px;
+$email-form-height: 230px;
+
+/* For reset password */
+.center-form-wrapper {
+    width: $email-form-width;
+    height: $email-form-height;
+    background-color: lighten($bg-color, 10%);
+    margin: auto;
+    margin-top: 10%;
+    position: relative;
+    padding: 30px;
+    padding-top: 50px;
+    @include box-sizing(border-box);
+    @include border-radius($default-border-radius);
+    
+    form {
+	width: $email-form-width * 0.8;
+	margin: auto;
+
+	input[type=text], input[type=password] {
+	    background-color: #F7F7F7;
+	    border: 2px solid $darker-grey;
+	    height: 40px;
+	    width: $email-form-width * 0.8;
+	    margin: auto;
+	    @include border-radius($default-border-radius);
+	    font-size: 18px;
+	    padding-left: 5px;
+	}
+	input[type=submit], a {
+	    font-size: 16px;
+	}
+
+	input[type=submit] {
+	    padding: 10px;
+	    border: none;
+	    @include border-radius($default-border-radius);
+	}
+    }
+}
+#reset-email-form-wrapper {
+    
+    form {
+	input[type=submit] {
+	    margin-top: 25px;
+	    background-color: $soft-green;
+	    color: $white;
+	    float: right;
+	    @include decent-interact-bg($soft-green);
+	}
+
+	a {
+	    display: block;
+	    float: left;
+	    margin-top: 30px;
+	    color: $decent-purple;
+	    &:hover {
+		text-decoration: underline;
+	    }
+	}
+    }
+
+    .after-send {
+	h3 {
+	    font-weight: 600;
+	    text-align: center;
+	    color: darken($darker-grey, 40%);
+	    margin-top: 25px;
+	    font-size: 17px;
+	}
+
+	a {
+	    display: block;
+	    width: 85px;
+	    margin: auto;
+	    margin-top: 15px;
+	    font-size: 15px;
+	}
+    }
+}
+
+#reset-password-form-wrapper {
+    form {
+	#re_password {
+	    margin-top: 7px;
+	}
+
+	input[type=submit] {
+	    margin-top: 10px;
+	    float: right;
+	    background-color: $healthy-black;
+	    color: $white;
+	    &:hover {
+		background-color: lighten($healthy-black, 20%);
+	    }
+	    &:active {
+		background-color: lighten($healthy-black, 25%);
+	    }
+	}
+    }
+}

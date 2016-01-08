@@ -171,6 +171,55 @@ class UsersController < ApplicationController
       format.json { render json: { users: users } }
     end
   end
+  
+  def init_reset_password
+    # send the email for resetting password
+    @user = User.find_by(email: params[:email])
+    if @user
+      @user.update_attributes(reset_digest: SecureRandom.base58(24), reset_at: Time.now)
+      UserMailer.reset_password_email(@user).deliver_later
+    end
+
+    respond_to do |format|
+      @link_sent = true
+      format.html { render :template => 'static_pages/forgot_password' }
+    end
+  end
+
+  def validate_reset_password    
+    @user = User.find(params[:id])
+    @token = params[:tk]
+
+    if (@user.reset_digest == @token) && @user.reset_at.between?(24.hours.ago, Time.now)
+      # user clicked the email link within 24 hours
+    else
+      # something wrong.
+      render nothing: true
+    end
+  end
+
+  def exec_reset_password
+    @user = User.find(params[:id])
+    token = params[:tk]
+
+    if (@user.reset_digest == token) && @user.reset_at.between?(24.hours.ago, Time.now)
+      # user tries to reset within 24 hours
+      pw = params[:password]
+      pw_confirm = params[:re_password]
+      if pw == pw_confirm
+        # set the password
+        @user.password = pw
+        @user.password_confirmation = pw_confirm
+        # invalidate the current reset token
+        @user.reset_digest = nil
+        @user.reset_at = nil
+        @user.save!
+        redirect_to root_path
+      else
+        redirect_to :back
+      end
+    end
+  end
 
   private
     

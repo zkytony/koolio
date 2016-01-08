@@ -32,6 +32,7 @@
 	<%= form_for(:session, url: login_path) do |f| %>
 	  <%= f.text_field :username, :placeholder => "Your username"%>
 	  <%= f.password_field :password, :placeholder => "Password" %>
+	  <%= link_to "Forgot password?", forgot_password_path, data: { no_turbolink: true }, id: "pw-forgot-link" %>
 	  <%= f.submit "Log in", :id => "submit-login-btn", :class => "login-form-btn" %>
 	  <span class="login-form-lower-left"><input type="button" id="flip-to-join-btn" value="Join" class="login-form-btn"><b class="login-form-msg">here</b></span>
 	<% end %>
