@@ -18,11 +18,11 @@
   <body>
     <div class="whole-wrapper">
       <div class="fl-alerts">
-	<% if logged_in? && !current_user.activated? %>
-	  <div class="fl-alert alert-warning no-fade">Please activated your account for full features</div>
-	<% end %>
 	<% flash.each do |key, value| %>
 	  <div class="fl-alert alert-<%="#{key}"%>"><%="#{value}"%></div>
+	<% end %>
+	<% if logged_in? && !current_user.activated? %>
+	  <div class="fl-alert alert-warning no-fade">Please activated your account for full features</div>
 	<% end %>
       </div>
       <%= yield %>
