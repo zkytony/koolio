@@ -197,7 +197,7 @@ class UsersController < ApplicationController
       # user clicked the email link within 24 hours
     else
       # something wrong.
-      flash[:success] = "Something went wrong."
+      flash[:warning] = "Something went wrong."
       redirect_to root_url
     end
   end
