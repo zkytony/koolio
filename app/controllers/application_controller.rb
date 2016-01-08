@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   
     def logged_in_user
       if !logged_in?
-        flash[:danger] = "Log in first"
+        flash[:error] = "Log in first"
         redirect_to root_url
       end
     end

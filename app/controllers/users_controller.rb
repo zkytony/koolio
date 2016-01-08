@@ -29,8 +29,10 @@ class UsersController < ApplicationController
         @user.activate
         # user is now activated. log in the user
         log_in @user
+        flash[:success] = "Your account is activated"
         redirect_to @user
       else
+        flash[:error] = "Error occurred in visiting page"
         redirect_to root_path
       end
     else
@@ -194,7 +196,8 @@ class UsersController < ApplicationController
       # user clicked the email link within 24 hours
     else
       # something wrong.
-      render nothing: true
+      flash[:success] = "Something went wrong."
+      redirect_to root_url
     end
   end
 
@@ -214,8 +217,10 @@ class UsersController < ApplicationController
         @user.reset_digest = nil
         @user.reset_at = nil
         @user.save!
+        flash[:success] = "Password reset was successful."
         redirect_to root_path
       else
+        flash[:success] = "Error occurred in visiting page."
         redirect_to :back
       end
     end
