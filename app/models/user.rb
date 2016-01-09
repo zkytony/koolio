@@ -245,8 +245,15 @@ class User < ActiveRecord::Base
     end
   end
 
-  def activate
-    self.update_attributes({:activated => true, :activated_at => Time.now})
+  # attempts to activate the user with the given token. If successful
+  # return true; otherwise return false.
+  def activate(token)
+    if self.activation_digest == token
+      self.update_attributes({:activated => true, :activated_at => Time.now})
+      true
+    else
+      false
+    end
   end
 
   def activated?

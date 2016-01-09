@@ -26,8 +26,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     token = params[:tk]
     if !@user.activated? # if the user is not yet activated
-      if @user.activation_digest == token
-        @user.activate
+      if @user.activate(token)
         # user is now activated. log in the user
         log_in @user
         flash[:success] = "Your account is activated"
