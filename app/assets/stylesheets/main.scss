@@ -204,5 +204,13 @@ $info-toggle-size: 40px;
 	    cursor: pointer;
 	}
     }
+    #github-link {
+	a {
+	    color: $healthy-black;
+	    &:hover {
+		color: lighten($healthy-black, 10%);
+	    }
+	}
+    }
 }
 

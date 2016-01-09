@@ -1,7 +1,9 @@
-<% if !@list.nil? %>
+<% if !@list.nil? && !@list.empty? %>
   var htmlStr = "";
   <% @list.each do |user| %>
     htmlStr += "<%= j render partial: "shared/user_bar", locals: { user: user } %>";
   <% end %>
   $("#list_<%="#{@type}"%> .users-list").html(htmlStr);
+<% else %>
+  $("#list_<%="#{@type}"%> .users-list").html("<i>You have no mutual followers</i>");
 <% end %>
