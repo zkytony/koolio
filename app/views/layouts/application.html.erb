@@ -22,7 +22,7 @@
 	  <div class="fl-alert alert-<%="#{key}"%>"><%="#{value}"%></div>
 	<% end %>
 	<% if logged_in? && !current_user.activated? %>
-	  <div class="fl-alert alert-warning no-fade">Please activated your account for full features</div>
+	  <div class="fl-alert alert-warning no-fade">Please activate your account - check your email</div>
 	<% end %>
       </div>
       <%= yield %>
