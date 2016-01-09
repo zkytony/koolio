@@ -80,17 +80,20 @@ function validateLogInForm() {
     var msgs = [];
     if ($("#session_username").val().length <= 0) {
 	msgs.push("please enter your username");
+	valid = false;
     }
     if ($("#session_password").val().length <= 0) {
 	msgs.push("please enter your password");
+	valid = false;
     }
 
     if (msgs.length == 2) {
 	addAlert("error", "Ooops. Please enter your username and password.");
-    } else {
+    } else if (!valid) {
 	// length is 1
 	addAlert("error", msgs[0]);
     }
+    return valid;
 }
 
 function validateSignUpForm() {
@@ -115,6 +118,9 @@ function validateSignUpForm() {
     } else if (!validateEmail($("#user_email").val())) {
 	valid = false;
 	msgs.push("email format is invalid");
+    } else if (!validateEduEmail($("#user_email").val())) {
+	valid = false;
+	msgs.push("only .edu emails allowed for now.");
     } else {
 	if ($("#user_email_confirm").val().length <= 0) {
 	    valid = false;
@@ -155,11 +161,16 @@ function validateSignUpForm() {
 }
 
 function validateEmail(email) {
-    var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    return re.test(email);
+  var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  return re.test(email);
 }
 
 function validateUsername(username) {
     var re = /^[A-Za-z0-9]{4,}$/;
     return re.test(username);
+}
+
+// assume email format is valid
+function validateEduEmail(email) {
+   return email.substring(email.lastIndexOf(".")) === "edu";
 }
