@@ -599,13 +599,19 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 //// PROFILE PAGE //////
 ////////////////////////
 .main-contents-wrapper {
-    @include content-wrapper($whole-contents-width, 85%);
+    width: $whole-contents-width;
+    margin: auto;
     min-height: 100px;
     position: relative;
     left: $whole-contents-left-shift;
     top: 40px;
-    @include tablet_portrait_and_below {
+    @include tablet-landscape-only {
+	width: 90%;
+	left: 20px;
+    }
+    @include tablet-portrait-and-below {
 	left: $whole-contents-left-shift + 25px;
+	width: 85%;
     }
 }
 
@@ -616,12 +622,18 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 
 .left-contents-wrapper {
     width: $left-contents-width;
+    @include tablet-landscape-only {
+	margin-right: 40px;
+    }
 }
 
 .right-contents-wrapper {
     width: $right-contents-width;
     margin-left: $left-gap;
-    @include tablet_portrait_and_below {
+    @include tablet-landscape-only {
+	margin-left: 0px;
+    }
+    @include tablet-portrait-and-below {
 	width: 100%;
 	margin-left: 0px;
     }
