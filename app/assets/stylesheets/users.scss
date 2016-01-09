@@ -938,6 +938,9 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 
 .deck-square:nth-child(3n+3) {
     margin-right: 0px;
+    @include tablet-portrait-and-below {
+	margin-right: $deck-display-gap;
+    }
 }
 
 // for user follow btn
