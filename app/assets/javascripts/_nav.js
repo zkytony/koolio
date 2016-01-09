@@ -14,14 +14,20 @@ $(document).ready(function() {
     // toggle dropdown when hover on name
     $(document).on({
 	mouseenter: function () {
-	    $("#profile-pic-dropdown").removeClass("hidden");
-	    $("#nav-inbox").addClass("hidden");
-	    $("#nav-inbox-btn").removeClass("nav-option-highlighted");
+	    showDropDown();
 	},
 	mouseleave: function () {
-	    $("#profile-pic-dropdown").addClass("hidden");
+	    hideDropDown();
 	}
     }, "#nav-username");
+
+    $(document).on("click", "#nav-username", function() {
+	if ($("#profile-pic-dropdown").hasClass("hidden")) {
+	    showDropDown();
+	} else {
+	    hideDropDown();
+	}
+    });
 
     // toggle inbox when hover
     $(document).on({
@@ -53,4 +59,14 @@ function grabNotifications() {
 	success: function(output) {
 	}
     });
+}
+
+function showDropDown() {
+    $("#profile-pic-dropdown").removeClass("hidden");
+    $("#nav-inbox").addClass("hidden");
+    $("#nav-inbox-btn").removeClass("nav-option-highlighted");
+}
+
+function hideDropDown() {
+    $("#profile-pic-dropdown").addClass("hidden");
 }
