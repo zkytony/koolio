@@ -1,5 +1,6 @@
 // update the setting current value for the items
 
+<% if @user %>
 // username
 $("#username-setting .setting-current-value").html("<%="#{@user.username}"%>");
 
@@ -18,3 +19,6 @@ $("#birthday-setting .setting-current-value").html("<%=@user.birthday ? "#{@user
 // avatar
 $("#avatar-front-img").attr("src", "<%="#{@user.my_avatar!('front')}"%>");
 $("#avatar-back-img").attr("src", "<%="#{@user.my_avatar!('back')}"%>");
+<% else %>
+addAlert("error", "Something went wrong in updating. Please empty the fields that you don't want to change");
+<% end %>

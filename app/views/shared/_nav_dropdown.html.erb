@@ -9,6 +9,11 @@
       <% end %>
     </li>
     <li class="nav-dropdown-link">
+      <%= link_to "/users/#{current_user.id}/profile/decks", data: { no_turbolink: true } do %>
+	My Decks<i class="fa fa-square"></i>
+      <% end %>
+    </li>
+    <li class="nav-dropdown-link">
       <%= link_to user_settings_path(current_user), data: { no_turbolink: true } do %>
 	Settings<i class="fa fa-gear"></i>
       <% end %>

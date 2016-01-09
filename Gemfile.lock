@@ -80,6 +80,9 @@ GEM
     excon (0.45.4)
     execjs (2.5.2)
     ffi (1.9.10)
+    file_validators (2.0.2)
+      activemodel (>= 3.0)
+      mime-types (>= 1.0)
     fog-aws (0.7.6)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
@@ -278,6 +281,7 @@ DEPENDENCIES
   carrierwave!
   coffee-rails (~> 4.1.0)
   database_cleaner
+  file_validators
   fog-aws
   font-awesome-rails
   guard-rspec

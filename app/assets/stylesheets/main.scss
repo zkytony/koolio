@@ -146,6 +146,13 @@ button:disabled {
     padding: 12px;
     @include border-radius($default-border-radius);
     margin-bottom: 5px;
+    
+    a {
+	color: $decent-purple;
+	&:hover {
+	    text-decoration: underline;
+	}
+    }
 }
 
 .alert-error {
@@ -161,4 +168,40 @@ button:disabled {
 .alert-warning {
     background-color: lighten($gold, 30%);
     color: darken($gold, 10%);
+}
+
+.alert-info {
+    border: 1px solid $darker-grey;
+    background-color: #EFEFEF;
+    color: #888888;
+}
+
+/* LOWER LEFT */
+$info-height: 20px;
+$info-width: auto;
+$info-toggle-size: 40px;
+.lower-right-info {
+    width: $info-width;
+    height: $info-height;
+    position: fixed;
+    left: 3px;
+    bottom: 0;
+    
+    .info-item:first-child {
+	border-left: none;
+    }
+    .info-item {
+	float: left;
+	border-left: 1px solid $healthy-black;
+	padding-left: 5px;
+	padding-right: 5px;
+	font-size: 12px;
+	color: $healthy-black;
+    }
+    #feedback-btn {
+	&:hover {
+	    text-decoration: underline;
+	    cursor: pointer;
+	}
+    }
 }

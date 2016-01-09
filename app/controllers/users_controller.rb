@@ -11,14 +11,30 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
-    if CreateUserAccount.call(@user)
-      flash[:success] = "Welcome! #{@user.username}"
-      log_in @user
-      redirect_to @user
+    # if username or email already exists, redirect
+    # to root with such messages
+    email_exists = User.exists?(email: user_params[:email]) 
+    username_exists = User.exists?(username: user_params[:username]) 
+    if email_exists || username_exists
+      if email_exists && username_exists
+        flash[:error] = "username AND email both already used"
+      elsif email_exists
+        flash[:error] = "email already used"
+      else
+        flash[:error] = "username already taken"
+      end
+      redirect_to root_path 
     else
-      # Not able to create
-      redirect_to root_path
+      # Able to create a new user
+      @user = User.new(user_params)
+      if CreateUserAccount.call(@user)
+        flash[:success] = "Welcome! #{@user.username}"
+        log_in @user
+        redirect_to @user
+      else
+        # Not able to create
+        redirect_to root_path
+      end
     end
   end
 
@@ -130,6 +146,15 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  # Goes to decks tab in profile page
+  def decks_list
+    @user = User.find(params[:user_id])
+    if @user.id == current_user.id
+      @deck = Deck.new # user may want to create a deck
+    end
+    render :profile
   end
 
   # settings

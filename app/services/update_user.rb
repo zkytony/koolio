@@ -6,6 +6,9 @@ class UpdateUser
   #
   # Assume that if a value in data is not empty, then it is
   # going to be valid to use it as the new user attribute
+  #
+  # Returns the user with new attributes if update successful;
+  # Returns nil otherwise
   def self.call(user, data)
     # deal with everything but birthday, avatar, and password
     data.each_key do |key|
@@ -30,7 +33,10 @@ class UpdateUser
       avatar_data["back"] = user.avatar_json("back")
     end
     user.avatar = avatar_data.to_json
-    user.save!
-    user
+    if user.save
+      user
+    else
+      nil
+    end
   end
 end

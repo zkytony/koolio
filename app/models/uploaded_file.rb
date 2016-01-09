@@ -5,7 +5,8 @@ class UploadedFile < ActiveRecord::Base
   mount_uploader :name, UserFileUploader
 
   validates :user_id, presence: true
-  validates :name, presence: true
+  validates :name, presence: true, 
+                   file_size: { less_than_or_equal_to: 1536.kilobytes }
   validates :type, presence: true,
                    length: { maximum: 255 }
 

@@ -5,7 +5,7 @@ class UserFileUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   storage :fog
 
-  IMAGE_EXTENSIONS = %w(jpg jpeq gif png)
+  IMAGE_EXTENSIONS = %w(jpg jpeg gif png)
   VIDEO_EXTENSIONS = %w(mp4)
   
   def store_dir
