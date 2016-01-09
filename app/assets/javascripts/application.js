@@ -18,6 +18,7 @@
 //= require masonry.pkgd.min
 //= require Jcrop.min
 //= require flip
+//= require flash_alerts
 //= require _nav
 //= require util
 //= require cards

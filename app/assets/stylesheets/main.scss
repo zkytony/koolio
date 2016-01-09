@@ -123,3 +123,42 @@ button:disabled {
   -ms-transition: none !important;
   transition: none !important;
 }
+
+/* Flash alerts */
+.fl-alerts, .fl-alert {
+    width: 512px;
+    min-height: 15px;
+    font-size: 15px;
+}
+
+.fl-alerts {
+    position: absolute;
+    top: 7px;
+    z-index: 6;
+    /* center it */
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.fl-alert {
+    padding: 12px;
+    @include border-radius($default-border-radius);
+    margin-bottom: 5px;
+}
+
+.alert-error {
+    background-color: $alert-red;
+    color: darken($alert-red, 40%);
+}
+
+.alert-success {
+    background-color: $success-green;
+    color: darken($success-green, 40%);
+}
+
+.alert-warning {
+    background-color: lighten($gold, 30%);
+    color: darken($gold, 10%);
+}

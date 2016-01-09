@@ -97,8 +97,18 @@
 #submit-login-btn {
     margin-top:15px;
     position:relative;
-    left:65%;
     width:35%;
+    float: right;
     height:30px;
     background-color:$decent-blue;
+}
+
+#pw-forgot-link {
+    display: block;
+    float: left;
+    margin-top: 20px;
+    color: $decent-purple;
+    &:hover {
+	text-decoration: underline;
+    }
 }
