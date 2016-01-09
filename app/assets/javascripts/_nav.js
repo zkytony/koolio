@@ -1,8 +1,4 @@
 $(document).ready(function() {
-    $(document).on("click", "#nav-username", function() {
-	$("#profile-pic-dropdown").removeClass("hidden");
-    });
-
     if ($("#nav-inbox-btn").position()) {
 	$("#nav-inbox").css("left", $("#nav-inbox-btn").position().left - $("#nav-inbox").width());
     }
@@ -14,10 +10,14 @@ $(document).ready(function() {
     // toggle dropdown when hover on name
     $(document).on({
 	mouseenter: function () {
-	    showDropDown();
+	    if ($("#profile-pic-dropdown").hasClass("hidden")) {
+		showDropDown();
+	    }
 	},
 	mouseleave: function () {
-	    hideDropDown();
+	    if (!$("#profile-pic-dropdown").hasClass("hidden")) {
+		hideDropDown();
+	    }
 	}
     }, "#nav-username");
 
