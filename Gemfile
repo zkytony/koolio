@@ -23,6 +23,7 @@ gem 'fog-aws'
 gem 'rails_autolink'
 gem 'has_secure_token'
 gem 'mail'
+gem 'file_validators'
 
 group :development, :test do
   gem 'byebug'

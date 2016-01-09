@@ -307,9 +307,16 @@ ImageEditor.prototype.init = function() {
       var reader = new FileReader();
       reader.onload = function (e) {
 	$("#" + imageEditor.side + "-img-to-crop").attr("src", e.target.result);
-	imageEditor.currentTarget = $("#" + imageEditor.side + "-side-img-file").prop('files')[0];
-	imageEditor.currentSource = "upload";
-	imageEditor.cropPhase();
+	var fileTarget = $("#" + imageEditor.side + "-side-img-file").prop('files')[0];
+
+	// file size limit: 1.5 MB
+	if (fileTarget.size > 1500000) {
+	  addAlert("error", "Image file too large (Max size: 1.5MB)");
+	} else {
+	  imageEditor.currentTarget = fileTarget;
+	  imageEditor.currentSource = "upload";
+	  imageEditor.cropPhase();
+	}
       };
       reader.readAsDataURL(input.files[0]);
     }
@@ -339,10 +346,7 @@ ImageEditor.prototype.init = function() {
   $(document).on("click", "#" + imageEditor.side + "-img-cropper-cancel-btn", function() {
     $("#" + imageEditor.side + "-img-editor-uploader").removeClass("hidden");
     $("#" + imageEditor.side + "-img-editor-cropper").addClass("hidden");
-    // reset jcrop
-    $("#" + imageEditor.side + "-img-cropper-wrapper").html("");
-    $("#" + imageEditor.side + "-img-cropper-wrapper").prepend("<img id='" + imageEditor.side + "-img-to-crop' src='' alt='your browser may not support FileReader API.'>");
-    initJCrop(imageEditor.side);
+    imageEditor.resetJcrop();
   });
   //////////// CROPING DONE /////////////////
 
@@ -433,6 +437,14 @@ ImageEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
   }
 }
 
+ImageEditor.prototype.resetJcrop = function() {
+  var imageEditor = this;
+  // reset jcrop
+  $("#" + imageEditor.side + "-img-cropper-wrapper").html("");
+  $("#" + imageEditor.side + "-img-cropper-wrapper").prepend("<img id='" + imageEditor.side + "-img-to-crop' src='' alt='your browser may not support FileReader API.'>");
+  initJCrop(imageEditor.side);
+}
+
 ImageEditor.prototype.reset = function() {
   var imageEditor = this;
   $("#" + imageEditor.side + "-img-editor-container").addClass("hidden");
@@ -518,13 +530,17 @@ VideoEditor.prototype.init = function() {
   $(document).on("change", "#" + videoEditor.side + "-side-video-file", function() {
     var formdata = new FormData();
     var file = $(this).prop('files')[0];
-    formdata.append("target", file);
-    formdata.append("file_type", "video");
-    formdata.append("source_type", "upload");
-    
-    videoEditor.sendFileAJAX(formdata, function(output) {
-      videoEditor.displayPhase(output);
-    });
+    if (file.size > 1500000) {
+      addAlert("error", "Video file too large (Max size: 1.5MB)");
+    } else {
+      formdata.append("target", file);
+      formdata.append("file_type", "video");
+      formdata.append("source_type", "upload");
+     
+      videoEditor.sendFileAJAX(formdata, function(output) {
+	videoEditor.displayPhase(output);
+      });
+    }
   });
 
   // When clicked the link button, a form pops up
@@ -588,3 +604,4 @@ VideoEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
   }
 }
 /* End of VideoEditor */
+
