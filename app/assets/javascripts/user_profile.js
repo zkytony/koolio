@@ -2,32 +2,30 @@ var noOngoingLoad = true;
 $(document).ready(function() {
   // get the user id from the url
   // the profile url will be '/users/:id/profile'
-  var path = window.location.pathname;  // "/xxx/xxx/xxx.."
-  var userId = path.split("/")[2];
-  ajaxGrabCardsForProfile(userId, "all", false);
+  var path = window.location.pathname;  // "/users/xxx/profile..."
+  var segments = path.split("/");
+  var userId = segments[2];
+  if (segments.length == 4) {
+    // at the default tab, grab cards for profile
+    ajaxGrabCardsForProfile(userId, "all", false);
+  } else if (segments.length == 5) {
+    // check if the trailing segment is "decks". If so, focus on it,
+    // and grab decks
+    if (segments[4] === "decks") {
+      focusOnDecks(userId);
+    }
+  }
 
   $(document).on("click", "#hot-item", function() {
-    $("#all-contents").html("");
-    $("#decks-contents").html("");
-    $(".tab-item").removeClass("selected");
-    $("#hot-item").addClass("selected");
-    ajaxGrabCardsForProfile(userId, "hot", false);
+    focusOnHots(userId);
   });
 
   $(document).on("click", "#all-item", function() {
-    $("#all-contents").html("");
-    $("#hot-contents").html("");
-    $(".tab-item").removeClass("selected");
-    $("#all-item").addClass("selected");
-    ajaxGrabCardsForProfile(userId, "all", false);
+    focusOnAll(userId);
   });
 
   $(document).on("click", "#decks-item", function() {
-    $("#all-contents").html("");
-    $("#hot-contents").html("");
-    $(".tab-item").removeClass("selected");
-    $("#decks-item").addClass("selected");
-    ajaxGrabDecksForProfile(userId, false);
+    focusOnDecks(userId);
   });
 
   // when click on avatar, flip it
@@ -66,6 +64,30 @@ $(document).ready(function() {
   var deckEditor = new DeckEditor("prof-deck-editor");
   deckEditor.init();
 });
+
+function focusOnAll(userId) {
+  $("#all-contents").html("");
+  $("#hot-contents").html("");
+  $(".tab-item").removeClass("selected");
+  $("#all-item").addClass("selected");
+  ajaxGrabCardsForProfile(userId, "all", false);
+}
+
+function focusOnHots(userId) {
+  $("#all-contents").html("");
+  $("#decks-contents").html("");
+  $(".tab-item").removeClass("selected");
+  $("#hot-item").addClass("selected");
+  ajaxGrabCardsForProfile(userId, "hot", false);
+}
+
+function focusOnDecks(userId) {
+  $("#all-contents").html("");
+  $("#hot-contents").html("");
+  $(".tab-item").removeClass("selected");
+  $("#decks-item").addClass("selected");
+  ajaxGrabDecksForProfile(userId, false);
+}
 
 // AJAX request to grab a certain number of cards
 // to display on the profile page.

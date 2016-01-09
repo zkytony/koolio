@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get 'profile' => 'users#profile'
     get 'profile_cards' => 'users#profile_cards'
     get 'profile_decks' => 'users#profile_decks'
+    get 'profile/decks' => 'users#decks_list'
     get 'settings' => 'users#settings'
     get 'mutual_follows' => 'users#mutual_follows'
   end

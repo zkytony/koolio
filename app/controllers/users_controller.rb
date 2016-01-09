@@ -148,6 +148,15 @@ class UsersController < ApplicationController
     end
   end
 
+  # Goes to decks tab in profile page
+  def decks_list
+    @user = User.find(params[:user_id])
+    if @user.id == current_user.id
+      @deck = Deck.new # user may want to create a deck
+    end
+    render :profile
+  end
+
   # settings
   def settings
     @user = User.find(params[:user_id])
