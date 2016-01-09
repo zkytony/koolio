@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
       redirect_to user
     else
       # error
-      flash[:danger] = 'Invalid email/password'
+      flash[:error] = 'Invalid email/password'
       redirect_to root_url
     end
   end

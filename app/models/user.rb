@@ -48,6 +48,7 @@ class User < ActiveRecord::Base
   validates :password,  length: { minimum: 6 }, on: :update, allow_blank: true
   
   has_secure_password   # Enforces validation on the virtual password & password_confirmation attributes
+  has_secure_token :activation_digest
 
   # This function creates the deck, and adds the user as editor to the deck_user_associations
   # Use this instead of self.decks.create alone
@@ -242,5 +243,20 @@ class User < ActiveRecord::Base
     else
       nil
     end
+  end
+
+  # attempts to activate the user with the given token. If successful
+  # return true; otherwise return false.
+  def activate(token)
+    if self.activation_digest == token
+      self.update_attributes({:activated => true, :activated_at => Time.now})
+      true
+    else
+      false
+    end
+  end
+
+  def activated?
+    self.activated
   end
 end

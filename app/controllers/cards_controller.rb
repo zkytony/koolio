@@ -31,7 +31,6 @@ class CardsController < ApplicationController
     @deck = Deck.find(params[:deck_id])
     @card = Card.find(params[:id])
     if @card.update_attributes(card_params)
-      flash[:success] = "Card information updated"
       redirect_to @deck
     else
       render 'edit'
@@ -42,7 +41,6 @@ class CardsController < ApplicationController
     @deck = Deck.find(params[:deck_id])
     @card = Card.find(params[:id])
     @card.destroy
-    flash[:success] = "Card deleted"
     redirect_to @deck
   end
 

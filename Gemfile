@@ -21,6 +21,8 @@ gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem "mini_magick"
 gem 'fog-aws'
 gem 'rails_autolink'
+gem 'has_secure_token'
+gem 'mail'
 
 group :development, :test do
   gem 'byebug'

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"  />
+  </head>
+  <body>
+    <%= @user.username %>, 
+    <br>
+    Thanks for sign up. 
+    Please activate your account: <%= url_for controller: "users", 
+				              action: "activate", 
+					      only_path: false,
+					      id: "#{@user.id}", 
+					      tk: @user.activation_digest %>
+  </body>
+</html>

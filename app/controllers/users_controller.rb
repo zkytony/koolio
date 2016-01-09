@@ -13,10 +13,31 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if CreateUserAccount.call(@user)
+      flash[:success] = "Welcome! #{@user.username}"
       log_in @user
       redirect_to @user
     else
       # Not able to create
+      redirect_to root_path
+    end
+  end
+
+  def activate
+    @user = User.find(params[:id])
+    token = params[:tk]
+    if !@user.activated? # if the user is not yet activated
+      if @user.activate(token)
+        # user is now activated. log in the user
+        log_in @user
+        flash[:success] = "Your account is activated"
+        redirect_to @user
+      else
+        flash[:error] = "Error occurred in visiting page"
+        redirect_to root_path
+      end
+    else
+      # if the user is already activated, this action does nothing
+      # so redirect to root path
       redirect_to root_path
     end
   end
@@ -150,6 +171,58 @@ class UsersController < ApplicationController
     
     respond_to do |format|
       format.json { render json: { users: users } }
+    end
+  end
+  
+  def init_reset_password
+    # send the email for resetting password
+    @user = User.find_by(email: params[:email])
+    if @user
+      @user.update_attributes(reset_digest: SecureRandom.base58(24), reset_at: Time.now)
+      UserMailer.reset_password_email(@user).deliver_later
+    end
+
+    respond_to do |format|
+      @link_sent = true
+      format.html { render :template => 'static_pages/forgot_password' }
+    end
+  end
+
+  def validate_reset_password    
+    @user = User.find(params[:id])
+    @token = params[:tk]
+
+    if (@user.reset_digest == @token) && @user.reset_at.between?(24.hours.ago, Time.now)
+      # user clicked the email link within 24 hours
+    else
+      # something wrong.
+      flash[:warning] = "Something went wrong."
+      redirect_to root_url
+    end
+  end
+
+  def exec_reset_password
+    @user = User.find(params[:id])
+    token = params[:tk]
+
+    if (@user.reset_digest == token) && @user.reset_at.between?(24.hours.ago, Time.now)
+      # user tries to reset within 24 hours
+      pw = params[:password]
+      pw_confirm = params[:re_password]
+      if pw == pw_confirm
+        # set the password
+        @user.password = pw
+        @user.password_confirmation = pw_confirm
+        # invalidate the current reset token
+        @user.reset_digest = nil
+        @user.reset_at = nil
+        @user.save!
+        flash[:success] = "Password reset was successful."
+        redirect_to root_path
+      else
+        flash[:success] = "Error occurred in visiting page."
+        redirect_to :back
+      end
     end
   end
 
