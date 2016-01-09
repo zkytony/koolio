@@ -4,10 +4,10 @@ $(document).ready(function() {
 });
 
 // type can be error, warning, or success
-function addAlert(type, message) {
+function addAlert(type, message, wait) {
     var htmlStr = "<div class=\"fl-alert alert-" + type + "\">" + message + "</div>";
     $(".fl-alerts").append(htmlStr);
-    fadeOutAlerts(2500, 400);
+    fadeOutAlerts(wait, 400);
 }
 
 function fadeOutAlerts(wait, speed) {

@@ -19,6 +19,7 @@
 //= require Jcrop.min
 //= require flip
 //= require flash_alerts
+//= require fixed_components
 //= require _nav
 //= require util
 //= require cards

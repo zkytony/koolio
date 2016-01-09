@@ -177,7 +177,7 @@ AvatarEditor.prototype.init = function() {
 	$("#" + avatarEditor.side + "-img-to-crop").attr("src", e.target.result);
 	var fileTarget = $("#" + avatarEditor.side + "-side-img-file").prop('files')[0];
 	if (fileTarget.size > 15000) {
-	  addAlert("error", "Image file too large (Max size: 1.5MB)");
+	  addAlert("error", "Image file too large (Max size: 1.5MB)", 3000);
 	} else {
 	  avatarEditor.currentTarget = fileTarget
 	  avatarEditor.currentSource = "upload";

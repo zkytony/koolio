@@ -311,7 +311,7 @@ ImageEditor.prototype.init = function() {
 
 	// file size limit: 1.5 MB
 	if (fileTarget.size > 1500000) {
-	  addAlert("error", "Image file too large (Max size: 1.5MB)");
+	  addAlert("error", "Image file too large (Max size: 1.5MB)", 3000);
 	} else {
 	  imageEditor.currentTarget = fileTarget;
 	  imageEditor.currentSource = "upload";
@@ -531,7 +531,7 @@ VideoEditor.prototype.init = function() {
     var formdata = new FormData();
     var file = $(this).prop('files')[0];
     if (file.size > 1500000) {
-      addAlert("error", "Video file too large (Max size: 1.5MB)");
+      addAlert("error", "Video file too large (Max size: 1.5MB)", 3000);
     } else {
       formdata.append("target", file);
       formdata.append("file_type", "video");

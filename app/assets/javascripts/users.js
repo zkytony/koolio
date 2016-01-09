@@ -88,10 +88,10 @@ function validateLogInForm() {
     }
 
     if (msgs.length == 2) {
-	addAlert("error", "Ooops. Please enter your username and password.");
+	addAlert("error", "Ooops. Please enter your username and password.", 2500);
     } else if (!valid) {
 	// length is 1
-	addAlert("error", msgs[0]);
+	addAlert("error", msgs[0], 2500);
     }
     return valid;
 }
@@ -141,19 +141,19 @@ function validateSignUpForm() {
     }
 
     if (blank >= 2) {
-	addAlert("error", "Looks like there are many blank fields. Please fill them up.");
+	addAlert("error", "Looks like there are many blank fields. Please fill them up.", 2500);
     } else {
 	if (msgs.length <= 3) {
 	    var i = 0;
 	    for (i = 0; i < msgs.length; i++) {
-		addAlert("error", msgs[i]);
+		addAlert("error", msgs[i], 2500);
 	    }
 	} else {
 	    var i = 0;
 	    for (i = 0; i < 3; i++) {
-		addAlert("error", msgs[i]);
+		addAlert("error", msgs[i], 2500);
 	    }
-	    addAlert("warning", "There are more errors. Fix the above ones first.");
+	    addAlert("warning", "There are more errors. Fix the above ones first.", 2500);
 	}
     }
 
