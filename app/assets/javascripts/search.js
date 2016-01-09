@@ -6,7 +6,7 @@ $(document).ready(function() {
     });
 
     $("#search-results-container").masonry({
-	columnWidth: 270,
+	columnWidth: 240,
 	gutter: 10,
 	itemSelector: ".search-result-item",
 	transitionDuration: 0

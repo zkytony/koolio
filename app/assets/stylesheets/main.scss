@@ -44,7 +44,7 @@ body {
     font-size: $default-font-size;
     
     @media screen {
-	min-width: 900px;
+	//min-width: 900px;
     }
 }
 
@@ -205,3 +205,4 @@ $info-toggle-size: 40px;
 	}
     }
 }
+

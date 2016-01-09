@@ -28,7 +28,7 @@ $(document).ready(function() {
   });
 
   $("#recommended-contents-wrapper").masonry({
-    columnWidth: 270,
+    columnWidth: 240,
     gutter: 10,
     itemSelector: '.home-card',
     transitionDuration: 0
@@ -43,6 +43,9 @@ $(document).ready(function() {
       }
     }
   });
+
+  // grab mutual followers
+  ajaxGrabUsersList($("#nav-username").attr("data-userid"), "mutual_followers");
 
   var editor = new Editor("new_card");
   editor.init();

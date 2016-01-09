@@ -200,6 +200,7 @@ class Deck < ActiveRecord::Base
   def explorable?
     return self.open
   end
+  alias_method :is_open?, :explorable?
 
   def is_recommended_by?(user)
     return user.recommendings_of_decks.include?(self)

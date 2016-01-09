@@ -75,6 +75,17 @@ function ajaxToggleFavoriteDeck(deckId, favorite) {
   });
 }
 
+function ajaxGrabUsersList(userId, type) {
+    $.ajax({
+	type: "GET",
+	url: "/users/listings",
+	data: { user_id: userId, type: type },
+	contentType: "script",
+	success: function(data) {
+	}
+    });
+}
+
 function validateLogInForm() {
     var valid = true;
     var msgs = [];

@@ -158,9 +158,10 @@ $info-toggle-size: 80px;
     }
     .card-text-title h1 {
 	font-size: $text-title-font-size;
-	padding-bottom: 15px;
+	padding-bottom: 10px;
     }
     .text-type-side {
+	padding: 17px;
 	border: 1px solid $deck-stroke;
     }
     /* end text card */
@@ -230,22 +231,65 @@ $info-toggle-size: 80px;
 	}
     }
 }
-#home-main-contents-wrapper {
+#home-main-contents-wrapper, #explore-main-contents-wrapper {
     width: $home-total-width;
     margin: auto;
+    position: relative;
+    top: 40px;
+    @include tablet-portrait-and-below {
+	left: -10px;
+	width: $home-total-width - $home-card-width - 2*$home-card-margin;
+    }
 }
 
 /* Recommend-contents region */
 #recommended-contents-wrapper {
     width: $recommended-contents-width;
     min-height: $home-card-min-height;
-    position: relative;
-    top: 40px;
-    padding-left: $recommended-contents-left-padding;
+    position: absolute;
+    left: 0;
+    top: 0;
     //left: 10%;
-    @include tablet_landscape_and_below {
+    @include tablet-portrait-and-below {
 	left: 30px;
+	width: $recommended-contents-width - $home-card-width - 2*$home-card-margin;
     }
+}
+
+#explore-main-contents-wrapper {
+    #recommended-contents-wrapper {
+	position: relative;
+	margin: auto;
+    }
+}
+
+#home-side-contents-wrapper {
+    width: $side-contents-width;
+    overflow: auto;
+    position: absolute;
+    right: -10px;
+    top: 0;
+    @include tablet-portrait-and-below {
+	width: $side-contents-width * 0.8;
+    }
+
+    .side-content-part {
+	min-height: 10px;
+	background-color: $white;
+	padding: 10px;
+	padding-left: 15px;
+	@include border-radius($default-border-radius);
+	margin-bottom: 20px;
+	h3 {
+	    color: $deck-title-color;
+	    padding-top: 10px;
+	    padding-bottom: 15px;
+	}
+    }
+}
+
+#recommended-contents-wrapper, #home-side-contents-wrapper {
+    
 }
 
 /* No content msg */
@@ -528,8 +572,8 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     }
     .profile {
 	img {
-	    width: 100%;
-	    height: 100%;
+	    width: 38px;
+	    height: 38px;
 	    @include border-radius(50%);
 	}
     }
@@ -557,6 +601,9 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     position: relative;
     left: $whole-contents-left-shift;
     top: 40px;
+    @include tablet_portrait_and_below {
+	left: $whole-contents-left-shift + 25px;
+    }
 }
 
 .left-contents-wrapper, .right-contents-wrapper {
@@ -571,6 +618,10 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 .right-contents-wrapper {
     width: $right-contents-width;
     margin-left: $left-gap;
+    @include tablet_portrait_and_below {
+	width: 100%;
+	margin-left: 0px;
+    }
 }
 
 /* Profile picture and user stats */
@@ -644,6 +695,9 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     background-color: $profpic-bg;
     @include border-radius($default-border-radius);
     position: relative;
+    @include tablet-portrait-and-below {
+	max-width: $deck-width * 3 + 65px; // exactly matches 3 decks
+    }
 
     ul {
 	list-style-type: none;
@@ -702,11 +756,6 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     top: $vertical-gap;
     @include box-sizing(border-box);
     @include border-radius($default-border-radius);
-    //top: 40px;
-    //left: 10%;
-    @include tablet_landscape_and_below {
-	left: 30px;
-    }
 }
 
 .time-period, #hot-contents {
@@ -758,6 +807,10 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     margin-bottom: $deck-display-gap;
     margin-right: $deck-display-gap;
     @include border-radius($default-border-radius);
+}
+
+.one-deck.private-deck {
+    background-color: $light-grey;
 }
 
 .one-deck {
@@ -933,4 +986,49 @@ button.deck-favorite-btn.favored {
     &:active {
 	background-color: darken(#E6E6E6, 15%);
     }
+}
+
+/* short bar to display user's profile and name */
+.user-short-info {
+    overflow: hidden;
+    margin-bottom: 12px;
+    position: relative;
+    .short-info-profile, .short-info-name {
+	float: left;
+    }
+    .short-info-profile {
+	width: $short-info-avatar-size;
+	height: $short-info-avatar-size;
+	img {
+	    width: $short-info-avatar-size;
+	    height: $short-info-avatar-size;
+	    @include border-radius(50%);
+	}
+    }
+    .short-info-name {
+	margin-top: ($short-info-avatar-size - $short-info-name-font-size ) / 2;
+	position: absolute;
+	left: $short-info-avatar-size + 10px;
+	a {
+	    font-weight: 600;
+	    font-size: $short-info-name-font-size;
+	    color: $deck-title-color;
+	    &:hover {
+		color: $decent-blue;
+	    }
+	}
+    }
+
+    .follow-btn {
+	width: 20px;
+	height: 20px;
+	font-size: 14px;
+	position: absolute;
+	right: 0px;
+	top: 6px;
+    }
+}
+
+.user-short-info:last-child {
+    margin-bottom: 0px;
 }

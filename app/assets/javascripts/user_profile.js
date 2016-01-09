@@ -125,15 +125,15 @@ function ajaxGrabCardsForProfile(userId, type, more) {
 
       if (type === "hot") {
 	$("#hot-contents").masonry({
-	  columnWidth: 270,
-	  gutter: 20,
+	  columnWidth: 240,
+	  gutter: 10,
 	  itemSelector: ".home-card",
 	  transitionDuration: 0
 	});
       } else if (type === "all") {
 	$(".time-period").masonry({
-	  columnWidth: 270,
-	  gutter: 20,
+	  columnWidth: 240,
+	  gutter: 10,
 	  itemSelector: ".home-card",
 	  transitionDuration: 0
 	});
@@ -183,8 +183,8 @@ ProfileCardsHandler.prototype.showCardInfo = function() {
   // show the panels, with quick animation
   // first place the panels at the same position
   // as the parent card, then do the slide
-  var width = 250;
-  var margin = 40;
+  var width = 220;
+  var margin = 30;
   //var height = $("#" + handler.focusingCardId).outerHeight();
   var cardPosition = $("#" + handler.focusingCardId).position();
 

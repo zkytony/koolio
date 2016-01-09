@@ -134,7 +134,7 @@ CardsHandler.prototype.showCardInfo = function() {
   // show the panels, with quick animation
   // first place the panels at the same position
   // as the parent card, then do the slide
-  var width = 250;
+  var width = 220;
   var margin = 30;
   //var height = $("#" + handler.focusingCardId).outerHeight();
   var cardPosition = $("#" + handler.focusingCardId).position();

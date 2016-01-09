@@ -1,0 +1,23 @@
+<div class="no-content-msg">
+  <div class="msg-title">
+    it's empty here.
+  </div>
+  <div class="msg-suggestions">
+    <ul>
+      <%= link_to explore_path, data: { no_turbolink: true } do %>
+	<li>
+	  explore koolio
+	  <i class="fa fa-compass"></i>
+	</li>
+      <% end %>
+      <li class="no-effect">
+	follow people, and 'favorite' decks
+	<i class="fa fa-eye"></i>
+      </li>
+      <li id="add-card-prompt">
+	create a card
+	<i class="fa fa-plus-circle"></i>
+      </li>
+    </ul>
+  </div>
+</div>

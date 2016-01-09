@@ -2,11 +2,15 @@
 @import "_mixins";
 
 .nav-wrapper {
-    @include content-wrapper($nav-width, 100%);
+    width: $nav-width;
+    margin: auto;
     background-color: $nav-bg-color;
     padding: 10px;
     position: relative;
     top: 0;
+    @include tablet-portrait-and-below {
+	width: 650px;
+    }
 }
 
 
@@ -20,12 +24,10 @@
 }
 
 .nav-first-part {
-    //float: left;
     width: $nav-first-part-width;
     height: $nav-height;
-    @include tablet-landscape-and-below {
-	width: $nav-first-part-width;
-//	width: 72%;
+    @include tablet-portrait-and-below {
+	width: 400px;
     }
     position: absolute;
     left: -7px;
@@ -62,7 +64,7 @@
     }
     width: $nav-logo-width;
     margin-right: $nav-logo-margin-right;
-    @include tablet-landscape-and-below {
+    @include tablet-portrait-and-below {
 	margin-right: $nav-logo-margin-right - 10px;;
     }
 }
@@ -76,6 +78,9 @@
 	padding-left: 5px;
 	border: 1px solid $deck-stroke;
 	@include border-radius(3px);
+	@include tablet-portrait-and-below {
+	    width: $nav-search-field-width * 0.5;
+	}
     }
 }
 
@@ -159,7 +164,7 @@ $nav-dropdown-bg: $white;
     @include box-shadow(0px, 0px, 10px, lighten($healthy-black, 40%));
     @include border-radius(2px);
 
-    @include tablet-landscape-and-below {
+    @include tablet-portrait-and-below {
 	right: 0px;
     }
 
@@ -238,7 +243,7 @@ $nav-inbox-padding: 20px;
     @include border-radius($default-border-radius);
     @include box-sizing(border-box);
 
-    @include tablet-landscape-and-below {
+    @include tablet-portrait-and-below {
 	right: 0px;
     }
 

@@ -70,12 +70,12 @@ $nav-bg-color: $bg-color;
 $nav-logo-color: $white;
 
 /* Home cards */
-$home-card-width: 250px;
+$home-card-width: 220px;
 $home-card-min-height: $home-card-width;
 $home-card-margin: 15px;
 /*** TEXT ***/
-$text-body-font-size: 18px;
-$text-title-font-size: 24px;
+$text-body-font-size: 16px;
+$text-title-font-size: 22px;
 $text-default-bg: #FCFCFC;
 $text-default-font-color: #808080;
 /*** IMG card ***/
@@ -85,8 +85,8 @@ $img-descp-font-size: 19px;
 $img-descp-color: #F7F7F7;
 /* Home page wrappers arrangement */
 $recommended-contents-width: 3 * $home-card-width + $home-card-margin * 6;
-$side-contents-width: 0px; // no need for now //$home-card-width + $home-card-margin;
-$home-total-width: $recommended-contents-width + $side-contents-width;
+$side-contents-width: 180px; // no need for now //$home-card-width + $home-card-margin;
+$home-total-width: $recommended-contents-width + $side-contents-width + 45px;
 $recommended-contents-left-padding: $home-card-margin;
 /* info panels */
 $info-panel-bg: #E6E6E6;
@@ -99,13 +99,13 @@ $deck-cards-padding-top: 20px;
 
 /* Navbar variables */
 $nav-height: 40px;
-$nav-width: $home-total-width * 1.27;//85%;//$home-total-width + ;
+$nav-width: $home-total-width;//85%;//$home-total-width + ;
 $nav-padding: 10px;
 $nav-logo-size: 38px;
 $nav-logo-width: $nav-logo-size;//150px;
 $nav-logo-margin-right: 20px;
 $nav-search-field-height: $nav-height - 12px;
-$nav-search-field-width: 600px;
+$nav-search-field-width: 560px;
 $nav-search-field-font-size: 14px;
 $nav-option-padding: 20px;
 $nav-option-btn-size: $nav-height;
@@ -174,3 +174,14 @@ $deck-delete-btn-color: #ED5E68;
 $deck-stroke: #E6E6E6;
 // deck show
 $deck-favorite-btn-width: 75px;
+$left-gap: 65px;
+$deck-info-panel-width: 190px;
+$deck-info-panel-padding: 20px;
+$deck-title-color: #808080;
+$deck-descp-color: #999999;
+$deck-stats-color: #B3B3B3;
+$deck-main-contents-width: $nav-width + 2 * $nav-padding;
+$deck-cards-container-width: $deck-main-contents-width - $deck-info-panel-width - $left-gap;
+// user short bar
+$short-info-avatar-size: 33px;
+$short-info-name-font-size: 14px;

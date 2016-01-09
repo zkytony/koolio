@@ -16,33 +16,16 @@
       <!-- end info panels -->
     <% else %>
       <!-- NO CONTENT MESSAGE -->
-      <div class="no-content-msg">
-	<div class="msg-title">
-	  it's empty here.
-	</div>
-	<div class="msg-suggestions">
-	  <ul>
-	    <%= link_to explore_path, data: { no_turbolink: true } do %>
-	      <li>
-		explore koolio
-		<i class="fa fa-compass"></i>
-	      </li>
-	    <% end %>
-	    <li class="no-effect">
-	      follow people, and 'favorite' decks
-	      <i class="fa fa-eye"></i>
-	    </li>
-	    <li id="add-card-prompt">
-	      create a card
-	      <i class="fa fa-plus-circle"></i>
-	    </li>
-	  </ul>
-	</div>
-      </div>
+      <%= render partial: "shared/no_content_msg" %>
       <!-- NO CONTENT MESSAGE -->
     <% end %>
   </div>
-  <div id="home-side-contents-wrapper"></div>
+  <div id="home-side-contents-wrapper">
+    <div class="side-content-part" id="list_mutual_followers">
+      <h3>Mutual followers</h3>
+      <div class="users-list"></div>
+    </div>
+  </div>
 </div>
 <% if @user.activated? %>
   <div class="add-card-btn-container">

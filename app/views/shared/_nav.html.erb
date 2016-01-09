@@ -30,7 +30,7 @@
 	    <a href="#"><i class="fa fa-inbox"></i></a>
 	    <%= render partial: "shared/nav_inbox" %>
 	  </div>
-	  <div class="nav-username" id="nav-username">
+	  <div class="nav-username" id="nav-username" data-userid="<%="#{current_user.id}"%>">
 	    <p><%= current_user.username %></p>
 	    <%= render partial: "shared/nav_dropdown" %>
 	  </div>

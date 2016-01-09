@@ -2,16 +2,6 @@
 @import "_mixins";
 @import "main";
 
-$left-gap: 80px;
-$deck-info-panel-width: 190px;
-$deck-info-panel-padding: 20px;
-$deck-title-color: #808080;
-$deck-descp-color: #999999;
-$deck-stats-color: #B3B3B3;
-$deck-author-avatar-size: 33px;
-$deck-author-name-font-size: 14px;
-$deck-main-contents-width: $nav-width + 2 * $nav-padding;
-$deck-cards-container-width: $deck-main-contents-width - $deck-info-panel-width - $left-gap;
 .main-contents-wrapper {
     width: $deck-main-contents-width;
     left: 0px;
@@ -57,47 +47,20 @@ $deck-cards-container-width: $deck-main-contents-width - $deck-info-panel-width 
 	    font-size: 11px;
 	}
     }
-    .deck-author-info {
-	overflow: hidden;
-	margin-bottom: 12px;
-	.deck-author-profile, .deck-author-name {
-	    float: left;
-	}
-	.deck-author-profile {
-	    width: $deck-author-avatar-size;
-	    height: $deck-author-avatar-size;
-	    img {
-		width: $deck-author-avatar-size;
-		height: $deck-author-avatar-size;
-		@include border-radius(50%);
-	    }
-	}
-	.deck-author-name {
-	    margin-left: 13px;
-	    margin-top: ($deck-author-avatar-size - $deck-author-name-font-size ) / 2;
-	    a {
-		font-weight: 600;
-		font-size: $deck-author-name-font-size;
-		color: $deck-title-color;
-		&:hover {
-		    color: $decent-blue;
-		}
-	    }
-	}
-    }
-
-    .deck-author-info:last-child {
-	margin-bottom: 0px;
-    }
 }
 
 .right-contents-wrapper, #deck-cards-container {
     width: $deck-cards-container-width;
     margin-left: $left-gap;
+    @include tablet-portrait-and-below {
+	margin-left: 30px;
+    }
 }
 
 #deck-cards-container {
-
+    position: absolute;
+    right: -15px;
+    top: 0px;
 }
 
 $deck-select-cards-btn-width: 90px;

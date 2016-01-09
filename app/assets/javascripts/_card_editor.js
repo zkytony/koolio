@@ -392,21 +392,11 @@ ImageEditor.prototype.init = function() {
 	  $("#" + imageEditor.side + "-url-alert-msg").addClass("hidden");
 	  $("#" + imageEditor.side + "-img-link-paste").addClass("hidden");
 	  $("#" + imageEditor.side + "-img-link-paste").val("");
-	  // now send an ajax request to the file uploader, and let
-	  // the server side download and save the iamge.
-//	  var formdata = new FormData();
-//	  formdata.append("target", url);
-//	  formdata.append("file_type", "img");
-//	  formdata.append("source_type", "link");
 
 	  $("#" + imageEditor.side + "-img-to-crop").attr("src", url);
 	  imageEditor.currentSource = "link";
 	  imageEditor.currentTarget = url;
 	  imageEditor.cropPhase();
-
-//	  imageEditor.sendFileAJAX(formdata, function(output) {
-//	    imageEditor.displayPhase(output);
-//	  });
 	}
       });
     }
@@ -418,7 +408,7 @@ ImageEditor.prototype.init = function() {
 
 function initJCrop(side) {
   $("#" + side + "-img-to-crop").Jcrop({
-    setSelect: [0, 0, 250, 250],
+    setSelect: [0, 0, 230, 230],
     aspectRatio: 1,
     boxWidth: 500,
     boxHeight: 450,

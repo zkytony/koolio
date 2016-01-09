@@ -9,7 +9,7 @@ body {
     background-attachment: fixed;
     @include background-size(cover);
 
-    @include tablet-landscape-and-below {
+    @include tablet-portrait-and-below {
 	
     }
 }

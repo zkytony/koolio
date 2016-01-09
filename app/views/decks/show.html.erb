@@ -33,14 +33,7 @@
       </div>
     </div>
     <% @deck.editors.each do |editor| %>
-      <div class="deck-author-info">
-	<div class="deck-author-profile">
-	  <img src="<%= "#{editor.my_avatar!('front')}" %>" alt="FRONT">
-	</div>
-	<div class="deck-author-name">
-	  <%= link_to "#{editor.username}", user_profile_path(editor), data: { no_turbolink: true} %>
-	</div>
-      </div>
+      <%= render partial: "shared/user_bar", locals: { user: editor } %>
     <% end %>
     <%= render partial: "shared/favorite_deck_button", locals: { deck: @deck } %>
   </div>

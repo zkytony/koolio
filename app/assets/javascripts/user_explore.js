@@ -7,7 +7,7 @@ $(document).ready(function() {
   $("#nav-explore-btn").addClass("nav-option-highlighted");
 
   $("#recommended-contents-wrapper").masonry({
-    columnWidth: 270,
+    columnWidth: 240,
     gutter: 10,
     itemSelector: '.home-card',
     transitionDuration: 0

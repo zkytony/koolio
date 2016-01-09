@@ -251,6 +251,17 @@ class UsersController < ApplicationController
     end
   end
 
+  # get list of users matching the given type and render json
+  def listings
+    user = User.find(params[:user_id])
+    @type = params[:type]
+    @list = GrabUsersList.call(user, @type)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     
     # strong parameter

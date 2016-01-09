@@ -157,7 +157,7 @@ AvatarEditor.prototype.init = function() {
 
   function initJCrop() {
     $("#" + avatarEditor.side + "-img-to-crop").Jcrop({
-      setSelect: [0, 0, 250, 250],
+      setSelect: [0, 0, 220, 220],
       aspectRatio: 1,
       boxWidth: 500,
       boxHeight: 450,

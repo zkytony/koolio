@@ -1,0 +1,9 @@
+<div class="user-short-info" id="short_info_<%="#{user.id}"%>">
+  <div class="short-info-profile">
+    <img src="<%= "#{user.my_avatar!('front')}" %>" alt="FRONT">
+  </div>
+  <div class="short-info-name">
+    <%= link_to "#{user.username}", user_profile_path(user), data: { no_turbolink: true} %>
+  </div>
+  <%= render partial: "shared/follow_button", locals: { user: user } %>
+</div>

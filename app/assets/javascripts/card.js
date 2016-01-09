@@ -52,11 +52,11 @@ function Card(id, side) {
 Card.prototype.adjustCardHeight = function() {
   // if both sides are not image
   if (this.contentType["front"] !== "img" && this.contentType["back"] !== "img") {
-    // if either side is video, limit the max height to 250
+    // if either side is video, limit the max height to 220
     if (this.contentType["front"] === "video" || this.contentType["back"] === "video") {
-      this.s["back"].outerHeight(250);
-      this.s["front"].outerHeight(250);
-      $("#"+this.id).height(250);
+      this.s["back"].outerHeight(220);
+      this.s["front"].outerHeight(220);
+      $("#"+this.id).height(220);
     } else {
       var maxHeight = Math.max(this.s["back"].outerHeight(), this.s["front"].outerHeight());
       this.s["back"].outerHeight(maxHeight);
@@ -64,12 +64,12 @@ Card.prototype.adjustCardHeight = function() {
       $("#"+this.id).height(maxHeight);
     }
   } else if (this.contentType["front"] === "img" && this.contentType["back"] === "img") {
-    // if both sides are images, use 250px
-    this.s["back"].outerHeight(250);
-    this.s["front"].outerHeight(250);
-    $("#"+this.id).height(250);
-    adjustImgSizeByHeight($("#"+this.s["front"].attr("id")+" .card-img .card-img-wrapper img"), 250);
-    adjustImgSizeByHeight($("#"+this.s["back"].attr("id")+" .card-img .card-img-wrapper img"), 250);
+    // if both sides are images, use 220px
+    this.s["back"].outerHeight(220);
+    this.s["front"].outerHeight(220);
+    $("#"+this.id).height(220);
+    adjustImgSizeByHeight($("#"+this.s["front"].attr("id")+" .card-img .card-img-wrapper img"), 220);
+    adjustImgSizeByHeight($("#"+this.s["back"].attr("id")+" .card-img .card-img-wrapper img"), 220);
     return;
   } else {
     // if one side is image, set the height of the card to the height of the
@@ -130,8 +130,8 @@ Card.prototype.focus = function() {
 Card.prototype.unfocus = function() {
   this.focused = false;
   $("#"+this.id).removeClass("focused");
-  this.s["front"].css("max-height", "300px");//css("cssText", "max-height: 300px");
-  this.s["back"].css("max-height", "300px");//css("cssText", "max-height: 300px");
+  this.s["front"].css("max-height", "270px"); // 220 + 50
+  this.s["back"].css("max-height", "270px");
   //this.s["front"].removeAttr("style");
   //this.s["back"].removeAttr("style");
   // if one side is text and overflows, add spoiler at the bottom of the card
