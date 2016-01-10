@@ -145,6 +145,7 @@ class UsersController < ApplicationController
     @more = params[:more] == "true"
     deck_ids = params[:deck_ids]
     @profile_decks = GrabProfileDecks.call(@user, @more, deck_ids)
+    @can_create_deck = @user.id == current_user.id && @user.activated?
     
     respond_to do |format|
       format.js

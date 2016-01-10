@@ -6,4 +6,8 @@ module UsersHelper
       ""
     end
   end
+
+  def show_deck?(deck)
+    (logged_in? && deck.viewable_by?(current_user)) || deck.explorable?
+  end
 end
