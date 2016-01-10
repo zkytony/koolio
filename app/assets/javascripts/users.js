@@ -183,5 +183,5 @@ function validateUsername(username) {
 
 // assume email format is valid
 function validateEduEmail(email) {
-   return email.substring(email.lastIndexOf(".")) === "edu";
+   return email.substring(email.lastIndexOf(".")) === ".edu";
 }
