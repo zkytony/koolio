@@ -10,7 +10,7 @@ CardsHandler.prototype.init = function() {
   // flip when clicked home; support mobile
   $(document).on("click touchstart", ".home-card", function(e) {
     if (!$(e.target).hasClass("no-flip")) {
-      handler.handleFlip(jCard);
+      handler.handleFlip($(this));
     }
   });
 
