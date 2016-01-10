@@ -8,5 +8,7 @@
 <% end %>
 <% @profile_decks.each do |deck| %>
   <%# Take four cards from the deck, ordered by created time %>
-  <%= render partial: "shared/deck", locals: { deck: deck, limit: 4 } %>
+  <% if (logged_in? && deck.viewable_by?(current_user)) || deck.explorable? %>
+    <%= render partial: "shared/deck", locals: { deck: deck, limit: 4 } %>
+  <% end %>
 <% end %>

@@ -5,8 +5,6 @@
         the card is explorable. %>
     <% if current_user.nil? %>
       <% if card.explorable? %>
-	<% card_front = JSON.parse(card.front_content) %>
-	<% card_back = JSON.parse(card.back_content) %>
 	<%= render_card(card, "home-card") %>
       <% end %>
     <% else %>

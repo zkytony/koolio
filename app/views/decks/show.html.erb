@@ -4,50 +4,82 @@
 <%= javascript_include_tag "flexible_cards_handler.js" %>
 <%= javascript_include_tag "decks.js" %>
 <%= render :partial => 'shared/nav' %>
-<% current_editable = @deck.editable_by? current_user %>
-<% if current_editable %>
-  <div class="add-card-btn-container">
-    <button class="add-card-btn" id="add-card-btn"><i class="fa fa-plus"></i></button>
-  </div>
-  <div class="home-card-editor-container" id="editor-container-deck">
-    <%= render :partial => 'shared/card_editor' %>
-  </div>
-<% end %>
-<div class="main-contents-wrapper">
-  <div class="left-contents-wrapper deck-info-panel">
-    <input type="hidden" id="_deck_id" value="<%="#{@deck.id}"%>">
-    <div class="deck-title">
-      <h2><%="#{@deck.title}"%></h2>
-    </div>
-    <div class="deck-descp">
-      <p><%="#{@deck.description}"%></p>
-    </div>
-    <div class="deck-stats">
-      <div class="deck-stat-item">
-	<div class="deck-stat-num" id="deck_cards_num"><%="#{@deck.cards.count}"%></div>
-	<div class="deck-stat-for">Cards</div>
-      </div>
-      <div class="deck-stat-item">
-	<div class="deck-stat-num" id="deck_favs_num"><%="#{@deck.favoring_users.count}"%></div>
-	<div class="deck-stat-for">Favorites</div>
-      </div>
-    </div>
-    <% @deck.editors.each do |editor| %>
-      <%= render partial: "shared/user_bar", locals: { user: editor } %>
-    <% end %>
-    <%= render partial: "shared/favorite_deck_button", locals: { deck: @deck } %>
-  </div>
-  <div class="right-contents-wrapper" id="deck-cards-container">
-    <%= render partial: "shared/deck_cards" %>
-  </div>
-  <div class="deck-option-btns">
+<% if @viewable %>
+  <% current_editable = @deck.editable_by? current_user %>
   <% if current_editable %>
-      <button id="deck-select-cards">select cards</button>
-      <button class="hidden" id="deck-delete-cards" disabled><i class="fa fa-trash"></i></button>
-  <% else %>
+    <div class="add-card-btn-container">
+      <button class="add-card-btn" id="add-card-btn"><i class="fa fa-plus"></i></button>
+    </div>
+    <div class="home-card-editor-container" id="editor-container-deck">
+      <%= render :partial => 'shared/card_editor' %>
+    </div>
   <% end %>
+  <div class="main-contents-wrapper">
+    <div class="left-contents-wrapper deck-info-panel">
+      <input type="hidden" id="_deck_id" value="<%="#{@deck.id}"%>">
+      <div class="deck-title">
+	<h2><%="#{@deck.title}"%></h2>
+      </div>
+      <div class="deck-descp">
+	<p><%="#{@deck.description}"%></p>
+      </div>
+      <div class="deck-stats">
+	<div class="deck-stat-item">
+	  <div class="deck-stat-num" id="deck_cards_num"><%="#{@deck.cards.count}"%></div>
+	  <div class="deck-stat-for">Cards</div>
+	</div>
+	<div class="deck-stat-item">
+	  <div class="deck-stat-num" id="deck_favs_num"><%="#{@deck.favoring_users.count}"%></div>
+	  <div class="deck-stat-for">Favorites</div>
+	</div>
+      </div>
+      <% @deck.editors.each do |editor| %>
+	<%= render partial: "shared/user_bar", locals: { user: editor } %>
+      <% end %>
+      <%= render partial: "shared/favorite_deck_button", locals: { deck: @deck } %>
+    </div>
+    <div class="right-contents-wrapper" id="deck-cards-container">
+      <%= render partial: "shared/deck_cards" %>
+    </div>
+    <div class="deck-option-btns">
+      <% if current_editable %>
+	<button id="deck-select-cards">select cards</button>
+	<button class="hidden" id="deck-delete-cards" disabled><i class="fa fa-trash"></i></button>
+      <% else %>
+      <% end %>
+    </div>
   </div>
+  <!-- overlays -->
+  <div class="glass-overlay" id="overlay-for-editor"></div>
+  <div class="dark-overlay hidden" id="overlay-for-focus-card"></div>
+<% else %>
+  <!-- Private deck -->
+  <div class="no-content-msg">
+    <div class="msg-title">
+      Access denied.
+    </div>
+    <div class="msg-suggestions">
+      <ul>
+	<%= link_to explore_path, data: { no_turbolink: true } do %>
+	  <li>
+	    explore koolio
+	    <i class="fa fa-compass"></i>
+	  </li>
+	<% end %>
+	<% if !logged_in? %>
+	  <%= link_to root_path, data: { no_turbolink: true } do %>
+	    <li>
+	      Join Koolio here. <i class="fa fa-thumbs-o-up"></i>
+	    </li>
+	  <% end %>
+	<% else %>
+	  <%= link_to current_user, data: { no_turbolink: true } do %>
+	    <li>
+	      Go home. <i class="fa fa-home"></i>
+	    </li>
+	  <% end %>
+	<% end %>
+      </ul>
+    </div>
 </div>
-<!-- overlays -->
-<div class="glass-overlay" id="overlay-for-editor"></div>
-<div class="dark-overlay hidden" id="overlay-for-focus-card"></div>
+<% end %>

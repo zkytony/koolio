@@ -21,14 +21,27 @@ class DecksController < ApplicationController
 
   def show
     @deck = Deck.find(params[:id])
+    @viewable = check_permission_to_view(@deck)
+    if !@viewable
+      render :show
+    end
+    # has the permission
     @more = params[:more] == "true"
     @all = params[:all] == "true"
     
     @grabbed_cards = GrabDeckCards.call(@deck, @more, @all, params[:card_ids])
-    # user may want to create a card in this deck
-    @card = Card.new 
-    # user may want to make a comment
-    @comment = Comment.new
+    if logged_in?
+        if @deck.viewable_by? current_user
+          # user may want to create a card in this deck
+          @card = Card.new 
+          # user may want to make a comment
+          @comment = Comment.new
+        else
+          @viewable = false
+        end
+    elsif 
+      @viewable = false
+    end
   end
 
   def edit
@@ -151,5 +164,16 @@ class DecksController < ApplicationController
         tags: tags, 
         open: params[:deck_property] == "public" 
       }
+    end
+
+    def check_permission_to_view(deck)
+      if logged_in?
+        if !deck.viewable_by? current_user
+          return false
+        end
+      elsif !deck.explorable?
+        return false
+      end
+      true
     end
 end
