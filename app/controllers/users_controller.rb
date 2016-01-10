@@ -60,18 +60,22 @@ class UsersController < ApplicationController
 
   def show
     if logged_in?
-      @user = User.find(params[:id])
-      @more = params[:more] == "true"
-      # more may be nil, since some request may not 
-      # have this parameter
-      @recommended = RecommendContent.call(@user, @more, params[:card_ids], :home)
+      if current_user.id.to_s != params[:id]
+        raise ActionController::RoutingError.new('Not Found')
+      else
+        @user = current_user
+        @more = params[:more] == "true"
+        # more may be nil, since some request may not 
+        # have this parameter
+        @recommended = RecommendContent.call(@user, @more, params[:card_ids], :home)
 
-      # default deck
-      @deck = @user.decks.first #find_by(title: "default")
-      # user may want to create a card in home page
-      @card = Card.new 
-      # user may want to make a comment
-      @comment = Comment.new
+        # default deck
+        @deck = current_user.decks.first #find_by(title: "default")
+        # user may want to create a card in home page
+        @card = Card.new 
+        # user may want to make a comment
+        @comment = Comment.new
+      end
     else
       redirect_to root_path
     end
