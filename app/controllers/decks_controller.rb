@@ -94,13 +94,20 @@ class DecksController < ApplicationController
 
   def card_show
     @deck = Deck.find(params[:deck_id])
+    @viewable = check_permission_to_view(@deck)
+    if !@viewable
+      render :show
+    end
+
     @more = params[:more] == "true"
 
     @grabbed_cards = GrabDeckCards.call(@deck, @more, true, params[:card_ids])
-    # user may want to create a card in this deck
-    @card = Card.new 
-    # user may want to make a comment
-    @comment = Comment.new
+    if logged_in?
+      # user may want to create a card in this deck
+      @card = Card.new 
+      # user may want to make a comment
+      @comment = Comment.new
+    end
     render :show
   end
 
