@@ -7,13 +7,10 @@ function CardsHandler() {
 
 CardsHandler.prototype.init = function() {
   var handler = this;
-  // flip when clicked home card
-  $(document).on('click', '.home-card', function(e) {
-    // check if the target has class that's in the flipExceptionList
+  // flip when clicked home; support mobile
+  $(document).on("click touchstart", ".home-card", function(e) {
     if (!$(e.target).hasClass("no-flip")) {
-      //flip($(this));
-
-      handler.handleFlip($(this));
+      handler.handleFlip(jCard);
     }
   });
 
