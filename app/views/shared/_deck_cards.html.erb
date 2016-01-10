@@ -1,8 +1,8 @@
 <% liked_card = false %>
-<% if logged_in? %>
-  <% current_user.liked_card?(card) %>
-<% end %>
 <% @grabbed_cards.each do |card| %>
+  <% if logged_in? %>
+    <% liked_card = current_user.liked_card?(card) %>
+  <% end %>
   <% card_front = JSON.parse(card.front_content) %>
   <% card_back = JSON.parse(card.back_content) %>
   <%= render partial: "shared/card", locals: { category_class: "home-card", card_id: card.id,

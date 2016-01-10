@@ -1,11 +1,15 @@
+<% liked_card = false %>
 <% if @type == "hot" %>
+  <% if logged_in? %>
+    <% liked_card = current_user.liked_card?(card) %>
+  <% end %>
   <% @profile_cards.each do |card| %>
     <% card_front = JSON.parse(card.front_content) %>
     <% card_back = JSON.parse(card.back_content) %>
     <%= render partial: "shared/card", locals: { category_class: "home-card", card_id: card.id,
 						card_front_type: card_front['type'], card_front_content: card_front['content'],
 						card_back_type: card_back['type'], card_back_content: card_back['content'],
-						current_user_liked_card: current_user.liked_card?(card)
+						current_user_liked_card: liked_card
 						} %>
   <% end %>
 <% else %>
@@ -14,12 +18,15 @@
     <div class="time-period">
       <div class="time-ago"><%= "#{key}"%></div>
       <% @profile_cards[key].each do |card| %>
+	<% if logged_in? %>
+	  <% liked_card = current_user.liked_card?(card) %>
+	<% end %>
 	<% card_front = JSON.parse(card.front_content) %>
 	<% card_back = JSON.parse(card.back_content) %>
 	<%= render partial: "shared/card", locals: { category_class: "home-card", card_id: card.id,
 						    card_front_type: card_front['type'], card_front_content: card_front['content'],
 						    card_back_type: card_back['type'], card_back_content: card_back['content'],
-						    current_user_liked_card: current_user.liked_card?(card)
+						    current_user_liked_card: liked_card
 						    } %>
       <% end %>
     </div>

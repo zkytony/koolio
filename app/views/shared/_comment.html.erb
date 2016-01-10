@@ -7,14 +7,16 @@
       <%= link_to "#{author.username}", user_profile_path(author, data: { no_turbolink: true }) %>
     </div>
     <p class="comment_content""><%="#{content}"%></p>
-    <div class="comment-likes">
-      <% if comment_liked %>
-	<div class="like-comment-btn liked" id="comlk_<%="#{comment_id}"%>">Like</div>
-	<div class="n_comment_likes liked" id="comlkc_<%="#{comment_id}"%>"><%="#{n_likes}"%></div>
-      <% else %>
-        <div class="like-comment-btn" id="comlk_<%="#{comment_id}"%>">Like</div>
-	<div class="n_comment_likes" id="comlkc_<%="#{comment_id}"%>"><%="#{n_likes}"%></div>
-      <% end %>
-    </div>
+    <% if logged_in? %>
+      <div class="comment-likes">
+	<% if comment_liked %>
+	  <div class="like-comment-btn liked" id="comlk_<%="#{comment_id}"%>">Like</div>
+	  <div class="n_comment_likes liked" id="comlkc_<%="#{comment_id}"%>"><%="#{n_likes}"%></div>
+	<% else %>
+          <div class="like-comment-btn" id="comlk_<%="#{comment_id}"%>">Like</div>
+	  <div class="n_comment_likes" id="comlkc_<%="#{comment_id}"%>"><%="#{n_likes}"%></div>
+	<% end %>
+      </div>
+    <% end %>
   </div>
 </div>

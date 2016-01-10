@@ -3,7 +3,7 @@
     <% card = content %>
     <%# For exploring purpose, current_user might be null. Then determine if 
         the card is explorable. %>
-    <% if current_user.nil? %>
+    <% if !logged_in? %>
       <% if card.explorable? %>
 	<%= render_card(card, "home-card") %>
       <% end %>

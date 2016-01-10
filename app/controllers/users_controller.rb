@@ -116,8 +116,11 @@ class UsersController < ApplicationController
 
   def profile
     @user = User.find(params[:user_id])
-    if @user.id == current_user.id
-      @deck = Deck.new # user may want to create a deck
+    if logged_in?
+      @can_create_deck = @user.id == current_user.id && @user.activated?
+      if @can_create_deck
+        @deck = Deck.new # user may want to create a deck
+      end
     end
   end
 
@@ -151,8 +154,11 @@ class UsersController < ApplicationController
   # Goes to decks tab in profile page
   def decks_list
     @user = User.find(params[:user_id])
-    if @user.id == current_user.id
-      @deck = Deck.new # user may want to create a deck
+    if logged_in?
+      @can_create_deck = @user.id == current_user.id && @user.activated?
+      if @can_create_deck
+        @deck = Deck.new # user may want to create a deck
+      end
     end
     render :profile
   end

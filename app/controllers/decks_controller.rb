@@ -31,16 +31,10 @@ class DecksController < ApplicationController
     
     @grabbed_cards = GrabDeckCards.call(@deck, @more, @all, params[:card_ids])
     if logged_in?
-        if @deck.viewable_by? current_user
-          # user may want to create a card in this deck
-          @card = Card.new 
-          # user may want to make a comment
-          @comment = Comment.new
-        else
-          @viewable = false
-        end
-    elsif 
-      @viewable = false
+      # user may want to create a card in this deck
+      @card = Card.new 
+      # user may want to make a comment
+      @comment = Comment.new
     end
   end
 

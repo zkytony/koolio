@@ -15,18 +15,22 @@ $("#n_comments").html(<%="#{@info[:n_comments]}"%>);
 
 $("#deck_author").html("<%= j link_to "#{@info[:author].username}", user_profile_path(@info[:author].id), data: { no_turbolink: true } %>"
 		     + "<%= j render partial: "shared/follow_button", locals: { user: @info[:author] } %>");
-$("#deck_title").html("<%="#{@info[:deck].title}"%>" + 
-		      "<%= j render partial: "shared/favorite_deck_button", locals: { deck: @info[:deck] } %>");
+$("#deck_title").html("<%="#{@info[:deck].title}"%>");
+<% if logged_in? %>
+  $("#deck_title").append("<%= j render partial: "shared/favorite_deck_button", locals: { deck: @info[:deck] } %>");
+<% end %>
 $("#deck-author-pic").attr("src", "<%= "#{@info[:author].my_avatar!('front')}" %>");
 $("#more_cards_in_deck").html("<%= j render partial: "shared/deck", locals: { deck: @info[:deck], limit: 6 } %>");
 
+<% like_comment = false %>
 <% if @info[:comments].length > 0 %>
   <% @info[:comments].each do |comment| %>
+    <% like_comment = current_user.liked_comment?(comment) if logged_in? %>
     $("#comment_list").append("<%= j render partial: "shared/comment", locals: { content: "#{comment.content}",
                                                                                  n_likes: "#{comment.likes}", 
                                                                                  author: comment.user,
                                                                                  comment_id: "#{comment.id}",
-                                                                                 comment_liked: current_user.liked_comment?(comment)}%>");
+                                                                                 comment_liked: like_comment }%>");
   <% end %>
 <% else %>
   $("#comment_list").html("<p>No comments</p>");

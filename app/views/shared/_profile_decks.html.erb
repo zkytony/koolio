@@ -1,4 +1,4 @@
-<% if @user.id == current_user.id && render_btn %>
+<% if @can_create_deck && render_btn %>
   <div class="add-deck-btn deck-square" id="prof-add-deck-btn">
     <div class="add-deck-circle">
       <p>+</p>
