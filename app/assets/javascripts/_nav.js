@@ -21,7 +21,9 @@ $(document).ready(function() {
 	}
     }, "#nav-username");
 
-    $(document).on("click", "#nav-username", function() {
+    $(document).on("click tap", "#nav-username p", function(e) {
+	e.preventDefault();
+
 	if ($("#profile-pic-dropdown").hasClass("hidden")) {
 	    showDropDown();
 	} else {

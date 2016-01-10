@@ -31,7 +31,7 @@
 	    <%= render partial: "shared/nav_inbox" %>
 	  </div>
 	  <div class="nav-username" id="nav-username" data-userid="<%="#{current_user.id}"%>">
-	    <a href="#" class="nav-username-link"><%= current_user.username %></a>
+	    <p><%= current_user.username %></p>
 	    <%= render partial: "shared/nav_dropdown" %>
 	  </div>
 	<% else %>

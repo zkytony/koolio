@@ -8,7 +8,8 @@ function CardsHandler() {
 CardsHandler.prototype.init = function() {
   var handler = this;
   // flip when clicked home; support mobile
-  $(document).on("click touchstart", ".home-card", function(e) {
+  $(document).on("click tap", ".home-card", function(e) {
+    e.preventDefault();
     if (!$(e.target).hasClass("no-flip")) {
       handler.handleFlip($(this));
     }
@@ -49,7 +50,7 @@ CardsHandler.prototype.init = function() {
   // overlay, and change the z-index of the card back
   // to auto. When toggling, checks if this .info-toggle
   // element has .toggle-off class. 
-  $(document).on("click", ".info-toggle", function() {
+  $(document).on("click tap", ".info-toggle", function(e) {
     // only do the following if the dark-overlay is hidden
     if ($("#overlay-for-focus-card").hasClass("hidden")) {
       $("#overlay-for-focus-card").removeClass("hidden");
@@ -59,7 +60,8 @@ CardsHandler.prototype.init = function() {
       handler.handleFocusOff();
     }
   });
-  $(document).on("click", "#overlay-for-focus-card", function() {
+  $(document).on("click tap", "#overlay-for-focus-card", function(e) {
+    e.preventDefault();
     handler.handleFocusOff();
   });
   // When clicked the card like button, send ajax request

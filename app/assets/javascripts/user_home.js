@@ -10,7 +10,8 @@ $(document).ready(function() {
     $("#editor-container-home").css("display", "block");
   });
 
-  $(document).on("click", "#overlay-for-editor", function() {
+  $(document).on("click tap", "#overlay-for-editor", function(e) {
+    e.preventDefault();
     $("#overlay-for-editor").css("display", "none");
     $("#editor-container-home").css("display", "none");
   });

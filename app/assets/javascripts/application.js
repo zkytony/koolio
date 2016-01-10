@@ -15,6 +15,7 @@
 //= require jquery.turbolinks
 //= require turbolinks
 //= require jquery-ui
+//= require jquery.mobile.custom.min
 //= require masonry.pkgd.min
 //= require Jcrop.min
 //= require flip
