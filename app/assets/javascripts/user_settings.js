@@ -174,11 +174,11 @@ AvatarEditor.prototype.init = function() {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
-	$("#" + avatarEditor.side + "-img-to-crop").attr("src", e.target.result);
 	var fileTarget = $("#" + avatarEditor.side + "-side-img-file").prop('files')[0];
-	if (fileTarget.size > 15000) {
+	if (fileTarget.size > 1500000) {
 	  addAlert("error", "Image file too large (Max size: 1.5MB)", 3000);
 	} else {
+	  $("#" + avatarEditor.side + "-img-to-crop").attr("src", e.target.result);
 	  avatarEditor.currentTarget = fileTarget
 	  avatarEditor.currentSource = "upload";
 	  avatarEditor.cropPhase();

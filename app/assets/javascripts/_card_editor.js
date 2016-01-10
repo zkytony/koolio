@@ -306,13 +306,14 @@ ImageEditor.prototype.init = function() {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = function (e) {
-	$("#" + imageEditor.side + "-img-to-crop").attr("src", e.target.result);
 	var fileTarget = $("#" + imageEditor.side + "-side-img-file").prop('files')[0];
 
 	// file size limit: 3.0 MB
 	if (fileTarget.size > 3000000) {
 	  addAlert("error", "Image file too large (Max size: 3.0MB)", 3000);
+	  
 	} else {
+	  $("#" + imageEditor.side + "-img-to-crop").attr("src", e.target.result);
 	  imageEditor.currentTarget = fileTarget;
 	  imageEditor.currentSource = "upload";
 	  imageEditor.cropPhase();
