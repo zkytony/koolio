@@ -169,7 +169,8 @@ class UsersController < ApplicationController
     if logged_in? && current_user.id === @user.id
       
     else
-      redirect_to :back
+      # not found
+      raise ActionController::RoutingError.new('Not Found')
     end
   end
 
