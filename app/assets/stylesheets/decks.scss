@@ -52,6 +52,9 @@
 .right-contents-wrapper, #deck-cards-container {
     width: $deck-cards-container-width;
     margin-left: $left-gap;
+    @include tablet-landscape-and-below {
+	margin-left: 0px;
+    }
     @include tablet-portrait-and-below {
 	margin-left: 30px;
     }

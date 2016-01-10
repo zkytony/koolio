@@ -9,6 +9,7 @@ CardsHandler.prototype.init = function() {
   var handler = this;
   // flip when clicked home; support mobile
   $(document).on("click tap", ".home-card", function(e) {
+    e.stopPropagation();
     e.preventDefault();
     if (!$(e.target).hasClass("no-flip")) {
       handler.handleFlip($(this));
@@ -51,6 +52,9 @@ CardsHandler.prototype.init = function() {
   // to auto. When toggling, checks if this .info-toggle
   // element has .toggle-off class. 
   $(document).on("click tap", ".info-toggle", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
     // only do the following if the dark-overlay is hidden
     if ($("#overlay-for-focus-card").hasClass("hidden")) {
       $("#overlay-for-focus-card").removeClass("hidden");
