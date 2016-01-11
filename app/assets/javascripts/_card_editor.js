@@ -311,8 +311,10 @@ ImageEditor.prototype.init = function() {
 	// file size limit: 3.0 MB
 	if (fileTarget.size > 3000000) {
 	  addAlert("error", "Image file too large (Max size: 3.0MB)", 3000);
-	  
 	} else {
+	  if (fileTarget.type === "image/gif") {
+	    addAlert("info", "Notice: gifs cropping may not produce expected result.", 5000);
+	  }
 	  $("#" + imageEditor.side + "-img-to-crop").attr("src", e.target.result);
 	  imageEditor.currentTarget = fileTarget;
 	  imageEditor.currentSource = "upload";

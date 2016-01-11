@@ -132,9 +132,9 @@ button:disabled {
 }
 
 .fl-alerts {
-    position: absolute;
+    position: fixed;
     top: 7px;
-    z-index: 6;
+    z-index: 8;
     /* center it */
     margin-left: auto;
     margin-right: auto;
