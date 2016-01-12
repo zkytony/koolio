@@ -259,4 +259,23 @@ class User < ActiveRecord::Base
   def activated?
     self.activated
   end
+
+  # returns the first deck created by the user. Usually this will
+  # be the "default" deck. But if that deck is deleted, whichever
+  # deck comes later will be returned. 
+  # If the user has no decks, then this function will create a deck 
+  # "default", and return it.
+  #
+  # This is not desired functionality. Later, we may provide user
+  # the ability to select decks upon creating cards.
+  def first_deck
+    deck = self.decks.first
+    if deck.nil?
+      # Creates a default deck
+      # If a card is not given a deck, it goes to this default deck
+      deck = self.create_deck(title: "default", 
+                              description: "Cards that were not given a deck goes to this deck.")
+    end
+    deck
+  end
 end

@@ -26,6 +26,14 @@ module ApplicationHelper
     end
   end
 
+  def nav_logo_link
+    if logged_in?
+      current_user
+    else
+      explore_path
+    end
+  end
+
   def render_card(card, category_class)
     card_front = JSON.parse(card.front_content)
     card_back = JSON.parse(card.back_content)

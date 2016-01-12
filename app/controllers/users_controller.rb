@@ -70,7 +70,7 @@ class UsersController < ApplicationController
         @recommended = RecommendContent.call(@user, @more, params[:card_ids], :home)
 
         # default deck
-        @deck = current_user.decks.first #find_by(title: "default")
+        @deck = current_user.first_deck
         # user may want to create a card in home page
         @card = Card.new 
         # user may want to make a comment
@@ -83,8 +83,8 @@ class UsersController < ApplicationController
 
   # explore page. grab the popular only
   def explore
+    @more = params[:more] == "true"
     if logged_in?
-      @more = params[:more] == "true"
       @recommended = RecommendContent.call(current_user, @more, params[:card_ids], :explore)
 
       # user may want to make a comment

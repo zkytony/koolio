@@ -56,9 +56,14 @@ class DecksController < ApplicationController
     end
   end
 
+  # only destroy the deck if the current user is
+  # the creator of the deck
   def destroy
     @deck = Deck.find(params[:id])
-    @deck.destroy
+    if logged_in? && @deck.creator?(current_user)
+      @deck.destroy
+      @deleted = true
+    end
     
     respond_to do |format|
       format.js

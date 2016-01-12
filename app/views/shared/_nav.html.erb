@@ -4,7 +4,9 @@
       <!-- Nav First Part -->
       <div class="nav-first-part">
 	<div class="nav-logo">
-	  <%= image_tag "tmp/logo.png" %>
+	  <%= link_to nav_logo_link, data: { no_turbolink: true } do %>
+	    <%= image_tag "tmp/logo.png" %>
+	  <% end %>
 	</div>
 	<div class="nav-search-wrapper">
 	  <%= form_tag "/search", method: "get", class: "nav-search-form", id: "nav-search" do %>
