@@ -9,11 +9,14 @@ class Relationship < ActiveRecord::Base
   # as a notifier of followed by a user
   def message
     {
-      who: self.follower_id,
-      action: "followed by",
-      target_type: nil,
-      target_id: nil,
+      who: self.follower.username,
+      who_id: self.follower_id,
+      who_link: "/users/#{self.follower_id}/profile",
+      action: "followed",
+      target_type: "User",
+      target_id: self.followed_id,
+      target_identifier: "you",
       when: self.created_at
-    }.to_json
+    }
   end
 end
