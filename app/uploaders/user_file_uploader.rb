@@ -3,7 +3,7 @@
 class UserFileUploader < CarrierWave::Uploader::Base
 
   include CarrierWave::MiniMagick
-  storage :fog
+  storage ENV['STORAGE_TYPE'].to_sym
 
   IMAGE_EXTENSIONS = %w(jpg jpeg gif png)
   VIDEO_EXTENSIONS = %w(mp4)
@@ -44,9 +44,9 @@ class UserFileUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   # 250 is the default minimum width/height of a card
   # 300 is the maximum height of a card
-  # version :thumb, :if => :image? do
-  #    resize_to_fill(300, 300, 'Center')
-  # end
+  version :thumb, :if => :thumb_enabled? do
+      resize_to_fill(300, 300, 'Center')
+  end
 
   version :cropped, :if => :image? do
     process_extensions IMAGE_EXTENSIONS, :crop
@@ -71,6 +71,10 @@ class UserFileUploader < CarrierWave::Uploader::Base
 
   def image?(new_file)
     new_file.content_type.include? 'image'
+  end
+
+  def thumb_enabled?(new_file)
+    ENV['STORAGE_TYPE'] == "file" && image?(new_file)
   end
 
   def video?(new_file)

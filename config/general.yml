@@ -1,0 +1,7 @@
+# General settings
+ENABLE_MAILER: 'on'
+# Storage type for carrierwave uploader. The value can either
+# be 'fog' or 'file'. If it is set to 'fog', you will need
+# to provide the appropriate configurations for the remote
+# storage that you are using.
+STORAGE_TYPE: fog

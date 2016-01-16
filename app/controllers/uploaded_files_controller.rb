@@ -12,7 +12,11 @@ class UploadedFilesController < ApplicationController
     uploaded_file = CreateUploadedFile.call(params[:target], params[:file_type], params[:source_type], coords, current_user)
     if uploaded_file
       file_uri = URI.parse(uploaded_file.name.url)
-      root_url = "#{file_uri.scheme}://#{file_uri.host}"
+      if !file_uri.host.nil? || !file_uri.scheme.nil?
+        root_url = "#{file_uri.scheme}://#{file_uri.host}"
+      else
+        root_url = ""
+      end
 
       # return a json containing the path of the file
       respond_to do |format|

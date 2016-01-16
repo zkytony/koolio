@@ -35,6 +35,16 @@ module Koolio
       YAML.load(File.open(env_file)).each do |key, value|
         ENV[key.to_s] = value
       end if File.exists?(env_file)
+
+      env_file = File.join(Rails.root, 'config', 'general.yml')
+      YAML.load(File.open(env_file)).each do |key, value|
+        if key.to_s == "STORAGE_TYPE"
+          if value != "fog" && value != "file"
+            raise "STORAGE_TYPE must be fog or file. Given: #{value}"
+          end
+        end
+        ENV[key.to_s] = value
+      end if File.exists?(env_file)
     end
   end
 end

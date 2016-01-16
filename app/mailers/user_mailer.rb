@@ -1,17 +1,23 @@
 class UserMailer < ApplicationMailer
 
   def signup_email(user)
-    @user = user
-    mail from: ENV["NOTIFICATION_EMAIL"], to: user.email, subject: "Sign up Confirmation"
+    if ENV['ENABLE_MAILER'].downcase == 'on'
+      @user = user
+      mail from: ENV["NOTIFICATION_EMAIL"], to: user.email, subject: "Sign up Confirmation"
+    end
   end
 
   def activate_email(user)
-    @user = user
-    mail from: ENV["NOTIFICATION_EMAIL"], to: user.email, subject: "Activate your account"
+    if ENV['ENABLE_MAILER'].downcase == 'on'
+      @user = user
+      mail from: ENV["NOTIFICATION_EMAIL"], to: user.email, subject: "Activate your account"
+    end
   end
 
   def reset_password_email(user)
-    @user = user
-    mail from: ENV["NOTIFICATION_EMAIL"], to: user.email, subject: "Reset password"
+    if ENV['ENABLE_MAILER'].downcase == 'on'
+      @user = user
+      mail from: ENV["NOTIFICATION_EMAIL"], to: user.email, subject: "Reset password"
+    end
   end
 end
