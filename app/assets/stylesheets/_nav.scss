@@ -52,6 +52,7 @@
 }
 
 .nav-logo {
+    position: relative;
     a {
 	color: $nav-logo-color;
     }
@@ -61,6 +62,8 @@
     img {
 	width: $nav-logo-size;
 	height: $nav-logo-size;
+	position: relative;
+	top: -10px;
     }
     width: $nav-logo-width;
     margin-right: $nav-logo-margin-right;
@@ -93,9 +96,9 @@
     height: $nav-option-btn-size;
     font-size: $nav-option-btn-size;
     a {
-	color: $light-grey;
+	color: lighten($darker-grey, 5%);
 	&:hover {
-	    color: $white;
+	    color: $darker-grey;
 	}
     }
     a.disabled {
@@ -110,7 +113,10 @@
 
 .nav-option-highlighted, .nav-option-sign-in {
     a {
-	color: $white;
+	color: darken($darker-grey, 15%);
+	&:hover {
+	    color: darken($darker-grey, 15%);
+	}
     }
 }
 
@@ -150,7 +156,7 @@
 }
 
 // add a triangle
-$nav-dropdown-bg: $white;
+$nav-dropdown-bg: #FFFFFF;
 .nav-dropdown:before {
     @include little-triangle(10px, 10px, 10px, $nav-dropdown-bg);
     position: absolute;
@@ -166,7 +172,7 @@ $nav-dropdown-bg: $white;
     right: 0;
     padding: 0px 2px;
     z-index: 10;
-    @include box-shadow(0px, 0px, 10px, lighten($healthy-black, 40%));
+    border: 1px solid $deck-stroke;
     @include border-radius(2px);
 
     @include tablet-portrait-and-below {
@@ -191,7 +197,7 @@ $nav-dropdown-bg: $white;
 		display: block;
 		width: 90%;
 		padding: 5px;
-		color: $decent-purple;
+		color: darken($darker-grey, 25%);
 		.fa {
 		    position: absolute;
 		    right: 10px;
@@ -199,7 +205,7 @@ $nav-dropdown-bg: $white;
 		}
 		&:hover {
 		    color: $white;
-		    background-color: $decent-purple;
+		    background-color: $decent-blue;
 		    .fa {
 			color: $light-grey;
 		    }
@@ -208,7 +214,8 @@ $nav-dropdown-bg: $white;
 	}
 	li.nav-dropdown-link:hover {
 	    color: $white;
-	    background-color: $decent-purple;
+	    background-color: $decent-blue;
+
 	    .fa {
 		color: $light-grey;
 	    }
@@ -229,11 +236,16 @@ $nav-avatar-size: 42px;
 }
 
 $nav-inbox-width: 300px;
-$nav-inbox-min-height: 200px;
+$nav-inbox-min-height: 40px;
 $nav-inbox-item-font-size: 14px;
-$nav-inbox-bg: #E6E6E6;
-$nav-inbox-item-bg: #F6F6F6;
-$nav-inbox-padding: 20px;
+$nav-inbox-bg: #FFFFFF;
+$nav-inbox-item-bg: #FFFFFF;
+.nav-inbox:before {
+    @include little-triangle(10px, 10px, 10px, $nav-inbox-bg);
+    position: absolute;
+    top: -8px;
+    right: 14px;;
+}
 // nav inbox
 .nav-inbox {
     width: $nav-inbox-width;
@@ -242,10 +254,9 @@ $nav-inbox-padding: 20px;
     background-color: $nav-inbox-bg;
     position: absolute;
     right: 0;
-    padding: $nav-inbox-padding;
     z-index: 10;
-    @include box-shadow(0px, 0px, 3px, lighten($deck-stroke, 40%));
     @include border-radius($default-border-radius);
+    border: 1px solid $deck-stroke;
     @include box-sizing(border-box);
 
     @include tablet-portrait-and-below {
@@ -254,11 +265,20 @@ $nav-inbox-padding: 20px;
 
     ul {
 	list-style-type: none;
+	li:first-child {
+	    border-top: none;
+	}
+	li.no-notif {
+	    border-top: none;
+	    border-bottom: none;
+	    padding-top: 15px;
+	}
 	li {
 	    font-size: $nav-inbox-item-font-size;
 	    background-color: $nav-inbox-item-bg;
 	    padding: 10px;
-	    margin-bottom: 2px;
+	    padding-left: 20px;
+	    border-bottom: 1px solid $deck-stroke;
 
 	    a {
 		font-weight: 600;

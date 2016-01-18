@@ -24,7 +24,7 @@ $grey-light-blue: #CCCCFF;
 $art-grey-1: #E6E6E6;
 
 /* Theme colors */
-$bg-color: #BDCCD4;
+$bg-color: #F7F7F7;
 $theme-purple: #661155;
 $theme-pink: #FFCCCC;
 
@@ -32,7 +32,7 @@ $theme-pink: #FFCCCC;
 $default-card-width: 240px;
 $default-card-height: 160px;
 $cards-gap: 10px;
-$default-card-bg: #F2F2F2;
+$default-card-bg: #FEFEFE;
 
 /* defaults */
 $default-font-size: 13px;
@@ -59,9 +59,11 @@ $margin-between-rows: 25px;
 $user-info-profile-width: 70px;
 
 /* Card Editors */
-$add-card-btn-radius: 30px;
+$add-card-btn-radius: 27px;
 $home-card-editor-width: 750px;
 $home-card-editor-height: 480px;
+$add-card-btn-color: #94d6f2;
+$add-card-btn-stroke: #FFFFFF;
 
 $default-border-radius: 3px;
 
@@ -101,15 +103,15 @@ $deck-cards-padding-top: 20px;
 $nav-height: 40px;
 $nav-width: $home-total-width;//85%;//$home-total-width + ;
 $nav-padding: 10px;
-$nav-logo-size: 38px;
+$nav-logo-size: 60px;
 $nav-logo-width: $nav-logo-size;//150px;
-$nav-logo-margin-right: 20px;
+$nav-logo-margin-right: 10px;
 $nav-search-field-height: $nav-height - 12px;
 $nav-search-field-width: 560px;
 $nav-search-field-font-size: 14px;
 $nav-option-padding: 20px;
 $nav-option-btn-size: $nav-height;
-$nav-dropdown-width: 160px;
+$nav-dropdown-width: 180px;
 $nav-first-part-width: $nav-logo-width + $nav-logo-margin-right + $nav-search-field-width + 30px; // 30px is for margins
 $nav-username-font-size: 16px;
 
@@ -130,7 +132,7 @@ $tab-selected-color: #999999;
 /* Profile pic and user stats */
 $prof-width: 175px;
 $stat-height: 100px;
-$profpic-bg: #F7F7F7;
+$profpic-bg: #FEFEFE;
 $username-color: #808080;
 $stat-color: #B3B3B3;
 $prof-username-font-size: 24px;
@@ -143,7 +145,7 @@ $whole-contents-width: $left-contents-width + $left-gap + $right-contents-width;
 $whole-contents-left-shift: -($nav-width - $whole-contents-width) / 2; // align the navbar with the left edge of the profile pic region
 /* Deck display on profile page */
 $deck-display-gap: 15px;
-$deck-width: $right-contents-width / 3 - 1.5*$deck-display-gap; // this is a bit tricky
+$deck-width: $right-contents-width / 3 - 1.5*$deck-display-gap - 2px; // this is a bit tricky
 $deck-padding: 6px;
 $title-padding: 10px;
 $title-font-size: 13px;

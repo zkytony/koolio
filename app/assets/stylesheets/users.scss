@@ -15,20 +15,21 @@
 }
 
 .add-card-btn {
-    background-color: $decent-blue;
+    font-family: "Arial", sans-serif;
+    background-color: $add-card-btn-color;
     width: $add-card-btn-radius * 2;
     height: $add-card-btn-radius * 2;
     font-size: 25px;
+    border: 1px solid #FFFFFF;
     @include border-radius($add-card-btn-radius);
-    border: none;
     color: $white;
     
     &:hover{
-	background-color: $grey-blue;
+	background-color: darken($add-card-btn-color, 10%);
     }
     
     &:disabled {
-	background-color: $grey-blue;
+	background-color: lighten($add-card-btn-color, 15%);
     }
 }
 
@@ -267,7 +268,7 @@ $info-toggle-size: 80px;
     width: $side-contents-width;
     overflow: auto;
     position: absolute;
-    right: -10px;
+    right: 0px;
     top: 0;
     @include tablet-portrait-and-below {
 	width: $side-contents-width * 0.8;
@@ -280,6 +281,7 @@ $info-toggle-size: 80px;
 	padding-left: 15px;
 	@include border-radius($default-border-radius);
 	margin-bottom: 20px;
+	border: 1px solid $deck-stroke;
 	h3 {
 	    color: $deck-title-color;
 	    padding-top: 10px;
@@ -303,8 +305,9 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     width: 500px;
     height: $no-content-msg-height;
     background-color: darken($bg-color, 5%);
-    margin: auto;
-    margin-top: 70px;
+    position: absolute;
+    @include center-vertically-and-horizontally;
+    top: 150px;
     @include border-radius($default-border-radius);
     .msg-title {
 	height: $msg-title-height;
@@ -331,9 +334,8 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 		    margin-left: 5px;
 		}
 		&:hover {
-		    color: #F7F7F7;
+		    color: darken($bg-color, 50%);
 		    cursor: pointer;
-		    background-color: $bg-color;
 		}
 	    }
 	    li.no-effect {
@@ -494,15 +496,15 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	}
     }
 
-    // follow button
+    // follow button on deck panel
     .follow-btn {
 	width: 20px;
 	height: 20px;
 	font-size: 14px;
 	margin-left: 5px;
-	background-color: $bg-color;
+	background-color: lighten($decent-blue, 30%);
 	&:hover {
-	    background-color: darken($bg-color, 5%);
+	    background-color: lighten($decent-blue, 20%);
 	}
     }
     .follow-btn.followed {
@@ -536,6 +538,7 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	    min-height: 50px;
 	    padding: 0;
 	    float: none;
+	    border: none;
 	    &:hover {
 		opacity: 0.8;
 		cursor: pointer;
@@ -648,6 +651,7 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     padding: 20px;
     @include border-radius($default-border-radius);
     position: relative;
+    border: 1px solid $deck-stroke;
 
     margin-bottom: 20px;
 
@@ -710,6 +714,7 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     background-color: $profpic-bg;
     @include border-radius($default-border-radius);
     position: relative;
+    border: 1px solid $deck-stroke;
     @include tablet-portrait-and-below {
 	max-width: $deck-width * 3 + 65px; // exactly matches 3 decks
     }
@@ -777,6 +782,7 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
    background-color: $profpic-bg;
    padding-left: $tab-padding-left; // align with tabs
    padding-bottom: $time-ago-padding;
+   border: 1px solid $deck-stroke;
 }
 
 #hot-contents {
@@ -834,6 +840,7 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     background-color: $white;
     position: relative;
     overflow: hidden;
+    border: 1px solid $deck-stroke;
     h3 { 	
 	color: $deck-title-color;
 	font-size: $title-font-size;

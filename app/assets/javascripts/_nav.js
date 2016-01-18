@@ -1,6 +1,6 @@
 $(document).ready(function() {
     if ($("#nav-inbox-btn").position()) {
-	$("#nav-inbox").css("left", $("#nav-inbox-btn").position().left - $("#nav-inbox").width());
+	$("#nav-inbox").css("left", $("#nav-inbox-btn").position().left - $("#nav-inbox").width() + $("#nav-inbox-btn").width());
     }
 
     if ($("#nav-inbox").length) {

@@ -237,6 +237,7 @@ $text-body-font-size: 21px;
     @include center-vertically-and-horizontally;
     overflow: hidden;
     @include border-radius($inner-editor-radius);
+    border: 1px solid $deck-stroke;
 
     input[type="text"], textarea {
 	color: $soft-black;
@@ -288,6 +289,7 @@ $img-uploader-wrapper-width: 90%;
 	@include border-radius($inner-editor-radius);
 	@include box-sizing(border-box);	
 	position: relative;
+	border: 1px solid $deck-stroke;
     }
 
     /* Uploader */
@@ -518,6 +520,7 @@ $video-uploader-wrapper-width: 90%;
 	@include border-radius($inner-editor-radius);
 	@include box-sizing(border-box);	
 	position: relative;
+	border: 1px solid $deck-stroke;
     }
 
     /* Uploader */
