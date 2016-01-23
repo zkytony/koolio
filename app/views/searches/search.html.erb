@@ -27,6 +27,6 @@
 <div class="dark-overlay hidden" id="overlay-for-focus-card"></div>
 <script>
  $(document).ready(function() {
-    $("#nav-search-input").val("<%="#{@query}"%>");
+    $("#nav-search-input").val("<%= sanitize(@query) %>");
  });
 </script>
