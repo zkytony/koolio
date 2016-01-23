@@ -129,9 +129,6 @@ function validateSignUpForm() {
     } else if (!validateEmail($("#user_email").val())) {
 	valid = false;
 	msgs.push("email format is invalid");
-    } else if (!validateEduEmail($("#user_email").val())) {
-	valid = false;
-	msgs.push("only .edu emails allowed for now.");
     } else {
 	if ($("#user_email_confirm").val().length <= 0) {
 	    valid = false;
