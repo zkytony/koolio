@@ -2,11 +2,11 @@
   <%= form_for(@deck, remote: true, authenticity_token: true) do |f| %>
     <div class="field-item">
       <p class="field-name">Name</p>
-      <%= f.text_field :title, placeholder: "", maxlength: 175 %>
+      <%= f.text_field :title, placeholder: "", maxlength: 175, required: true%>
     </div>
     <div class="field-item">
       <p class="field-name">Description</p>
-      <%= f.text_area :description, placeholder: "" %>
+      <%= f.text_area :description, placeholder: "", required: true%>
     </div>
     <div class="field-item" id="deck-prop-select">
       <p class="field-name">Property</p>

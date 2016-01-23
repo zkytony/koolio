@@ -102,8 +102,6 @@ DeckEditor.prototype.validate = function() {
   if ($("#deck_title").val().length <= 0
     || $("#deck_description").val().length <= 0) {
       return false;
-  } else if (editor.tagsCount <= 0) {
-    return false;
   }
   return true;
 }
