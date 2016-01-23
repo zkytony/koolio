@@ -1,7 +1,10 @@
-<% if logged_in? && !current_user.favoring_deck?(deck) %>
-  <button class="deck-favorite-btn" id="deck_<%="#{deck.id}"%>_favorite_btn" data-deckid="<%="#{deck.id}"%>" type="button">favorite</button>
-<% else %>
-  <button class="deck-favorite-btn favored" id="deck_<%="#{deck.id}"%>_favorite_btn" data-deckid="<%="#{deck.id}"%>" type="button">unfavorite</button>
+<% if logged_in? %> 
+  <% if !current_user.favoring_deck?(deck) %>
+    <button class="deck-favorite-btn" id="deck_<%="#{deck.id}"%>_favorite_btn" data-deckid="<%="#{deck.id}"%>" type="button">favorite</button>
+  <% else %>
+    <button class="deck-favorite-btn favored" id="deck_<%="#{deck.id}"%>_favorite_btn" data-deckid="<%="#{deck.id}"%>" type="button">unfavorite</button>
+  <% end %>
 <% end %>
+
 
     
