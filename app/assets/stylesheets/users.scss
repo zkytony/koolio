@@ -259,6 +259,8 @@ $info-toggle-size: 80px;
 
 #explore-main-contents-wrapper {
     #recommended-contents-wrapper {
+	// allow 4 columns
+	width: $recommended-contents-width + $home-card-width + 2 * $home-card-margin;
 	position: relative;
 	margin: auto;
     }

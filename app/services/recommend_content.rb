@@ -10,8 +10,8 @@ class RecommendContent
   # cards, and :explore will. If context is neither of these
   # two values, return nil.
   def self.call(user, more, card_ids, context)
-    n_card = 15
-    n_deck = 5
+    n_card = 30
+    n_deck = 8
     
     contents = []
     if context == :explore
