@@ -1,6 +1,6 @@
 <div class="comment slim-info" id="comment_<%="#{comment_id}"%>">
   <div class="left profile">
-    <img class="comment-user-avatar" src="<%= "#{author.my_avatar!('front')}" %>" alt="FRONT">
+    <img class="comment-user-avatar" src="<%= user_avatar_url(author, "front") %>" alt="FRONT">
   </div>
   <div class="right">
     <div class="comment_author_name">

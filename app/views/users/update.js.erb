@@ -17,8 +17,8 @@ $("#gender-setting .setting-current-value").html("<%=@user.gender ? "#{@user.gen
 $("#birthday-setting .setting-current-value").html("<%=@user.birthday ? "#{@user.birthday}" : "not set"%>");
 
 // avatar
-$("#avatar-front-img").attr("src", "<%="#{@user.my_avatar!('front')}"%>");
-$("#avatar-back-img").attr("src", "<%="#{@user.my_avatar!('back')}"%>");
+$("#avatar-front-img").attr("src", "<%=user_avatar_url(@user, "front")%>");
+$("#avatar-back-img").attr("src", "<%=user_avatar_url(@user, "back")%>");
 <% else %>
 addAlert("error", "Something went wrong in updating. Please empty the fields that you don't want to change");
 <% end %>

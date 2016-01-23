@@ -1,4 +1,5 @@
 <% provide(:title, "#{@user.username}") %>
+<% provide(:noindex, true) %>
 <%= stylesheet_link_tag "users.css" %>
 <%= javascript_include_tag "flexible_cards_handler.js" %>
 <%= javascript_include_tag "user_home.js" %>

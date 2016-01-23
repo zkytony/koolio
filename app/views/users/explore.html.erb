@@ -1,4 +1,9 @@
 <% provide(:title, "Explore") %>
+<% provide(:meta_keywords, "explore") %>
+<% provide(:meta_descp, "Explore on Koolio.io!") %>
+<% provide(:og_type, "website") %>
+<% provide(:og_url, explore_url) %>
+<% provide(:og_img_url, image_url("tmp/logo_bigger.png")) %>
 <%= stylesheet_link_tag "users.css" %>
 <%= javascript_include_tag "flexible_cards_handler.js" %>
 <%= javascript_include_tag "user_explore.js" %>

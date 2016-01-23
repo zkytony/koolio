@@ -1,4 +1,10 @@
 <% provide(:title, "#{@user.username}'s Profile") %>
+<% provide(:meta_keywords, "#{@user.username}, profile") %>
+<% provide(:meta_descp, "#{@user.username} on Koolio") %>
+<% provide(:og_type, "profile") %>
+<% provide(:og_url, user_profile_url(@user)) %>
+<% provide(:og_img_url, user_avatar_url(@user, "front")) %>
+
 <%= stylesheet_link_tag "_deck_editor.css" %>
 <%= stylesheet_link_tag "users.css" %>
 <%= stylesheet_link_tag "jquery-ui.css"%>

@@ -1,7 +1,7 @@
 <div class="user-info-wrapper">
   <div class="user-info-profile">
     <a>
-      <img class="user-avatar" src="<%= "#{@user.my_avatar!('front')}" %>" alt="FRONT">
+      <img class="user-avatar" src="<%= user_avatar_url(user, "front") %>" alt="FRONT">
     </a>
     <% if !current_user.owns_deck?(deck) %>
       <% if !current_user.following?(user) %>

@@ -1,4 +1,9 @@
 <% provide(:title, "#{@deck.title}") %>
+<% provide(:meta_keywords, "deck, #{@deck.title}") %>
+<% provide(:meta_descp, "#{@deck.title}: #{truncate(@deck.description, length: 100)}") %>
+<% provide(:og_type, "article") %>
+<% provide(:og_url, deck_url(@deck)) %>
+<% provide(:og_img_url, image_url("tmp/logo_bigger.png")) %>
 <%= stylesheet_link_tag "users.css" %>
 <%= stylesheet_link_tag "decks.css" %>
 <%= javascript_include_tag "flexible_cards_handler.js" %>

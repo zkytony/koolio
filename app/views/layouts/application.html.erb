@@ -10,6 +10,18 @@
 <html>
   <head>
     <title><%= full_title(yield(:title)) %></title>
+    <meta name="description" content="<%= yield(:meta_descp)%>" />
+    <meta name="keywords" content="koolio, flashcard, flip, <%=yield(:meta_keywords) %>" />
+    <% noindex = yield(:noindex) %>
+    <% if noindex.empty? %>
+      <meta property="og:title" content="<%= full_title(yield(:title)) %>"/>
+      <meta property="og:type" content="<%= yield(:og_type) %>" />
+      <meta property="og:url" content="<%= yield(:og_url) %>"/>
+      <meta property="og:image" content="<%= yield(:og_img_url) %>"/>
+    <% else %>
+      <meta name="robots" content="noindex" />
+      <meta name="googlebot" content="noindex" />
+    <% end %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= favicon_link_tag %>

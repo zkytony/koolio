@@ -1,7 +1,7 @@
 <div class="nav-dropdown hidden" id="profile-pic-dropdown">
   <ul>
     <li>
-      <div id="nav-avatar"><img src="<%= "#{current_user.my_avatar!('front')}" %>" alt="FRONT"></div>
+      <div id="nav-avatar"><img src="<%= user_avatar_url(current_user, "front") %>" alt="FRONT"></div>
     </li>
     <li class="nav-dropdown-link">
       <%= link_to user_profile_path(current_user), data: { no_turbolink: true } do %>

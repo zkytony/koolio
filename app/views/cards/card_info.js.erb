@@ -19,7 +19,7 @@ $("#deck_title").html("<%="#{@info[:deck].title}"%>");
 <% if logged_in? %>
   $("#deck_title").append("<%= j render partial: "shared/favorite_deck_button", locals: { deck: @info[:deck] } %>");
 <% end %>
-$("#deck-author-pic").attr("src", "<%= "#{@info[:author].my_avatar!('front')}" %>");
+$("#deck-author-pic").attr("src", "<%= user_avatar_url(@info[:author], "front") %>");
 $("#more_cards_in_deck").html("<%= j render partial: "shared/deck", locals: { deck: @info[:deck], limit: 6 } %>");
 
 <% like_comment = false %>

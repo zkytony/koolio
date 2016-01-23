@@ -206,11 +206,11 @@ class User < ActiveRecord::Base
     end
   end
   
-  # return a hash object with "front", and "back" as attributes,
-  # each of which has value that is the url to the thumbnail
-  # version of the avatar on that side
+  # Given a side, "front" or "back", return the url of the user's
+  # avatar on this side.
   #
-  # assume side is either "front" or "back"
+  # If this user deos not have avatar uploaded for this side, or if
+  # the user does not have avatar uploaded at all, then return nil. 
   def my_avatar!(side)
     if self.avatar
       file = JSON.parse(self.avatar)[side]
@@ -218,7 +218,7 @@ class User < ActiveRecord::Base
         return "#{file['host']}/#{file['store_dir']}/cropped_#{file['file_name']}"
       end
     end
-    "/assets/default-profile.svg"
+    nil
   end
 
   def avatar_json(side)
