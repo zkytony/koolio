@@ -2,7 +2,7 @@
 
 Koolio is a website where users can create and share flippable two-sided cards, grouped by decks; users get to choose what to put on each side of the cards. Explore other people's creativity, and ignite yours! 
 
-Kooiio is much more flexible than just exploiting your creativity. It can be used for many things; one example could be note keeping. In this testing, you got the chance to try it out!
+Kooiio is much more flexible than just exploiting your creativity. It can be used for many things; one example could be note keeping. 
 
 Need developers! Want pull requests!
 
@@ -15,6 +15,8 @@ List of features to add:
 * New type of side content: audio
 * New type of side content: event
 * Better searching experience
+* Realtime notification
+* Notifications for deck sharing
 
 More things to do:
 * an app
