@@ -29,12 +29,41 @@ $(document).ready(function() {
   });
 
   // when click on avatar, flip it
-  $(document).on("click", "#avatar-card", function() {
+  $(document).on("click tap", "#avatar-card", function() {
     flip($(this));
   });
 
-  $(document).on("click", "#decks-item", function() {
+  $(document).on("click tap", "#decks-item", function() {
     //	ajaxGrabDecksForProfile(userId);
+  });
+
+  // when clicked on each of these profile stat items (e.g. Followers),
+  // execute their corresponding actions
+  $(document).on("click tap", "#stat-cards-item", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    focusOnAll(userId);
+  });
+  $(document).on("click tap", "#stat-decks-item", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    focusOnDecks(userId);
+  });
+  $(document).on("click tap", "#stat-followers-item", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    if ($("#list_followers .users-list").html().length === 0) {
+      ajaxGrabUsersList(userId, "followers");
+    }
+    $("#overlay-for-users-list").removeClass("hidden");
+    $("#list_followers").removeClass("hidden");
+  });
+  // when clicked on users list overlay, hide the user lists
+  $(document).on("click tap", "#overlay-for-users-list", function(e) {
+    e.preventDefault();
+    $("#list_followers").addClass("hidden");
+    $("#list_followers").addClass("hidden");
+    $("#overlay-for-users-list").addClass("hidden");
   });
 
   // When scroll to nearly the bottom, grab more cards for "hot-contents"

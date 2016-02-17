@@ -707,7 +707,28 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     .stat-item-label {
 	font-size: 11px;
     }
-    
+    .stat-item.clickable-item {
+	&:hover {
+	    color: $decent-blue;
+	    cursor: pointer;
+	}
+    }
+}
+
+.users-list-wrapper {
+    width: 300px;
+    min-height: 40px;
+    position: absolute;
+    @include center-absolute-element;
+    @include box-sizing(border-box);
+    top: 200px;
+    background-color: $white;
+    z-index: 6;
+    padding: 10px;
+    @include border-radius(3px);
+    h3 {
+	padding-bottom: 5px;
+    }
 }
 
 .contents-tabs {

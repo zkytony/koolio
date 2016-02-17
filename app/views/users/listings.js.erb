@@ -5,5 +5,9 @@
   <% end %>
   $("#list_<%="#{@type}"%> .users-list").html(htmlStr);
 <% else %>
-  $("#list_<%="#{@type}"%> .users-list").html("<i>You have no mutual followers</i>");
+  <% if @type == "mutual_followers" %>
+    $("#list_<%="#{@type}"%> .users-list").html("<i>No mutual followers</i>");
+  <% else %>
+    $("#list_<%="#{@type}"%> .users-list").html("<i>No <%="#{@type}"%></i>");
+  <% end %>
 <% end %>

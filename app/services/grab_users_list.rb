@@ -18,7 +18,12 @@ class GrabUsersList
   end
 
   def self.grab_followings(user)
-    user.followings
+    # only grab if the current user is the given user
+    if current_user.id == user.id
+      user.followings
+    else
+      []
+    end
   end
 
   def self.grab_mutual_followers(user)
