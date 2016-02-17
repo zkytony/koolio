@@ -29,11 +29,15 @@ $(document).ready(function() {
   });
 
   // when click on avatar, flip it
-  $(document).on("click tap", "#avatar-card", function() {
+  $(document).on("click tap", "#avatar-card", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
     flip($(this));
   });
 
-  $(document).on("click tap", "#decks-item", function() {
+  $(document).on("click tap", "#decks-item", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
     //	ajaxGrabDecksForProfile(userId);
   });
 
@@ -60,6 +64,7 @@ $(document).ready(function() {
   });
   // when clicked on users list overlay, hide the user lists
   $(document).on("click tap", "#overlay-for-users-list", function(e) {
+    e.stopPropagation();
     e.preventDefault();
     $("#list_followers").addClass("hidden");
     $("#list_followers").addClass("hidden");
