@@ -25,7 +25,7 @@ class RecommendContent
         # end
       else
         card_providers.each do |provider|
-          contents |= provider.cards.sort_by(&:created_at).first(6).shuffle
+          contents |= provider.cards.sort_by(&:created_at).reverse.first(6).shuffle
         end
 
         # deck_providers.each do |provider|
