@@ -47,46 +47,69 @@ function Card(id, side) {
 
   this.focused = false;
   this.currentSide = side;
+  
+  this.stdWidth = 220;
+  this.stdMinHeight = 220;
+  this.stdMaxHeight = 220;
 }
 
 Card.prototype.adjustCardHeight = function() {
   // if both sides are not image
-  if (this.contentType["front"] !== "img" && this.contentType["back"] !== "img") {
+  var card = this;
+
+  // force the front and back to be both 220px height, regardless
+  // of type
+  $("#" + card.id).height(card.stdMaxHeight);
+  card.s["front"].outerHeight(card.stdMaxHeight);
+  card.s["back"].outerHeight(card.stdMaxHeight);
+  
+  // If either side has image, adjust the image to fit 220px height
+  if (card.contentType["front"] === "img") {
+    adjustImgSizeByHeight($("#" + card.s["front"].attr("id") + " .card-img .card-img-wrapper img"), card.stdMaxHeight);
+  }
+  if (card.contentType["back"] === "img") {
+    adjustImgSizeByHeight($("#" + card.s["back"].attr("id") + " .card-img .card-img-wrapper img"), card.stdMaxHeight);
+  }
+
+  /*
+  if (card.contentType["front"] !== "img" && card.contentType["back"] !== "img") {
     // if either side is video, limit the max height to 220
-    if (this.contentType["front"] === "video" || this.contentType["back"] === "video") {
-      this.s["back"].outerHeight(220);
-      this.s["front"].outerHeight(220);
-      $("#"+this.id).height(220);
+    if (card.contentType["front"] === "video" || card.contentType["back"] === "video") {
+      card.s["back"].outerHeight(220);
+      card.s["front"].outerHeight(220);
+      $("#"+card.id).height(220);
     } else {
-      var maxHeight = Math.max(this.s["back"].outerHeight(), this.s["front"].outerHeight());
-      this.s["back"].outerHeight(maxHeight);
-      this.s["front"].outerHeight(maxHeight);
-      $("#"+this.id).height(maxHeight);
+      var maxHeight = Math.max(card.s["back"].outerHeight(), card.s["front"].outerHeight());
+      card.s["back"].outerHeight(maxHeight);
+      card.s["front"].outerHeight(maxHeight);
+      $("#"+card.id).height(maxHeight);
     }
-  } else if (this.contentType["front"] === "img" && this.contentType["back"] === "img") {
+  } else if (card.contentType["front"] === "img" && card.contentType["back"] === "img") {
     // if both sides are images, use 220px
-    this.s["back"].outerHeight(220);
-    this.s["front"].outerHeight(220);
-    $("#"+this.id).height(220);
-    adjustImgSizeByHeight($("#"+this.s["front"].attr("id")+" .card-img .card-img-wrapper img"), 220);
-    adjustImgSizeByHeight($("#"+this.s["back"].attr("id")+" .card-img .card-img-wrapper img"), 220);
+    card.s["back"].outerHeight(220);
+    card.s["front"].outerHeight(220);
+    $("#"+card.id).height(220);
+    adjustImgSizeByHeight($("#"+card.s["front"].attr("id")+" .card-img .card-img-wrapper img"), 220);
+    adjustImgSizeByHeight($("#"+card.s["back"].attr("id")+" .card-img .card-img-wrapper img"), 220);
     return;
   } else {
     // if one side is image, set the height of the card to the height of the
     // other side, then adjust the image size to fit the height
-    if (this.contentType["front"] === "img") {
-      this.adjustImgSideSize("front", "back");
+    if (card.contentType["front"] === "img") {
+      card.adjustImgSideSize("front", "back");
     } else {
-      this.adjustImgSideSize("back", "front");
+      card.adjustImgSideSize("back", "front");
     }
   }
+  */
 
   // if one side is text and overflows, add spoiler at the bottom of the card
-  if (this.contentType["front"] === "text") {
-    this.addSpoilerIfTooLong("front");
+  // detecting is done by addSpoilerIfTooLong()
+  if (card.contentType["front"] === "text") {
+    card.addSpoilerIfTooLong("front");
   }
-  if (this.contentType["back"] === "text") {
-    this.addSpoilerIfTooLong("back");
+  if (card.contentType["back"] === "text") {
+    card.addSpoilerIfTooLong("back");
   }
 }
 
@@ -175,6 +198,10 @@ Card.prototype.updateFrontBackJQueryObjects = function() {
   }  
 }
 
+// Given an image jquery object and a height, change the dimensions
+// of the image based on that height, such that the new height will
+// be equal to the given height, and the new width will be proportionally
+// changed with respect to the given height.
 function adjustImgSizeByHeight(imgObj, newHeight) {
   var origWidth = imgObj.outerWidth();
   var origHeight = imgObj.outerHeight();

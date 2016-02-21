@@ -52,14 +52,14 @@
 
 .card-side {
     min-height: $home-card-min-height;
-    max-height: $home-card-min-height + 50px;
+    max-height: $home-card-max-height;
 }
 
 $info-toggle-size: 80px;
 .home-card {
     width: $home-card-width;
     min-height: $home-card-min-height;
-    max-height: $home-card-min-height + 50px;
+    max-height: $home-card-max-height;
     margin-bottom: 30px;
     float: left;
 
