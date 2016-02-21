@@ -1,8 +1,8 @@
 <% if logged_in? %> 
   <% if !current_user.favoring_deck?(deck) %>
-    <button class="deck-favorite-btn" id="deck_<%="#{deck.id}"%>_favorite_btn" data-deckid="<%="#{deck.id}"%>" type="button">favorite</button>
+    <button class="deck-favorite-btn" id="deck_<%="#{deck.id}"%>_favorite_btn" data-deckid="<%="#{deck.id}"%>" type="button">follow deck</button>
   <% else %>
-    <button class="deck-favorite-btn favored" id="deck_<%="#{deck.id}"%>_favorite_btn" data-deckid="<%="#{deck.id}"%>" type="button">unfavorite</button>
+    <button class="deck-favorite-btn favored" id="deck_<%="#{deck.id}"%>_favorite_btn" data-deckid="<%="#{deck.id}"%>" type="button">unfollow deck</button>
   <% end %>
 <% end %>
 

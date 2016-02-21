@@ -1008,18 +1008,19 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 }
 
 // for deck favorite btn
+$fav-btn-color: #2eb82e;
 button.deck-favorite-btn {
     font-size: 13px;
     @include box-sizing(border-box);
     border: none;
     @include border-radius($default-border-radius);
-    background-color: darken(#FFFFCC, 15%);
-    color: $deck-title-color;
+    background-color: $fav-btn-color;
+    color: $white; //$deck-title-color;
     &:hover {
-	background-color: darken(#FFFFCC, 25%);
+	background-color: darken($fav-btn-color, 15%);
     }
     &:active {
-	background-color: darken(#FFFFCC, 30%);
+	background-color: darken($fav-btn-color, 20%);
     }
 }
 

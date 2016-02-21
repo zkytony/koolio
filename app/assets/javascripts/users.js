@@ -62,9 +62,9 @@ function ajaxToggleFollowUser(userId, follow) {
 
 // toggle favorite of a deck
 function ajaxToggleFavoriteDeck(deckId, favorite) {
-  var action = "favorite";
+  var action = "favorite";  // follow deck
   if (!favorite) {
-    action = "unfavorite";
+    action = "unfavorite";  // unfollow deck
   }
   $.ajax({
     type: "POST",
