@@ -9,6 +9,9 @@
 	  <% end %>
 	</div>
 	<div class="nav-search-wrapper">
+	  <button class="nav-search-type-select">
+	    <i class="fa fa-bars"></i>
+	  </button>
 	  <%= form_tag "/search", method: "get", class: "nav-search-form", id: "nav-search" do %>
 	    <input type="text" placeholder="Search on Koolio" id="nav-search-input">
 	  <% end %>
