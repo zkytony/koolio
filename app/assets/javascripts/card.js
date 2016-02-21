@@ -123,9 +123,8 @@ Card.prototype.adjustImgSideSize = function(side, otherSide) {
 
 // this is for text type side
 Card.prototype.addSpoilerIfTooLong = function(side) {
-  // 260 is the content height limit
   var height = $("#"+this.s[side].attr("id")+" .card-text").outerHeight();
-  if (height > 260) {
+  if (height > this.stdMinHeight) {
     this.s[side].addClass("spoiler");
     this.trueHeight[side] = height + 30;
   }
@@ -151,18 +150,17 @@ Card.prototype.focus = function() {
 }
 
 Card.prototype.unfocus = function() {
-  this.focused = false;
-  $("#"+this.id).removeClass("focused");
-  this.s["front"].css("max-height", "220px"); // 220
-  this.s["back"].css("max-height", "220px");
-  //this.s["front"].removeAttr("style");
-  //this.s["back"].removeAttr("style");
+  var card = this;
+  card.focused = false;
+  $("#"+card.id).removeClass("focused");
+  card.s["front"].css("max-height", card.stdMaxHeight + "px");
+  card.s["back"].css("max-height", card.stdMaxHeight + "px");
   // if one side is text and overflows, add spoiler at the bottom of the card
-  if (this.contentType["front"] === "text") {
-    this.addSpoilerIfTooLong("front");
+  if (card.contentType["front"] === "text") {
+    card.addSpoilerIfTooLong("front");
   }
-  if (this.contentType["back"] === "text") {
-    this.addSpoilerIfTooLong("back");
+  if (card.contentType["back"] === "text") {
+    card.addSpoilerIfTooLong("back");
   }
 }
 
