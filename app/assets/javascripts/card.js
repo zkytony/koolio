@@ -153,8 +153,8 @@ Card.prototype.focus = function() {
 Card.prototype.unfocus = function() {
   this.focused = false;
   $("#"+this.id).removeClass("focused");
-  this.s["front"].css("max-height", "270px"); // 220 + 50
-  this.s["back"].css("max-height", "270px");
+  this.s["front"].css("max-height", "220px"); // 220
+  this.s["back"].css("max-height", "220px");
   //this.s["front"].removeAttr("style");
   //this.s["back"].removeAttr("style");
   // if one side is text and overflows, add spoiler at the bottom of the card
