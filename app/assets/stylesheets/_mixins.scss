@@ -406,3 +406,11 @@ $mq-desktop		: 1382px !default;
   -ms-hyphens: $value;
   hyphens: $value;
 }
+
+@mixin blur($value: 5px) {
+    -webkit-filter: blur($value);
+    -moz-filter: blur($value);
+    -o-filter: blur($value);
+    -ms-filter: blur($value);
+    filter: blur($value);
+}
