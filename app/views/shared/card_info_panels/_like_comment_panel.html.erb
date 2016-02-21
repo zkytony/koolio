@@ -10,7 +10,7 @@
     <% if @comment %>
       <%= form_for(@comment, remote: true, authenticity_token: true) do |f| %>
 	<%= f.hidden_field :card_id %>
-	<%= f.text_area :content, placeholder: "add comment" %>
+	<%= f.text_field :content, placeholder: "add comment" %>
       <% end %>
     <% end %>
   </div>  

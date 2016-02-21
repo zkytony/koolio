@@ -97,7 +97,7 @@ CardsHandler.prototype.init = function() {
   // Submit text area on enter hit
   // TODO: This isn't a good idea. Maybe there should be a submit
   // button. But it hasn't been designed yet.
-  $(document).on("keyup", "#new_comment textarea", function(e) {
+  $(document).on("keyup", "#new_comment input[type=text]", function(e) {
     e = e || event;
     if (e.keyCode === 13) {
       // hit enter
@@ -107,8 +107,6 @@ CardsHandler.prototype.init = function() {
       var content = $("#comment_content").val();
       if (content.length > 1) {
 	$("#comment_card_id").val(handler.focusingCardRawId);
-	// remove the last character, which is a \r (new line)
-	$("#comment_content").val(content.substring(0, content.length-1));
 	$("#new_comment").submit();
 	$("#comment_card_id").val("");
 	$("#comment_content").val("");

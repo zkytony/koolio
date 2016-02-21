@@ -419,6 +419,7 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	}
     }
     
+    $comment-box-height: 30px;
     .like-comment {
 	width: 100%;
 	@include box-sizing(border-box);
@@ -454,11 +455,11 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     .comment-box {
 	width: 80%;
 	margin: auto;
-	height: 55px;
-	textarea {
+	height: $comment-box-height;
+	textarea, input[type=text] {
 	    display: block;
 	    width: 100%;
-	    height: 55px;
+	    height: $comment-box-height;
 	    @include box-sizing(border-box);
 	    resize: none;
 	    padding: 5px;
@@ -467,6 +468,7 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	    background-color: #F2F2F2;
 	    font-size: 14px;
 	    border: 2px solid $darker-grey;
+	    overflow:hidden;  // no scrollbar
 	}
     }
 }
