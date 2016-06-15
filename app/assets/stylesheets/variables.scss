@@ -24,7 +24,8 @@ $grey-light-blue: #CCCCFF;
 $art-grey-1: #E6E6E6;
 
 /* Theme colors */
-$bg-color: #F7F7F7;
+$www-bg-color: #F7F7F7;  // for www subdomain
+$x-bg-color: #0d0d0d;    // for  x  subdomain
 $theme-purple: #661155;
 $theme-pink: #FFCCCC;
 
@@ -68,7 +69,9 @@ $add-card-btn-stroke: #FFFFFF;
 $default-border-radius: 3px;
 
  /* Navbar colors */
-$nav-bg-color: $bg-color;
+$www-nav-bg-color: $www-bg-color;  // nav background color follows theme background color
+$x-nav-bg-color: $x-bg-color;
+
 $nav-logo-color: $white;
 
 /* Home cards */

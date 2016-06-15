@@ -4,12 +4,50 @@
 .nav-wrapper {
     width: $nav-width;
     margin: auto;
-    background-color: $nav-bg-color;
     padding: 10px;
     position: relative;
     top: 0;
     @include tablet-portrait-and-below {
 	width: 650px;
+    }
+}
+
+/* Styles for different subdomains */
+.nav-wrapper.www-subdomain {
+    background-color: $www-nav-bg-color;
+    .nav-logo {
+	img {
+	    width: $nav-logo-size;
+	    height: $nav-logo-size;
+	    position: relative;
+	    top: -10px;
+	}
+    }
+
+    button.nav-search-type-select {
+	background-color: #EFEFEF;
+    }
+
+    .nav-search-form {
+	border: 1px solid $deck-stroke;
+    }
+}
+.nav-wrapper.x-subdomain {
+    background-color: $x-nav-bg-color;
+    .nav-logo {
+	img {
+	    max-width: $nav-logo-size;
+	    position: relative;
+	    top: -10px;
+	}
+    }
+
+    button.nav-search-type-select {
+	background-color: $darker-grey;
+    }
+
+    .nav-search-form {
+	border: 1px solid red;
     }
 }
 
@@ -59,12 +97,9 @@
     h1 {
 	font-size: $nav-logo-size;
     }
-    img {
-	width: $nav-logo-size;
-	height: $nav-logo-size;
-	position: relative;
-	top: -10px;
-    }
+
+    // img style is handled in subdomain styles
+
     width: $nav-logo-width;
     margin-right: $nav-logo-margin-right;
     @include tablet-portrait-and-below {
@@ -75,7 +110,9 @@
 button.nav-search-type-select {
     width: 30px;
     height: $nav-search-field-height + 2px;
-    background-color: #EFEFEF;
+
+    // background color is handled in subdomain styles
+
     float: left;
     margin: ($nav-height - $nav-search-field-height) / 2 0px;
     @include border-left-radius(3px);
@@ -91,7 +128,9 @@ button.nav-search-type-select {
 	margin: ($nav-height - $nav-search-field-height) / 2 0px;
 	font-size: $nav-search-field-font-size;
 	padding-left: 5px;
-	border: 1px solid $deck-stroke;
+
+	// border handled in subdomain styles
+
 	@include border-right-radius(3px);
 	@include tablet-portrait-and-below {
 	    width: $nav-search-field-width * 0.5;

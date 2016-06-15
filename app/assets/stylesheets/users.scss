@@ -39,15 +39,21 @@
     height: $home-card-editor-height;
     position: fixed;
     z-index: 10; // glass-overlay has z-index 3
-    //left: 0;
-    //right: 0;
+
+    // background color handled by subdomain styles
+
     @include center-vertically-and-horizontally(fixed);
     @include border-radius($default-border-radius);
     @include mobile-landscape-and-below {
 	width: 100%;
 	height: 100%;
     }
-    background-color: $bg-color;
+}
+.home-card-editor-container.www-subdomain {
+    background-color: $www-bg-color;
+}
+.home-card-editor-container.www-subdomain {
+    background-color: $x-bg-color;
 }
 
 .card-side {
@@ -305,7 +311,9 @@ $info-toggle-size: 80px;
 $msg-item-height: 50px;
 $msg-title-height: 60px;
 $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
-.no-content-msg {
+.no-content-msg.www-subdomain {
+    $bg-color: $www-bg-color;
+
     width: 500px;
     height: $no-content-msg-height;
     background-color: darken($bg-color, 5%);
@@ -352,6 +360,57 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	}
     }
 }
+/* Duplicate .no-content-msg for x subdomain */
+.no-content-msg.x-subdomain {
+    $bg-color: $x-bg-color;
+
+    width: 500px;
+    height: $no-content-msg-height;
+    background-color: darken($bg-color, 5%);
+    position: absolute;
+    @include center-vertically-and-horizontally;
+    top: 150px;
+    @include border-radius($default-border-radius);
+    .msg-title {
+	height: $msg-title-height;
+	text-align: center;
+	font-size: 35px;
+	color: darken($bg-color, 30%);
+	padding: 15px;
+	@include box-sizing(border-box);
+	font-weight: 600;
+    }
+    .msg-suggestions {
+	height: 80%;
+	ul {
+	    list-style-type: none;
+	    li {
+		height: $msg-item-height;
+		font-weight: 600;
+		padding: 10px;
+		font-size: 22px;
+		color: darken($bg-color, 30%);
+		@include box-sizing(border-box);
+		padding-left: 30px;
+		.fa {
+		    margin-left: 5px;
+		}
+		&:hover {
+		    color: darken($bg-color, 50%);
+		    cursor: pointer;
+		}
+	    }
+	    li.no-effect {
+		&:hover {
+		    color: darken($bg-color, 30%);
+		    background-color: darken($bg-color, 5%);
+		    cursor: default;
+		}
+	    }
+	}
+    }
+}
+/* End duplication of .no-msg-content for x subdomain
 
 /* info panels */
 #like-comment-panel, #deck-cards-panel {
@@ -783,13 +842,23 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	top: $tab-vertical-padding*2 + 13px;
 	left: 50%;//20px;
 	margin-left: -10px;
-	@include little-triangle(12px, 12px, 12px, $bg-color);
+	// little triangle added in subdomain styles
     }
 
     .follow-btn {
 	position: absolute;
 	top: 11px;//$prof-width - 10px; // 20px is padding
 	right: 11px;//30px;
+    }
+}
+.content-tabs.www-subdomain {
+    .tab-item.selected:after {
+	@include little-triangle(12px, 12px, 12px, $www-bg-color);
+    }
+}
+.content-tabs.x-subdomain {
+    .tab-item.selected:after {
+	@include little-triangle(12px, 12px, 12px, $x-bg-color);
     }
 }
 
@@ -944,14 +1013,14 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 
 .add-deck-btn {
     width: $deck-width - 2*2px;
-    background-color: rgba(lighten($bg-color, 10%), 0.7);
+    // background color handled in subdomain styles
     height: $deck-height - 2*2px;
     position: relative;
     border: 2px dashed $white;
     //@include box-sizing(border-box);
     &:hover {
 	cursor: pointer;
-	background-color: rgba(lighten($bg-color, 10%), 0.9);
+	// background color handled in subdomain styles
 	.add-deck-circle {
 	    background-color: $darker-grey
 	}
@@ -980,6 +1049,19 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	transform: translate(0%, 125px);
 	color: #999999;
 	font-size: 15px;
+    }
+}
+
+.add-deck-btn.www-subdomain {
+    background-color: rgba(lighten($www-bg-color, 10%), 0.7);
+    &:hover {
+	background-color: rgba(lighten($www-bg-color, 10%), 0.9);
+    }
+}
+.add-deck-btn.x-subdomain {
+    background-color: rgba(lighten($x-bg-color, 10%), 0.7);
+    &:hover {
+	background-color: rgba(lighten($x-bg-color, 10%), 0.9);
     }
 }
 

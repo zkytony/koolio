@@ -71,7 +71,9 @@ $deck-delete-cards-btn-width: 45px;
 $deck-move-cards-btn-width: 60px;
 $delete-red: #E51D24;
 $move-yellow: #E49303;
-.deck-option-btns {
+.deck-option-btns.www-subdomain {
+    $bg-color: $www-bg-color;
+
     width: $deck-select-cards-btn-width + $deck-delete-cards-btn-width + $deck-move-cards-btn-width + 10px;
     position: absolute;
     top: -40px;
@@ -129,6 +131,68 @@ $move-yellow: #E49303;
 	color: #EFEFEF;
     }
 }
+/* Duplicate for x subdomain */
+.deck-option-btns.x-subdomain {
+    $bg-color: $x-bg-color;
+
+    width: $deck-select-cards-btn-width + $deck-delete-cards-btn-width + $deck-move-cards-btn-width + 10px;
+    position: absolute;
+    top: -40px;
+    right: 5px;
+    
+    button {
+	width: 90px;
+	float: right;
+	font-size: 13px;
+	padding: 5px;
+	@include box-sizing(border-box);
+	border: none;
+	@include border-radius($default-border-radius);
+    }
+
+    button#deck-delete-cards {
+	width: $deck-delete-cards-btn-width;
+	color: darken($delete-red, 15%);
+	background-color: lighten($bg-color, 5%);
+	&:hover {
+	    background-color: darken($delete-red, 10%);
+	    color: #EFEFEF;
+	}
+	margin-right: 5px;
+    }
+    button#deck-delete-cards:disabled {
+	&:hover {
+	    color: darken($delete-red, 15%);
+	    background-color: lighten($bg-color, 5%);
+	}
+    }
+
+    button#deck-move-cards {
+	width: $deck-move-cards-btn-width;
+	color: darken($move-yellow, 15%);
+	background-color: lighten($bg-color, 5%);
+	&:hover {
+	    background-color: darken($move-yellow, 10%);
+	    color: #EFEFEF;
+	}
+	margin-right: 5px;
+    }
+
+    button#deck-select-cards {
+	width: $deck-select-cards-btn-width;
+	color: darken($bg-color, 15%);
+	background-color: lighten($bg-color, 5%);
+	&:hover {
+	    background-color: darken($bg-color, 10%);
+	    color: #EFEFEF;
+	}
+    }
+    button#deck-select-cards.inmode {
+	background-color: darken($bg-color, 10%);
+	color: #EFEFEF;
+    }
+}
+/* End duplicate for .deck-option-btns for x subdomain */
 
 button.deck-favorite-btn {
     width: $deck-favorite-btn-width;

@@ -66,7 +66,12 @@ $type-select-width: 75%;
     width: $type-select-width;
     height: $type-select-width; // keep same margin
     @include center-vertically-and-horizontally;
-    background-color: $bg-color;
+}
+.type-select.www-subdomain {
+    background-color: $www-bg-color;
+}
+.type-select.x-subdomain {
+    background-color: $x-bg-color;
 }
 
 .type-btn-row {
@@ -372,12 +377,18 @@ $img-uploader-wrapper-width: 90%;
     .image-editor-cropper {
 	width: $cropper-width;
 	height: $cropper-height;
-	background-color: $bg-color;
 	@include center-vertically-and-horizontally;
 	@include border-radius($default-border-radius);
 	@include box-sizing(border-box);
 	padding-bottom: 20px;
     }
+    .image-editor-cropper.www-subdomain {
+	background-color: $www-bg-color;
+    }
+    .image-editor-cropper.x-subdomain {
+	background-color: $x-bg-color;
+    }
+
     .image-cropper-wrapper {
 	width: $cropper-width;
 	height: $cropper-height - 40px;

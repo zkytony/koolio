@@ -47,6 +47,12 @@ body {
 	//min-width: 900px;
     }
 }
+body.www-subdomain {
+    background-color: $www-bg-color;
+}
+body.x-subdomain {
+    background-color: $x-bg-color;
+}
 
 .bold {
     font-weight: 700;

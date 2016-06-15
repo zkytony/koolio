@@ -13,10 +13,35 @@ body {
 	
     }
 }
+/* For different subdomain, we use different styles for specific elements */
+body.www-subdomain {  /* www is the default subdomain */
+    background-image: image-url("www_bg.svg");
 
-.nav-wrapper {
-    background-color: rgba($bg-color, 0.3);
+    #welcome-msg-area {
+	b {
+	    color: #FFFF45;  // highlight character in the welcome message
+	}
+    }
 }
+body.x-subdomain {  /* NSFW */
+    background-image: image-url("x_bg.svg");
+    color: white;  // White text for X subdomain
+    
+    #welcome-msg-area {
+	b {
+	    color: #FF8080;  // highlight character in the welcome message
+	    text-shadow: 2px 2px #000;
+	}
+    }
+}
+
+.nav-wrapper.www-subdomain {
+    background-color: rgba($www-bg-color, 0.3);
+}
+.nav-wrapper.x-subdomain {
+    background-color: rgba($x-bg-color, 0.3);
+}
+
 
 #welcome-msg-area {
     font-family: 'MyriadPro', Arial, sans-serif;
@@ -27,9 +52,8 @@ body {
 	padding: 50px;
 	font-weight: 700;
 	line-height: 130%;
-	b {
-	    color: #FFFF45;
-	}
+
+	// Highlight ('b') is handled in subdomain styles
     }
 }
 

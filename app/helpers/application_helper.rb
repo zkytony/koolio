@@ -53,4 +53,14 @@ module ApplicationHelper
       current_user_liked_card: liked
     }
   end
+
+  # Helps to get subdomain from a given request object.
+  # If subdomain is empty, return 'www'
+  def subdomain(request):
+      if request.subdomain.length > 0 && request.subdomain != "www"
+        request.subdomain
+      else
+        "www"
+      end
+  end
 end

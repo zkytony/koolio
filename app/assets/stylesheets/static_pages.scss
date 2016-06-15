@@ -12,7 +12,6 @@ $email-form-height: 230px;
 .center-form-wrapper {
     width: $email-form-width;
     height: $email-form-height;
-    background-color: lighten($bg-color, 10%);
     margin: auto;
     margin-top: 10%;
     position: relative;
@@ -46,6 +45,13 @@ $email-form-height: 230px;
 	}
     }
 }
+.center-form-wrapper.www-subdomain {
+    background-color: lighten($www-bg-color, 10%);
+}
+.center-form-wrapper.x-subdomain {
+    background-color: lighten($x-bg-color, 10%);
+}
+
 #reset-email-form-wrapper {
     
     form {
