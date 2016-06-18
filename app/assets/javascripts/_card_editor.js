@@ -311,14 +311,28 @@ ImageEditor.prototype.init = function() {
 	// file size limit: 3.0 MB
 	if (fileTarget.size > 3000000) {
 	  addAlert("error", "Image file too large (Max size: 3.0MB)", 3000);
+	} else if (!fileTarget.type.startsWith("image")) {
+	  // Not an image file.
+	  addAlert("error", "Please upload an image", 3000);
 	} else {
-	  if (fileTarget.type === "image/gif") {
-	    addAlert("info", "Notice: gifs cropping may not produce expected result.", 5000);
-	  }
-	  $("#" + imageEditor.side + "-img-to-crop").attr("src", e.target.result);
 	  imageEditor.currentTarget = fileTarget;
 	  imageEditor.currentSource = "upload";
-	  imageEditor.cropPhase();
+
+	  if (fileTarget.type === "image/gif") {
+	    // For gif, we want to directly upload it without cropping
+	    var formdata = new FormData();
+	    formdata.append("target", imageEditor.currentTarget);
+	    formdata.append("file_type", "image/gif");
+	    formdata.append("source_type", imageEditor.currentSource);
+
+	    imageEditor.sendFileAJAX(formdata, function(output) {
+	      imageEditor.displayPhase(output);
+	    });
+	  } else {
+	    // For static images we want to crop
+	    $("#" + imageEditor.side + "-img-to-crop").attr("src", e.target.result);
+	    imageEditor.cropPhase();
+	  }
 	}
       };
       reader.readAsDataURL(input.files[0]);
@@ -330,7 +344,7 @@ ImageEditor.prototype.init = function() {
   $(document).on("click", "#" + imageEditor.side + "-img-cropper-confirm-btn", function() {
     var formdata = new FormData();
     formdata.append("target", imageEditor.currentTarget);
-    formdata.append("file_type", "img");
+    formdata.append("file_type", imageEditor.currentTarget.type);
     formdata.append("source_type", imageEditor.currentSource);
     formdata.append("crop_x", $("#crop_x").val());
     formdata.append("crop_y", $("#crop_y").val());
@@ -357,11 +371,13 @@ ImageEditor.prototype.init = function() {
   $(document).on("click", "#" + imageEditor.side + "-side-img-link", function() {
     $("#" + imageEditor.side + "-img-link-paste").removeClass("hidden");
     $("#" + imageEditor.side + "-img-url").focus();
+    addAlert("info", "Paste link to image and hit ENTER", 3500);
     // disable the two buttons
     $("#" + imageEditor.side + "-side-img-file").prop("disabled", true);
     $("#" + imageEditor.side + "-side-img-link").prop("disabled", true);
   });
 
+  // When clicked some where else while url form is up, hide it.
   $(document.body).click(function(e) {
     var linkDiv = $("#" + imageEditor.side + "-img-link-paste");
     if (!linkDiv.hasClass("hidden")) {
@@ -399,15 +415,38 @@ ImageEditor.prototype.init = function() {
 	  $("#" + imageEditor.side + "-img-to-crop").attr("src", url);
 	  imageEditor.currentSource = "link";
 	  imageEditor.currentTarget = url;
-	  imageEditor.cropPhase();
+	  // Check if the image is a gif. If so, we do not want to crop it because
+	  // it doesn't make sense. Just submit the gif. (File size limit should be
+	  // handled in the backend.
+	  type = GetFileTypeFromUrl(url);
+	  if (!type) {
+	    // There is no type! Even though this is an image, we do not want to
+	    // upload this.
+	    $("#" + imageEditor.side + "-url-alert-msg").removeClass("hidden");
+	    $("#" + imageEditor.side + "-url-alert-msg").html("Oops...Unknown file type");
+	    return;
+	  } else if (type === "gif") {
+	    // Submit directly for gif:
+	    var formdata = new FormData();
+	    formdata.append("target", imageEditor.currentTarget);
+	    formdata.append("file_type", "image/gif");
+	    formdata.append("source_type", imageEditor.currentSource);
+
+	    imageEditor.sendFileAJAX(formdata, function(output) {
+	      imageEditor.displayPhase(output);
+	    });
+p	  } else {
+	    imageEditor.cropPhase();
+	  }
 	}
       });
     }
   });
 
-  imageEditor.reset();
+  imageEditor.reset();  // Reset image editor at initialization
   InnerEditor.prototype.init.call(imageEditor);
 }
+////////// END OF imageEditor init //////////
 
 function initJCrop(side) {
   $("#" + side + "-img-to-crop").Jcrop({
@@ -501,11 +540,6 @@ function updateCroppingAttributes(c) {
 }
 /* End of ImageEditor */
 
-function isUrl(s) {
-   var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-   return regexp.test(s);
-}
-
 //////////////////////////////////////////////
 /* VideoEditor object, inherits InnerEditor */
 //////////////////////////////////////////////
@@ -525,9 +559,11 @@ VideoEditor.prototype.init = function() {
     var file = $(this).prop('files')[0];
     if (file.size > 3000000) {
       addAlert("error", "Video file too large (Max size: 3.0MB)", 3000);
+    } else if (file.type.startsWith("video")) {
+      addAlert("error", "Please upload a video file", 3000);
     } else {
       formdata.append("target", file);
-      formdata.append("file_type", "video");
+      formdata.append("file_type", file.type);
       formdata.append("source_type", "upload");
      
       videoEditor.sendFileAJAX(formdata, function(output) {

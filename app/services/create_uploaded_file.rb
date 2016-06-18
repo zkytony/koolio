@@ -16,15 +16,15 @@ class CreateUploadedFile
     uploaded_file = user.uploaded_files.new
     uploaded_file.type = file_type
     if source_type == "upload"
-      # if iamge, get the crop_coords
-      if file_type == "img"
+      # if image, get the crop_coords
+      if file_type.start_with? "image"
         uploaded_file.coords = coords
         uploaded_file.name = target
       else
         uploaded_file.name = target
       end
     elsif source_type == "link"
-      if file_type == "img"
+      if file_type.start_with? "image"
         uploaded_file.coords = coords
         uploaded_file.remote_name_url = target
       else

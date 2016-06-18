@@ -13,7 +13,7 @@
   <% current_editable = current_user and @deck.editable_by? current_user %>
   <% if current_editable %>
     <div class="add-card-btn-container">
-      <button class="add-card-btn" id="add-card-btn"><i class="fa fa-plus"></i></button>
+      <button class="add-card-btn <%=subdomain(request)%>-subdomain" id="add-card-btn"><i class="fa fa-plus"></i></button>
     </div>
     <div class="home-card-editor-container <%=subdomain(request)%>-subdomain" id="editor-container-deck">
       <%= render :partial => 'shared/card_editor' %>

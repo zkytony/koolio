@@ -6,6 +6,7 @@ class UserFileUploader < CarrierWave::Uploader::Base
   storage ENV['STORAGE_TYPE'].to_sym
 
   IMAGE_EXTENSIONS = %w(jpg jpeg gif png)
+  STATIC_IMAGE_EXTENSIONS = %w(jpg jpeg png)
   VIDEO_EXTENSIONS = %w(mp4)
   
   def store_dir
@@ -73,6 +74,11 @@ class UserFileUploader < CarrierWave::Uploader::Base
     new_file.content_type.include? 'image'
   end
 
+  # Check if given type is static image
+  def static_image?(file_type)
+    file_type.include?('image/bmp') || file_type.include?('image/jpeg') || file_type.include?('image/png')
+  end
+
   def thumb_enabled?(new_file)
     ENV['STORAGE_TYPE'] == "file" && image?(new_file)
   end
@@ -83,17 +89,21 @@ class UserFileUploader < CarrierWave::Uploader::Base
 
   # Crop the image
   def crop
-    if model.coords.present?
-      manipulate! do |img|
-        x = model.coords[:x]
-        y = model.coords[:y]
-        w = model.coords[:w]
-        h = model.coords[:h]
-        size = w << 'x' << h
-        offset = x << '+' << y
-        img.crop("#{size}+#{offset}")
-        img
+    if static_image? model.type
+      if model.coords.present?
+        manipulate! do |img|
+          x = model.coords[:x]
+          y = model.coords[:y]
+          w = model.coords[:w]
+          h = model.coords[:h]
+          size = w << 'x' << h
+          offset = x << '+' << y
+          img.crop("#{size}+#{offset}")
+          img
+        end
       end
+    else
+      resize_to_fill(300, 300, 'Center')
     end
   end
 end
