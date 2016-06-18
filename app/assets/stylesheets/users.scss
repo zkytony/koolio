@@ -16,16 +16,33 @@
 
 .add-card-btn {
     font-family: "Arial", sans-serif;
-    background-color: $add-card-btn-color;
     width: $add-card-btn-radius * 2;
     height: $add-card-btn-radius * 2;
     font-size: 25px;
-    border: 1px solid #FFFFFF;
+
+    // color, background color, hover and border handled in subdomain styles
     @include border-radius($add-card-btn-radius);
+}
+
+.add-card-btn.www-subdomain {
+    background-color: $add-card-btn-color;
+    border: 1px solid #FFFFFF;
     color: $white;
-    
     &:hover{
 	background-color: darken($add-card-btn-color, 10%);
+    }
+    
+    &:disabled {
+	background-color: lighten($add-card-btn-color, 15%);
+    }
+}
+.add-card-btn.x-subdomain {
+    $add-card-btn-color: #e60000;
+    background-color:  $add-card-btn-color;
+    color: $healthy-black;
+    border: 1px solid $decent-purple;
+    &:hover{
+	color: $white;
     }
     
     &:disabled {
