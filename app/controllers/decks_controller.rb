@@ -20,8 +20,12 @@ class DecksController < ApplicationController
   end
 
   def show
+    subdomain = ApplicationController.helpers.subdomain(request)
     @deck = Deck.find(params[:id])
-    @viewable = check_permission_to_view(@deck)
+    print @deck.subdomain
+    print subdomain
+    @viewable = @deck.subdomain == subdomain and check_permission_to_view(@deck)
+    print @viewable
     if !@viewable
       render :show
     end

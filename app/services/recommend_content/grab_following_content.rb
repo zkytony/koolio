@@ -10,7 +10,7 @@ class RecommendContent
     # return the contents with the max possible size
     #
     # Currently only grab cards
-    def self.call(user, n_card, n_deck, more, card_ids)
+    def self.call(user, n_card, n_deck, more, card_ids, subdomain="www")
       contents = []
       card_providers = user.following.sort_by{ rand }.slice(0, n_card)
       #deck_providers = user.following.sort_by{ rand }.slice(0, n_deck)
@@ -18,14 +18,14 @@ class RecommendContent
       if more
         # avoid duplicates
         card_providers.each do |provider|
-          contents |= provider.cards.where("cards.id NOT IN (?)", card_ids).sort_by(&:created_at).reverse.first(6).shuffle
+          contents |= provider.cards.where(subdomain: subdomain).where("cards.id NOT IN (?)", card_ids).sort_by(&:created_at).reverse.first(6).shuffle
         end
         # deck_providers.each do |provider|
         #   contents << provider.decks.offset(rand(provider.cards.count)).where("cards.id NOT IN (?)", card_ids)
         # end
       else
         card_providers.each do |provider|
-          contents |= provider.cards.sort_by(&:created_at).reverse.first(6).shuffle
+          contents |= provider.cards.where(subdomain: subdomain).sort_by(&:created_at).reverse.first(6).shuffle
         end
 
         # deck_providers.each do |provider|

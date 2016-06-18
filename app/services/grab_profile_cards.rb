@@ -11,11 +11,11 @@ class GrabProfileCards
   #
   # For "hot", the returned object is an array of card
   # objects.
-  def self.call(user, type, more, card_ids) 
+  def self.call(user, type, more, card_ids, subdomain="www") 
     n_cards = 15
     cards = []
     if type == "all"
-      cards = get_needed_cards_sort_by_created_at(user, n_cards, more, card_ids)
+      cards = get_needed_cards_sort_by_created_at(user, n_cards, more, card_ids, subdomain)
       time_dict = {}
       cards.each do |card|
         time_ago = time_ago_in_words card.created_at
@@ -27,7 +27,7 @@ class GrabProfileCards
       end
       time_dict
     elsif type == "hot"
-      cards = get_needed_cards_sort_by_likes(user, n_cards, more, card_ids)
+      cards = get_needed_cards_sort_by_likes(user, n_cards, more, card_ids, subdomain)
       cards
     else
       nil
@@ -40,11 +40,11 @@ class GrabProfileCards
     # else, card_ids must be an array
     #
     # this method is only for create time sorting
-    def self.get_needed_cards_sort_by_created_at(user, n_cards, more, card_ids)
+    def self.get_needed_cards_sort_by_created_at(user, n_cards, more, card_ids, subdomain="www")
       if more
-        user.cards.where("cards.id NOT IN (?)", card_ids).sort_by(&:created_at).reverse.slice(0, n_cards)
+        user.cards.where(subdomain: subdomain).where("cards.id NOT IN (?)", card_ids).sort_by(&:created_at).reverse.slice(0, n_cards)
       else
-        user.cards.sort_by(&:created_at).reverse.slice(0, n_cards)
+        user.cards.where(subdomain: subdomain).sort_by(&:created_at).reverse.slice(0, n_cards)
       end
     end
 
@@ -52,11 +52,11 @@ class GrabProfileCards
     # else, card_ids must be an array
     #
     # this method is only for likes number sorting
-    def self.get_needed_cards_sort_by_likes(user, n_cards, more, card_ids)
+    def self.get_needed_cards_sort_by_likes(user, n_cards, more, card_ids, subdomain="www")
       if more
-        user.cards.where("cards.id NOT IN (?)", card_ids).sort_by(&:likes).reverse.slice(0, n_cards)
+        user.cards.where(subdomain: subdomain).where("cards.id NOT IN (?)", card_ids).sort_by(&:likes).reverse.slice(0, n_cards)
       else
-        user.cards.sort_by(&:likes).reverse.slice(0, n_cards)
+        user.cards.where(subdomain: subdomain).sort_by(&:likes).reverse.slice(0, n_cards)
       end
     end
 

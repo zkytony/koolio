@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    ApplicationController.helpers.subdomain(request)
+    subdomain = ApplicationController.helpers.subdomain(request)
     if logged_in?
       if current_user.id.to_s != params[:id]
         raise ActionController::RoutingError.new('Not Found')
@@ -69,7 +69,7 @@ class UsersController < ApplicationController
         @more = params[:more] == "true"
         # more may be nil, since some request may not 
         # have this parameter
-        @recommended = RecommendContent.call(@user, @more, params[:card_ids], :home)
+        @recommended = RecommendContent.call(@user, @more, params[:card_ids], :home, subdomain)
 
         # default deck
         @deck = current_user.first_deck
@@ -85,9 +85,10 @@ class UsersController < ApplicationController
 
   # explore page. grab the popular only
   def explore
+    subdomain = ApplicationController.helpers.subdomain(request)
     @more = params[:more] == "true"
     if logged_in?
-      @recommended = RecommendContent.call(current_user, @more, params[:card_ids], :explore)
+      @recommended = RecommendContent.call(current_user, @more, params[:card_ids], :explore, subdomain)
 
       # user may want to make a comment
       @comment = Comment.new
@@ -98,7 +99,7 @@ class UsersController < ApplicationController
       end
     else
       # explore without user sepcified
-      @recommended = RecommendContent.call(nil, @more, params[:card_ids], :explore)
+      @recommended = RecommendContent.call(nil, @more, params[:card_ids], :explore, subdomain)
     end
   end
 
@@ -138,7 +139,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @more = params[:more] == "true"
     card_ids = params[:card_ids]
-    @profile_cards = GrabProfileCards.call(@user, @type, @more, card_ids)
+    subdomain = ApplicationController.helpers.subdomain(request)
+    @profile_cards = GrabProfileCards.call(@user, @type, @more, card_ids, subdomain)
     # user may want to make a comment
     @comment = Comment.new
 
@@ -152,7 +154,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @more = params[:more] == "true"
     deck_ids = params[:deck_ids]
-    @profile_decks = GrabProfileDecks.call(@user, @more, deck_ids)
+    subdomain = ApplicationController.helpers.subdomain(request)
+    @profile_decks = GrabProfileDecks.call(@user, @more, deck_ids, subdomain)
     @can_create_deck = @user.id == current_user.id && @user.activated?
     
     respond_to do |format|
