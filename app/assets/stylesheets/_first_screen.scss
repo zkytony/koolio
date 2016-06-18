@@ -3,7 +3,6 @@
 @import "_login_form";
 
 body {
-    background-image: image-url("bg.svg");
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -24,7 +23,7 @@ body.www-subdomain {  /* www is the default subdomain */
     }
 }
 body.x-subdomain {  /* NSFW */
-    background-image: image-url("x_bg.svg");
+    background-image: image-url("x_bg.jpg");
     color: white;  // White text for X subdomain
     
     #welcome-msg-area {
