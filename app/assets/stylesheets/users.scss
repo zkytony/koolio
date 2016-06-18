@@ -52,7 +52,7 @@
 .home-card-editor-container.www-subdomain {
     background-color: $www-bg-color;
 }
-.home-card-editor-container.www-subdomain {
+.home-card-editor-container.x-subdomain {
     background-color: $x-bg-color;
 }
 
@@ -851,12 +851,12 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	right: 11px;//30px;
     }
 }
-.content-tabs.www-subdomain {
+.contents-tabs.www-subdomain {
     .tab-item.selected:after {
 	@include little-triangle(12px, 12px, 12px, $www-bg-color);
     }
 }
-.content-tabs.x-subdomain {
+.contents-tabs.x-subdomain {
     .tab-item.selected:after {
 	@include little-triangle(12px, 12px, 12px, $x-bg-color);
     }

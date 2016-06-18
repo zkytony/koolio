@@ -39,7 +39,8 @@ input {
 }
 
 body {
-    background-color: $bg-color;
+    // background color handled in subdomain styles
+
     font-family: 'MyriadPro', 'Arial', sans-serif;
     font-size: $default-font-size;
     

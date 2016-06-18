@@ -17,10 +17,8 @@
     background-color: $www-nav-bg-color;
     .nav-logo {
 	img {
-	    width: $nav-logo-size;
-	    height: $nav-logo-size;
+	    max-width: $nav-logo-size;
 	    position: relative;
-	    top: -10px;
 	}
     }
 
@@ -28,7 +26,7 @@
 	background-color: #EFEFEF;
     }
 
-    .nav-search-form {
+    .nav-search-form input[type=text] {
 	border: 1px solid $deck-stroke;
     }
 }
@@ -38,7 +36,6 @@
 	img {
 	    max-width: $nav-logo-size;
 	    position: relative;
-	    top: -10px;
 	}
     }
 
@@ -46,8 +43,12 @@
 	background-color: $darker-grey;
     }
 
-    .nav-search-form {
+    .nav-search-form input[type=text] {
 	border: 1px solid red;
+    }
+
+    .nav-username p {
+	color: $gold;
     }
 }
 
