@@ -58,10 +58,10 @@
   <div class="glass-overlay" id="overlay-for-editor"></div>
   <div class="dark-overlay hidden" id="overlay-for-focus-card"></div>
 <% else %>
-  <!-- Private deck -->
-  <div class="no-content-msg <%=subdomain(request)%>-subdomain">
+  <!-- Private deck OR other subdomain-->
+  <div class="no-content-msg <%=subdomain(request)%>-subdomain alone"> <!-- This box stands 'alone' at the center -->
     <div class="msg-title">
-      Access denied.
+      Oops! 404 Not found.
     </div>
     <div class="msg-suggestions">
       <ul>

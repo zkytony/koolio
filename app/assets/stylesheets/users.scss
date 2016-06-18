@@ -410,7 +410,12 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	}
     }
 }
-/* End duplication of .no-msg-content for x subdomain
+/* End duplication of .no-msg-content for x subdomain */
+.no-content-msg.alone {
+    position: absolute;
+    @include center-vertically-and-horizontally;
+}
+
 
 /* info panels */
 #like-comment-panel, #deck-cards-panel {
