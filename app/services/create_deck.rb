@@ -14,12 +14,14 @@ class CreateDeck
   #   representing a user, then shared_visitor
   #   should not contain that user.
   def self.call(deck_params, 
-                user, 
+                user,
+                subdomain,
                 open, 
                 shared_editors, 
                 shared_visitors, 
                 tags)
     deck_params[:open] = open
+    deck_params[:subdomain] = subdomain
     deck = user.create_deck(deck_params)
     if deck
       # add tags

@@ -11,7 +11,7 @@ class DecksController < ApplicationController
 
   def create
     args = prepare_arguments
-    @deck = CreateDeck.call(deck_params, current_user, 
+    @deck = CreateDeck.call(deck_params, current_user, ApplicationController.helpers.subdomain(request),
                             args[:open], args[:shared_editors], args[:shared_visitors],
                             args[:tags]);
     respond_to do |format|
@@ -141,28 +141,32 @@ class DecksController < ApplicationController
     # needed for creating or updating a deck
     def prepare_arguments
       shared_editors = Set.new
-      shared_editors_param = params[:item][:shared_editors]
-      if shared_editors_param
-        shared_editors_param.split(",").each do |username|
-          user = User.find_by(username: username)
-          if user
-            shared_editors.add user
-          end
-        end
-      end
-
       shared_visitors = Set.new
-      shared_visitors_param = params[:item][:shared_visitors]
-      if shared_visitors_param
-        shared_visitors_param.split(",").each do |username|
-          user = User.find_by(username: username)
-          if user
-            shared_visitors.add user
+      tags = Set.new
+
+      if !params[:item].nil?
+        shared_editors_param = params[:item][:shared_editors]
+        if shared_editors_param
+          shared_editors_param.split(",").each do |username|
+            user = User.find_by(username: username)
+            if user
+              shared_editors.add user
+            end
           end
         end
-      end
 
-      tags = params[:item][:tags]
+        shared_visitors_param = params[:item][:shared_visitors]
+        if shared_visitors_param
+          shared_visitors_param.split(",").each do |username|
+            user = User.find_by(username: username)
+            if user
+              shared_visitors.add user
+            end
+          end
+        end
+
+        tags = params[:item][:tags]
+      end
       
       return { 
         shared_editors: shared_editors, 

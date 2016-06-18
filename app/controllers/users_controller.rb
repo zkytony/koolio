@@ -27,6 +27,7 @@ class UsersController < ApplicationController
     else
       # Able to create a new user
       @user = User.new(user_params)
+      @user.register_subdomain = ApplicationController.helpers.subdomain(request)
       if CreateUserAccount.call(@user)
         flash[:success] = "Welcome! #{@user.username}"
         log_in @user
@@ -59,6 +60,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    ApplicationController.helpers.subdomain(request)
     if logged_in?
       if current_user.id.to_s != params[:id]
         raise ActionController::RoutingError.new('Not Found')
@@ -282,4 +284,5 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:username, :email, :password)
     end
+
 end
