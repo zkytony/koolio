@@ -21,7 +21,7 @@
   </div>
   <!-- END IMAGE EDITOR UPLOADER -->
   <!-- Display the uploaded image in a cropper -->
-  <div class="image-editor-cropper hidden" id="<%="#{side}"%>-img-editor-cropper">
+  <div class="image-editor-cropper hidden <%=subdomain(request)%>-subdomain" id="<%="#{side}"%>-img-editor-cropper">
     <div class="image-cropper-wrapper" id="<%="#{side}"%>-img-cropper-wrapper">
       <img id="<%="#{side}"%>-img-to-crop" src="" alt="your browser may not support FileReader API.">
     </div>

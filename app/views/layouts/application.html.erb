@@ -27,7 +27,7 @@
     <%= favicon_link_tag %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
+  <body class="<%=subdomain(request)%>-subdomain">
     <div class="whole-wrapper">
       <div class="lower-right-info" id="site-info-wrapper">
 	<div class="info-item" id="github-link">

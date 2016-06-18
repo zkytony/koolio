@@ -3,7 +3,7 @@
 <% provide(:meta_descp, "#{@deck.title}: #{truncate(@deck.description, length: 100)}") %>
 <% provide(:og_type, "article") %>
 <% provide(:og_url, deck_url(@deck)) %>
-<% provide(:og_img_url, image_url("tmp/logo_bigger.png")) %>
+<% provide(:og_img_url, image_url("tmp/#{subdomain(request)}_logo_bigger.png")) %>
 <%= stylesheet_link_tag "users.css" %>
 <%= stylesheet_link_tag "decks.css" %>
 <%= javascript_include_tag "flexible_cards_handler.js" %>
@@ -15,7 +15,7 @@
     <div class="add-card-btn-container">
       <button class="add-card-btn" id="add-card-btn"><i class="fa fa-plus"></i></button>
     </div>
-    <div class="home-card-editor-container" id="editor-container-deck">
+    <div class="home-card-editor-container <%=subdomain(request)%>-subdomain" id="editor-container-deck">
       <%= render :partial => 'shared/card_editor' %>
     </div>
   <% end %>
@@ -46,7 +46,7 @@
     <div class="right-contents-wrapper" id="deck-cards-container">
       <%= render partial: "shared/deck_cards" %>
     </div>
-    <div class="deck-option-btns">
+    <div class="deck-option-btns <%=subdomain(request)%>-subdomain">
       <% if current_editable %>
 	<button id="deck-select-cards">select cards</button>
 	<button class="hidden" id="deck-delete-cards" disabled><i class="fa fa-trash"></i></button>
@@ -59,7 +59,7 @@
   <div class="dark-overlay hidden" id="overlay-for-focus-card"></div>
 <% else %>
   <!-- Private deck -->
-  <div class="no-content-msg">
+  <div class="no-content-msg <%=subdomain(request)%>-subdomain">
     <div class="msg-title">
       Access denied.
     </div>

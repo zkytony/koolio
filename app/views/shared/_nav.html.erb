@@ -1,11 +1,11 @@
 <nav>
-  <div class="nav-wrapper">
+  <div class="nav-wrapper <%=subdomain(request)%>-subdomain">
     <div class="nav-container">
       <!-- Nav First Part -->
       <div class="nav-first-part">
 	<div class="nav-logo">
 	  <%= link_to nav_logo_link, data: { no_turbolink: true } do %>
-	    <%= image_tag "tmp/#{subdomain(request)}_logo.svg" %>
+	    <%= image_tag "tmp/#{subdomain(request)}_logo_beta.png" %>
 	  <% end %>
 	</div>
 	<div class="nav-search-wrapper">
