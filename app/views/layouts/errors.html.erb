@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+.------..------..------..------..------..------.
+|K.--. ||O.--. ||O.--. ||L.--. ||I.--. ||O.--. |
+| :/\: || :/\: || :/\: || :/\: || (\/) || :/\: |
+| :\/: || :\/: || :\/: || (__) || :\/: || :\/: |
+| '--'K|| '--'O|| '--'O|| '--'L|| '--'I|| '--'O|
+`------'`------'`------'`------'`------'`------' 
+ -->
+<html>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <meta name="description" content="<%= yield(:meta_descp)%>" />
+    <meta name="keywords" content="koolio, flashcard, flip, <%=yield(:meta_keywords) %>" />
+    <% noindex = yield(:noindex) %>
+    <% if noindex.empty? %>
+      <meta property="og:title" content="<%= full_title(yield(:title)) %>"/>
+      <meta property="og:type" content="<%= yield(:og_type) %>" />
+      <meta property="og:url" content="<%= yield(:og_url) %>"/>
+      <meta property="og:image" content="<%= yield(:og_img_url) %>"/>
+    <% else %>
+      <meta name="robots" content="noindex" />
+      <meta name="googlebot" content="noindex" />
+    <% end %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    "errors.css" %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= favicon_link_tag %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="<%=subdomain(request)%>-subdomain">
+    <div class="whole-wrapper">
+      <div class="lower-right-info" id="site-info-wrapper">
+	<div class="info-item" id="github-link">
+	  <a href="https://github.com/zkytony/koolio"><i class="fa fa-github"></i></a>
+	</div>
+	<div class="info-item" id="feedback-btn">Feed back</div>
+	<div class="info-item">&copy koolio.io</div>
+      </div>
+      <div class="fl-alerts">
+	<% flash.each do |key, value| %>
+	  <div class="fl-alert alert-<%="#{key}"%>"><%="#{value}"%></div>
+	<% end %>
+	<% if logged_in? && !current_user.activated? %>
+	  <div class="fl-alert alert-warning no-fade">Please activate your account - check your email</div>
+	<% end %>
+      </div>
+      <!-- Main contents -->
+      <%= render :partial => 'shared/nav' %>
+      <div class="no-content-msg <%=subdomain(request)%>-subdomain alone"> <!-- This box stands 'alone' at the center -->
+	<div class="msg-title">
+	  <%= yield %>
+	</div>
+	<div class="msg-suggestions">
+	  <ul>
+	    <%= link_to explore_path, data: { no_turbolink: true } do %>
+	      <li>
+		explore koolio
+		<i class="fa fa-compass"></i>
+	      </li>
+	    <% end %>
+	    <% if !logged_in? %>
+	      <%= link_to root_path, data: { no_turbolink: true } do %>
+		<li>
+		  Join Koolio here. <i class="fa fa-thumbs-o-up"></i>
+		</li>
+	      <% end %>
+	    <% else %>
+	      <%= link_to current_user, data: { no_turbolink: true } do %>
+		<li>
+		  Go home. <i class="fa fa-home"></i>
+		</li>
+	      <% end %>
+	    <% end %>
+	  </ul>
+	</div>
+      </div>
+
+
+
+    </div>
+  </body>
+</html>

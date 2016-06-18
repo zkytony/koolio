@@ -46,5 +46,7 @@ module Koolio
         ENV[key.to_s] = value
       end if File.exists?(env_file)
     end
+
+    config.exceptions_app = self.routes
   end
 end
