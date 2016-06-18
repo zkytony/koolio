@@ -405,4 +405,18 @@ RSpec.describe User, :type => :model do
     expect(mutuals.include?(userC)).to be true
     expect(mutuals.include?(userD)).to be true
   end
+
+  it "should create a new user with register_subdomain info" do
+    info = {
+      username: "userA",
+      email: "userA@example.com",
+      password: "123456",
+      password_confirmation: "123456",
+      register_subdomain: "x"
+    }
+    userA = User.new(info)
+    userA.save!
+    _userA = User.find(userA.id)
+    expect(_userA.register_subdomain).to eq "x"
+  end
 end

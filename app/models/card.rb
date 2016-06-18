@@ -1,9 +1,14 @@
 class Card < ActiveRecord::Base
   include PgSearch
 
+  VALID_SUBDOMAIN_REGEX = /\A[a-zA-Z0-9]+\Z/i
   validates :deck_id, presence: true
   validates :user_id, presence: true
   validates_inclusion_of :hide, :in => [true, false]
+
+  validates :subdomain,  presence: true,
+                         length: { maximum: 255, minimum: 1 },
+                         format: { with: VALID_SUBDOMAIN_REGEX }
   
   belongs_to :deck
   belongs_to :user

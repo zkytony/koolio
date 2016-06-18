@@ -1,10 +1,15 @@
 class Deck < ActiveRecord::Base
   include PgSearch
 
+  VALID_SUBDOMAIN_REGEX = /\A[a-zA-Z0-9]+\Z/i
   validates :user_id, presence: true
   validates :title, presence: true,
                     length: { maximum: 175 }
   validates_inclusion_of :open, :in => [true, false]
+
+  validates :subdomain,  presence: true,
+                         length: { maximum: 255, minimum: 1 },
+                         format: { with: VALID_SUBDOMAIN_REGEX }
 
   belongs_to :user
   has_many :cards, dependent: :destroy
@@ -30,6 +35,7 @@ class Deck < ActiveRecord::Base
     if self.editable_by?(user)
       card = self.cards.build(card_params)
       card.user = user
+      card.subdomain = self.subdomain
       card
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108050805) do
+ActiveRecord::Schema.define(version: 20160618074813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160108050805) do
     t.datetime "updated_at",                    null: false
     t.boolean  "hide",          default: false
     t.integer  "likes",         default: 0
+    t.string   "subdomain",     default: "www"
   end
 
   add_index "cards", ["deck_id"], name: "index_cards_on_deck_id", using: :btree
@@ -71,10 +72,11 @@ ActiveRecord::Schema.define(version: 20160108050805) do
     t.string   "title"
     t.string   "description"
     t.integer  "user_id"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.boolean  "open",        default: true
     t.string   "tags_names"
+    t.string   "subdomain",   default: "www"
   end
 
   add_index "decks", ["user_id", "created_at"], name: "index_decks_on_user_id_and_created_at", using: :btree
@@ -198,14 +200,15 @@ ActiveRecord::Schema.define(version: 20160108050805) do
     t.string   "password_digest"
     t.date     "birthday"
     t.string   "gender"
-    t.boolean  "activated",         default: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.boolean  "activated",          default: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "avatar"
     t.string   "activation_digest"
     t.datetime "activated_at"
     t.string   "reset_digest"
     t.datetime "reset_at"
+    t.string   "register_subdomain", default: "www"
   end
 
   add_index "users", ["username", "email"], name: "index_users_on_username_and_email", using: :btree

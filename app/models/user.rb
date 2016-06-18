@@ -36,9 +36,12 @@ class User < ActiveRecord::Base
   has_many :uploaded_files
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  VALID_USERNAME_REGEX = /\A[a-zA-Z0-9\-_]+\Z/  # no whitespace allowed
+  VALID_SUBDOMAIN_REGEX = /\A[a-zA-Z0-9]+\Z/i
   validates :username,  presence: true,
                         uniqueness: true,
-                        length: { maximum: 20 }
+                        length: { maximum: 20 },
+                        format: { with: VALID_USERNAME_REGEX }
   validates :email,     presence: true,
                         uniqueness: true,
                         format: { with: VALID_EMAIL_REGEX },
@@ -46,6 +49,10 @@ class User < ActiveRecord::Base
   validates :password,  presence: true,
                         length: { minimum: 6 }, on: :create
   validates :password,  length: { minimum: 6 }, on: :update, allow_blank: true
+
+  validates :register_subdomain,  presence: true,
+                                  length: { maximum: 255, minimum: 1 },
+                                  format: { with: VALID_SUBDOMAIN_REGEX }
   
   has_secure_password   # Enforces validation on the virtual password & password_confirmation attributes
   has_secure_token :activation_digest

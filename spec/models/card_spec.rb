@@ -3,6 +3,13 @@ require 'rails_helper'
 RSpec.describe Card, type: :model do
   it { should validate_presence_of(:deck_id) }
   it { should validate_presence_of(:user_id) }
+  it { should validate_presence_of(:subdomain) }
+  it { should validate_length_of(:subdomain).is_at_most(255) }
+  it { should validate_length_of(:subdomain).is_at_least(1) }
+  it do
+    should allow_value("abc", "34oZ44a").for(:subdomain)
+    should_not allow_value("d dsf", "sdf\tcool", "$#@*({:\"%").for(:subdomain)
+  end
 
   it { should belong_to(:deck) }
   it { should belong_to(:user) }
