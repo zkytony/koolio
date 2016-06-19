@@ -214,13 +214,17 @@ InnerEditor.prototype.sendFileAJAX = function(formdata, successCallBack) {
     dataType: 'json', // get back json
     beforeSend: function() {
       $("#" + innerEditor.type + "_" + innerEditor.side + "_waiting").removeClass("hidden");
-      addAlert("warning", "Uploading and processing...Please wait", 3500);
+      addAlert("warning", "Uploading and processing...Please wait", 10000);
     },
     success: function(output) {
       successCallBack(output);
+      $(".fl-alerts").children().remove();
     },
     complete: function() {
       $("#" + innerEditor.type + "_" + innerEditor.side + "_waiting").addClass("hidden");
+    },
+    error: function() {
+      addAlert("error", "Upload Failed", 3000);
     }
   });
 }
