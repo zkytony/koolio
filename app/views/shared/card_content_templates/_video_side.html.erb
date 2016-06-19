@@ -2,9 +2,9 @@
     Display the thumbnail version for the image
 %>
 <div class="card-video-wrapper">
-  <div class="video-no-flip-region no-flip"></div>
-  <video width="250" height="250" controls>
+  <video width="250" height="250">
     <source src="<%="#{content['host']}/#{content['store_dir']}/#{content['file_name']}"%>" type="video/<%="#{content['video_type']}"%>">
     Your browser does not support HTML5 video tag.
   </video>
+  <div class="notice <%=subdomain(request)%>-subdomain">video</div>
 </div>

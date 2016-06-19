@@ -249,14 +249,43 @@ $info-toggle-size: 80px;
     /* video card */
     .video-type-side {
 	padding: 0px;
-	background-color: $healthy-black;
+	background-color: lighten($healthy-black, 15%);
 
 	.card-video-wrapper {
-	    width: 100%;
-	    height: 100%;
+	    width: $home-card-width;
+	    height: $home-card-width;
 	    @include box-sizing(border-box);
 	    display: inline-block;
 	    position: relative;
+
+	    .notice.www-subdomain {
+		position: absolute;
+		left: 0px;
+		bottom: 0px;
+		background-color: #67C5EC;
+		color: #FFF;
+		z-index: 3;
+		@include box-sizing(border-box);
+		padding-top: 4px;
+		padding-left: 5px;
+		padding-right: 5px;
+		padding-bottom: 2px;
+		font-size: 17px;		
+	    }
+	    .notice.x-subdomain {
+		position: absolute;
+		left: 0px;
+		bottom: 0px;
+		background-color: #E60000;
+		color: $white;
+		z-index: 3;
+		@include box-sizing(border-box);
+		padding-top: 4px;
+		padding-left: 5px;
+		padding-right: 5px;
+		padding-bottom: 2px;
+		font-size: 17px;
+	    }
 	}
 
 	.video-no-flip-region  {
