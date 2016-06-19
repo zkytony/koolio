@@ -9,7 +9,7 @@ class CreateDefaultDeck
     end
     if !user.decks.find_by(title: default_deck)
       deck_params = { title: default_deck, subdomain: subdomain }
-      user.create_deck(deck_params)
+      deck = user.create_deck(deck_params)
     end
   end
 end
