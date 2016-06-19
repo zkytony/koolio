@@ -387,7 +387,7 @@ ImageEditor.prototype.init = function() {
   $(document.body).click(function(e) {
     var linkDiv = $("#" + imageEditor.side + "-img-link-paste");
     if (!linkDiv.hasClass("hidden")) {
-      if (e.target.id !== "#" + imageEditor.side + "-side-img-link" && e.target.id !== "#" + imageEditor.side + "-img-link-paste" && !$.contains(linkDiv[0], e.target)) {
+      if (e.target.id !== imageEditor.side + "-side-img-link" && e.target.id !== imageEditor.side + "-img-link-paste" && e.target.id !== imageEditor.side + "-img-url") {
 	linkDiv.addClass("hidden");
 	$("#" + imageEditor.side + "-side-img-file").prop("disabled", false);
 	$("#" + imageEditor.side + "-side-img-link").prop("disabled", false);
