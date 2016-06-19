@@ -26,7 +26,7 @@ class RecommendContent
         contents |= GrabSelfLatestContent.call(user, 30, subdomain)
       end
       contents |= GrabFavoriteContent.call(user, n_card, more, card_ids, subdomain)
-      contents
+      contents.sort_by {|a| a.created_at }.reverse
     else
       nil
     end
