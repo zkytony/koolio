@@ -63,4 +63,15 @@ module ApplicationHelper
         "www"
       end
   end
+
+  # Return a "slogan" to display in the login page for
+  # the given subdomain
+  def subdomain_slogan(subdomain)
+      case subdomain
+        when "www"
+          "Share, <br> in a <b class=\"orange\">flippable</b> fashion".html_safe
+        when "x"
+          "Share and Watch <b>Porn</b>, <br> in a <b>flippable</b> fashion".html_safe
+      end
+  end
 end

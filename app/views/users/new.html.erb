@@ -10,7 +10,7 @@
 <div class="content-wrapper">
   <div id="welcome-msg-area" class="huge-msg-area">
     <p>
-      Share, <br> in a <b class="orange">flippable</b> fashion.
+      <%=subdomain_slogan(subdomain(request))%>
     </p>
     <div class="explore-btn-area">
       <%= button_to explore_path, class: "explore-btn", method: :get do %>
