@@ -60,6 +60,48 @@ Editor.prototype.init = function() {
     }
   }
 
+  // when clicked on deck-selector, display the decks dropdown
+  $(document).on("click", "#deck-selector", function(e) {
+    $("#he_decks_options").removeClass("hidden");
+  });
+  // when clicked on an option on the list, select it
+  $(document).on("click", "#he_decks_options li", function(e) {
+    // update current deck selector's title & id
+    var prevTitle = $("#deck-selector p").html();
+    var prevDeckId = $("#deck-selector p").attr("id").split("_")[2];
+    var title = $(this).html();
+    var deckId = $(this).attr("id").split("_")[2];  // list_deck_<id>
+    // remove the selected deck from the list
+    $("#list_deck_" + deckId).remove();
+    // add the previously selected deck to the list
+    $("#he_decks_options ul").append("<li id=\"list_deck_" + prevDeckId + "\">" + prevTitle + "</li>");
+
+    // update selected
+    $("#deck-selector p").html(title);
+    $("#deck-selector p").attr("id", "sl_deck_" + deckId);
+    $("#deck_id").val(deckId);
+
+    // adjust font size of selected deck title according to number of characters in it
+    adjustSelectedDeckTitleFontSize();
+
+    // simply sort the list items alphebatically
+    var mylist = $('#he_decks_options ul');
+    var listitems = mylist.children('li').get();
+    listitems.sort(function(a, b) {
+      return $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase());
+    });
+    $.each(listitems, function(idx, itm) { mylist.append(itm); });
+  });
+  // When clicked some where else, including an option in the list, hide the decks list
+  $(document.body).click(function(e) {
+    var decksList = $("#he_decks_options");
+    if (!decksList.hasClass("hidden")) {
+      if (e.target.id !== "deck-selector") {
+	decksList.addClass("hidden");
+      }
+    }
+  });
+
   // when ajax is success, call init again
   $("#" + editor.id).on("ajax:success", function(e, data, status, xhr) {
     editor.reset();
@@ -642,3 +684,15 @@ VideoEditor.prototype.updateTypeBtnStateIfHasDraft = function() {
 }
 /* End of VideoEditor */
 
+function adjustSelectedDeckTitleFontSize() {
+  var title = $("#deck-selector p").html();
+  if (title.length <= 25) {
+    $("#deck-selector p").css("font-size", "18px");
+  } else if (title.length > 25 && title.length <= 30) {
+    $("#deck-selector p").css("font-size", "15px");
+  } else {
+    // too long. Replace [33, end-2] with '...'
+    $("#deck-selector p").html(title.substring(0, 28) + "..." + title.substring(title.length-1, title.length));
+    $("#deck-selector p").css("font-size", "15px");
+  }
+}

@@ -171,14 +171,58 @@ $create-card-btn-font-size: 24px;
     background-color: #E6E6E6;
 }
 
+/* Deck selector */
+$deck-selected-color: $decent-blue;
+$deck-selected-font-size: 18px;
 $create-card-btn-color: #56BC8A;
-.create-card-btn {
-    font-size: $create-card-btn-font-size;
-    background-color: $create-card-btn-color;
+#deck-selector {
+    margin: 5px;
+    background-color: $deck-selected-color;
     color: $white;
-    font-weight: 700;
+    @include border-radius($editor-btn-radius);
+    position: relative;
+    p {
+	@include center-vertically-and-horizontally;
+	font-size: $deck-selected-font-size;
+	white-space: nowrap;
+    }
+}
+#deck-selector.ok-select {
+    @include decent-interact-bg($deck-selected-color);
+    &:hover {
+	cursor: pointer;
+    }
+}
+.editor-decks-list {
+    position: absolute;
+    margin: 5px;
+    background-color: $decent-blue;
+    width: $create-card-btn-size;
+    ul {
+	li {
+	    width: 100%;
+	    list-style-type: none;
+	    padding: 6px;
+	    color: $white;
+	    @include box-sizing(border-box);
+	    @include decent-interact-bg($decent-blue);
+	    &:hover {
+		cursor: pointer;
+	    }
+	}
+    }
+}
+// We watn deck selector to have the same size as create card btn
+.create-card-btn, #deck-selector {
     width: $create-card-btn-size;
     height: $create-card-btn-height;
+    font-size: $create-card-btn-font-size;
+}
+
+.create-card-btn {
+    font-weight: 700;
+    background-color: $create-card-btn-color;
+    color: $white;
     @include border-radius($editor-btn-radius);
     @include decent-interact-bg($create-card-btn-color);
 }

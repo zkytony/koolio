@@ -62,6 +62,22 @@
 	  <button class="side-select-btn" id="back-side-btn" type="button">back</button>
 	</div>
 	<div class="fixed-options-btn-row">
+	  <!-- Deck selection. -->
+	  <% if current_user %>
+	    <% if controller_name == "users" and action_name == "show" %>
+	      <div id="deck-selector" class="ok-select">
+	    <% else %>
+	      <div id="deck-selector" class="no-select">
+	    <% end %>
+	        <p id="sl_deck_<%=@deck.id%>"><%=@deck.title%></p>
+	      </div>
+
+	    <%# only show list if in users#show %>
+	    <% if controller_name == "users" and action_name == "show" %>
+	      <%= render partial: "shared/card_editor_user_decks_list", locals: { user: current_user, selected_deck: @deck, id: "he_decks_options" } %>
+	    <% end %>
+	  <% end %>
+	  <!-- Create card button -->
 	  <button class="create-card-btn" id="create-card-btn" disabled type="submit">create card</button>
 	</div>
       </div>

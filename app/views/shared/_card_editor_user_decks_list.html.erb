@@ -1,0 +1,9 @@
+<div class="editor-decks-list hidden" id="<%=id%>">
+  <ul>
+    <% user.decks.order(:title).each do |deck| %>
+      <% if deck.id != selected_deck.id %>
+	<li id="list_deck_<%=deck.id%>"><%=deck.title%></li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
