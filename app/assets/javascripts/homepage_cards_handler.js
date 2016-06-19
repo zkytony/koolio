@@ -9,8 +9,10 @@ CardsHandler.prototype.init = function() {
   var handler = this;
   // flip when clicked home; support mobile
   $(document).on("click tap", ".home-card", function(e) {
-    e.stopPropagation();
-    e.preventDefault();
+    if (e.target.nodeName != "A") {
+      e.stopPropagation();
+      e.preventDefault();
+    }
     if (!$(e.target).hasClass("no-flip")) {
       handler.handleFlip($(this));
     }

@@ -14,7 +14,7 @@
 <% end %>
 <%# check if use autolink %>
 <% if recognize_link %>
-  <p><%= auto_link(content['body'], :html => { :class => 'no-flip' }) %></p>
+  <p><%= auto_link(content['body'], :html => { :class => 'no-flip', :target => 'blank' }) %></p>
 <% else %>
   <p><%= "#{content['body']}" %></p>
 <% end %>
