@@ -72,7 +72,7 @@ class UsersController < ApplicationController
         @recommended = RecommendContent.call(@user, @more, params[:card_ids], :home, subdomain)
 
         # default deck
-        @deck = current_user.first_deck
+        @deck = current_user.default_deck(subdomain)
         # user may want to create a card in home page
         @card = Card.new 
         # user may want to make a comment
@@ -156,7 +156,8 @@ class UsersController < ApplicationController
     deck_ids = params[:deck_ids]
     subdomain = ApplicationController.helpers.subdomain(request)
     @profile_decks = GrabProfileDecks.call(@user, @more, deck_ids, subdomain)
-    @can_create_deck = @user.id == current_user.id && @user.activated?
+
+    @can_create_deck = current_user && @user.id == current_user.id && @user.activated?
     
     respond_to do |format|
       format.js

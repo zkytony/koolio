@@ -5,11 +5,14 @@ class CreateCard
     if deck_id
       @deck = Deck.find(deck_id)
     else
-      @deck = user.decks.find_by(title: "default")
+      default_deck = "default"
+      if subdomain != "www"
+        default_deck = "default #{subdomain}.koolio"
+      end
+      @deck = user.decks.find_by(title: default_deck)
     end
 
     @card = @deck.build_card(card_params, user)
-    @card.subdomain = subdomain
     @card.save!
   end
 end

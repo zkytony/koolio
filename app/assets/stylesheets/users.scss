@@ -169,11 +169,11 @@ $info-toggle-size: 80px;
 				 rgba(0,0,0,0), 
 				 rgba(lighten($healthy-black, 20%), 0.5));
 	.zoom-card-btn {
-	    font-size: 18px;
+	    font-size: 22px;
 	    right: 10px;
 	    top: 8px;
 	    cursor: pointer;
-	    color: $light-cyan;
+	    color: darken($light-cyan, 5%);
 	}
     }
     /* end zoom btn */

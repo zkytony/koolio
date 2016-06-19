@@ -285,4 +285,21 @@ class User < ActiveRecord::Base
     end
     deck
   end
+
+  # Returns the user's default deck for given subdomain. If not exist,
+  # this function will create one.
+  def default_deck(subdomain)
+    default_deck = "default"
+    if subdomain != "www"
+      default_deck = "default #{subdomain}.koolio"
+    end
+    deck = self.decks.find_by(title: default_deck)
+    if deck.nil?
+      # Creates a default deck
+      # If a card is not given a deck, it goes to this default deck
+      deck = self.create_deck(title: default_deck, 
+                              description: "Cards that were not given a deck goes to this deck.")
+    end
+    deck
+  end
 end

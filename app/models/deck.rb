@@ -35,6 +35,7 @@ class Deck < ActiveRecord::Base
     if self.editable_by?(user)
       card = self.cards.build(card_params)
       card.user = user
+      card.subdomain = self.subdomain
       card
     end
   end

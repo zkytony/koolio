@@ -16,6 +16,10 @@ class SessionsController < ApplicationController
     password = session_params[:password]    
     user = User.authenticate(identifier, password)
     if user
+      # Check if user has a "default" deck for the current subdomain
+      subdomain = ApplicationController.helpers.subdomain(request)
+      CreateDefaultDeck.call(user, subdomain)
+
       log_in user
       redirect_to user
     else
