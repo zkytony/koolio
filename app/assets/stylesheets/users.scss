@@ -270,7 +270,8 @@ $info-toggle-size: 80px;
 		padding-left: 5px;
 		padding-right: 5px;
 		padding-bottom: 2px;
-		font-size: 17px;		
+		font-size: 17px;
+		@include box-shadow(0px, 0px, 15px,$darker-grey);
 	    }
 	    .notice.x-subdomain {
 		position: absolute;
@@ -285,6 +286,7 @@ $info-toggle-size: 80px;
 		padding-right: 5px;
 		padding-bottom: 2px;
 		font-size: 17px;
+		@include box-shadow(0px, 0px, 15px,$healthy-black);
 	    }
 	}
 
