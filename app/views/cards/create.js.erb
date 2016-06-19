@@ -1,2 +1,39 @@
 $("#editor-container-home").css("display", "none");
 $(".glass-overlay").css("display", "none");
+// Need to reset input file selector
+document.getElementById("front-side-img-file").value = "";
+document.getElementById("back-side-img-file").value = "";
+document.getElementById("front-side-video-file").value = "";
+document.getElementById("back-side-video-file").value = "";
+// Need to enable link upload
+document.getElementById("front-side-img-link").disabled = false;
+document.getElementById("back-side-img-link").disabled = false;
+document.getElementById("front-side-video-link").disabled = false;
+document.getElementById("back-side-video-link").disabled = false;
+
+// Need to reset JCrop
+$("#front-img-cropper-wrapper").html("");
+$("#front-img-cropper-wrapper").prepend("<img id='front-img-to-crop' src='' alt='your browser may not support FileReader API.'>");
+$("#back-img-cropper-wrapper").html("");
+$("#back-img-cropper-wrapper").prepend("<img id='back-img-to-crop' src='' alt='your browser may not support FileReader API.'>");
+initJCrop("front");
+initJCrop("back");
+
+function initJCrop(side) {
+  $("#" + side + "-img-to-crop").Jcrop({
+    setSelect: [0, 0, 230, 230],
+    aspectRatio: 1,
+    boxWidth: 500,
+    boxHeight: 450,
+    minSize: [ 100, 100 ],
+    onSelect: updateCroppingAttributes,
+    onChange: updateCroppingAttributes,
+  });
+}
+
+function updateCroppingAttributes(c) {
+  $("#crop_x").val(c.x);
+  $("#crop_y").val(c.y);
+  $("#crop_w").val(c.w);
+  $("#crop_h").val(c.h);
+}

@@ -283,6 +283,12 @@ $img-editor-bg: $inner-editor-bg;
 $img-uploader-icon-size: 77px;
 $img-uploader-wrapper-height: 100% - $inner-btn-row-height;
 $img-uploader-wrapper-width: 90%;
+.image-editor.www-subdomain {
+    background-color: $www-bg-color;
+}
+.image-editor.x-subdomain {
+    background-color: $x-bg-color;
+}
 .image-editor {
     width: $img-editor-width;
     height: $img-editor-width ;
@@ -520,6 +526,12 @@ $video-editor-bg: $inner-editor-bg;
 $video-uploader-icon-size: 77px;
 $video-uploader-wrapper-height: 100% - $inner-btn-row-height;
 $video-uploader-wrapper-width: 90%;
+.video-editor.www-subdomain {
+    background-color: $www-bg-color;
+}
+.video-editor.x-subdomain {
+    background-color: $x-bg-color;
+}
 .video-editor {
     width: $video-editor-width;
     height: $video-editor-width ;

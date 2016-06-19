@@ -322,6 +322,7 @@ ImageEditor.prototype.init = function() {
 	} else {
 	  imageEditor.currentTarget = fileTarget;
 	  imageEditor.currentSource = "upload";
+	  imageEditor.fileType = fileTarget.type;
 
 	  if (fileTarget.type === "image/gif") {
 	    // For gif, we want to directly upload it without cropping
@@ -349,7 +350,7 @@ ImageEditor.prototype.init = function() {
   $(document).on("click", "#" + imageEditor.side + "-img-cropper-confirm-btn", function() {
     var formdata = new FormData();
     formdata.append("target", imageEditor.currentTarget);
-    formdata.append("file_type", imageEditor.currentTarget.type);
+    formdata.append("file_type", imageEditor.fileType);
     formdata.append("source_type", imageEditor.currentSource);
     formdata.append("crop_x", $("#crop_x").val());
     formdata.append("crop_y", $("#crop_y").val());
@@ -423,14 +424,15 @@ ImageEditor.prototype.init = function() {
 	  // Check if the image is a gif. If so, we do not want to crop it because
 	  // it doesn't make sense. Just submit the gif. (File size limit should be
 	  // handled in the backend.
-	  type = GetFileTypeFromUrl(url);
+	  type = SimpleExtToMime(GetFileTypeFromUrl(url));
+	  imageEditor.fileType = type;
 	  if (!type) {
 	    // There is no type! Even though this is an image, we do not want to
 	    // upload this.
 	    $("#" + imageEditor.side + "-url-alert-msg").removeClass("hidden");
 	    $("#" + imageEditor.side + "-url-alert-msg").html("Oops...Unknown file type");
 	    return;
-	  } else if (type === "gif") {
+	  } else if (type === "image/gif") {
 	    // Submit directly for gif:
 	    var formdata = new FormData();
 	    formdata.append("target", imageEditor.currentTarget);

@@ -262,7 +262,7 @@ $info-toggle-size: 80px;
 		position: absolute;
 		left: 0px;
 		bottom: 0px;
-		background-color: #67C5EC;
+		background-color: darken($grey-blue, 10%);
 		color: #FFF;
 		z-index: 3;
 		@include box-sizing(border-box);

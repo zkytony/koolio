@@ -24,3 +24,19 @@ function isUrl(s) {
    var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
    return regexp.test(s);
 }
+
+function SimpleExtToMime(ext) {
+    switch(ext) {
+	case "gif":
+  	  return "image/gif";
+	case "png":
+	  return "image/png";
+	case "jfif":
+	case "jpe":
+	case "jpeg":
+	case "jpg":
+	  return "image/jpeg";
+	default:
+	  return null;
+    }
+}
