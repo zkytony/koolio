@@ -111,17 +111,17 @@ $info-toggle-size: 80px;
     }
     
     /* info toggle & quick like btn*/
-    .info-toggle-wrapper, .quick-card-like-btn-wrapper {
+    .info-toggle-wrapper, .quick-card-like-btn-wrapper, .zoom-card-btn-wrapper {
 	width: $info-toggle-size;
 	height: $info-toggle-size;
 	position: absolute;	
-	bottom: 0px;
 	z-index: 100;
 	// initial opacity is 0
 	opacity: 0;
     }
     .info-toggle-wrapper {
 	right: 0px;
+	bottom: 0px;
 	@include linear-gradient(to bottom right, 
 				 rgba(0,0,0,0), 
 				 rgba(0,0,0,0), 
@@ -135,12 +135,13 @@ $info-toggle-size: 80px;
 	    bottom: -3px;
 	}
     }
-    .quick-card-like-btn, .info-toggle {
+    .quick-card-like-btn, .info-toggle, .zoom-card-btn {
 	position: absolute; 
     }
 
     .quick-card-like-btn-wrapper {
 	left: 0px;
+	bottom: 0px;
 	.quick-card-like-btn {
 	    left: 10px;
 	    color: rgba($info-font-color, 0.7);
@@ -158,6 +159,24 @@ $info-toggle-size: 80px;
 	    }
 	}
     }
+
+    /* zoom btn */
+    .zoom-card-btn-wrapper {
+	right: 0px;
+	top: 0px;
+	@include linear-gradient(to top right, 
+				 rgba(0,0,0,0), 
+				 rgba(0,0,0,0), 
+				 rgba(lighten($healthy-black, 20%), 0.5));
+	.zoom-card-btn {
+	    font-size: 18px;
+	    right: 10px;
+	    top: 8px;
+	    cursor: pointer;
+	    color: $light-cyan;
+	}
+    }
+    /* end zoom btn */
  
     /* text card */
     .card-text-body {
@@ -432,6 +451,21 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     position: absolute;
     @include center-vertically-and-horizontally;
 }
+
+/* Zoom card display (image or video) */
+#card-zoom-display-wrapper {
+    @include center_vertically_and_horizontally(fixed);
+    z-index: 6;
+
+    #card-zoom-display {
+	img {
+	    max-width: 2.5 * $home-card-width;
+	    max-height: 2.5 * $home-card-width;
+	    min-height: 1.5 * $home-card-width;
+	}
+    }
+}
+/* End zoom card display */
 
 
 /* info panels */

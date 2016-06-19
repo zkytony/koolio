@@ -7,7 +7,7 @@ class UserFileUploader < CarrierWave::Uploader::Base
 
   IMAGE_EXTENSIONS = %w(jpg jpeg gif png)
   STATIC_IMAGE_EXTENSIONS = %w(jpg jpeg png)
-  VIDEO_EXTENSIONS = %w(mp4)
+  VIDEO_EXTENSIONS = %w(mp4 webm gifv)
   
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
@@ -89,7 +89,9 @@ class UserFileUploader < CarrierWave::Uploader::Base
 
   # Crop the image
   def crop
+    print model.type
     if static_image? model.type
+      print "HI"
       if model.coords.present?
         manipulate! do |img|
           x = model.coords[:x]
@@ -103,6 +105,7 @@ class UserFileUploader < CarrierWave::Uploader::Base
         end
       end
     else
+      print "BYE"
       resize_to_fill(300, 300, 'Center')
     end
   end

@@ -22,6 +22,12 @@
     <div class="quick-card-like-btn-wrapper">
       <div class="quick-card-like-btn <%="#{liked_class}"%>" id="quick_like_<%="#{card_id}"%>_front"><i class="fa fa-heart no-flip" id="quick_like_<%="#{card_id}"%>"></i></div>
     </div>
+    <!-- zoom btn for image and video -->
+    <% if card_front_type == "img" or card_front_type == "video" %>
+      <div class="zoom-card-btn-wrapper">
+	<div class="zoom-card-btn" id="zoom_<%="#{card_id}"%>_front_<%="#{card_front_type}"%>"><i class="fa fa-square no-flip" aria-hidden="true"></i></div>
+      </div>
+    <% end %>
     <!-- End dealing with front -->
   </div>
   <div class="flipper-back flip-dir1 card-side <%="#{card_back_type}-type-side"%>" id="card_<%="#{card_id}"%>_back_<%="#{card_back_type}"%>">
@@ -37,6 +43,12 @@
     <div class="quick-card-like-btn-wrapper">
       <div class="quick-card-like-btn <%="#{liked_class}"%>" id="quick_like_<%="#{card_id}"%>_back"><i class="fa fa-heart no-flip"></i></div>
     </div>
+    <!-- zoom btn for image and video -->
+    <% if card_back_type == "img" or card_back_type == "video" %>
+      <div class="zoom-card-btn-wrapper">
+	<div class="zoom-card-btn" id="zoom_<%="#{card_id}"%>_back_<%="#{card_back_type}"%>"><i class="fa fa-square no-flip" aria-hidden="true"></i></div>
+      </div>
+    <% end %>
     <!-- End dealing with back -->
   </div>
 </div>

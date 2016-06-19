@@ -71,7 +71,7 @@ Card.prototype.adjustCardHeight = function() {
     adjustImgSizeByHeight($("#" + card.s["back"].attr("id") + " .card-img .card-img-wrapper img"), card.stdMaxHeight);
   }
 
-  /*
+  /*  If we want to have unequal heights
   if (card.contentType["front"] !== "img" && card.contentType["back"] !== "img") {
     // if either side is video, limit the max height to 220
     if (card.contentType["front"] === "video" || card.contentType["back"] === "video") {

@@ -9,7 +9,8 @@ class CardsController < ApplicationController
   end
 
   def create
-    CreateCard.call(card_params, current_user, params[:deck_id])
+    subdomain = ApplicationController.helpers.subdomain(request)
+    CreateCard.call(card_params, current_user, params[:deck_id], subdomain)
     
     respond_to do |format|
       format.html { redirect_to :back }

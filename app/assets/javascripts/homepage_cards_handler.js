@@ -30,7 +30,7 @@ CardsHandler.prototype.init = function() {
     }
   }, ".info-toggle-wrapper");
 
-  // quick like btn fde in
+  // quick like btn fade in
   $(document).on({
     mouseenter: function () {
       $(this).stop().animate({
@@ -43,6 +43,20 @@ CardsHandler.prototype.init = function() {
       }, 150);
     }
   }, ".quick-card-like-btn-wrapper");
+
+  // zoom btn fade in
+  $(document).on({
+    mouseenter: function () {
+      $(this).stop().animate({
+	opacity: 1
+      }, 150);
+    },
+    mouseleave: function () {
+      $(this).stop().animate({
+	opacity: 0
+      }, 150);
+    }
+  }, ".zoom-card-btn-wrapper");
   // show dark-overlay when hit info-toggle
   // change the z-index of the current card to
   // 5, which is greater than the overlay z-index(3),
@@ -114,6 +128,38 @@ CardsHandler.prototype.init = function() {
 	$("#comment_content").val("");
       }
     }
+  });
+
+  // When zoom button gets clicked, display the full size image (before
+  // cropping) at the center of screen. To get the full image, remove the
+  // "cropped_" in front of the image file name, and this should be enough.
+  $(document).on("click tap", ".zoom-card-btn", function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    // id format: zoom_<cardid>_<side>_<type>
+    var parts = $(this).attr("id").split("_");
+    var cardId = parts[1];
+    var cardSide = parts[2];
+    var cardSideType = parts[3];
+    
+    var cardId_html = "#card_" + cardId + "_" + cardSide + "_" + cardSideType;
+    if (cardSideType === "img") {
+      var imgUrl = $(cardId_html + " .card-img .card-img-wrapper img").attr("src");
+      // replace "cropped_" with empty
+      var origImgUrl = imgUrl.replace("cropped_", "");
+      // display overlay, and show the image at center.
+      $("#overlay-for-zoom-card").removeClass("hidden");
+      $("#card-zoom-display-wrapper").removeClass("hidden");
+      $("#card-zoom-display").append("<img src=" + origImgUrl + " alt=\"IMAGE\">");
+    }
+  });
+  // When clicked on overlay for zoomed cards, hide the overlay and zoom display
+  $(document).on("click tap", "#overlay-for-zoom-card", function(e) {
+    e.preventDefault();
+    $("#overlay-for-zoom-card").addClass("hidden");
+    $("#card-zoom-display-wrapper").addClass("hidden");
+    $("#card-zoom-display").children().remove();
   });
 }
 

@@ -27,6 +27,10 @@
       <div class="users-list"></div>
     </div>
   </div>
+  <!-- Place to display full-size image or video -->
+  <div id="card-zoom-display-wrapper" class="hidden">
+    <div id="card-zoom-display"></div>
+  </div>
 </div>
 <% if @user.activated? %>
   <div class="add-card-btn-container">
@@ -39,3 +43,4 @@
 <!-- overlays -->
 <div class="glass-overlay" id="overlay-for-editor"></div>
 <div class="dark-overlay hidden" id="overlay-for-focus-card"></div>
+<div class="dark-overlay hidden" id="overlay-for-zoom-card"></div>
