@@ -463,6 +463,11 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	    max-height: 2.5 * $home-card-width;
 	    min-height: 1.5 * $home-card-width;
 	}
+	video {
+	    max-width: 2.5 * $home-card-width;
+	    max-height: 2.5 * $home-card-width;
+	    min-height: 1.5 * $home-card-width;
+	}
     }
 }
 /* End zoom card display */

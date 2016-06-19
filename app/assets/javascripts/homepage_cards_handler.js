@@ -152,6 +152,11 @@ CardsHandler.prototype.init = function() {
       $("#overlay-for-zoom-card").removeClass("hidden");
       $("#card-zoom-display-wrapper").removeClass("hidden");
       $("#card-zoom-display").append("<img src=" + origImgUrl + " alt=\"IMAGE\">");
+    } else if (cardSideType === "video") {
+	var videoUrl = $(cardId_html + " .card-video .card-video-wrapper source").attr("src");	
+	$("#overlay-for-zoom-card").removeClass("hidden");
+	$("#card-zoom-display-wrapper").removeClass("hidden");
+	$("#card-zoom-display").append("  <video controls><source src=" + videoUrl + " alt=\"VIDEO\"></video>");
     }
   });
   // When clicked on overlay for zoomed cards, hide the overlay and zoom display

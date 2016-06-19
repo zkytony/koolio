@@ -318,7 +318,7 @@ ImageEditor.prototype.init = function() {
 	  addAlert("error", "Image file too large (Max size: 3.0MB)", 3000);
 	} else if (!fileTarget.type.startsWith("image")) {
 	  // Not an image file.
-	  addAlert("error", "Please upload an image", 3000);
+	  addAlert("error", "Please upload an image. Supported file types: jpeg, png, gif", 3000);
 	} else {
 	  imageEditor.currentTarget = fileTarget;
 	  imageEditor.currentSource = "upload";
@@ -564,8 +564,9 @@ VideoEditor.prototype.init = function() {
     var file = $(this).prop('files')[0];
     if (file.size > 3000000) {
       addAlert("error", "Video file too large (Max size: 3.0MB)", 3000);
-    } else if (file.type.startsWith("video")) {
-      addAlert("error", "Please upload a video file", 3000);
+    } else if (!file.type.startsWith("video")) {
+      alert(file.type);
+      addAlert("error", "Please upload a video file. Supported file types: mp4, webm, gifv", 3000);
     } else {
       formdata.append("target", file);
       formdata.append("file_type", file.type);
