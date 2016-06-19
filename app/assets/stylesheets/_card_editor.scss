@@ -199,16 +199,21 @@ $create-card-btn-color: #56BC8A;
     margin: 5px;
     background-color: $editor-decks-list-color;
     width: $create-card-btn-size;
+    max-width: $create-card-btn-size;
+    max-height: 14px * 15;
     @include border-radius($editor-btn-radius/2);
     border: 1px solid $darker-grey;
-    overflow-x: hidden;
     overflow-y: auto;
+    overflow-x: hidden;
     ul {
+	width: $create-card-btn-size;
+	max-height: 14px * 15;
 	li {
 	    width: 100%;
 	    list-style-type: none;
 	    padding: 6px;
 	    color: $black;
+	    font-size: 14px;
 	    @include box-sizing(border-box);
 	    @include decent-interact-bg($editor-decks-list-color);
 	    border-bottom: 1px solid darken($light-grey, 5%);
