@@ -55,7 +55,7 @@ $inner-editor-radius: 10px; // e.g. text-editor, img-editor
 }
 
 /**** TYPE SELECT ****/
-$type-btn-color: #B3B3B3;
+$type-btn-color: #B5B5B5;
 $text-type-btn-color: #E6E6E6;
 $image-type-btn-color: #F2992E;
 $video-type-btn-color: #56BC8A;
@@ -172,8 +172,9 @@ $create-card-btn-font-size: 24px;
 }
 
 /* Deck selector */
-$deck-selected-color: $decent-blue;
+$deck-selected-color: lighten($decent-blue, 5%);
 $deck-selected-font-size: 18px;
+$editor-decks-list-color: $white;
 $create-card-btn-color: #56BC8A;
 #deck-selector {
     margin: 5px;
@@ -196,19 +197,26 @@ $create-card-btn-color: #56BC8A;
 .editor-decks-list {
     position: absolute;
     margin: 5px;
-    background-color: $decent-blue;
+    background-color: $editor-decks-list-color;
     width: $create-card-btn-size;
+    overflow: hidden;
+    @include border-radius($editor-btn-radius/2);
+    border: 1px solid $darker-grey;
     ul {
 	li {
 	    width: 100%;
 	    list-style-type: none;
 	    padding: 6px;
-	    color: $white;
+	    color: $black;
 	    @include box-sizing(border-box);
-	    @include decent-interact-bg($decent-blue);
+	    @include decent-interact-bg($editor-decks-list-color);
+	    border-bottom: 1px solid darken($light-grey, 5%);
 	    &:hover {
 		cursor: pointer;
 	    }
+	}
+	li:last-child {
+	    border: none;
 	}
     }
 }
