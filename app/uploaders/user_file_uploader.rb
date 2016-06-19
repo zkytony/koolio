@@ -89,9 +89,7 @@ class UserFileUploader < CarrierWave::Uploader::Base
 
   # Crop the image
   def crop
-    print model.type
     if static_image? model.type
-      print "HI"
       if model.coords.present?
         manipulate! do |img|
           x = model.coords[:x]
@@ -105,7 +103,6 @@ class UserFileUploader < CarrierWave::Uploader::Base
         end
       end
     else
-      print "BYE"
       resize_to_fill(300, 300, 'Center')
     end
   end

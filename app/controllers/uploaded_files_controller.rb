@@ -3,7 +3,7 @@ require 'uri'
 class UploadedFilesController < ApplicationController
   def create
     coords = {}
-    if params[:file_type] == "img"
+    if static_image?(params[:file_type])
       coords[:x] = params[:crop_x]
       coords[:y] = params[:crop_y]
       coords[:w] = params[:crop_w]
@@ -30,4 +30,12 @@ class UploadedFilesController < ApplicationController
 
   def destroy
   end
+
+  private
+  
+    # Check if given type is static image
+    def static_image?(file_type)
+      file_type.include?('image/bmp') || file_type.include?('image/jpeg') || file_type.include?('image/png')
+    end
+
 end
