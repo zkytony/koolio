@@ -43,6 +43,19 @@
 	    -webkit-box-sizing:border-box;
 	    -moz-box-sizing: border-box
 	}
+
+	.legal-notice {
+	    font-size: 12px;
+	    margin-top: 7px;
+	    margin-left: 2px;
+	    margin-right: 2px;
+	    a {
+		color: darken($decent-blue, 15%);
+		&:hover {
+		    text-decoration: underline;
+		}
+	    }
+	}
     }
 }
 
@@ -86,7 +99,7 @@
 }
 
 #submit-sign-up-btn {
-    margin-top:15px;
+    margin-top:6px;
     position:relative;
     left:65%;
     width:35%;

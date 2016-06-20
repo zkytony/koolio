@@ -18,6 +18,10 @@ Rails.application.routes.draw do
   post 'init_reset_password' => 'users#init_reset_password'
   get 'password' => 'users#validate_reset_password'
   post 'reset_password' => 'users#exec_reset_password'
+
+  get 'terms_of_service' => 'static_pages#terms_of_service'
+  get 'privacy_policy' => 'static_pages#privacy_policy'
+  get 'about' => 'static_pages#about'
   
   get 'users/listings' => 'users#listings'
 

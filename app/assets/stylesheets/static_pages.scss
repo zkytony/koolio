@@ -113,3 +113,50 @@ $email-form-height: 230px;
 	}
     }
 }
+
+$document-width: 640px;
+.document-wrapper {
+    width: $document-width;
+    margin: auto;
+    background-color: $white;
+    padding-top: 15px;
+    padding-bottom: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-bottom: 100px;
+    
+    .document {
+	h1 {
+	    font-size: 35px;
+	    font-weight: 400;
+	    margin-top: 25px;
+	    margin-bottom: 25px;
+	}
+	h2 {
+	    font-size: 23px;
+	    font-weight: 400;
+	    margin-top: 15px;
+	    margin-bottom: 15px;
+	}
+	h3 {
+	    font-size: 19px;
+	    font-weight: 400;
+	    margin-top: 10px;
+	    margin-bottom: 10px;
+	}
+	ul {
+	    padding-left: 20px;
+	    margin-top: 4px;
+	}
+	p {
+	    font-size: 14px;
+	    margin-top: 8px;
+	}
+	a {
+	    color: $decent-blue;
+	    &:hover {
+		text-decoration: underline;
+	    }
+	}
+    }
+}
