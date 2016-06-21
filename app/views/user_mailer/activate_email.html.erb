@@ -6,11 +6,14 @@
   <body>
     <%= @user.username %>, 
     <br>
-    Thanks for sign up. 
+    Thank you for sign up. 
     Please activate your account: <%= url_for controller: "users", 
 				              action: "activate", 
 					      only_path: false,
 					      id: "#{@user.id}", 
 					      tk: @user.activation_digest %>
+    <br>
+    <br>
+    KOOLIO.IO
   </body>
 </html>
