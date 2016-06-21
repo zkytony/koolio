@@ -493,11 +493,13 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	    max-width: 2.5 * $home-card-width;
 	    max-height: 2.5 * $home-card-width;
 	    min-height: 1.5 * $home-card-width;
+	    @include box-shadow(0, 0, 10px, $healthy-black);
 	}
 	video {
 	    max-width: 2.5 * $home-card-width;
 	    max-height: 2.5 * $home-card-width;
 	    min-height: 1.5 * $home-card-width;
+	    @include box-shadow(0, 0, 7px, $healthy-black);
 	}
     }
 }
