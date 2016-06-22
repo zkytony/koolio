@@ -18,6 +18,8 @@ class UpdateDeck
                 shared_editors, 
                 shared_visitors, 
                 tags)
+    print "-------------#{shared_editors.inspect}-----------"
+    print "-------------#{shared_visitors.inspect}-----------"
     if deck.editable_by? user
       deck.update_attributes(deck_params)
       # remove all tags
@@ -33,7 +35,22 @@ class UpdateDeck
       # Sharing is only intended for mutually followed users
       # to avoid unwanted shares
 
+      # If editor and visitor sets both have a user, remove it
+      # from visitor's set.
+      shared_visitors.delete_if do |sv|
+        if shared_editors.include? sv
+          true
+        else
+          false
+        end
+      end
+
       mutuals = user.mutual_follows
+
+      # First destroy all existing sharing
+      deck.deck_user_associations.destroy_all
+      # Add the user back as the editor
+      deck.deck_editor_associations.create(user_id: user.id)
 
       # share visitors
       shared_visitors.each do |person|

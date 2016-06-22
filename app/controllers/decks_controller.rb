@@ -23,6 +23,8 @@ class DecksController < ApplicationController
     subdomain = ApplicationController.helpers.subdomain(request)
     @deck = Deck.find(params[:id])
     @viewable = @deck.subdomain == subdomain && check_permission_to_view(@deck)
+    print "-----yo--#{check_permission_to_view(@deck)}----"
+    print "--subdomain: #{@deck.subdomain == subdomain}----------"
     if !@viewable
       render :show
     end
@@ -48,10 +50,22 @@ class DecksController < ApplicationController
     @deck = Deck.find(params[:id])
     new_params = deck_params
     new_params[:open] = args[:open]
+    
+    shared_editors = Set.new
+    shared_visitors = Set.new
+    tags = []
+    if args[:shared_editors]
+      shared_editors = args[:shared_editors]
+    end
+    if args[:shared_visitors]
+      shared_visitors = args[:shared_visitors]
+    end
+    if args[:tags]
+      tags = args[:tags]
+    end
     @deck = UpdateDeck.call(new_params,
                             @deck, current_user,
-                            args[:shared_editors], args[:shared_visitors],
-                            args[:tags]);
+                            shared_editors, shared_visitors, tags);
     respond_to do |format|
       format.js
     end
@@ -179,13 +193,9 @@ class DecksController < ApplicationController
 
     def check_permission_to_view(deck)
       if logged_in?
-        if !deck.viewable_by? current_user
-          false
-        end
-      elsif !deck.explorable?
-        false
+        deck.viewable_by? current_user
       else
-        true
+        deck.explorable?
       end
     end
 end

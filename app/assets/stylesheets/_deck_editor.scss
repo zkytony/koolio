@@ -61,6 +61,14 @@
 		color: $deck-editor-field-name-color;
 		margin-top: ($deck-editor-field-height - $field-input-font-size) / 2;
 	    }
+
+	    .field-item-note {
+		position: absolute;
+		font-size: 8pt;
+		margin-top: 3px;
+		margin-left: 120px;
+		margin-right: 10px;
+	    }
 	}
 	.field-btns {
 	    width: $deck-editor-width;
