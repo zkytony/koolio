@@ -157,7 +157,9 @@ function ajaxGrabDeckCards(more, all) {
     success: function(data) {
       $("#deck-cards-container").masonry('reloadItems');
       $(".home-card").each(function() {
-	dealWithHomeCard($(this));
+	if (!$(this).hasClass("focused")) {
+	  dealWithHomeCard($(this));
+	}
       });
       $("#deck-cards-container").masonry();
       noOngoingLoad = true;
