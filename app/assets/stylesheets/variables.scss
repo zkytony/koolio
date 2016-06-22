@@ -80,14 +80,14 @@ $home-card-min-height: $home-card-width;
 $home-card-max-height: $home-card-min-height + 50px;
 $home-card-margin: 15px;
 /*** TEXT ***/
-$text-body-font-size: 16px;
-$text-title-font-size: 22px;
+$text-body-font-size: 12pt;
+$text-title-font-size: 17pt;
 $text-default-bg: #FCFCFC;
 $text-default-font-color: #808080;
 /*** IMG card ***/
 $img-min-width: 50%;
 $img-min-height: 50%;
-$img-descp-font-size: 17px;
+$img-descp-font-size: 14pt;
 $img-descp-color: #F7F7F7;
 /* Home page wrappers arrangement */
 $recommended-contents-width: 3 * $home-card-width + $home-card-margin * 6;
@@ -112,7 +112,7 @@ $nav-logo-width: $nav-logo-size;//150px;
 $nav-logo-margin-right: 10px;
 $nav-search-field-height: $nav-height - 12px;
 $nav-search-field-width: 560px;
-$nav-search-field-font-size: 14px;
+$nav-search-field-font-size: 12px;
 $nav-option-padding: 20px;
 $nav-option-btn-size: $nav-height;
 $nav-dropdown-width: 180px;
