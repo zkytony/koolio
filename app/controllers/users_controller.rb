@@ -83,6 +83,17 @@ class UsersController < ApplicationController
     end
   end
 
+  # delete user account
+  def destroy
+    if logged_in?
+      user = User.find(params[:id])
+      if user.id == current_user.id
+        User.delete_account(user.id)
+        redirect_to root_path
+      end
+    end
+  end
+
   # explore page. grab the popular only
   def explore
     subdomain = ApplicationController.helpers.subdomain(request)
@@ -104,22 +115,26 @@ class UsersController < ApplicationController
   end
 
   def follow
-    @user = User.find(params[:user_id])
-    followship = current_user.follow(@user)
+    if logged_in?
+      @user = User.find(params[:user_id])
+      followship = current_user.follow(@user)
 
-    @user.create_notification("FollowedByUser", followship)
-    
-    respond_to do |format|
-      format.js
+      @user.create_notification("FollowedByUser", followship)
+      
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
   def unfollow
-    @user = User.find(params[:user_id])
-    current_user.unfollow(@user)
+    if logged_in?
+      @user = User.find(params[:user_id])
+      current_user.unfollow(@user)
 
-    respond_to do |format|
-      format.js
+      respond_to do |format|
+        format.js
+      end
     end
   end
 

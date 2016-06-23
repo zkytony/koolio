@@ -880,6 +880,8 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 .users-list-wrapper {
     width: 300px;
     min-height: 40px;
+    max-height: 580px;
+    overflow-y: auto;
     @include center-vertically-and-horizontally(fixed);
     @include box-sizing(border-box);
     background-color: $white;

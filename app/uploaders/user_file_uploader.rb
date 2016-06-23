@@ -71,7 +71,11 @@ class UserFileUploader < CarrierWave::Uploader::Base
   end
 
   def image?(new_file)
-    new_file.content_type.include? 'image'
+    if new_file
+      new_file.content_type.include? 'image'
+    else
+      false
+    end
   end
 
   # Check if given type is static image
@@ -80,16 +84,24 @@ class UserFileUploader < CarrierWave::Uploader::Base
   end
 
   def thumb_enabled?(new_file)
-    ENV['STORAGE_TYPE'] == "file" && image?(new_file)
+    if (new_file)
+      ENV['STORAGE_TYPE'] == "file" && image?(new_file)
+    else
+      false
+    end
   end
 
   def video?(new_file)
-    new_file.content_type.include? 'video'
+    if new_file
+      new_file.content_type.include? 'video'
+    else
+      false
+    end
   end
 
   # Crop the image
   def crop
-    if static_image? model.type
+    if static_image? model.file_type
       if model.coords.present?
         manipulate! do |img|
           x = model.coords[:x]

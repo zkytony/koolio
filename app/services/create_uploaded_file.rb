@@ -14,7 +14,7 @@ class CreateUploadedFile
   #         be saved with the given arguments.
   def self.call(target, file_type, source_type, coords, user)
     uploaded_file = user.uploaded_files.new
-    uploaded_file.type = file_type
+    uploaded_file.file_type = file_type
     if source_type == "upload"
       # if image, get the crop_coords
       if file_type.start_with? "image"

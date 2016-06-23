@@ -1,14 +1,14 @@
 @import "variables";
 @import "_mixins";
 
-$setting-item-width: 200px;
-$setting-item-min-height: 100px;
+$setting-item-width: 220px;
+$setting-item-min-height: 150px;
 $setting-item-default-bg: #FCFCFC;
 $setting-name-color: #999999;
 $setting-text-width: 160px;
 $setting-text-font-size: 13px;
 #setting-items-wrapper {
-    width: $setting-item-width*3 + 30px;
+    width: $setting-item-width*3 + 40px;
     margin: auto;
     margin-top: 40px;
 }
@@ -17,17 +17,20 @@ $setting-text-font-size: 13px;
     min-height: $setting-item-min-height;
     @include box-sizing(border-box);
     margin-bottom: 15px;
+    position: relative;
 
     .setting-item-side {
 	width: 100%;
 	min-height: $setting-item-min-height;
 	background-color: $setting-item-default-bg;
 	@include border-radius($default-border-radius);
+	@include box-shadow(0px,0px,4px, $deck-stroke);
     }
 
     .setting-fields {
 	width: $setting-text-width;
 	margin: auto;
+	@include center-vertically-and-horizontally;
 	input[type=text], input[type=password] {
 	    padding-bottom: 4px;
 	    padding-left: 6px;
@@ -76,10 +79,15 @@ $setting-text-font-size: 13px;
     
     .setting-current-value {
 //	font-weight: 600;
+	width: $setting-item-width * 0.85;
 	word-wrap: break-word;
 	color: $setting-name-color;
 	text-align: center;
 	font-size: 18px;
+	@include center-vertically-and-horizontally;
+    }
+
+    .settings-avatar {
     }
 
     .setting-action-btn {
@@ -92,6 +100,9 @@ $setting-text-font-size: 13px;
 	@include border-radius(2px);
     }
     .setting-change-btn {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
 	background-color: $deck-submit-btn-color;
 	&:hover {
 	    background-color: darken($deck-submit-btn-color, 15%);
@@ -99,6 +110,9 @@ $setting-text-font-size: 13px;
     }
     $cancel-btn-color: #999999;
     .setting-cancel-btn {
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
 	background-color: $cancel-btn-color;
 	&:hover {
 	    background-color: darken($cancel-btn-color, 15%);
@@ -110,8 +124,14 @@ $setting-text-font-size: 13px;
     opacity: 0;
 }
 
+#email-setting {
+    .setting-current-value {
+	word-break: break-all;
+    }
+}
+
 #avatar-setting, #avatar-setting .setting-item-side {
-    height: $setting-item-width * 1.5 + 25px;
+    height: $setting-item-min-height * 2 + 15px;
     background-color: $setting-item-default-bg;
 }
 
@@ -210,6 +230,85 @@ $avatar-editor-display-height: 300px;
 	img {
 	    position: absolute;
 	    @include center-vertically-and-horizontally;
+	}
+    }
+}
+
+#delete-account-wrapper {
+    min-height: 80px;
+    margin: auto;  
+    button {
+	@include center-vertically-and-horizontally;
+	border: none;
+	font-size: 14px;
+	color: #FF0000;
+    }
+}
+#delete-account-wrapper.www-subdomain {
+    background-color: darken($www-bg-color, 5%);
+    button {
+	background-color: darken($www-bg-color, 5%);
+    }
+}
+#delete-account-wrapper.x-subdomain {
+    background-color: lighten($x-bg-color, 5%);
+    button {
+	background-color: lighten($x-bg-color, 5%);
+    }
+}
+$delete-acc-width: 305px;
+$delete-acc-height: 430px;
+#delete-account-confirm {
+    z-index: 5;
+    @include center-vertically-and-horizontally(fixed);
+    width: $delete-acc-width;
+    min-height: $delete-acc-height;
+    background-color: $white;
+    @include box-sizing(border-box);
+    padding: 20px;
+
+    .cry-img-wrapper {
+	width: 200px;
+	height: 200px;
+	margin: auto;
+	img {
+	    width: 200px;
+	    height: 200px;
+	}
+    }
+    h3 {
+	font-size: 15pt;
+	margin-top: 10px;
+    }
+    .checkbox-div {
+	margin-top: 10px;
+	font-size: 11pt;
+    }
+    .confirm-btn-row {
+	width: $delete-acc-width - 40px;
+	margin: auto;
+	height: 45px;
+	position: absolute;
+	bottom: 15px;
+	button, input[type=submit] {
+	    padding: 10px;
+	    width: 110px;
+	    border: none;
+	    font-size: 11pt;
+	}
+	#cancel-delete {
+	    position: absolute;
+	    right: 0px;
+	    font-weight: 700;
+	}
+	#confirm-delete {
+	    position: absolute;
+	    left: 0px;
+	    color: $decent-red;
+	    cursor: pointer;
+	    &:active {
+		color: darken($decent-red, 10%);
+	    }
 	}
     }
 }

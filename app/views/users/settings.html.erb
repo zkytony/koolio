@@ -11,13 +11,6 @@ do a masonary
 %>
 <div id="setting-items-wrapper">
   <div class="hidden user_setting_id" id="user_<%="#{@user.id}"%>_setting"></div>
-  <div class="setting-item" id="avatar-setting">
-    <div class="setting-name"><h4>avatar</h4></div>
-    <div class="setting-current-value">
-      <%= render partial: "shared/avatar_card", locals: { user: @user, extra_class: "" } %>
-    </div>
-    <button id="change-avatar-btn">change avatar</button>
-  </div>
 
   <%= render partial: "shared/setting_item", locals: { setting_for: "username", setting_name: "username",
 						       current_value: @user.username,
@@ -27,6 +20,12 @@ do a masonary
 						       current_value: @user.email,
 						       setting_fields: "<input type=\"text\" name=\"user_email\" id=\"user_email\" autocomplete=\"false\" value=\"\">"
 						     } %>
+  <div class="setting-item" id="avatar-setting">
+    <div class="setting-name"><h4>avatar</h4></div>
+    <%= render partial: "shared/avatar_card", locals: { user: @user, extra_class: "settings-avatar" } %>
+    <button id="change-avatar-btn">change avatar</button>
+  </div>
+
   <%= render partial: "shared/setting_item", locals: { setting_for: "password", setting_name: "password",
 						       current_value: "<i class=\"fa fa-lock\"></i>",
 						       setting_fields: "<input type=\"password\" name=\"user_password\" id=\"user_password\" autocomplete=\"false\" value=\"\">"
@@ -46,14 +45,39 @@ do a masonary
 						       current_value: @user.birthday ? @user.birthday : "not set",
 						       setting_fields: render(partial: "shared/birthday_selector")
 						      } %>
-  <div class="setting-item dummy">
-    <%# dummy %>
-  </div>
-  <div class="setting-item dummy">
-    <%# dummy %>
-  </div>
   <div class="setting-item" id="confirm-btns-wrapper">
     <button id="setting-confirm-btn">Update</button>
+  </div>
+  <div class="setting-item dummy">
+    <%# dummy %>
+  </div>
+  <div class="setting-item dummy">
+    <%# dummy %>
+  </div>
+  <div class="setting-item dummy">
+    <%# dummy %>
+  </div>
+  <div class="setting-item dummy">
+    <%# dummy %>
+  </div>
+  <div class="setting-item <%=subdomain(request)%>-subdomain" id="delete-account-wrapper">
+    <button id="delete-account-btn">Delete Account</button>
+  </div>
+</div>
+<div id="delete-account-confirm" class="hidden">
+  <div class="cry-img-wrapper">
+    <%= image_tag "tmp/cry-face.png" %>
+  </div>
+  <h3>Do you really want to delete your account?</h3>
+  <div class="checkbox-div">
+    <input type="checkbox" name="delete-acc-ack" id="delete-acc-ack"> You acknowledge that, by deleting your account, all
+    of the cards and decks that you created will be permanently removed.<br>
+  </div>
+  <div class="confirm-btn-row">
+    <%= form_for(@user, :html => { :method => :delete, :id => "delete-acc-form" }) do |f|%>
+      <button id="cancel-delete">Cancel</button>
+      <%= f.submit "Delete", id: "confirm-delete"%>
+    <% end %>
   </div>
 </div>
 <div class="flipper hidden" id="avatar-editors">
@@ -65,3 +89,4 @@ do a masonary
   </div>
 </div>
 <div class="dark-overlay hidden" id="overlay-for-avatar-editor"></div>
+<div class="dark-overlay hidden" id="overlay-for-delete-account"></div>

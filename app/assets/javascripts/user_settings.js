@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $("#setting-items-wrapper").masonry({
-	columnWidth: 200,
+	columnWidth: 220,
 	gutter: 10,
 	itemSelector: ".setting-item",
     });
@@ -61,6 +61,27 @@ $(document).ready(function() {
     $(document).on("click", "#overlay-for-avatar-editor", function() {
 	$("#avatar-editors").addClass("hidden");
 	$("#overlay-for-avatar-editor").addClass("hidden");
+    });
+
+    $(document).on("click", "#delete-account-btn", function() {
+	$("#overlay-for-delete-account").removeClass("hidden");
+	$("#delete-account-confirm").removeClass("hidden");
+    });
+    $(document).on("click", "#overlay-for-delete-account", function() {
+	$("#overlay-for-delete-account").addClass("hidden");
+	$("#delete-account-confirm").addClass("hidden");
+    });
+    // Delete confirm dialog
+    $(document).on("click", "#cancel-delete", function() {
+	$("#overlay-for-delete-account").addClass("hidden");
+	$("#delete-account-confirm").addClass("hidden");
+    });
+    $(document).on("submit", "#delete-acc-form", function(e) {
+	// check if acknowledgement is checked
+	if (!$("#delete-acc-ack").is(":checked")) {
+	    $("#delete-account-confirm .checkbox-div").css("color", "#BB1A1A");
+	    e.preventDefault();
+	}
     });
 });
 

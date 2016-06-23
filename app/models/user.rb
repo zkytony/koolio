@@ -302,4 +302,30 @@ class User < ActiveRecord::Base
     end
     deck
   end
+
+  # delete given user's account
+  def self.delete_account(id)
+    user = self.find(id)
+    if user
+      # remove all stuff
+      user.decks.destroy_all
+      user.comments.destroy_all
+      user.active_relationships.destroy_all
+      user.passive_relationships.destroy_all
+      user.favor_of_decks.destroy_all
+      user.like_of_cards.destroy_all
+      user.like_of_comments.destroy_all
+      user.passive_recommendations.destroy_all
+      user.active_recommendations.destroy_all
+      user.activities.destroy_all
+      user.notifications.destroy_all
+      user.uploaded_files.destroy_all
+      # It's not really necessary to reduce the number of likes
+
+      # remove this user
+      self.delete(id)
+    else
+      false
+    end
+  end
 end
