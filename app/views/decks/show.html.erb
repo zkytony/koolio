@@ -10,7 +10,7 @@
 <%= javascript_include_tag "decks.js" %>
 <%= render :partial => 'shared/nav' %>
 <% if @viewable %>
-  <% current_editable = current_user and @deck.editable_by? current_user %>
+  <% current_editable = logged_in? && @deck.editable_by?(current_user) %>
   <% if current_editable %>
     <div class="add-card-btn-container">
       <button class="add-card-btn <%=subdomain(request)%>-subdomain" id="add-card-btn"><i class="fa fa-plus"></i></button>
@@ -38,8 +38,15 @@
 	  <div class="deck-stat-for">Favorites</div>
 	</div>
       </div>
-      <% @deck.editors.each do |editor| %>
-	<%= render partial: "shared/user_bar", locals: { user: editor } %>
+      <% creator = @deck.creator %>
+      <% editors = @deck.editors %>
+      <% editors.each do |editor| %>
+	<%# Highlight the initial creator%>
+	<% if editors.length > 1 && creator.id == editor.id %>
+	  <%= render partial: "shared/user_bar", locals: { user: editor, extra_class: "deck-creator" } %>
+	<% else %>
+	  <%= render partial: "shared/user_bar", locals: { user: editor, extra_class: "" } %>
+	<% end %>
       <% end %>
       <%= render partial: "shared/favorite_deck_button", locals: { deck: @deck } %>
     </div>

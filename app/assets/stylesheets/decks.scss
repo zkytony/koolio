@@ -200,3 +200,12 @@ button.deck-favorite-btn {
     padding: 5px;
     font-weight: 600;
 }
+
+.user-short-info.deck-creator {
+    .short-info-name a {
+	color: darken($decent-orange, 20%);
+	&:hover {
+	    color: $decent-blue;
+	}
+    }
+}

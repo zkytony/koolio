@@ -1,7 +1,7 @@
 <% if !@list.nil? && !@list.empty? %>
   var htmlStr = "";
   <% @list.each do |user| %>
-    htmlStr += "<%= j render partial: "shared/user_bar", locals: { user: user } %>";
+    htmlStr += "<%= j render partial: "shared/user_bar", locals: { user: user, extra_class: "" } %>";
   <% end %>
   $("#list_<%="#{@type}"%> .users-list").html(htmlStr);
 <% else %>
