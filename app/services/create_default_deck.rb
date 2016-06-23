@@ -8,7 +8,7 @@ class CreateDefaultDeck
       default_deck = "default #{subdomain}.koolio"  # convention
     end
     if !user.decks.find_by(title: default_deck)
-      deck_params = { title: default_deck, subdomain: subdomain }
+      deck_params = { title: default_deck, description: "This is #{user.username}'s default deck.", subdomain: subdomain }
       deck = user.create_deck(deck_params)
     end
   end
