@@ -19,9 +19,11 @@
       <div class="info-toggle toggle-off"><i class="fa fa-ellipsis-h no-flip"></i></div>
     </div>
     <!-- quick like btn -->
-    <div class="quick-card-like-btn-wrapper">
-      <div class="quick-card-like-btn <%="#{liked_class}"%>" id="quick_like_<%="#{card_id}"%>_front"><i class="fa fa-heart no-flip" id="quick_like_<%="#{card_id}"%>"></i></div>
-    </div>
+    <% if logged_in? %>
+      <div class="quick-card-like-btn-wrapper">
+	<div class="quick-card-like-btn <%="#{liked_class}"%>" id="quick_like_<%="#{card_id}"%>_front"><i class="fa fa-heart no-flip" id="quick_like_<%="#{card_id}"%>"></i></div>
+      </div>
+    <% end %>
     <!-- zoom btn for image and video -->
     <% if card_front_type == "img" or card_front_type == "video" %>
       <div class="zoom-card-btn-wrapper">
@@ -39,10 +41,12 @@
     <div class="info-toggle-wrapper">
       <div class="info-toggle"><i class="fa fa-ellipsis-h no-flip"></i></div>
     </div>
-    <!-- quick like btn -->
-    <div class="quick-card-like-btn-wrapper">
-      <div class="quick-card-like-btn <%="#{liked_class}"%>" id="quick_like_<%="#{card_id}"%>_back"><i class="fa fa-heart no-flip"></i></div>
-    </div>
+    <% if logged_in? %>
+      <!-- quick like btn -->
+      <div class="quick-card-like-btn-wrapper">
+	<div class="quick-card-like-btn <%="#{liked_class}"%>" id="quick_like_<%="#{card_id}"%>_back"><i class="fa fa-heart no-flip"></i></div>
+      </div>
+    <% end %>
     <!-- zoom btn for image and video -->
     <% if card_back_type == "img" or card_back_type == "video" %>
       <div class="zoom-card-btn-wrapper">
