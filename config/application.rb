@@ -48,5 +48,7 @@ module Koolio
     end
 
     config.exceptions_app = self.routes
+
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

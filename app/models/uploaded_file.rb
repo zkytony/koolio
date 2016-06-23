@@ -7,7 +7,7 @@ class UploadedFile < ActiveRecord::Base
   validates :user_id, presence: true
   validates :name, presence: true, 
                    file_size: { less_than_or_equal_to: 3072.kilobytes }
-  validates :type, presence: true,
-                   length: { maximum: 255 }
+  validates :file_type, presence: true,
+                        length: { maximum: 255 }
 
 end
