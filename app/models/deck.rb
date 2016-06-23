@@ -194,7 +194,7 @@ class Deck < ActiveRecord::Base
   end
 
   def editable_by?(user)
-    user.activated? && self.editors.include?(user)
+    user && user.activated? && self.editors.include?(user)
   end
 
   def viewable_by?(user)
