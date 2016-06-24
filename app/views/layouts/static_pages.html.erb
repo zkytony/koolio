@@ -30,6 +30,13 @@
   </head>
   <body class="<%=subdomain(request)%>-subdomain">
     <div class="whole-content-wrapper">
+      <div class="lower-right-info" id="site-info-wrapper">
+	<div class="info-item" id="about-link">
+	  <%=link_to "About", about_path%>
+	</div>
+	<div class="info-item" id="feedback-btn">Feed back</div>
+	<div class="info-item">&copy koolio.io</div>
+      </div>
       <%= yield %>
     </div>
     <script>

@@ -159,4 +159,13 @@ $document-width: 640px;
 	    }
 	}
     }
+
+    #about-koolio {
+	p, b {
+	    font-size: 12pt;
+	}
+	.fb-like {
+	    margin-left: 6px;
+	}
+    }
 }

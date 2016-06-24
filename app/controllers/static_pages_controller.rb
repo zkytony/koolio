@@ -9,6 +9,5 @@ class StaticPagesController < ApplicationController
   end
 
   def about
-    raise ActionController::RoutingError.new('Not Found')
   end
 end

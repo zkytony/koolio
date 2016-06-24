@@ -1,1 +1,33 @@
-<h1>Hi</h1>
+<% provide(:title, "About") %>
+<% provide(:meta_keywords, "about koolio, overview") %>
+<% provide(:meta_descp, "What is Koolio.io about?") %>
+<% provide(:og_type, "article") %>
+<% provide(:og_url, privacy_policy_path) %>
+<% provide(:og_img_url, image_url("tmp/#{subdomain(request)}_logo_bigger.png")) %>
+<%= render :partial => 'shared/nav' %>
+<div class="document-wrapper">
+  <div class="document" id="about-koolio">
+    <h1>About Koolio.io</h1>
+    <p>Thank you sincerely for visiting <%=link_to "Koolio.io", root_url %>!</p>
+    <p>Currently, we are
+    working on a short video to showcase Koolio in a vivid way. Before that's done,
+      we hope you learn what Koolio is about by reading the following texts.</p>
+    <h2>What is Koolio.io about?</h2>
+    <p>In essence, <b>Flippable Cards</b>. Koolio.io is a place where you can share
+    and view two-sided flippable cards. You may be tempted to know what's on the other
+      side of a card, or you may just flip around as you enjoy. When creating a card,
+      You can decide what type of content to put on each side of it (we support text,
+      image, and video for now). A <b>deck</b> groups multiple cards together, indicating
+      their topic.</p>
+    <p>Koolio.io is a nice place to share things in a unique and creative way, and to seek inspiration by exploring other people's
+      creativity [<%= link_to "Explore Now", explore_path %>]. You also have the option to create private decks where
+      you can keep your personal notes. Also, you can share your decks to your friends so that
+      they can edit them too.</p>
+    <h2>It just started.</h2>
+    <p>We just opened this website recently, so there might be not enough content yet. We will
+    really appreciate if you can share something, for the better off of this website, and for
+    making you and your friends happier. <%=link_to "Join Koolio.io", root_url %> today!</p>
+    <p>If you have any thoughts or feedback, please email <b>feedback@koolio.io</b>. We always love your feedback!</p>
+    <h2>Like us on Facebook! <a href="https://www.facebook.com/koolio.io/" class="fb-like"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a></h2>
+  </div>
+</div>
