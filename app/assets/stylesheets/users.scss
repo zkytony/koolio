@@ -1333,7 +1333,7 @@ button.deck-favorite-btn.favored {
 	}
     }
 }
-#catg-list.www-subdomain {
+#catg-list {
     padding: 10px;
     padding-top: 0px;
     padding-bottom: 30px;
@@ -1345,11 +1345,11 @@ button.deck-favorite-btn.favored {
 	li.selected {
 	    color: $decent-blue;
 	    font-weight: 700;
-	    font-size: 14pt;
+	    font-size: 13pt;
 	}
     }
 }
-#custm-control.www-subdomain {
+#custm-control {
     padding: 10px;
     padding-right: 0px;
     padding-top: 0px;
@@ -1371,5 +1371,52 @@ button.deck-favorite-btn.favored {
 	    margin-bottom: 2px;
 	    font-weight: 400;
 	}
+    }
+}
+#catg-list.www-subdomain {
+   ul {
+	li {
+	    color: $healthy-black;
+	}
+	li.selected {
+	    color: $decent-blue;
+	}
+    }
+}
+#catg-list.x-subdomain {
+   ul {
+	li {
+	    color: $decent-yellow;
+	}
+	li.selected {
+	    color: $light-grey;
+	    color: $bright-red;
+	    font-size: 13pt;
+	}
+   }
+}
+#custm-control.www-subdomain {
+    ul {
+	li {
+	    color: $healthy-black;
+	}
+	li.selected {
+	    color: $decent-blue;
+	}
+    }   
+}
+#custm-control.x-subdomain {
+    ul {
+	li {
+	    color: $decent-yellow;
+	}
+	li.selected {
+	    font-weight: 700;
+	    color: $bright-red;
+	    font-size: 11pt;
+	}
+    }
+    h4 {
+	color: lighten($x-bg-color, 20%);
     }
 }
