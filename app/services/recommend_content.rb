@@ -16,8 +16,8 @@ class RecommendContent
   # category_id is the id for the category of the deck. Or,
   # it can be string "All"
   def self.call(user, more, content_ids, context, category_id="all", subdomain="www", sort="time", type="card")
-    n_card = 4
-    n_deck = 3
+    n_card = 30
+    n_deck = 5
     
     contents = []
     if context == :explore
