@@ -350,7 +350,7 @@ $explore-width: $recommended-contents-width + $home-card-width + 2 * $home-card-
 $explore-deck-width: $deck-width * 1.25;
 $expl-tiny-card-size: ($explore-deck-width - 3 * 5px) / 2;
 #recommended-contents-wrapper.decks-show {
-    width: $explore-deck-width * 4 + $deck-display-gap * 7 !important;
+    width: $explore-deck-width * 4 + $deck-display-gap * 8.2 !important;
     .deck-square {
 	width: $explore-deck-width;
 	height: $explore-deck-width + 30px;
@@ -367,12 +367,6 @@ $expl-tiny-card-size: ($explore-deck-width - 3 * 5px) / 2;
 		}
 	    }
 	}	
-    }
-    .deck-square:nth-child(3n+3) {
-	margin-right: $deck-display-gap;
-    }
-    .deck-square:nth-child(4n+4) {
-	margin-right: 0px;
     }
 }
 
@@ -1199,13 +1193,6 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     }
 }
 
-.deck-square:nth-child(3n+3) {
-    margin-right: 0px;
-    @include tablet-portrait-and-below {
-	margin-right: $deck-display-gap;
-    }
-}
-
 // for user follow btn
 .follow-btn {
     width: $prof-username-font-size;
@@ -1298,6 +1285,15 @@ button.deck-favorite-btn.favored {
 
 .user-short-info:last-child {
     margin-bottom: 0px;
+}
+
+#decks-contents {
+    .deck-square:nth-child(3n+3) {
+	margin-right: 0px;
+	@include tablet-portrait-and-below {
+	    margin-right: $deck-display-gap;
+	}
+    }
 }
 
 ////////////////////

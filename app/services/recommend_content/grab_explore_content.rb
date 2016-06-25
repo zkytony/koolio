@@ -64,9 +64,9 @@ class RecommendContent
         contents.sort_by(&:created_at).reverse.slice(0, n_content)
       else
         if type == "card"
-          contents.sort_by(&:likes).slice(0, n_content).reverse
+          contents.sort_by(&:likes).reverse.slice(0, n_content)
         else
-          contents.sort_by(&:favorites_count).slice(0, n_content).reverse
+          contents.sort_by(&:favorites_count).reverse.slice(0, n_content)
         end
       end
     end
