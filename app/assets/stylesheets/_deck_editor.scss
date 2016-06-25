@@ -71,73 +71,6 @@
 		margin-right: 10px;
 	    }
 
-	    $catg-list-width: 160px;
-	    #catg-selected {
-		height: $deck-editor-field-height;
-		padding: 8px;
-		padding-top: 7px;
-		position: relative;
-		i {
-		    color: $healthy-black;
-		    position: absolute;
-		    right: 8px;
-		    top: 7px;
-		}
-	    }
-	    #catg-selected.unselected {
-		background-color: lighten($darker-grey, 5%);
-		color: $healthy-black;
-		&:hover {
-		    background-color: $darker-grey;
-		    cursor: pointer;
-		}
-	    }
-	    #catg-selected {
-		background-color: $white;
-		&:hover {
-		    background-color: $light-grey;
-		    cursor: pointer;
-		}
-	    }
-	    #catg-list {
-		width: $catg-list-width;
-		height: 100%;
-		position: absolute;
-		top: 0px;
-		left: $deck-editor-width + $deck-editor-padding * 2;
-
-		@include box-sizing(border-box);
-		z-index: 5;
-		ul {
-		    border: 1px solid $darker-grey;
-		    background-color: $white;
-		    height: 100%;
-		    overflow-y: auto;
-		    overflow-x: hidden;
-		    list-style-type: none;
-		    li:first-child {
-			padding-top: 7px;
-		    }
-		    li {
-			width: $catg-list-width;
-			padding: 4px;
-			padding-left: 10px;
-			border-bottom: 1px solid $darker-grey;
-			@include box-sizing(border-box);
-
-			&:hover {
-			    cursor: pointer;
-			    background-color: $light-grey;
-			}
-		    }
-		    li:last-child {
-			border-bottom: none;
-		    }
-		    li.selected {
-			font-weight: 700;
-		    }
-		}
-	    }
 	} // end field-item
 	.field-btns {
 	    width: $deck-editor-width;
@@ -234,5 +167,78 @@
 	    }
 	}
     }
+}
+
+#catg-field.deck-editor-field {
+    $catg-list-width: 160px;
+    #catg-selected {
+	height: $deck-editor-field-height;
+	padding: 8px;
+	padding-top: 7px;
+	position: relative;
+	i {
+	    color: $healthy-black;
+	    position: absolute;
+	    right: 8px;
+	    top: 7px;
+	}
+    }
+    #catg-selected.unselected {
+	background-color: lighten($darker-grey, 5%);
+	color: $healthy-black;
+	&:hover {
+	    background-color: $darker-grey;
+	    cursor: pointer;
+	}
+    }
+    #catg-selected {
+	background-color: $white;
+	&:hover {
+	    background-color: $light-grey;
+	    cursor: pointer;
+	}
+    }
+    #catg-list {
+	width: $catg-list-width;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: $deck-editor-width + $deck-editor-padding * 2;
+	padding: 0px;
+
+	@include box-sizing(border-box);
+	z-index: 5;
+	ul {
+	    text-align: left;
+	    border: 1px solid $darker-grey;
+	    background-color: $white;
+	    height: 100%;
+	    overflow-y: auto;
+	    overflow-x: hidden;
+	    list-style-type: none;
+	    li:first-child {
+		padding-top: 7px;
+	    }
+	    li {
+		width: $catg-list-width;
+		padding: 4px;
+		padding-left: 10px;
+		border-bottom: 1px solid $darker-grey;
+		@include box-sizing(border-box);
+
+		&:hover {
+		    cursor: pointer;
+		    background-color: $light-grey;
+		}
+	    }
+	    li:last-child {
+		border-bottom: none;
+	    }
+	    li.selected {
+		font-weight: 700;
+	    }
+	}
+    }
+
 }
 /* DECK EDITOR */
