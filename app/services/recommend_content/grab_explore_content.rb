@@ -17,7 +17,7 @@ class RecommendContent
         if type == "card"
           contents = Card.where(subdomain: subdomain).where("cards.id NOT IN (?)", content_ids)
         else
-          contents = Deck.where(subdomain: subdomain).where("cards.id NOT IN (?)", content_ids)
+          contents = Deck.where(subdomain: subdomain).where("decks.id NOT IN (?)", content_ids)
         end
       else
         if type == "card"
@@ -28,6 +28,7 @@ class RecommendContent
       end
 
       # Filter contents by category_id
+      # TODO: improve this by using a single SQL query if possible.
       if category_id.downcase != "all"
         contents.to_a.delete_if do |content|
           if content.is_a? Card
@@ -45,15 +46,25 @@ class RecommendContent
           end
         end  # end delete_if
       end
+      # Filter decks if they don't have any cards
+      contents.to_a.delete_if do |content|
+        if content.is_a? Deck
+          if content.cards.count == 0
+            true
+          else
+            false
+          end
+        end
+      end
       
       # sort
       if sort == "time"
         contents.sort_by(&:created_at).reverse.slice(0, n_content)
       else
         if type == "card"
-          contents.sort_by(&:likes).slice(0, n_content).reverse.shuffle
+          contents.sort_by(&:likes).slice(0, n_content).reverse
         else
-          contents.sort_by(&:favorites_count).slice(0, n_content).shuffle
+          contents.sort_by(&:favorites_count).slice(0, n_content)
         end
       end
     end

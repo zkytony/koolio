@@ -117,7 +117,7 @@ class UsersController < ApplicationController
       end
     else
       # explore without user sepcified
-      @recommended = RecommendContent.call(nil, @more, params[:content_ids], :explore, subdomain)
+      @recommended = RecommendContent.call(nil, @more, params[:content_ids], :explore, @category_id, subdomain, params[:sort], @type)
     end
   end
 

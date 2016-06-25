@@ -9,7 +9,7 @@ $(document).ready(function() {
   $("#recommended-contents-wrapper").masonry({
     columnWidth: 240,
     gutter: 10,
-    itemSelector: '.home-card'
+    itemSelector: '.home-card',
     transitionDuration: 0
   });
 
@@ -43,6 +43,7 @@ $(document).ready(function() {
     $(".sort-item").removeClass("selected");
     $(this).addClass("selected");
     var id = $(".catg-item.selected").attr("id").split("_")[1];
+    $("#recommended-contents-wrapper").html("");
     grabRecommendContents(getContentType(), getSortMethod(), id, false);
   });
 
@@ -53,7 +54,15 @@ $(document).ready(function() {
     $(".type-item").removeClass("selected");
     $(this).addClass("selected");
     var id = $(".catg-item.selected").attr("id").split("_")[1];
+    $("#recommended-contents-wrapper").html("");
     grabRecommendContents(getContentType(), getSortMethod(), id, false);
+    if (getContentType() == "deck") {
+      $("#recommended-contents-wrapper").removeClass("cards-show");
+      $("#recommended-contents-wrapper").addClass("decks-show");
+    } else {
+      $("#recommended-contents-wrapper").removeClass("decks-show");
+      $("#recommended-contents-wrapper").addClass("cards-show");
+    }
   });
 
   var editor = new Editor("new_card");
