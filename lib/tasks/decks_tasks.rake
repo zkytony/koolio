@@ -8,4 +8,13 @@ namespace :deck do
     end
     puts "Success"
   end
+
+  task :set_fav => :environment do
+    Deck.find_each(batch_size: 5000) do |deck|
+      deck.favorites_count = deck.favoring_users.count
+      deck.save!
+      print "."
+    end
+    puts "Success"
+  end
 end

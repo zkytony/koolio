@@ -4,6 +4,8 @@ class RecommendContent
     # number of likes.
     #
     # Currently only grab cards
+    #
+    # user is the user that wants to explore
     def self.call(user, n_content, more, content_ids, category_id="all", subdomain, sort, type)
       if sort.nil?
         sort = "time"
@@ -62,7 +64,7 @@ class RecommendContent
         contents.sort_by(&:created_at).reverse.slice(0, n_content)
       else
         if type == "card"
-          contents.sort_by(&:likes).slice(0, n_content).reverse
+          contents.sort_by(&:likes).slice(0, n_content)
         else
           contents.sort_by(&:favorites_count).slice(0, n_content)
         end
