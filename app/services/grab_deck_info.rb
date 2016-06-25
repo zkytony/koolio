@@ -10,9 +10,9 @@ class GrabDeckInfo
       info = {
         deck: deck,
         author: deck.creator,
-        tags: deck.all_tags,
         shared_editors: deck.editors - [deck.creator],
-        shared_visitors: deck.normal_viewers
+        shared_visitors: deck.normal_viewers,
+        category: deck.category
       }
     end
   end

@@ -721,6 +721,10 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	}
     }
 }
+.noe-deck.explore-item {
+    width: $home-card-width;
+    height: $home-card-width;
+}
 /* end of deck cards info */
 
 /* One liner info that has a profile pic */
@@ -899,7 +903,7 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
     @include tablet-portrait-and-below {
 	max-width: $deck-width * 3 + 65px; // exactly matches 3 decks
     }
-
+    
     ul {
 	list-style-type: none;
 	overflow: hidden;
@@ -1261,4 +1265,77 @@ button.deck-favorite-btn.favored {
 
 .user-short-info:last-child {
     margin-bottom: 0px;
+}
+
+////////////////////
+//// CATG LIST /////
+////////////////////
+.hm-left-side-content.fixed {  // hm = home
+    position: absolute;
+    width: $side-contents-width;
+    left: -$home-card-width;
+    top: 0px;
+}
+.hm-right-side-content.fixed {  // hm = home
+    position: absolute;
+    width: $side-contents-width;
+    right: -$home-card-width + 8px;
+    top: 0px;
+}
+
+.hm-left-side-content, .hm-right-side-content {
+    ul {
+	list-style-type: none;
+
+	li:first-child {
+	    padding-top: 0px;
+	}
+	li {
+	    padding-top: 6px;
+	    &:hover {
+		cursor: pointer;
+	    }
+	}
+	li.selected {
+	}
+    }
+}
+#catg-list.www-subdomain {
+    padding: 10px;
+    padding-top: 0px;
+    padding-bottom: 30px;
+    ul {
+	text-align: right;
+	li {
+	    color: $healthy-black;
+	}
+	li.selected {
+	    color: $decent-blue;
+	    font-weight: 700;
+	    font-size: 14pt;
+	}
+    }
+}
+#custm-control.www-subdomain {
+    padding: 10px;
+    padding-top: 0px;
+    padding-bottom: 30px;
+    ul {
+	text-align: left;
+	li {
+	    color: $healthy-black;
+	}
+	li.selected {
+	    color: $decent-blue;
+	    font-size: 11pt;
+	}
+    }
+    .options-section {
+	margin-bottom: 15px;
+	h4 {
+	    font-size: 14pt;
+	    margin-bottom: 2px;
+	    font-weight: 400;
+	}
+    }
 }

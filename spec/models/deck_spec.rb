@@ -15,6 +15,7 @@ RSpec.describe Deck, type: :model do
   it { should have_many(:cards) }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_and_belong_to_many(:tags) }
+  it { should have_one(:categories).through(:categorization) }
 
   it { should have_many(:users_with_favor).class_name("Favorite").dependent(:destroy) }
   it { should have_many(:favoring_users).through(:users_with_favor).source(:user) }

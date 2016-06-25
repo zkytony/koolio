@@ -5,12 +5,24 @@
         the card is explorable. %>
     <% if !logged_in? %>
       <% if card.explorable? %>
-	<%= render_card(card, "home-card") %>
+	<%= render_card(card, "home-card one-content") %>
       <% end %>
     <% else %>
       <% if card.viewable_by? current_user %>
-	<%= render_card(card, "home-card") %>
+	<%= render_card(card, "home-card one-content") %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <% deck = content %>
+    <% if !logged_in? %>
+      <% if deck.explorable? %>
+	<%= render partial: "shared/deck", locals: { deck: deck, limit: 4, category_class: "explore-item one-content" } %>
+      <% end %>
+    <% else %>
+      <% if deck.viewable_by? current_user %>
+	<%= render partial: "shared/deck", locals: { deck: deck, limit: 4, category_class: "explore-item one-content" } %>
       <% end %>
     <% end %>
   <% end %>
+  
 <% end %>

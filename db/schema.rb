@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623053815) do
+ActiveRecord::Schema.define(version: 20160625120712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,26 @@ ActiveRecord::Schema.define(version: 20160623053815) do
 
   add_index "cards", ["deck_id"], name: "index_cards_on_deck_id", using: :btree
 
+  create_table "categories", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "subdomain",  default: "www"
+  end
+
+  add_index "categories", ["name"], name: "index_categories_on_name", using: :btree
+
+  create_table "categorizations", force: :cascade do |t|
+    t.integer  "category_id"
+    t.integer  "deck_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "categorizations", ["category_id"], name: "index_categorizations_on_category_id", using: :btree
+  add_index "categorizations", ["deck_id", "category_id"], name: "index_categorizations_on_deck_id_and_category_id", unique: true, using: :btree
+  add_index "categorizations", ["deck_id"], name: "index_categorizations_on_deck_id", using: :btree
+
   create_table "comments", force: :cascade do |t|
     t.text     "content"
     t.integer  "user_id"
@@ -72,11 +92,12 @@ ActiveRecord::Schema.define(version: 20160623053815) do
     t.string   "title"
     t.string   "description"
     t.integer  "user_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.boolean  "open",        default: true
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.boolean  "open",            default: true
     t.string   "tags_names"
-    t.string   "subdomain",   default: "www"
+    t.string   "subdomain",       default: "www"
+    t.integer  "favorites_count", default: 0
   end
 
   add_index "decks", ["user_id", "created_at"], name: "index_decks_on_user_id_and_created_at", using: :btree

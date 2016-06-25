@@ -12,7 +12,7 @@ class DecksController < ApplicationController
   def create
     args = prepare_arguments
     @deck = CreateDeck.call(deck_params, current_user, ApplicationController.helpers.subdomain(request),
-                            args[:open], args[:shared_editors], args[:shared_visitors],
+                            args[:open], args[:shared_editors], args[:shared_visitors], args[:category_id],
                             args[:tags]);
     respond_to do |format|
       format.js
@@ -23,8 +23,6 @@ class DecksController < ApplicationController
     subdomain = ApplicationController.helpers.subdomain(request)
     @deck = Deck.find(params[:id])
     @viewable = @deck.subdomain == subdomain && check_permission_to_view(@deck)
-    print "-----yo--#{check_permission_to_view(@deck)}----"
-    print "--subdomain: #{@deck.subdomain == subdomain}----------"
     if !@viewable
       render :show
     end
@@ -60,12 +58,16 @@ class DecksController < ApplicationController
     if args[:shared_visitors]
       shared_visitors = args[:shared_visitors]
     end
-    if args[:tags]
-      tags = args[:tags]
+    # if args[:tags]
+    #   tags = args[:tags]
+    # end
+    category_id = nil
+    if args[:category_id]
+      category_id = args[:category_id]
     end
     @deck = UpdateDeck.call(new_params,
                             @deck, current_user,
-                            shared_editors, shared_visitors, tags);
+                            shared_editors, shared_visitors, category_id, tags);
     respond_to do |format|
       format.js
     end
@@ -180,14 +182,15 @@ class DecksController < ApplicationController
           end
         end
 
-        tags = params[:item][:tags]
+        # tags = params[:item][:tags]
       end
       
       return { 
         shared_editors: shared_editors, 
         shared_visitors: shared_visitors, 
-        tags: tags, 
-        open: params[:deck_property] == "public" 
+        # tags: tags, 
+        open: params[:deck_property] == "public",
+        category_id: params[:category_id]
       }
     end
 

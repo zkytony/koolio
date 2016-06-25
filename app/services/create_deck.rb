@@ -18,16 +18,20 @@ class CreateDeck
                 subdomain,
                 open, 
                 shared_editors, 
-                shared_visitors, 
+                shared_visitors,
+                category_id,
                 tags)
     deck_params[:open] = open
     deck_params[:subdomain] = subdomain
     deck = user.create_deck(deck_params)
     if deck
       # add tags
-      tags.each do |tag_name|
-        deck.add_tag({name: tag_name})
-      end
+      # tags.each do |tag_name|
+      #   deck.add_tag({name: tag_name})
+      # end
+
+      deck.category = Category.find(category_id)
+      deck.save!
 
       # Sharing is only intended for mutually followed users
       # to avoid unwanted shares

@@ -18,6 +18,8 @@ class Deck < ActiveRecord::Base
   has_many :favoring_users, through: :users_with_favor, source: :user
 
   has_and_belongs_to_many :tags, dependent: :destroy
+  has_one :categorization
+  has_one :category, through: :categorization
 
   has_many :deck_user_associations, dependent: :destroy
   has_many :deck_editor_associations, dependent: :destroy

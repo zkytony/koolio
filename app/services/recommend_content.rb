@@ -12,20 +12,24 @@ class RecommendContent
   #
   # subdomain is used to restrict which subset of content to
   # grab from.
-  def self.call(user, more, card_ids, context, subdomain="www")
+  #
+  # category_id is the id for the category of the deck. Or,
+  # it can be string "All"
+  def self.call(user, more, content_ids, context, category_id="all", subdomain="www", sort="time", type="card")
     n_card = 30
-    n_deck = 8
+    n_deck = 3
     
     contents = []
     if context == :explore
-      contents |= GrabPopularContent.call(user, n_card, more, card_ids, subdomain) # take the union here
+      # contents |= GrabPopularContent.call(user, n_card, more, content_ids, category_id, subdomain, sort, type) # take the union here
+      contents |= GrabExploreContent.call(user, n_card, more, content_ids, category_id, subdomain, sort, type) # take the union here
       contents
     elsif context == :home
-      contents |= GrabFollowingContent.call(user, n_card, n_deck, more, card_ids, subdomain)
+      contents |= GrabFollowingContent.call(user, n_card, n_deck, more, content_ids, subdomain)
       if !more
-        contents |= GrabSelfLatestContent.call(user, 30, subdomain)
+        contents |= GrabSelfLatestContent.call(user, n_card, subdomain)
       end
-      contents |= GrabFavoriteContent.call(user, n_card, more, card_ids, subdomain)
+      contents |= GrabFavoriteContent.call(user, n_card, more, content_ids, subdomain)
       contents.sort_by {|a| a.created_at }.reverse
     else
       nil

@@ -16,21 +16,25 @@ class UpdateDeck
                 deck,
                 user,
                 shared_editors, 
-                shared_visitors, 
+                shared_visitors,
+                category_id,
                 tags)
-    print "-------------#{shared_editors.inspect}-----------"
-    print "-------------#{shared_visitors.inspect}-----------"
     if deck.editable_by? user
       deck.update_attributes(deck_params)
       # remove all tags
-      deck.remove_all_tags
-      deck.update_attributes({:tags_names => nil})
-      # add tags
-      tag_params = []
-      tags.each do |tag_name|
-        tag_params << {name: tag_name}
+      # deck.remove_all_tags
+      # deck.update_attributes({:tags_names => nil})
+      # # add tags
+      # tag_params = []
+      # tags.each do |tag_name|
+      #   tag_params << {name: tag_name}
+      # end
+      # deck.add_tags(tag_params)
+      
+      if category_id
+        deck.category = Category.find(category_id)
+        deck.save!
       end
-      deck.add_tags(tag_params)
 
       # Sharing is only intended for mutually followed users
       # to avoid unwanted shares

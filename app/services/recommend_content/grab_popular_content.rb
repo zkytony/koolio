@@ -4,14 +4,27 @@ class RecommendContent
     # number of likes.
     #
     # Currently only grab cards
-    def self.call(user, n_card, more, card_ids, subdomain)
+    def self.call(user, n_card, more, card_ids, category_id="all", subdomain)
       contents = []
-      if more
-        contents = Card.where(subdomain: subdomain).where("cards.id NOT IN (?)", card_ids).sort_by(&:likes).slice(0, n_card).shuffle
+      if more  
+        contents = Card.where(subdomain: subdomain).where("cards.id NOT IN (?)", card_ids)
       else
-        contents = Card.where(subdomain: subdomain).sort_by(&:likes).reverse.slice(0, n_card).shuffle
+        contents = Card.where(subdomain: subdomain)
       end
-      contents
+      if category_id.downcase != "all"
+        contents.to_a.delete_if do |content|
+          if content.is_a? Card
+            if content.deck.category.nil? || content.deck.category.id != category_id.to_i
+              true
+            else
+              false
+            end
+          else
+            false
+          end
+        end  # end delete_if
+      end
+      contents.sort_by(&:likes).slice(0, n_card).shuffle
     end
   end
 end

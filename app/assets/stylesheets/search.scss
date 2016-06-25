@@ -25,6 +25,7 @@
 	height: $home-card-width + 20px;
 	@include box-sizing(border-box);
 	margin-bottom: 30px;
+	margin-right: 10px;
 	.four-cards {
 	    width: $home-card-width - $search-deck-padding * 2;
 	    .scaled-card {

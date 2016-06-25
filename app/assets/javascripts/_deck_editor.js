@@ -95,6 +95,33 @@ DeckEditor.prototype.init = function() {
   // This is good, because this way we can retrieve the user_id
   // at the same time as the user is selected.
   //editor.ajaxGrabMutualFollowings();
+
+  $(document).on("click", "#catg-selected", function() {
+    if (!$("#catg-list").hasClass("hidden")) {
+      $("#catg-list").addClass("hidden");
+    } else {
+      $("#catg-list").removeClass("hidden");
+    }
+  });
+  $(document).on("click", ".catg-item", function() {
+    var curId = $("#category_id").val();
+    if (curId) {
+      var curName = $("#catg-selected p").html();
+      $("#catg_" + curId).html(curName);
+    };
+    var newId = $(this).attr("id").split("_")[1];
+    var newName = $(this).html();
+    //$("#catg_" + newId).addClass("selected");
+    $("#catg-selected p").html(newName);
+    $("#category_id").val(newId);
+    $("#catg-list").addClass("hidden");
+    // validate
+    if (editor.validate()) {
+      editor.toggleSubmitButton(true);
+    } else {
+      editor.toggleSubmitButton(false);
+    }    
+  });
 }
 
 DeckEditor.prototype.validate = function() {
@@ -242,11 +269,18 @@ DeckEditor.prototype.showDeckInfo = function(deckId) {
       }
 
       // fill up tags
-      var tags = output["tags"];
-      editor.tagsCount = tags.length;
-      tags.forEach(function(tag) {
-	editor.tags.tagit('createTag', tag);
-      });
+      /* var tags = output["tags"];
+	 editor.tagsCount = tags.length;
+	 tags.forEach(function(tag) {
+	 editor.tags.tagit('createTag', tag);
+	 }); */
+      
+      // fill in category
+      var category = output["category"];
+      if (category != null) {
+	$("#category_id").val(category["id"]);
+	$("#catg-selected p").html(category["name"]);
+      }
 
       // fill up shared editors
       var editors = output["shared_editors"];

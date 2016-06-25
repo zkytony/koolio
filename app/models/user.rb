@@ -118,11 +118,15 @@ class User < ActiveRecord::Base
   end
 
   def favor_deck(deck)
-    self.favor_of_decks.create(deck_id: deck.id)
+    if self.favor_of_decks.create(deck_id: deck.id)
+      deck.increment!(:favorites_count)
+    end
   end
 
   def unfavor_deck(deck)
-    self.favor_of_decks.find_by(deck_id: deck.id).destroy
+    if self.favor_of_decks.find_by(deck_id: deck.id).destroy
+      deck.decrement!(:favorites_count)
+    end
   end
 
   def favoring_deck?(deck)

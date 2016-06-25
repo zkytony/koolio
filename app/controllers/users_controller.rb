@@ -98,19 +98,26 @@ class UsersController < ApplicationController
   def explore
     subdomain = ApplicationController.helpers.subdomain(request)
     @more = params[:more] == "true"
+    @category_id = "all"
+    if params[:category_id]
+      @category_id = params[:category_id]
+    end
+    @type = "card"
+    if params[:type]
+      @type = params[:type]
+    end
     if logged_in?
-      @recommended = RecommendContent.call(current_user, @more, params[:card_ids], :explore, subdomain)
+      @recommended = RecommendContent.call(current_user, @more, params[:content_ids], :explore, @category_id, subdomain, params[:sort], @type)
 
       # user may want to make a comment
       @comment = Comment.new
-
       respond_to do |format|
         format.html
         format.js
       end
     else
       # explore without user sepcified
-      @recommended = RecommendContent.call(nil, @more, params[:card_ids], :explore, subdomain)
+      @recommended = RecommendContent.call(nil, @more, params[:content_ids], :explore, subdomain)
     end
   end
 

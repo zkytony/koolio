@@ -23,6 +23,33 @@
   <div id="card-zoom-display-wrapper" class="hidden">
     <div id="card-zoom-display"></div>
   </div>
+  <!-- Category select -->
+  <div class="hm-left-side-content fixed <%=subdomain(request)%>-subdomain" id="catg-list">
+    <ul>
+      <li class="catg-item selected" id="catg_all">All</li>
+      <% Category.where(subdomain: subdomain(request)).each do |category| %>
+	<li class="catg-item" id="catg_<%=category.id%>"><%=category.name%></li>
+      <% end %>
+    </ul>
+  </div>
+  <!-- Sort method & Deck/Card select -->
+  <div class="hm-right-side-content fixed <%=subdomain(request)%>-subdomain" id="custm-control">
+    
+    <div class="options-section">
+      <h4>Show</h4>
+      <ul id="content-type">
+	<li id="see-cards" class="selected type-item">Cards</li>
+	<li id="see-decks" class="type-item">Decks</li>
+      </ul>
+    </div> 
+    <div class="options-section">
+      <h4>Sort By</h4>
+      <ul id="sort-method">
+	<li id="sort-time" class="sort-item selected">Newest</li>
+	<li id="sort-pop" class="sort-item">Popular</li>
+      </ul>
+    </div>
+  </div>
 </div>
 <div class="dark-overlay hidden" id="overlay-for-focus-card"></div>
 <div class="dark-overlay hidden" id="overlay-for-zoom-card"></div>
