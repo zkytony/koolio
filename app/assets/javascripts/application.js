@@ -14,7 +14,12 @@
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
-//= require jquery-ui
+//= require jquery-ui/core
+//= require jquery-ui/widget
+//= require jquery-ui/position
+//= require jquery-ui/autocomplete
+//= require jquery-ui/effect-highlight
+//= require jquery-ui/effect-blind
 //= require jquery.mobile.custom.min
 //= require masonry.pkgd.min
 //= require Jcrop.min
