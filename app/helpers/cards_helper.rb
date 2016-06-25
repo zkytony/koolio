@@ -1,11 +1,14 @@
 module CardsHelper
   def all_hidden_to(cards, user)
-    if user.nil?
-      return true
-    end
     cards.each do |card|
-      if card.viewable_by?(user)
-        return false
+      if user.nil?
+        if card.explorable?
+          return false
+        end
+      else
+        if card.viewable_by?(user)
+          return false
+        end
       end
     end
     true
