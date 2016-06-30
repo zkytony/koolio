@@ -8,7 +8,7 @@ class RecommendContent
     # user is the user that wants to explore
     def self.call(user, n_content, more, content_ids, category_id="all", subdomain, sort, type)
       if sort.nil?
-        sort = "time"
+        sort = "popular"
       end
       if type.nil?
         type = "card"
