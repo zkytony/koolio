@@ -1,6 +1,6 @@
 module ApplicationHelper
   def full_title(page_title = '')
-    base_title = "Koolio"
+    base_title = "Koolio | Best Place To Share Flippable Content"
     if page_title.empty?
       base_title
     else
@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def nav_signup_link
     path = request.path
-    if path == root_path or path == login_path or path == signup_path
+    if path == login_path or path == signup_path
       "#"
     else
       signup_path
