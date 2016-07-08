@@ -1,22 +1,17 @@
-# Koolio
+# Koolio.io
 
-Koolio is a website where users can create and share flippable two-sided cards, grouped by decks; users get to choose what to put on each side of the cards. Explore other people's creativity, and ignite yours! 
+### First of all
+visit [koolio.io](http://koolio.io)
 
-Kooiio is much more flexible than just exploiting your creativity. It can be used for many things; one example could be note keeping. 
+### What is this?
+In essence, a website of Flippable Cards. Koolio.io is a place where you can **share** and **view** two-sided flippable cards. For Fun or other purposes. For more, see [About Koolio.io](http://koolio.io/about)
 
-Need developers! Want pull requests!
+### What is a card?
+Check out [this one](http://koolio.io/decks/64/cards/142)
 
-This project uses Ruby on Rails, and PostgreSQL as the major database engine
+### What is a deck?
+Check out [this one](http://koolio.io/decks/86)
 
-List of features to add:
-
-* Show followers & following in profile page
-* New type of side content: map location
-* New type of side content: audio
-* New type of side content: event
-* Better searching experience
-* Realtime notification
-* Notifications for deck sharing
-
-More things to do:
-* an app
+## More
+Koolio.io is open source. We welcome pull requests.
+There's a [facebook page](https://www.facebook.com/koolio.io/). For feedback, please email **feedbac[at]koolio[dot]io**
