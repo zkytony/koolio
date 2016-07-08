@@ -2,7 +2,9 @@
   <div class="like-comment">
     <div><i class="fa fa-heart" id="like-card-btn"></i><div id="n_likes">...</div></div>
     <div><i class="fa fa-comment"></i><div id="n_comments">...</div></div>
+    <div class="right-most link disabled" id="card_link_btn"><i class="fa fa-link"></i>permalink</div>
   </div>
+  <%= hidden_field_tag "card_link" %>
   <div class="comments-list" id="comment_list">
   </div>
   <div class="comment-box" id="comment_box">

@@ -35,3 +35,7 @@ $("#more_cards_in_deck").html("<%= j render partial: "shared/deck", locals: { de
 <% else %>
   $("#comment_list").html("<p>No comments</p>");
 <% end %>
+
+// Get link for this card
+$("#card_link").val("<%=deck_card_show_url(@info[:deck], @info[:card_id])%>");
+$("#card_link_btn").removeClass("disabled");

@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     post 'favorite' => 'decks#favorite'
     post 'unfavorite' => 'decks#unfavorite'
     get 'deck_info' => 'decks#deck_info'
-    get 'cards/:card_id' => 'decks#card_show'
+    get 'cards/:card_id' => 'decks#card_show', as: 'card_show'
     post 'delete_cards' => 'decks#delete_cards'
   end
   # Also want to have paths for cards directly

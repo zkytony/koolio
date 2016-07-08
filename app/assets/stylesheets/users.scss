@@ -549,13 +549,13 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	color: #A4A4A4; // grey
 	cursor: default;
     }
-
 }
 #like-comment-panel {
     min-height: 40px + $comment-box-height;
     overflow: hidden;
     padding: 20px 0px;
 
+    // comments
     .comments-list {
 	overflow: hidden;
 	min-height: 40px;
@@ -600,7 +600,7 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 		color: $liked-comment-color;
 	    }
 	}
-    }
+    } // end comments
     
     $comment-box-height: 30px;
     .like-comment {
@@ -625,7 +625,33 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 	    #n_likes.liked, i.fa-heart.liked {
 		color: $liked-color;
 	    }
-	}	
+	}
+	// link
+	div.link {
+	    &:hover {
+		color: $grey-blue;
+		text-decoration: underline;
+		cursor: pointer;
+	    }
+	    font-size: 12px;
+	    i {
+		font-size: 15px;
+		margin-right: 4px;
+		font-weight: 700;
+	    }
+	}
+	div.link.disabled {
+	    &:hover {
+		color: $info-font-color;
+		text-decoration: none;
+		cursor: auto;
+	    }
+	}
+	div.right-most {
+	    position: absolute;
+	    top: 20px;
+	    right: 25px;
+	}
     }
 
     .comments-list {
@@ -1415,4 +1441,14 @@ button.deck-favorite-btn.favored {
     h4 {
 	color: lighten($x-bg-color, 20%);
     }
+}
+
+// When there's a link to copy inside alert
+#copy_link_sel {
+    float: left;
+    color: $healthy-black;
+}
+.float-left-text {
+    float: left;
+    margin-right: 10px;
 }

@@ -132,6 +132,26 @@ CardsHandler.prototype.init = function() {
     }
   });
 
+  // Register event listener for link click. When it clicks, we want
+  // to show a notification with link selected, so that user can press
+  // Ctrl+C to copy.
+  $(document).on("click", "#card_link_btn", function(e) {
+    if (!$(this).hasClass("disabled")) {
+      if (!$('#copy_link_alert').length) {
+	messageHTML = "<div id='copy_help' class='float-left-text'>Ctrl + C to copy:</div><div id='copy_link_sel'>" + $("#card_link").val() + "</div>";
+	addAlert('info', messageHTML, -1, "copy_link_alert");
+	SelectText("copy_link_sel");
+      }
+    }
+  });
+  // When user clicks somewhere other than the copy link alert, close the alert.
+  $(document).on("click tap", function(e) {
+    if (e.target.id !== "copy_link_alert" && e.target.id !== "card_link_btn"
+        && e.target.id !== "copy_help" && e.target.id !== "copy_link_sel") {
+      $("#copy_link_alert").remove();
+    }
+  });
+
   // When zoom button gets clicked, display the full size image (before
   // cropping) at the center of screen. To get the full image, remove the
   // "cropped_" in front of the image file name, and this should be enough.

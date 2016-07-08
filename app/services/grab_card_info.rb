@@ -45,6 +45,7 @@ class GrabCardInfo
     cards = deck.cards.order(:likes).reverse_order.take(n_cards)
     # use hash and convert it to JSON
     info = {
+      card_id: card.id,
       author: author,
       deck: deck,
       n_likes: card.likes, 
