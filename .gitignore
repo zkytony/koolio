@@ -42,3 +42,6 @@ bower.json
 
 # ignore env yml
 /config/local_env.yml
+
+public/assets/
+public/uploads/
