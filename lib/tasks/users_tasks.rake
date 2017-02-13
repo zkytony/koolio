@@ -12,4 +12,10 @@ namespace :user do
     end
     puts "Success"
   end
+
+  task :remove_user, [:un] => :environment do |t, args|
+    user = User.find_by(username: args[:un])
+    User.delete_account(user.id)
+    puts "Done."
+  end
 end
