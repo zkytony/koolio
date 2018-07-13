@@ -176,18 +176,6 @@ AvatarEditor.prototype.init = function() {
   // initialize JCrop
   initJCrop(avatarEditor.side);
 
-  function initJCrop() {
-    $("#" + avatarEditor.side + "-img-to-crop").Jcrop({
-      setSelect: [0, 0, 220, 220],
-      aspectRatio: 1,
-      boxWidth: 500,
-      boxHeight: 450,
-      minSize: [ 100, 100 ],
-      onSelect: updateCroppingAttributes,
-      onChange: updateCroppingAttributes,
-    });
-  }
-
   // When selected an image, use FileReader to load it, then
   // display the cropping phase
   $(document).on("change", "#" + avatarEditor.side + "-side-img-file", function() {
@@ -214,7 +202,7 @@ AvatarEditor.prototype.init = function() {
   $(document).on("click", "#" + avatarEditor.side + "-img-cropper-confirm-btn", function() {
     var formdata = new FormData();
     formdata.append("target", avatarEditor.currentTarget);
-    formdata.append("file_type", "img");
+    formdata.append("file_type", avatarEditor.currentTarget.type);
     formdata.append("source_type", avatarEditor.currentSource);
     formdata.append("crop_x", $("#crop_x").val());
     formdata.append("crop_y", $("#crop_y").val());
@@ -261,7 +249,8 @@ AvatarEditor.prototype.sendFileAJAX = function(formdata) {
 	processData: false,
 	dataType: 'json', // get back json
 	beforeSend: function() {
-	  $("#img_" + avatarEditor.side + "_waiting").removeClass("hidden");
+	    $("#img_" + avatarEditor.side + "_waiting").removeClass("hidden");
+	    addAlert("warning", "Uploading and processing...Please wait", 10000);
 	},
 	success: function(output) {
 	    var fileName = output["file_name"];
@@ -273,9 +262,13 @@ AvatarEditor.prototype.sendFileAJAX = function(formdata) {
 		avatarEditor.host = host;
 		avatarEditor.displayPhase(host + "/" + storeDir + "/cropped_" + fileName);
 	    }
+	    $(".fl-alerts").children().remove();
 	},
 	complete: function() {
 	  $("#img_" + avatarEditor.side + "_waiting").addClass("hidden");
+	},
+	error: function() {
+	    addAlert("error", "Upload Failed", 3000);
 	}
     });
 }
@@ -296,7 +289,7 @@ AvatarEditor.prototype.displayPhase = function(croppedUrl) {
 }
 
 AvatarEditor.prototype.grabContent = function() {
-    if (!this.host) {
+    if (!this.imgFile) {
 	return "";
     }
     var result = {};
@@ -311,7 +304,7 @@ AvatarEditor.prototype.onConfirm = function(callback) {
 }
 
 AvatarEditor.prototype.croppedUrl = function() {
-    if (!this.host) {
+    if (!this.imgFile) {
 	return null;
     }
     return this.host + "/" + this.storeDir + "/cropped_" + this.imgFile;
@@ -320,13 +313,32 @@ AvatarEditor.prototype.croppedUrl = function() {
 // go to crop phase;
 // input is a javascript input[type='file'] object, not a jquery object
 AvatarEditor.prototype.cropPhase = function() {
-  var avatarEditor = this;
+    var avatarEditor = this;
 
-  // hide the upload phase
-  $("#" + avatarEditor.side + "-img-editor-uploader").addClass("hidden");
-  $("#" + avatarEditor.side + "-img-editor-cropper").removeClass("hidden");
-  $("#" + avatarEditor.side + "-img-editor-display").addClass("hidden");
+    // hide the upload phase
+    $("#" + avatarEditor.side + "-img-editor-uploader").addClass("hidden");
+    $("#" + avatarEditor.side + "-img-editor-cropper").removeClass("hidden");
+    $("#" + avatarEditor.side + "-img-editor-display").addClass("hidden");
 };
+
+function initJCrop(side) {
+    $("#" + side + "-img-to-crop").Jcrop({
+	setSelect: [0, 0, 220, 220],
+	aspectRatio: 1,
+	boxWidth: 500,
+	boxHeight: 450,
+	minSize: [ 100, 100 ],
+	onSelect: updateCroppingAttributes,
+	onChange: updateCroppingAttributes,
+    });
+}
+
+function updateCroppingAttributes(c) {
+    $("#crop_x").val(c.x);
+    $("#crop_y").val(c.y);
+    $("#crop_w").val(c.w);
+    $("#crop_h").val(c.h);
+}
 
 function getUrl(href) {
     var l = document.createElement("a");
