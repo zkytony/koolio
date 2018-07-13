@@ -1,6 +1,6 @@
 module ApplicationHelper
   def full_title(page_title = '')
-    base_title = "Koolio | Best Place To Share Flippable Content"
+    base_title = "Koolio | Share, in a flippable fashion."
     if page_title.empty?
       base_title
     else
