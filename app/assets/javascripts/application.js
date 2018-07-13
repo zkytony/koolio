@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.turbolinks
-//= require turbolinks
 //= require jquery-ui/core
 //= require jquery-ui/widget
 //= require jquery-ui/position
