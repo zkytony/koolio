@@ -1,3 +1,9 @@
+# Warning: Currently ApplyDefaultAvatar is not used. If
+# a user does not have an avatar on a side, the path
+# to default avatar will be supplied.
+#
+# See /app/helpers/user_helper.rb.
+
 class CreateUserAccount
   class ApplyDefaultAvatar
     # Apply the default avatar to the user

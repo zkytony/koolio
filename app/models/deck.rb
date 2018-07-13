@@ -18,6 +18,11 @@ class Deck < ActiveRecord::Base
   has_many :favoring_users, through: :users_with_favor, source: :user
 
   has_and_belongs_to_many :tags, dependent: :destroy
+  
+  # Note: this is a sophisticated way to express the one-to-many relation between decks and categories.
+  # A deck has one category, and one category can be used for many decks. The simpler way would be
+  # to get rid of the Categorization model, and use has_many :decks in the Category model. But doing
+  # so requires a new migration and schema change which I was relunctant to do.
   has_one :categorization
   has_one :category, through: :categorization
 

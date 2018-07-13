@@ -118,8 +118,9 @@ class User < ActiveRecord::Base
   end
 
   def favor_deck(deck)
-    if self.favor_of_decks.create(deck_id: deck.id)
+    if (favor = self.favor_of_decks.create(deck_id: deck.id))
       deck.increment!(:favorites_count)
+      favor
     end
   end
 
