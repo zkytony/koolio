@@ -110,6 +110,8 @@ function ajaxUpdateUser(data, userId) {
 	dataType: "script",
 	success: function(output) {
 	    // flip every edited item back, and reset
+	    addAlert("success", "Changes saved.", 3000);
+	    
 	    $(".setting-item").each(function(){
 		if ($(this).hasClass("flipper") && $(this).hasClass("flip")) {
 		    // flip back
@@ -120,6 +122,9 @@ function ajaxUpdateUser(data, userId) {
 	    if ($("#avatar-card").hasClass("flip")) {
 		flip($("#avatar-card"));
 	    }
+	},
+	error: function(output) {
+	    addAlert("error", "Error occurred while saving.", 3000);
 	}
     });
 }
