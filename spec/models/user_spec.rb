@@ -190,7 +190,7 @@ RSpec.describe User, :type => :model do
 
   it "should like a card" do
     user = User.create(username: "user1", email: "user1@example.com",
-                       password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456", activated: true)
     deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
@@ -202,7 +202,7 @@ RSpec.describe User, :type => :model do
 
   it "should unlike a card" do
     user = User.create(username: "user1", email: "user1@example.com",
-                       password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456", activated: true)
     deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
@@ -218,7 +218,7 @@ RSpec.describe User, :type => :model do
 
   it "should not like a card twice" do
     user = User.create(username: "user1", email: "user1@example.com",
-                       password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456", activated: true)
     deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
@@ -233,7 +233,7 @@ RSpec.describe User, :type => :model do
 
   it "should not unlike a card that has not been liked" do
     user = User.create(username: "user1", email: "user1@example.com",
-                       password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456", activated: true)
     deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
@@ -245,7 +245,7 @@ RSpec.describe User, :type => :model do
 
   it "should comment on card" do
     user = User.create(username: "user1", email: "user1@example.com",
-                       password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456", activated: true)
     deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
@@ -261,7 +261,7 @@ RSpec.describe User, :type => :model do
 
   it "should like a comment" do
     user = User.create(username: "user1", email: "user1@example.com",
-                       password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456", activated: true)
     deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
@@ -275,7 +275,7 @@ RSpec.describe User, :type => :model do
 
   it "should unlike a comment" do
     user = User.create(username: "user1", email: "user1@example.com",
-                       password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456", activated: true)
     deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
@@ -293,7 +293,7 @@ RSpec.describe User, :type => :model do
 
   it "should not like a comment twice" do
     user = User.create(username: "user1", email: "user1@example.com",
-                       password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456", activated: true)
     deck = user.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, user)
     card.save!
@@ -330,9 +330,9 @@ RSpec.describe User, :type => :model do
 
   it "should be able to recommend a deck or card to a user, and cancel these recommendations" do
     userA = User.create(username: "userA", email: "userA@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     userB = User.create(username: "userB", email: "userB@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, userA)
     card.save!
@@ -356,9 +356,9 @@ RSpec.describe User, :type => :model do
 
   it "should be able to turn down recommendation of deck and card" do
     userA = User.create(username: "userA", email: "userA@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     userB = User.create(username: "userB", email: "userB@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, userA)
     card.save!
@@ -372,14 +372,6 @@ RSpec.describe User, :type => :model do
     userB.turndown_recommendation(userA, card)
     expect(userA.recommendings_of_cards.count).to be 0
     expect(userB.recommended_cards.count).to be 0
-  end
-
-  it "should inspect avatar" do
-    user = User.create(username: "userA", email: "userA@example.com",
-                        password: "123456", password_confirmation: "123456")
-    
-    expect(user.my_avatar!("front")).to eq "/assets/default-profile.svg"
-    expect(user.my_avatar!("back")).to eq "/assets/default-profile.svg"
   end
 
   it "should return list of mutually followed users of given user" do

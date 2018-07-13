@@ -23,9 +23,9 @@ RSpec.describe Card, type: :model do
 
   it "should not be viewed once hidden" do
     userA = User.create(username: "userA", email: "userA@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     userB = User.create(username: "userB", email: "userB@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     deck = userA.create_deck(title: "Testing deck", description: "Testing deck description")
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, userA)
     card.save!

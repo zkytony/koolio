@@ -23,7 +23,7 @@ RSpec.describe Activity, type: :model do
 
   it "should handle activities with Card as trackable" do
     userA = User.create(username: "userA", email: "userA@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, userA)
     card.save!
@@ -38,7 +38,7 @@ RSpec.describe Activity, type: :model do
 
   it "should handle activities with Card as trackable" do
     userA = User.create(username: "userA", email: "userA@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, userA)
     card.save!

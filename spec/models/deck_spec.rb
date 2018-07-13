@@ -15,7 +15,7 @@ RSpec.describe Deck, type: :model do
   it { should have_many(:cards) }
   it { should have_many(:cards).dependent(:destroy) }
   it { should have_and_belong_to_many(:tags) }
-  it { should have_one(:categories).through(:categorization) }
+  it { should have_one(:category).through(:categorization) }
 
   it { should have_many(:users_with_favor).class_name("Favorite").dependent(:destroy) }
   it { should have_many(:favoring_users).through(:users_with_favor).source(:user) }
@@ -108,9 +108,9 @@ RSpec.describe Deck, type: :model do
   it "should change type of share" do
     # deck is not open
     userA = User.create(username: "userA", email: "userA@example.com",
-                       password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456", activated: true)
     userB = User.create(username: "userB", email: "userB@example.com",
-                       password: "123456", password_confirmation: "123456")
+                       password: "123456", password_confirmation: "123456", activated: true)
     deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
     deck.share_to(userB, "Viewer")
     expect(deck.editable_by?(userB)).to be false
@@ -168,9 +168,9 @@ RSpec.describe Deck, type: :model do
 
   it "should recognize who it is recommended to and by" do
     userA = User.create(username: "userA", email: "userA@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     userB = User.create(username: "userB", email: "userB@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, userA)
     card.save!
@@ -182,9 +182,9 @@ RSpec.describe Deck, type: :model do
 
   it "should delete the deck even it has cards & tags and it is shared" do
     userA = User.create(username: "userA", email: "userA@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     userB = User.create(username: "userB", email: "userB@example.com",
-                        password: "123456", password_confirmation: "123456")
+                        password: "123456", password_confirmation: "123456", activated: true)
     deck = userA.create_deck(title: "Testing deck", description: "Testing deck description", open: false)
     card = deck.build_card({front_content: "Hi", back_content: "Bye"}, userA)    
     deck.add_tag({name: "tag1"})
