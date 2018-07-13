@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       else
         flash[:error] = "username already taken"
       end
-      redirect_to root_path 
+      redirect_to signup_path
     else
       # Able to create a new user
       @user = User.new(user_params)
@@ -34,7 +34,7 @@ class UsersController < ApplicationController
         redirect_to @user
       else
         # Not able to create
-        redirect_to root_path
+        redirect_to signup_path
       end
     end
   end

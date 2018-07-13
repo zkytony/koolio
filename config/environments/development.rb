@@ -15,6 +15,7 @@ Rails.application.configure do
 
   # mailer configs
   if ENV['ENABLE_MAILER'].downcase == 'on'
+    config.action_mailer.perform_deliveries = true
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
@@ -24,7 +25,8 @@ Rails.application.configure do
       domain: ENV["MAILER_DOMAIN"],
       password: ENV["MAILER_PASSWORD"],
       authentication: :login,
-      enable_starttls_auto: true
+      enable_starttls_auto: true,
+      tls: true
     }
     config.action_mailer.default_url_options = { host: "localhost:3000" }
   end
