@@ -308,7 +308,7 @@ DEPENDENCIES
   mail
   mini_magick
   paperclip
-  pg (~> 0.15)
+  pg (~> 0.20)
   pg_search
   rails (~> 4.2.1)
   rails_autolink

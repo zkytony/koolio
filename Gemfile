@@ -11,7 +11,7 @@ gem 'jquery-ui-rails', '~> 5.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
-gem 'pg', '~> 0.15'
+gem 'pg', '~> 0.20'
 gem 'pg_search'
 gem 'bson_ext'
 gem 'font-awesome-rails'
