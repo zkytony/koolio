@@ -38,7 +38,7 @@ module Koolio
           begin
             ENV[key.to_s] = value
           rescue TypeError
-            raise TypeError, "#{key}, in its original form, cannot be converted to String. Add quotes?"
+            raise TypeError, "#{value}, the value for #{key}, in its original form, cannot be converted to String. Add quotes?"
           end
         end
       end
@@ -55,7 +55,7 @@ module Koolio
             end
             ENV[key.to_s] = value
           rescue TypeError
-            raise TypeError, "#{key}, in its original form, cannot be converted to String. Add quotes?"
+            raise TypeError, "#{value}, the value for #{key}, in its original form, cannot be converted to String. Add quotes?"
           end
         end
       end
