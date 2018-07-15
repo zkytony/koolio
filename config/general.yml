@@ -4,4 +4,4 @@ ENABLE_MAILER: 'on'
 # be 'fog' or 'file'. If it is set to 'fog', you will need
 # to provide the appropriate configurations for the remote
 # storage that you are using.
-STORAGE_TYPE: file
+STORAGE_TYPE: fog
