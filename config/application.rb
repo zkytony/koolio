@@ -32,19 +32,33 @@ module Koolio
     # Read the local_env.yml file
     config.before_configuration do
       env_file = File.join(Rails.root, 'config', 'local_env.yml')
-      YAML.load(File.open(env_file)).each do |key, value|
-        ENV[key.to_s] = value
-      end if File.exists?(env_file)
-
-      env_file = File.join(Rails.root, 'config', 'general.yml')
-      YAML.load(File.open(env_file)).each do |key, value|
-        if key.to_s == "STORAGE_TYPE"
-          if value != "fog" && value != "file"
-            raise "STORAGE_TYPE must be fog or file. Given: #{value}"
+      if File.exists?(env_file)
+        erb_obj = ERB.new(File.read(env_file))
+        YAML.load(erb_obj.result).each do |key, value|
+          begin
+            ENV[key.to_s] = value
+          rescue TypeError
+            raise TypeError, "#{key}, in its original form, cannot be converted to String. Add quotes?"
           end
         end
-        ENV[key.to_s] = value
-      end if File.exists?(env_file)
+      end
+
+      env_file = File.join(Rails.root, 'config', 'general.yml')
+      if File.exists?(env_file)
+        erb_obj = ERB.new(File.read(env_file))
+        YAML.load(erb_obj.result).each do |key, value|
+          begin
+            if key.to_s == "STORAGE_TYPE"
+              if value != "fog" && value != "file"
+                raise "STORAGE_TYPE must be fog or file. Given: #{value}"
+              end
+            end
+            ENV[key.to_s] = value
+          rescue TypeError
+            raise TypeError, "#{key}, in its original form, cannot be converted to String. Add quotes?"
+          end
+        end
+      end
     end
 
     config.exceptions_app = self.routes
