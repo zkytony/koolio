@@ -26,6 +26,8 @@ Rails.application.configure do
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
+  # The sass-rails gem is automatically used for CSS compression if included in
+  # the Gemfile and no config.assets.css_compressor option is set.-
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
@@ -60,19 +62,20 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
 
-  # Ignore bad email addresses and do not raise email delivery errors.
-  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   if ENV['ENABLE_MAILER'].downcase == 'on'
+    config.action_mailer.perform_deliveries = true
+    # Ignore bad email addresses and do not raise email delivery errors (if false).
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = { 
       address: ENV['MAILER_ADDR'],
       port: ENV['MAILER_PORT'].to_i,
-      authentication: :login,
       user_name: ENV["MAILER_USERNAME"],
       domain: ENV["MAILER_DOMAIN"],
       password: ENV["MAILER_PASSWORD"],
-      enable_starttls_auto: true
+      authentication: :login,
+      enable_starttls_auto: true,
+      tls: true
     }
     config.action_mailer.default_url_options = { host: "koolio.io" }
   end
