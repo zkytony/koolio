@@ -1,4 +1,7 @@
 class CardsController < ApplicationController
+  after_action :allow_iframe, only: :embed
+  layout "blank", only: [:embed]
+  
   def index
     @cards = Card.all
   end
@@ -78,10 +81,18 @@ class CardsController < ApplicationController
     end
   end
 
+  def embed
+    @card = Card.find(params[:card_id])
+  end
+  
   private
   
   # strong parameter
   def card_params
     params.require(:card).permit(:front_content, :back_content, :deck_id, :user_id, :flips)
+  end
+
+  def allow_iframe
+    response.headers.except! 'X-Frame-Options'
   end
 end

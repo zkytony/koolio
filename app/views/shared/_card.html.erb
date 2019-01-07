@@ -1,6 +1,8 @@
 <%# This partial takes locals: category_class, card_id, card_front_type, card_front_content, card_back_type, card_back_content %>
 <%# category_class is the additional class identifying the context of this card. For example, "home-card" is a category_class for
     cards showing on the home page %>
+<% info_toggle = true if local_assigns[:info_toggle].nil? %>
+<% zoom = true if local_assigns[:zoom].nil? %>
 <% liked_class = "" %>
 <% if current_user_liked_card %>
   <% liked_class = "liked" %>
@@ -15,9 +17,11 @@
       <%= render partial: "shared/card_content_templates/#{card_front_type}_side", locals: { content: card_front_content, recognize_link: true } %>
     </div>
     <!-- Info toggle -->
-    <div class="info-toggle-wrapper">
-      <div class="info-toggle toggle-off"><i class="fa fa-ellipsis-h no-flip"></i></div>
-    </div>
+    <% if info_toggle %>
+      <div class="info-toggle-wrapper">
+        <div class="info-toggle toggle-off"><i class="fa fa-ellipsis-h no-flip"></i></div>
+      </div>
+    <% end %>
     <!-- quick like btn -->
     <% if logged_in? %>
       <div class="quick-card-like-btn-wrapper">
@@ -25,10 +29,12 @@
       </div>
     <% end %>
     <!-- zoom btn for image and video -->
-    <% if card_front_type == "img" or card_front_type == "video" %>
-      <div class="zoom-card-btn-wrapper">
-	<div class="zoom-card-btn" id="zoom_<%="#{card_id}"%>_front_<%="#{card_front_type}"%>"><i class="fa fa-eye no-flip" aria-hidden="true"></i></div>
-      </div>
+    <% if zoom %>
+      <% if card_front_type == "img" or card_front_type == "video" %>
+        <div class="zoom-card-btn-wrapper">
+	  <div class="zoom-card-btn" id="zoom_<%="#{card_id}"%>_front_<%="#{card_front_type}"%>"><i class="fa fa-eye no-flip" aria-hidden="true"></i></div>
+        </div>
+      <% end %>
     <% end %>
     <!-- End dealing with front -->
   </div>
@@ -38,9 +44,11 @@
       <%= render partial: "shared/card_content_templates/#{card_back_type}_side", locals: { content: card_back_content, recognize_link: true } %>
     </div>
     <!-- Info toggle -->
-    <div class="info-toggle-wrapper">
-      <div class="info-toggle"><i class="fa fa-ellipsis-h no-flip"></i></div>
-    </div>
+    <% if info_toggle %>
+      <div class="info-toggle-wrapper">
+        <div class="info-toggle"><i class="fa fa-ellipsis-h no-flip"></i></div>
+      </div>
+    <% end %>
     <% if logged_in? %>
       <!-- quick like btn -->
       <div class="quick-card-like-btn-wrapper">
@@ -48,10 +56,12 @@
       </div>
     <% end %>
     <!-- zoom btn for image and video -->
-    <% if card_back_type == "img" or card_back_type == "video" %>
-      <div class="zoom-card-btn-wrapper">
-	<div class="zoom-card-btn" id="zoom_<%="#{card_id}"%>_back_<%="#{card_back_type}"%>"><i class="fa fa-eye no-flip" aria-hidden="true"></i></div>
-      </div>
+    <% if zoom %>
+      <% if card_back_type == "img" or card_back_type == "video" %>
+        <div class="zoom-card-btn-wrapper">
+	  <div class="zoom-card-btn" id="zoom_<%="#{card_id}"%>_back_<%="#{card_back_type}"%>"><i class="fa fa-eye no-flip" aria-hidden="true"></i></div>
+        </div>
+      <% end %>
     <% end %>
     <!-- End dealing with back -->
   </div>

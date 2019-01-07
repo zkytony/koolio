@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- No index -->
+    <meta name="robots" content="noindex" />
+    <meta name="googlebot" content="noindex" />
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= favicon_link_tag %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="<%=subdomain(request)%>-subdomain blank">
+    <%= yield %>
+  </body>
+</html>

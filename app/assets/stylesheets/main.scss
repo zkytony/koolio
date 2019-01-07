@@ -51,6 +51,9 @@ body {
 body.www-subdomain {
     background-color: $www-bg-color;
 }
+body.www-subdomain.blank {
+    background-color: transparent;
+}
 body.x-subdomain {
     background-color: $x-bg-color;
 }
@@ -88,6 +91,21 @@ button, input[type="button"], input[type="submit"] {
     opacity: .80;
     filter: alpha(opacity=80);
 }
+
+.transparent-overlay {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 3;
+    -moz-opacity: 0.8;
+    opacity: .80;
+    filter: alpha(opacity=80);
+}
+
 
 .dark-overlay {
     //display: none;
