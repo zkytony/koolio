@@ -2,9 +2,11 @@
   <div class="like-comment">
     <div><i class="fa fa-heart" id="like-card-btn"></i><div id="n_likes">...</div></div>
     <div><i class="fa fa-comment"></i><div id="n_comments">...</div></div>
-    <div class="right-most link disabled" id="card_link_btn"><i class="fa fa-link"></i>permalink</div>
+    <div class="link"><i class="fa fa-link" id="card_link_btn"></i></div>
+    <div class="link"><i class="fa fa-code" id="card_embed_btn"></i></div>
   </div>
   <%= hidden_field_tag "card_link" %>
+  <%= hidden_field_tag "card_embed" %>
   <div class="comments-list" id="comment_list">
   </div>
   <div class="comment-box" id="comment_box">
@@ -17,6 +19,3 @@
     <% end %>
   </div>  
 </div>
-
-
-

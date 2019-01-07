@@ -138,17 +138,35 @@ CardsHandler.prototype.init = function() {
   $(document).on("click", "#card_link_btn", function(e) {
     if (!$(this).hasClass("disabled")) {
       if (!$('#copy_link_alert').length) {
-	messageHTML = "<div id='copy_help' class='float-left-text'>Ctrl + C to copy:</div><div id='copy_link_sel'>" + $("#card_link").val() + "</div>";
+	messageHTML = "<div id='copy_link_help' class='float-left-text'>Ctrl + C to copy permalink:</div><div id='copy_link_sel'>" + $("#card_link").val() + "</div>";
 	addAlert('info', messageHTML, -1, "copy_link_alert");
 	SelectText("copy_link_sel");
       }
     }
   });
-  // When user clicks somewhere other than the copy link alert, close the alert.
+
+  // Register event listener for embed code click. When it clicks, we want
+  // to show a notification with embed code selected, so that user can press
+  // Ctrl+C to copy.
+  $(document).on("click", "#card_embed_btn", function(e) {
+      if (!$(this).hasClass("disabled")) {
+          if (!$('#copy_embed_alert').length) {
+            messageHTML = "<div id='copy_embed_help' class='float-left-text'>Ctrl + C to copy embed code:</div><div id='copy_embed_sel'><input type=\"text\" value=\'" + $("#card_embed").val() + "\'/></div>";
+            addAlert('info', messageHTML, -1, "copy_embed_alert");
+            SelectText("copy_embed_sel");
+          }
+      }
+  });
+
+  // When user clicks somewhere other than the copy link alert or the copy embed alert, close the alert.
   $(document).on("click tap", function(e) {
     if (e.target.id !== "copy_link_alert" && e.target.id !== "card_link_btn"
-        && e.target.id !== "copy_help" && e.target.id !== "copy_link_sel") {
+      && e.target.id !== "copy_link_help" && e.target.id !== "copy_link_sel") {
       $("#copy_link_alert").remove();
+    }
+    if (e.target.id !== "copy_embed_alert" && e.target.id !== "card_embed_btn"
+      && e.target.id !== "copy_embed_help" && e.target.id !== "copy_embed_sel") {
+      $("#copy_embed_alert").remove();
     }
   });
 

@@ -22,8 +22,9 @@ function grabCardInfo(cardId) {
     url: '/cards/' + cardId + '/card_info',
     dataType: 'script',
     beforeSend: function() {
-      // disable permalink button
+      // disable permalink and embed button
       $("#card_link_btn").addClass("disabled");
+      $("#card_embed_btn").addClass("disabled");
     },
     success: function(output) {
       

@@ -633,14 +633,14 @@ $no-content-msg-height: 3*$msg-item-height + $msg-title-height;
 		text-decoration: underline;
 		cursor: pointer;
 	    }
-	    font-size: 12px;
+	    font-size: 15px;
 	    i {
 		font-size: 15px;
 		margin-right: 4px;
 		font-weight: 700;
 	    }
 	}
-	div.link.disabled {
+	i.link.disabled {
 	    &:hover {
 		color: $info-font-color;
 		text-decoration: none;
@@ -1451,4 +1451,14 @@ button.deck-favorite-btn.favored {
 .float-left-text {
     float: left;
     margin-right: 10px;
+}
+
+// for embed code
+#copy_embed_sel {
+    input {
+        width: 100%;
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid black;
+    }
 }
