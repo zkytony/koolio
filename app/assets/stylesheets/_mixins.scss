@@ -75,6 +75,12 @@
     background-clip: padding-box;
 }
 
+// text with border
+@mixin text-with-border($text-color, $border-color, $thickness: 1px) {
+    color: $text-color;
+    text-shadow: (-$thickness) 0 $border-color, 0 $thickness $border-color, $thickness 0 $border-color, 0 (-$thickness) $border-color;
+}
+
 // linear-graident
 // credit to: http://www.sitepoint.com/building-linear-gradient-mixin-sass/
 @mixin linear-gradient($direction, $color-stops...) {

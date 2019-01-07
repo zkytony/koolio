@@ -68,6 +68,10 @@ CardsHandler.prototype.init = function() {
   // to auto. When toggling, checks if this .info-toggle
   // element has .toggle-off class. 
   $(document).on("click tap", ".info-toggle", function(e) {
+    if ($(this).hasClass("do-not-show-panels")) {
+        return;
+    }
+        
     e.stopPropagation();
     e.preventDefault();
 

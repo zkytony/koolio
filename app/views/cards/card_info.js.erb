@@ -40,5 +40,5 @@ $("#more_cards_in_deck").html("<%= j render partial: "shared/deck", locals: { de
 $("#card_link").val("<%=deck_card_show_url(@info[:deck], @info[:card_id])%>");
 $("#card_link_btn").removeClass("disabled");
 // Get embed code for this card
-$("#card_embed").val("<iframe src=\"<%=deck_card_embed_url(@info[:deck], @info[:card_id])%>\" frameBorder=\"0\" width=\"220px\" height=\"240px\" scrolling=\"no\"></iframe>");
+$("#card_embed").val("<iframe src=\"<%=deck_card_embed_url(@info[:deck], @info[:card_id])%>\" frameBorder=\"0\" width=\"220px\" height=\"220px\" scrolling=\"no\"></iframe>");
 $("#card_embed_btn").removeClass("disabled");

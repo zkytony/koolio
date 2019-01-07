@@ -239,3 +239,12 @@ $info-toggle-size: 40px;
     }
 }
 
+.koolio-visit {
+    a {
+        // color: yellow;
+        // text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+        font-size: 26px;
+        font-weight: bold;
+	@include text-with-border($white, $soft-black);
+    }
+}
