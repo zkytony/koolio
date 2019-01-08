@@ -62,6 +62,9 @@ Rails.application.configure do
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = 'http://assets.example.com'
 
+  # default url options for controllers
+  config.action_controller.default_url_options = { host: "koolio.io", protocol: "https" }
+
   if ENV['ENABLE_MAILER'].downcase == 'on'
     config.action_mailer.perform_deliveries = true
     # Ignore bad email addresses and do not raise email delivery errors (if false).
@@ -77,7 +80,7 @@ Rails.application.configure do
       enable_starttls_auto: true,
       tls: true
     }
-    config.action_mailer.default_url_options = { host: "koolio.io" }
+    config.action_mailer.default_url_options = { host: "koolio.io", protocol: "https" }
   end
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
