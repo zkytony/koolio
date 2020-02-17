@@ -6,7 +6,7 @@ Visit [koolio.io](https://koolio.io/explore?)
 
 In essence, a website of Flippable Cards. Koolio.io is a place where you can **share** and **view** two-sided flippable cards. For **Fun** or other purposes. To know more, see [About Koolio.io](http://koolio.io/about)
 
-Koolio.io is a nice place to share things in a unique and creative way, and to seek inspiration by exploring other people's creativity [Explore Now]. You also have the option to create private decks where you can keep your personal notes. Also, you can share your decks to your friends so that they can edit them too.
+Koolio.io is a nice place to share things in a unique and creative way, and to seek inspiration by exploring other people's creativity. You also have the option to create private decks where you can keep your personal notes. Also, you can share your decks to your friends so that they can edit them too.
 
 ### What is a card?
 Check out [this one](https://koolio.io/decks/7/cards/9)
